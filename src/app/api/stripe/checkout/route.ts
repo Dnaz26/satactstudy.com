@@ -3,6 +3,7 @@ import type Stripe from 'stripe'
 import { z } from 'zod'
 import { createClient } from '@/lib/supabase/server'
 import { CHECKOUT_PROMO, isCheckoutPromo } from '@/lib/plans'
+import { publicAppUrl } from '@/lib/utils'
 import {
   checkoutEmailOnlyParams,
   checkoutLineItem,
@@ -61,7 +62,7 @@ export async function POST(request: NextRequest) {
       await supabase.from('profiles').update({ stripe_customer_id: customerId }).eq('id', user.id)
     }
 
-    const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3000'
+    const appUrl = publicAppUrl()
     const embedded = parsed.data.embedded !== false
     const ident = integrationIdentifier(updateCard ? 'satactcard' : 'satactpay')
     const emailOnly = checkoutEmailOnlyParams()

@@ -1,5 +1,6 @@
 import { createClient } from '@/lib/supabase/server'
 import { getStripe } from '@/lib/stripe'
+import { publicAppUrl } from '@/lib/utils'
 
 export async function POST() {
   try {
@@ -20,7 +21,7 @@ export async function POST() {
       return Response.json({ error: 'No billing account found' }, { status: 404 })
     }
 
-    const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3000'
+    const appUrl = publicAppUrl()
     const stripe = getStripe()
 
     const session = await stripe.billingPortal.sessions.create({
