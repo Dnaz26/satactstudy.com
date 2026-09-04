@@ -1,7 +1,5 @@
 import { createClient } from '@/lib/supabase/server'
-import Stripe from 'stripe'
-
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, { apiVersion: '2026-08-26.dahlia' })
+import { getStripe } from '@/lib/stripe'
 
 export async function POST() {
   try {
@@ -23,6 +21,7 @@ export async function POST() {
     }
 
     const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3000'
+    const stripe = getStripe()
 
     const session = await stripe.billingPortal.sessions.create({
       customer: profile.stripe_customer_id,

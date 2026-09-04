@@ -1,11 +1,8 @@
 import { NextRequest } from 'next/server'
-import Stripe from 'stripe'
+import type Stripe from 'stripe'
 import { createServiceClient } from '@/lib/supabase/server'
 import { grantPaidPlan } from '@/lib/stripe-fulfill'
-import { isPaidPlanId, planFromPriceId, type PaidPlanId } from '@/lib/stripe'
-
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, { apiVersion: '2026-08-26.dahlia' })
-const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET!
+import { getStripe, isPaidPlanId, planFromPriceId, type PaidPlanId } from '@/lib/stripe'
 
 function liveSubscription(status: string): boolean {
   return status === 'active' || status === 'trialing'
@@ -29,10 +26,12 @@ export async function POST(request: NextRequest) {
     const body = await request.text()
     const sig = request.headers.get('stripe-signature')
 
-    if (!sig) {
+    const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET
+    if (!sig || !webhookSecret) {
       return Response.json({ error: 'No signature' }, { status: 400 })
     }
 
+    const stripe = getStripe()
     let event: Stripe.Event
     try {
       event = stripe.webhooks.constructEvent(body, sig, webhookSecret)
