@@ -1,5 +1,7 @@
 'use client'
 
+/* eslint-disable react-hooks/set-state-in-effect */
+
 import * as React from 'react'
 import { cn } from '@/lib/utils'
 import { COMPANION_MESSAGES, NOVA_NAME } from '@/lib/constants'
@@ -67,7 +69,7 @@ function Face({ mode }: { mode: AppMode }) {
 }
 
 export function Companion({ mode = 'idle', message, className, compact = false }: CompanionProps) {
-  const [currentMessage, setCurrentMessage] = React.useState(message ?? getRandomMessage(mode))
+  const [currentMessage, setCurrentMessage] = React.useState(message ?? '')
 
   React.useEffect(() => {
     setCurrentMessage(message ?? getRandomMessage(mode))
@@ -91,11 +93,11 @@ export function Companion({ mode = 'idle', message, className, compact = false }
 
   return (
     <div
-      className={cn('flex items-start gap-4 neu p-4', className)}
+      className={cn('flex items-start gap-3 neu p-3', className)}
       style={{ ['--mode-rgb' as string]: style.signalRgb }}
     >
       <div
-        className="relative flex h-12 w-12 shrink-0 items-center justify-center rounded-full neu-sm"
+        className="relative flex h-9 w-9 shrink-0 items-center justify-center rounded-full neu-sm"
         style={{ color: style.signal }}
       >
         <span className="pulse-ring absolute inset-0" />

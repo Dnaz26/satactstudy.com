@@ -1,18 +1,31 @@
 import { NextRequest } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
 import { canAskAI, recordAIChat } from '@/lib/entitlements'
-import { callAI, Message } from '@/lib/ai'
+import { PAYWALL_MESSAGE } from '@/lib/access'
+import { runTutorAgent } from '@/lib/tutor/agent'
 import { z } from 'zod'
+import { dbId } from '@/lib/schema'
 
 const bodySchema = z.object({
   messages: z.array(z.object({
     role: z.enum(['user', 'assistant', 'system']),
     content: z.string(),
   })).min(1).max(50),
+  trigger: z.enum(['chat', 'hint', 'help', 'explain', 'wrong_answer', 'correct_answer']).optional(),
   context: z.object({
+    questionId: dbId().optional(),
     questionText: z.string().optional(),
+    topicId: dbId().optional().nullable(),
     topicName: z.string().optional(),
     mastery: z.number().optional(),
+    sectionName: z.string().optional(),
+    selectedAnswer: z.string().optional(),
+    correctAnswer: z.string().optional(),
+    submitted: z.boolean().optional(),
+    isCorrect: z.boolean().optional(),
+    questionType: z.string().optional(),
+    desmosAvailable: z.boolean().optional(),
+    desmosSummary: z.string().optional(),
   }).optional(),
 })
 
@@ -25,49 +38,39 @@ export async function POST(request: NextRequest) {
       return Response.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
-    const body = await request.json() as unknown
-    const parsed = bodySchema.safeParse(body)
-
+    const parsed = bodySchema.safeParse(await request.json())
     if (!parsed.success) {
       return Response.json({ error: 'Invalid request' }, { status: 400 })
     }
 
-    const { messages, context } = parsed.data
-
     const entitlement = await canAskAI(user.id)
     if (!entitlement.allowed) {
       return Response.json({
-        error: 'Daily AI chat limit reached. Upgrade your plan for more AI assistance.',
+        error: entitlement.paywall ? PAYWALL_MESSAGE : 'Daily AI chat limit reached. Upgrade your plan for more AI assistance.',
         limitReached: true,
+        paywall: entitlement.paywall ?? false,
       }, { status: 403 })
     }
 
-    const systemContent = [
-      'You are Nova, an expert SAT/ACT AI tutor. You are encouraging, clear, and pedagogically effective.',
-      'Your goal is to help students deeply understand concepts, not just get the right answer.',
-      'Keep responses concise and actionable (2-4 paragraphs max).',
-      context?.topicName ? `Current topic: ${context.topicName}` : '',
-      context?.questionText ? `Current question: ${context.questionText}` : '',
-      context?.mastery != null ? `Student mastery on this topic: ${Math.round(context.mastery)}%` : '',
-    ].filter(Boolean).join('\n')
-
-    const fullMessages: Message[] = [
-      { role: 'system', content: systemContent },
-      ...messages.filter((m) => m.role !== 'system'),
-    ]
-
-    const response = await callAI({
-      model: 'pro',
+    const output = await runTutorAgent({
       userId: user.id,
-      requestType: 'tutor_chat',
-      messages: fullMessages,
+      messages: parsed.data.messages,
+      request: {
+        ...parsed.data.context,
+        trigger: parsed.data.trigger ?? 'chat',
+      },
     })
 
-    await recordAIChat(user.id)
+    void recordAIChat(user.id)
 
-    return Response.json({ message: response })
-  } catch (err) {
-    console.error(err)
-    return Response.json({ error: 'Failed to get AI response' }, { status: 500 })
+    return Response.json({
+      message: output.message,
+      strategy: output.strategy,
+      desmosActions: output.desmosActions,
+    })
+  } catch {
+    return Response.json({
+      message: "I hit a snag just now. You can keep working the question, and I'll try again whenever you're ready.",
+    })
   }
 }

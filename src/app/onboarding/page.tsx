@@ -3,14 +3,24 @@
 import * as React from 'react'
 import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
+import { hasPaidAccess } from '@/lib/access'
+import { asPlan } from '@/lib/schema'
 import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Companion } from '@/components/ui/companion'
 import { cn } from '@/lib/utils'
-import { Check, ChevronRight, Loader2 } from 'lucide-react'
+import { Check, ChevronRight } from 'lucide-react'
 
 type TestType = 'SAT' | 'ACT' | 'both'
 type StudyDay = 'Monday' | 'Tuesday' | 'Wednesday' | 'Thursday' | 'Friday' | 'Saturday' | 'Sunday'
 
 const STUDY_TIMES = [15, 30, 45, 60, 90, 120]
+const START_TIMES = ['06:00', '07:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00']
+const GRADES = ['9', '10', '11', '12', 'College', 'Other']
+const GOALS = ['First SAT/ACT', 'Score jump', 'Scholarship', 'Retake']
+const PREP = ['None', 'A little', 'A class', 'A tutor']
+const FOCUS = ['Math', 'English', 'Both']
+const WEAK = ['Algebra', 'Geometry', 'Reading', 'Grammar', 'Science', 'Timing']
 const ALL_DAYS: StudyDay[] = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
 const DAY_SHORT: Record<StudyDay, string> = {
   Monday: 'Mon', Tuesday: 'Tue', Wednesday: 'Wed', Thursday: 'Thu',
@@ -18,12 +28,20 @@ const DAY_SHORT: Record<StudyDay, string> = {
 }
 
 interface OnboardingData {
+  fullName: string
   testType: TestType | null
   targetScore: number | null
   testDate: string
   hasTakenPractice: boolean | null
   baselineScore: number | null
+  gradeLevel: string
+  schoolName: string
+  focusSection: string
+  weakestAreas: string[]
+  testGoal: string
+  priorPrep: string
   dailyMinutes: number | null
+  studyStartTime: string
   availableDays: StudyDay[]
 }
 
@@ -32,16 +50,33 @@ export default function OnboardingPage() {
   const [step, setStep] = React.useState(0)
   const [processing, setProcessing] = React.useState(false)
   const [data, setData] = React.useState<OnboardingData>({
+    fullName: '',
     testType: null,
     targetScore: null,
     testDate: '',
     hasTakenPractice: null,
     baselineScore: null,
+    gradeLevel: '',
+    schoolName: '',
+    focusSection: '',
+    weakestAreas: [],
+    testGoal: '',
+    priorPrep: '',
     dailyMinutes: null,
+    studyStartTime: '19:00',
     availableDays: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
   })
 
-  const totalSteps = 7
+  React.useEffect(() => {
+    const supabase = createClient()
+    void supabase.auth.getUser().then(({ data: auth }) => {
+      const name = (auth.user?.user_metadata.full_name as string | undefined) ?? auth.user?.user_metadata.name ?? ''
+      if (name) setData((prev) => ({ ...prev, fullName: prev.fullName || String(name) }))
+    })
+  }, [])
+
+  const totalSteps = 15
+  const progress = ((step + 1) / totalSteps) * 100
 
   function nextStep() {
     if (step < totalSteps - 1) setStep(step + 1)
@@ -66,6 +101,15 @@ export default function OnboardingPage() {
     }))
   }
 
+  function toggleWeak(item: string) {
+    setData((prev) => ({
+      ...prev,
+      weakestAreas: prev.weakestAreas.includes(item)
+        ? prev.weakestAreas.filter((d) => d !== item)
+        : [...prev.weakestAreas, item],
+    }))
+  }
+
   async function handleComplete() {
     setProcessing(true)
     try {
@@ -77,12 +121,20 @@ export default function OnboardingPage() {
       }
 
       await supabase.from('profiles').update({
+        full_name: data.fullName.trim() || null,
         test_preference: data.testType === 'both' ? 'Both' : data.testType,
         target_score: data.targetScore,
         current_estimated_score: data.baselineScore,
         test_date: data.testDate || null,
         study_minutes_per_day: data.dailyMinutes,
+        study_start_time: data.studyStartTime,
         study_days: data.availableDays,
+        grade_level: data.gradeLevel || null,
+        school_name: data.schoolName.trim() || null,
+        focus_section: data.focusSection || null,
+        weakest_areas: data.weakestAreas,
+        test_goal: data.testGoal || null,
+        prior_prep: data.priorPrep || null,
         onboarding_completed: true,
         updated_at: new Date().toISOString(),
       }).eq('id', user.id)
@@ -102,65 +154,60 @@ export default function OnboardingPage() {
         })
       }
 
-      router.push('/dashboard')
+      const { data: profile } = await supabase
+        .from('profiles')
+        .select('subscription_plan, role')
+        .eq('id', user.id)
+        .single()
+
+      router.push(hasPaidAccess(asPlan(profile?.subscription_plan), profile?.role) ? '/dashboard' : '/pricing')
     } catch (err) {
       console.error(err)
       setProcessing(false)
     }
   }
 
-  const progress = ((step) / (totalSteps - 1)) * 100
-
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center px-4 py-12">
-      <div className="w-full max-w-lg">
-        <div className="mb-8">
-          <div className="flex justify-between items-center mb-2">
-            <span className="text-sm text-fog">Step {step + 1} of {totalSteps}</span>
-            <span className="text-sm text-fog">{Math.round(progress)}%</span>
-          </div>
-          <div className="h-2.5 neu-inset overflow-hidden">
-            <div
-              className="h-full bg-signal rounded-full transition-all duration-500"
-              style={{ width: `${progress}%` }}
-            />
-          </div>
+    <div className="flex min-h-screen flex-col px-5 py-5">
+      <div className="mb-4">
+        <div className="mb-2 flex items-center justify-between">
+          <span className="text-sm text-fog">Step {step + 1} of {totalSteps}</span>
+          <span className="text-sm text-fog">{Math.round(progress)}%</span>
         </div>
+        <div className="h-2 overflow-hidden neu-inset">
+          <div className="h-full rounded-full bg-signal transition-all duration-500" style={{ width: `${progress}%` }} />
+        </div>
+      </div>
 
-        <div className="neu p-8">
+      <div className="mx-auto flex w-full max-w-md flex-1 flex-col">
+        <Companion compact mode="studying" message="One screen at a time." />
+
+        <div className="mt-4 flex flex-1 flex-col">
           {step === 0 && (
-            <StepWrapper
-              title="Which test are you preparing for?"
-              description="We'll customize your study plan accordingly."
-            >
-              <div className="grid grid-cols-3 gap-3">
-                {(['SAT', 'ACT', 'both'] as TestType[]).map((t) => (
-                  <button
-                    key={t}
-                    onClick={() => { setData({ ...data, testType: t, targetScore: null }); nextStep() }}
-                    className={cn(
-                      'rounded-2xl py-4 text-sm font-semibold transition-all',
-                      data.testType === t
-                        ? 'neu-raised text-white'
-                        : 'neu-sm text-paper'
-                    )}
-                  >
-                    {t === 'both' ? 'Both' : t}
-                  </button>
-                ))}
-              </div>
-            </StepWrapper>
+            <StepScreen title="What should Nova call you?" description="This name shows on your home screen.">
+              <Input value={data.fullName} onChange={(e) => setData({ ...data, fullName: e.target.value })} placeholder="Your name" />
+              <Button onClick={nextStep} className="mt-4 w-full" disabled={!data.fullName.trim()}>
+                Continue <ChevronRight className="ml-1 h-5 w-5" />
+              </Button>
+            </StepScreen>
           )}
 
-          {step === 1 && data.testType && (
-            <StepWrapper
-              title="What's your target score?"
-              description={data.testType === 'ACT' ? 'ACT range: 1–36' : data.testType === 'SAT' ? 'SAT range: 400–1600' : 'Enter your goal score'}
-            >
-              <div className="space-y-4">
-                <div className="text-center text-5xl font-bold text-paper">
-                  {data.targetScore ?? getDefaultTarget()}
-                </div>
+          {step === 1 && (
+            <StepScreen title="Which test are you preparing for?" description="We'll customize your study plan accordingly.">
+              <div className="grid flex-1 grid-cols-1 gap-2 sm:grid-cols-3">
+                {(['SAT', 'ACT', 'both'] as TestType[]).map((t) => (
+                  <Choice key={t} tall selected={data.testType === t} onClick={() => { setData({ ...data, testType: t, targetScore: null }); nextStep() }}>
+                    {t === 'both' ? 'Both' : t}
+                  </Choice>
+                ))}
+              </div>
+            </StepScreen>
+          )}
+
+          {step === 2 && data.testType && (
+            <StepScreen title="What's your target score?" description={data.testType === 'ACT' ? 'ACT range: 1–36' : 'SAT range: 400–1600'}>
+              <div className="flex flex-1 flex-col justify-center">
+                <div className="text-center font-display text-3xl">{data.targetScore ?? getDefaultTarget()}</div>
                 <input
                   type="range"
                   min={getScoreRange()[0]}
@@ -168,174 +215,173 @@ export default function OnboardingPage() {
                   step={data.testType === 'ACT' ? 1 : 10}
                   value={data.targetScore ?? getDefaultTarget()}
                   onChange={(e) => setData({ ...data, targetScore: Number(e.target.value) })}
-                  className="w-full accent-[#ff6b57]"
+                  className="mt-5 h-2 w-full accent-[#ff6b57]"
                 />
-                <div className="flex justify-between text-xs text-fog">
-                  <span>{getScoreRange()[0]}</span>
-                  <span>{getScoreRange()[1]}</span>
-                </div>
-                <Button onClick={nextStep} className="w-full">
-                  Continue <ChevronRight className="w-4 h-4 ml-1" />
-                </Button>
               </div>
-            </StepWrapper>
-          )}
-
-          {step === 2 && (
-            <StepWrapper
-              title="When is your test?"
-              description="We'll build a schedule that fits your timeline."
-            >
-              <div className="space-y-4">
-                <input
-                  type="date"
-                  value={data.testDate}
-                  min={new Date().toISOString().split('T')[0]}
-                  onChange={(e) => setData({ ...data, testDate: e.target.value })}
-                  className="w-full h-12 rounded-2xl neu-inset px-4 text-paper focus:outline-none focus:ring-2 focus:ring-signal/40"
-                />
-                <Button onClick={nextStep} className="w-full" disabled={!data.testDate}>
-                  Continue <ChevronRight className="w-4 h-4 ml-1" />
-                </Button>
-                <button onClick={nextStep} className="w-full text-sm text-fog hover:text-paper">
-                  Skip — I don&apos;t have a date yet
-                </button>
-              </div>
-            </StepWrapper>
+              <Button onClick={nextStep} className="mt-4 w-full">Continue <ChevronRight className="ml-1 h-4 w-4" /></Button>
+            </StepScreen>
           )}
 
           {step === 3 && (
-            <StepWrapper
-              title="Have you taken a practice test?"
-              description="This helps us calibrate your starting score prediction."
-            >
-              <div className="grid grid-cols-2 gap-3">
-                {[{ label: 'Yes, I have', value: true }, { label: 'No, not yet', value: false }].map(({ label, value }) => (
-                  <button
-                    key={String(value)}
-                    onClick={() => { setData({ ...data, hasTakenPractice: value }); if (!value) nextStep() }}
-                    className={cn(
-                      'rounded-2xl py-4 text-sm font-semibold transition-all',
-                      data.hasTakenPractice === value
-                        ? 'neu-raised text-white'
-                        : 'neu-sm text-paper'
-                    )}
-                  >
-                    {label}
-                  </button>
-                ))}
-              </div>
-              {data.hasTakenPractice && (
-                <div className="mt-4 space-y-4">
-                  <div className="text-center text-4xl font-bold text-paper">
-                    {data.baselineScore ?? getDefaultTarget()}
-                  </div>
-                  <input
-                    type="range"
-                    min={getScoreRange()[0]}
-                    max={getScoreRange()[1]}
-                    step={data.testType === 'ACT' ? 1 : 10}
-                    value={data.baselineScore ?? getDefaultTarget()}
-                    onChange={(e) => setData({ ...data, baselineScore: Number(e.target.value) })}
-                    className="w-full accent-[#ff6b57]"
-                  />
-                  <Button onClick={nextStep} className="w-full">
-                    Continue <ChevronRight className="w-4 h-4 ml-1" />
-                  </Button>
-                </div>
-              )}
-            </StepWrapper>
+            <StepScreen title="When is your test?" description="We'll build a schedule that fits your timeline.">
+              <input
+                type="date"
+                value={data.testDate}
+                min={new Date().toISOString().split('T')[0]}
+                onChange={(e) => setData({ ...data, testDate: e.target.value })}
+                className="h-11 w-full rounded-2xl neu-inset px-4 text-sm text-paper focus:outline-none focus:ring-2 focus:ring-signal/40"
+              />
+              <Button onClick={nextStep} className="mt-4 w-full" disabled={!data.testDate}>Continue <ChevronRight className="ml-1 h-5 w-5" /></Button>
+              <button onClick={nextStep} className="mt-3 w-full text-sm text-fog hover:text-paper">Skip — I don&apos;t have a date yet</button>
+            </StepScreen>
           )}
 
           {step === 4 && (
-            <StepWrapper
-              title="How long can you study each day?"
-              description="Be realistic — consistency beats marathon sessions."
-            >
-              <div className="grid grid-cols-3 gap-2">
-                {STUDY_TIMES.map((t) => (
-                  <button
-                    key={t}
-                    onClick={() => setData({ ...data, dailyMinutes: t })}
-                    className={cn(
-                      'rounded-2xl py-3 text-sm font-semibold transition-all',
-                      data.dailyMinutes === t
-                        ? 'neu-raised text-white'
-                        : 'neu-sm text-paper'
-                    )}
-                  >
-                    {t} min
-                  </button>
+            <StepScreen title="Have you taken a practice test?" description="This sets your starting projected score.">
+              <div className="grid flex-1 grid-cols-1 gap-2 sm:grid-cols-2">
+                {[{ label: 'Yes, I have', value: true }, { label: 'No, not yet', value: false }].map(({ label, value }) => (
+                  <Choice key={String(value)} tall selected={data.hasTakenPractice === value} onClick={() => { setData({ ...data, hasTakenPractice: value }); nextStep() }}>
+                    {label}
+                  </Choice>
                 ))}
               </div>
-              <Button onClick={nextStep} className="w-full mt-4" disabled={!data.dailyMinutes}>
-                Continue <ChevronRight className="w-4 h-4 ml-1" />
-              </Button>
-            </StepWrapper>
+            </StepScreen>
           )}
 
           {step === 5 && (
-            <StepWrapper
-              title="Which days can you study?"
-              description="Select all days that work for you."
-            >
-              <div className="grid grid-cols-4 gap-2">
-                {ALL_DAYS.map((day) => {
-                  const selected = data.availableDays.includes(day)
-                  return (
-                    <button
-                      key={day}
-                      onClick={() => toggleDay(day)}
-                      className={cn(
-                        'rounded-2xl py-3 text-sm font-semibold transition-all relative',
-                        selected
-                          ? 'neu-raised text-white'
-                          : 'neu-sm text-paper'
-                      )}
-                    >
-                      {selected && (
-                        <Check className="w-3 h-3 absolute top-1 right-1 text-white" />
-                      )}
-                      {DAY_SHORT[day]}
-                    </button>
-                  )
-                })}
+            <StepScreen title="What was your practice score?" description="Skip if you have not taken one yet.">
+              <div className="flex flex-1 flex-col justify-center">
+                <div className="text-center font-display text-3xl">{data.baselineScore ?? getDefaultTarget()}</div>
+                <input
+                  type="range"
+                  min={getScoreRange()[0]}
+                  max={getScoreRange()[1]}
+                  step={data.testType === 'ACT' ? 1 : 10}
+                  value={data.baselineScore ?? getDefaultTarget()}
+                  onChange={(e) => setData({ ...data, baselineScore: Number(e.target.value) })}
+                  className="mt-5 h-2 w-full accent-[#ff6b57]"
+                />
               </div>
-              <Button onClick={nextStep} className="w-full mt-4" disabled={data.availableDays.length === 0}>
-                Continue <ChevronRight className="w-4 h-4 ml-1" />
-              </Button>
-            </StepWrapper>
+              <Button onClick={nextStep} className="mt-4 w-full">Continue <ChevronRight className="ml-1 h-4 w-4" /></Button>
+              <button onClick={nextStep} className="mt-3 w-full text-sm text-fog hover:text-paper">Skip</button>
+            </StepScreen>
           )}
 
           {step === 6 && (
-            <StepWrapper
-              title="Building your personalized plan..."
-              description="We're generating your custom study schedule based on your goals."
-            >
-              <div className="py-4 space-y-3">
-                {[
-                  'Analyzing your target score',
-                  'Calculating optimal study distribution',
-                  'Generating your first study plan',
-                  'Setting up your dashboard',
-                ].map((item, i) => (
-                  <div key={i} className="flex items-center gap-3">
-                    <div className="w-5 h-5 rounded-full bg-green-500/20 border border-green-500/30 flex items-center justify-center">
-                      <Check className="w-3 h-3 text-ok" />
-                    </div>
-                    <span className="text-sm text-fog">{item}</span>
-                  </div>
+            <StepScreen title="What grade are you in?" description="So the plan matches your year.">
+              <div className="grid flex-1 grid-cols-2 gap-2 sm:grid-cols-3">
+                {GRADES.map((grade) => (
+                  <Choice key={grade} selected={data.gradeLevel === grade} onClick={() => setData({ ...data, gradeLevel: grade })}>
+                    {grade}
+                  </Choice>
                 ))}
               </div>
-              <Button
-                onClick={handleComplete}
-                className="w-full"
-                size="lg"
-                loading={processing}
-              >
-                {processing ? 'Creating your plan...' : 'Go to Dashboard'}
+              <Button onClick={nextStep} className="mt-4 w-full" disabled={!data.gradeLevel}>Continue <ChevronRight className="ml-1 h-5 w-5" /></Button>
+            </StepScreen>
+          )}
+
+          {step === 7 && (
+            <StepScreen title="School name" description="Optional, but useful if a teacher shares a code later.">
+              <Input value={data.schoolName} onChange={(e) => setData({ ...data, schoolName: e.target.value })} placeholder="School" />
+              <Button onClick={nextStep} className="mt-4 w-full">Continue <ChevronRight className="ml-1 h-4 w-4" /></Button>
+            </StepScreen>
+          )}
+
+          {step === 8 && (
+            <StepScreen title="What should we focus on?" description="Nova will weight your plan toward this.">
+              <div className="grid flex-1 grid-cols-1 gap-2 sm:grid-cols-3">
+                {FOCUS.map((item) => (
+                  <Choice key={item} tall selected={data.focusSection === item} onClick={() => setData({ ...data, focusSection: item })}>
+                    {item}
+                  </Choice>
+                ))}
+              </div>
+              <Button onClick={nextStep} className="mt-4 w-full" disabled={!data.focusSection}>Continue <ChevronRight className="ml-1 h-5 w-5" /></Button>
+            </StepScreen>
+          )}
+
+          {step === 9 && (
+            <StepScreen title="Where do you feel weakest?" description="Pick every area that slows you down.">
+              <div className="grid flex-1 grid-cols-2 gap-2 sm:grid-cols-3">
+                {WEAK.map((item) => (
+                  <Choice key={item} selected={data.weakestAreas.includes(item)} onClick={() => toggleWeak(item)}>
+                    {item}
+                  </Choice>
+                ))}
+              </div>
+              <Button onClick={nextStep} className="mt-4 w-full">Continue <ChevronRight className="ml-1 h-4 w-4" /></Button>
+            </StepScreen>
+          )}
+
+          {step === 10 && (
+            <StepScreen title="Why are you taking this test?" description="This changes how Nova talks to you.">
+              <div className="grid flex-1 grid-cols-1 gap-2 sm:grid-cols-2">
+                {GOALS.map((item) => (
+                  <Choice key={item} tall selected={data.testGoal === item} onClick={() => setData({ ...data, testGoal: item })}>
+                    {item}
+                  </Choice>
+                ))}
+              </div>
+              <Button onClick={nextStep} className="mt-4 w-full" disabled={!data.testGoal}>Continue <ChevronRight className="ml-1 h-5 w-5" /></Button>
+            </StepScreen>
+          )}
+
+          {step === 11 && (
+            <StepScreen title="How much prep have you done?" description="So Nova starts at the right level.">
+              <div className="grid flex-1 grid-cols-1 gap-2 sm:grid-cols-2">
+                {PREP.map((item) => (
+                  <Choice key={item} tall selected={data.priorPrep === item} onClick={() => setData({ ...data, priorPrep: item })}>
+                    {item}
+                  </Choice>
+                ))}
+              </div>
+              <Button onClick={nextStep} className="mt-4 w-full" disabled={!data.priorPrep}>Continue <ChevronRight className="ml-1 h-5 w-5" /></Button>
+            </StepScreen>
+          )}
+
+          {step === 12 && (
+            <StepScreen title="How long can you study each day?" description="Be realistic — consistency beats marathon sessions.">
+              <div className="grid flex-1 grid-cols-2 gap-2 sm:grid-cols-3">
+                {STUDY_TIMES.map((t) => (
+                  <Choice key={t} selected={data.dailyMinutes === t} onClick={() => setData({ ...data, dailyMinutes: t })}>
+                    {t} min
+                  </Choice>
+                ))}
+              </div>
+              <Button onClick={nextStep} className="mt-4 w-full" disabled={!data.dailyMinutes}>Continue <ChevronRight className="ml-1 h-5 w-5" /></Button>
+            </StepScreen>
+          )}
+
+          {step === 13 && (
+            <StepScreen title="What time do you study?" description="Home and Plan will lock to this window.">
+              <div className="grid flex-1 grid-cols-2 gap-2 sm:grid-cols-4">
+                {START_TIMES.map((t) => (
+                  <Choice key={t} selected={data.studyStartTime === t} onClick={() => setData({ ...data, studyStartTime: t })}>
+                    {t}
+                  </Choice>
+                ))}
+              </div>
+              <Button onClick={nextStep} className="mt-4 w-full">Continue <ChevronRight className="ml-1 h-4 w-4" /></Button>
+            </StepScreen>
+          )}
+
+          {step === 14 && (
+            <StepScreen title="Which days can you study?" description="Select every day that works.">
+              <div className="grid flex-1 grid-cols-2 gap-2 sm:grid-cols-4">
+                {ALL_DAYS.map((day) => {
+                  const selected = data.availableDays.includes(day)
+                  return (
+                    <Choice key={day} selected={selected} onClick={() => toggleDay(day)}>
+                      {selected && <Check className="absolute right-3 top-3 h-5 w-5" />}
+                      {DAY_SHORT[day]}
+                    </Choice>
+                  )
+                })}
+              </div>
+              <Button onClick={handleComplete} className="mt-4 w-full" loading={processing} disabled={data.availableDays.length === 0}>
+                {processing ? 'Saving…' : 'Build my plan'}
               </Button>
-            </StepWrapper>
+            </StepScreen>
           )}
         </div>
       </div>
@@ -343,16 +389,38 @@ export default function OnboardingPage() {
   )
 }
 
-function StepWrapper({ title, description, children }: {
-  title: string
-  description: string
-  children: React.ReactNode
-}) {
+function StepScreen({ title, description, children }: { title: string; description: string; children: React.ReactNode }) {
   return (
-    <div>
-      <h2 className="text-2xl font-bold text-paper mb-2">{title}</h2>
-      <p className="text-fog text-sm mb-8">{description}</p>
+    <div className="flex flex-1 flex-col">
+      <h2 className="mb-1 text-xl font-bold text-paper">{title}</h2>
+      <p className="mb-4 text-sm text-fog">{description}</p>
       {children}
     </div>
+  )
+}
+
+function Choice({
+  selected,
+  onClick,
+  children,
+  tall,
+}: {
+  selected: boolean
+  onClick: () => void
+  children: React.ReactNode
+  tall?: boolean
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className={cn(
+        'relative rounded-2xl text-sm font-semibold',
+        tall ? 'min-h-[64px]' : 'min-h-[40px]',
+        selected ? 'neu-raised text-white' : 'neu-sm text-paper'
+      )}
+    >
+      {children}
+    </button>
   )
 }

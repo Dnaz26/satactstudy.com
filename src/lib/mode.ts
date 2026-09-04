@@ -37,7 +37,7 @@ export const MODE_STYLES: Record<
     ring: 'ring-signal/50',
   },
   success: {
-    label: 'LOCKED',
+    label: 'ON',
     signal: '#22A06B',
     signalRgb: '34, 160, 107',
     face: 'grin',

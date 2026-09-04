@@ -46,6 +46,8 @@ export async function POST(request: NextRequest) {
           model: 'flash',
           userId: user.id,
           requestType: 'question_classify',
+          speed: 'background',
+          maxTokens: 220,
           json: true,
           messages: [
             {

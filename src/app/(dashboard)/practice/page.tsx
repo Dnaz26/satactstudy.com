@@ -1,41 +1,38 @@
 import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
-import { PracticeSetup } from './practice-setup'
-import { asPlan, asPrimaryTest, todayISO } from '@/lib/schema'
+import { closerTest } from '@/lib/schema'
 
-export default async function PracticePage() {
+export default async function PracticePage({
+  searchParams,
+}: {
+  searchParams: Promise<{ topicId?: string; taskId?: string; count?: string; testType?: string }>
+}) {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect('/login')
 
-  const [
-    { data: topics },
-    { data: profile },
-    { data: usage },
-  ] = await Promise.all([
-    supabase
-      .from('topics')
-      .select('id, name, category_id, categories(name, sections(name, tests(name)))')
-      .order('name'),
-    supabase
-      .from('profiles')
-      .select('subscription_plan, test_preference')
-      .eq('id', user.id)
-      .single(),
-    supabase
-      .from('user_usage_daily')
-      .select('questions_answered')
-      .eq('user_id', user.id)
-      .eq('usage_date', todayISO())
-      .maybeSingle(),
-  ])
+  const params = await searchParams
+  const { data: profile } = await supabase
+    .from('profiles')
+    .select('test_preference, target_score, test_date')
+    .eq('id', user.id)
+    .single()
 
-  return (
-    <PracticeSetup
-      topics={(topics ?? []) as never}
-      plan={asPlan(profile?.subscription_plan)}
-      questionsUsedToday={usage?.questions_answered ?? 0}
-      defaultTestType={asPrimaryTest(profile?.test_preference)}
-    />
-  )
+  const testType = params.testType === 'SAT' || params.testType === 'ACT'
+    ? params.testType
+    : closerTest({
+      preference: profile?.test_preference,
+      targetScore: profile?.target_score,
+      testDate: profile?.test_date,
+    })
+
+  const query = new URLSearchParams({ testType })
+  if (params.topicId) {
+    query.set('topicId', params.topicId)
+    query.set('count', params.count ?? '10')
+  } else {
+    query.set('count', '60')
+  }
+  if (params.taskId) query.set('taskId', params.taskId)
+  redirect(`/practice/session?${query.toString()}`)
 }

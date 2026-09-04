@@ -20,7 +20,7 @@ export default async function AnalyticsPage() {
       .select('snapshot_date, predicted_total, ovr_score, total_questions, total_correct, study_minutes')
       .eq('user_id', user.id)
       .order('snapshot_date', { ascending: true })
-      .limit(30),
+      .limit(60),
     supabase
       .from('topic_mastery')
       .select('id, topic_id, overall_mastery, knowledge_mastery, speed_mastery, total_attempts, correct_attempts, total_time_seconds, trend, topics(name, categories(name))')
@@ -35,21 +35,21 @@ export default async function AnalyticsPage() {
       .maybeSingle(),
     supabase
       .from('profiles')
-      .select('target_score, test_preference, test_date')
+      .select('target_score, test_preference, test_date, study_minutes_per_day')
       .eq('id', user.id)
       .single(),
     supabase
       .from('attempts')
-      .select('correct, time_spent_seconds, created_at, questions(difficulty)')
+      .select('correct, time_spent_seconds, created_at, hint_used, tutor_used, desmos_used, mistake_type, questions(difficulty, test_type, section_name, category_name, topic_name)')
       .eq('user_id', user.id)
       .order('created_at', { ascending: false })
-      .limit(200),
+      .limit(500),
   ])
 
   const mappedSnapshots = (snapshots ?? []).map((s) => ({
     date: s.snapshot_date,
     predicted_sat: s.predicted_total,
-    predicted_act: null,
+    predicted_act: null as number | null,
     ovr_score: s.ovr_score,
     accuracy: (s.total_questions ?? 0) > 0 ? (s.total_correct ?? 0) / (s.total_questions ?? 1) : 0,
     total_questions: s.total_questions ?? 0,
@@ -81,12 +81,26 @@ export default async function AnalyticsPage() {
   }))
 
   const mappedAttempts = (attempts ?? []).map((a) => {
-    const q = a.questions as { difficulty?: string | null } | null
+    const q = a.questions as {
+      difficulty?: string | null
+      test_type?: string | null
+      section_name?: string | null
+      category_name?: string | null
+      topic_name?: string | null
+    } | null
     return {
       is_correct: Boolean(a.correct),
       time_seconds: a.time_spent_seconds ?? 0,
-      difficulty: q?.difficulty ?? 'Medium',
+      difficulty: (q?.difficulty ?? 'Medium').toLowerCase(),
       created_at: a.created_at ?? new Date().toISOString(),
+      hint_used: Boolean(a.hint_used),
+      tutor_used: Boolean(a.tutor_used),
+      desmos_used: Boolean(a.desmos_used),
+      mistake_type: a.mistake_type,
+      test_type: q?.test_type ?? null,
+      section_name: q?.section_name ?? null,
+      category_name: q?.category_name ?? null,
+      topic_name: q?.topic_name ?? null,
     }
   })
 
@@ -99,6 +113,9 @@ export default async function AnalyticsPage() {
         ovr_score: predictions.ovr_score ?? 50,
         predicted_math: predictions.predicted_math,
         predicted_reading_writing: predictions.predicted_reading_writing,
+        predicted_english: predictions.predicted_english,
+        predicted_reading: predictions.predicted_reading,
+        predicted_science: predictions.predicted_science,
       }
     : null
 
@@ -111,6 +128,7 @@ export default async function AnalyticsPage() {
         target_score: profile?.target_score ?? null,
         target_test: asPrimaryTest(profile?.test_preference),
         test_date: profile?.test_date ?? null,
+        daily_minutes: profile?.study_minutes_per_day ?? 30,
       }}
       recentAttempts={mappedAttempts}
     />

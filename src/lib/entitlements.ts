@@ -1,24 +1,43 @@
 import { createClient } from './supabase/server'
 import { PLAN_LIMITS } from './constants'
 import { asPlan, todayISO } from './schema'
+import { hasPaidAccess, PAYWALL_MESSAGE } from './access'
 
-export type UserPlan = 'free' | 'starter' | 'pro' | 'elite' | 'access_code'
+export type UserPlan = 'free' | 'lite' | 'starter' | 'core' | 'plus' | 'pro' | 'elite' | 'access_code'
 
 export interface EntitlementResult {
   allowed: boolean
   used: number
   limit: number
+  paywall?: boolean
 }
 
-export async function getUserPlan(userId: string): Promise<UserPlan> {
+export async function getAccessProfile(userId: string): Promise<{
+  plan: UserPlan
+  role: string
+  allowed: boolean
+}> {
   const supabase = await createClient()
   const { data } = await supabase
     .from('profiles')
-    .select('subscription_plan')
+    .select('subscription_plan, role')
     .eq('id', userId)
     .single()
 
-  return asPlan(data?.subscription_plan)
+  const plan = asPlan(data?.subscription_plan)
+  const role = data?.role ?? 'student'
+  return { plan, role, allowed: hasPaidAccess(plan, role) }
+}
+
+export async function getUserPlan(userId: string): Promise<UserPlan> {
+  const { plan } = await getAccessProfile(userId)
+  return plan
+}
+
+export async function denyIfUnpaid(userId: string): Promise<Response | null> {
+  const access = await getAccessProfile(userId)
+  if (access.allowed) return null
+  return Response.json({ error: PAYWALL_MESSAGE, paywall: true }, { status: 403 })
 }
 
 async function getDailyUsage(userId: string) {
@@ -39,10 +58,18 @@ async function getDailyUsage(userId: string) {
 }
 
 export async function canAnswerQuestion(userId: string): Promise<EntitlementResult> {
-  const plan = await getUserPlan(userId)
-  const limits = PLAN_LIMITS[plan]
+  const access = await getAccessProfile(userId)
   const usage = await getDailyUsage(userId)
 
+  if (!access.allowed) {
+    return { allowed: false, used: usage.questions_answered, limit: 0, paywall: true }
+  }
+
+  if (access.role === 'admin') {
+    return { allowed: true, used: usage.questions_answered, limit: 999999 }
+  }
+
+  const limits = PLAN_LIMITS[access.plan]
   return {
     allowed: usage.questions_answered < limits.questions_per_day,
     used: usage.questions_answered,
@@ -51,10 +78,18 @@ export async function canAnswerQuestion(userId: string): Promise<EntitlementResu
 }
 
 export async function canAskAI(userId: string): Promise<EntitlementResult> {
-  const plan = await getUserPlan(userId)
-  const limits = PLAN_LIMITS[plan]
+  const access = await getAccessProfile(userId)
   const usage = await getDailyUsage(userId)
 
+  if (!access.allowed) {
+    return { allowed: false, used: usage.ai_chats_used, limit: 0, paywall: true }
+  }
+
+  if (access.role === 'admin') {
+    return { allowed: true, used: usage.ai_chats_used, limit: 999999 }
+  }
+
+  const limits = PLAN_LIMITS[access.plan]
   return {
     allowed: usage.ai_chats_used < limits.ai_chats_per_day,
     used: usage.ai_chats_used,

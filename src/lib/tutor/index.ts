@@ -1,0 +1,5 @@
+export { runTutorAgent, runTutorAgentStream } from './agent'
+export { parseTutorOutput, studentSafeError } from './output'
+export { getTutorPreferences, saveTutorPreferences } from './memory'
+export { normalizePreferences } from './preferences'
+export type { TutorOutput, TutorPreferences, TutorTrigger } from './types'

@@ -25,7 +25,7 @@ function ResultsContent() {
   const accuracyColor = accuracy >= 70 ? '#22C55E' : accuracy >= 40 ? '#EAB308' : '#EF4444'
 
   return (
-    <div className="max-w-2xl mx-auto space-y-6">
+    <div className="mx-auto w-full max-w-2xl space-y-5">
       <Companion
         mode={companionMode}
         message={
@@ -43,7 +43,7 @@ function ResultsContent() {
         </CardHeader>
         <CardContent className="space-y-6">
           <div className="text-center py-4">
-            <div className="text-7xl font-bold mb-2" style={{ color: accuracyColor }}>
+            <div className="text-4xl font-bold mb-2" style={{ color: accuracyColor }}>
               {accuracy}%
             </div>
             <p className="text-fog">{correct} of {total} correct</p>

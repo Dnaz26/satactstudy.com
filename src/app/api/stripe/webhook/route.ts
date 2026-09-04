@@ -1,14 +1,27 @@
 import { NextRequest } from 'next/server'
 import Stripe from 'stripe'
 import { createServiceClient } from '@/lib/supabase/server'
+import { grantPaidPlan } from '@/lib/stripe-fulfill'
+import { isPaidPlanId, planFromPriceId, type PaidPlanId } from '@/lib/stripe'
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, { apiVersion: '2026-08-26.dahlia' })
 const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET!
 
-function getPlanFromPriceId(priceId: string): 'starter' | 'pro' | 'elite' {
-  if (priceId === process.env.STRIPE_ELITE_PRICE_ID) return 'elite'
-  if (priceId === process.env.STRIPE_PRO_PRICE_ID) return 'pro'
-  return 'starter'
+function liveSubscription(status: string): boolean {
+  return status === 'active' || status === 'trialing'
+}
+
+function resolvePlan(subscription: Stripe.Subscription): PaidPlanId | null {
+  const meta = subscription.metadata?.plan
+  if (isPaidPlanId(meta)) return meta
+  const priceId = subscription.items.data[0]?.price?.id ?? ''
+  return planFromPriceId(priceId)
+}
+
+function checkoutReady(session: Stripe.Checkout.Session): boolean {
+  if (session.status !== 'complete') return false
+  if (session.mode === 'subscription') return true
+  return session.payment_status === 'paid' || session.payment_status === 'no_payment_required'
 }
 
 export async function POST(request: NextRequest) {
@@ -33,17 +46,17 @@ export async function POST(request: NextRequest) {
       case 'checkout.session.completed': {
         const session = event.data.object as Stripe.Checkout.Session
         const userId = session.metadata?.supabase_user_id
-        const plan = session.metadata?.plan as 'starter' | 'pro' | 'elite' | undefined
+        const plan = isPaidPlanId(session.metadata?.plan) ? session.metadata.plan : null
 
-        if (!userId || !plan) break
+        if (!userId || !plan || !checkoutReady(session)) break
 
-        await supabase.from('profiles').update({
-          subscription_plan: plan,
-          stripe_customer_id: session.customer as string,
-          stripe_subscription_id: session.subscription as string,
-          subscription_status: 'active',
-          updated_at: new Date().toISOString(),
-        }).eq('id', userId)
+        await grantPaidPlan({
+          userId,
+          plan,
+          customerId: typeof session.customer === 'string' ? session.customer : null,
+          subscriptionId: typeof session.subscription === 'string' ? session.subscription : null,
+          status: session.metadata?.promo === 'RHS' && session.mode === 'subscription' ? 'trialing' : 'active',
+        })
 
         break
       }
@@ -60,15 +73,15 @@ export async function POST(request: NextRequest) {
 
         if (!profile) break
 
-        const priceId = subscription.items.data[0]?.price?.id ?? ''
-        const plan = getPlanFromPriceId(priceId)
+        const plan = resolvePlan(subscription)
+        if (!plan) break
 
         const firstItem = subscription.items.data[0]
         const periodStart = firstItem?.current_period_start ?? subscription.billing_cycle_anchor
         const periodEnd = firstItem?.current_period_end ?? (subscription.cancel_at ?? subscription.billing_cycle_anchor)
 
         await supabase.from('profiles').update({
-          subscription_plan: subscription.status === 'active' ? plan : 'free',
+          subscription_plan: liveSubscription(subscription.status) ? plan : 'free',
           subscription_status: subscription.status,
           updated_at: new Date().toISOString(),
         }).eq('id', profile.id)

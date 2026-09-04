@@ -26,6 +26,14 @@ export function formatTime(seconds: number): string {
   return `${m}m ${s}s`
 }
 
+export function formatTimeOfDay(value: string | null | undefined): string {
+  const raw = value && /^\d{1,2}:\d{2}/.test(value) ? value : '19:00'
+  const [h, m] = raw.split(':').map(Number)
+  const date = new Date()
+  date.setHours(h || 19, m || 0, 0, 0)
+  return format(date, 'h:mm a')
+}
+
 export function formatDate(date: string | Date): string {
   return format(new Date(date), 'MMM d, yyyy')
 }

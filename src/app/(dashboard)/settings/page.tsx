@@ -9,13 +9,13 @@ export default async function SettingsPage() {
 
   const { data: profile } = await supabase
     .from('profiles')
-    .select('*')
+    .select('full_name, subscription_plan')
     .eq('id', user.id)
     .single()
 
   const { data: subscription } = await supabase
     .from('subscriptions')
-    .select('*')
+    .select('current_period_end, cancel_at_period_end')
     .eq('user_id', user.id)
     .eq('status', 'active')
     .order('created_at', { ascending: false })
@@ -24,9 +24,11 @@ export default async function SettingsPage() {
 
   return (
     <SettingsClient
-      profile={profile ?? null}
-      subscription={subscription ?? null}
+      name={profile?.full_name ?? ''}
       email={user.email ?? ''}
+      plan={profile?.subscription_plan ?? 'free'}
+      periodEnd={subscription?.current_period_end ?? null}
+      cancelAtPeriodEnd={Boolean(subscription?.cancel_at_period_end)}
     />
   )
 }

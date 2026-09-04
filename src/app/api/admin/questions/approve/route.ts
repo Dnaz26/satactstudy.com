@@ -1,11 +1,11 @@
 import { NextRequest } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
 import { z } from 'zod'
-import { toDbDifficulty } from '@/lib/schema'
+import { toDbDifficulty, dbId } from '@/lib/schema'
 
 const bodySchema = z.object({
   questions: z.array(z.object({
-    topic_id: z.string().uuid(),
+    topic_id: dbId(),
     test_type: z.enum(['SAT', 'ACT']),
     section_name: z.string(),
     category_name: z.string(),
@@ -20,6 +20,24 @@ const bodySchema = z.object({
     answer_choices: z.record(z.string(), z.string()).optional(),
     correct_answer: z.string().min(1),
     explanation: z.string().optional(),
+    calculator_config: z.object({
+      calculator_enabled: z.boolean().optional(),
+      calculator_recommended: z.boolean().optional(),
+      starter_expressions: z.array(z.string()).optional(),
+      starter_table: z.object({
+        columns: z.array(z.object({
+          latex: z.string(),
+          values: z.array(z.string()).optional(),
+        })),
+      }).optional(),
+      starter_viewport: z.object({
+        left: z.number().optional(),
+        right: z.number().optional(),
+        bottom: z.number().optional(),
+        top: z.number().optional(),
+      }).optional(),
+      calculator_mode: z.enum(['graphing', 'degrees', 'radians']).optional(),
+    }).optional(),
   })).min(1),
 })
 
@@ -61,6 +79,7 @@ export async function POST(request: NextRequest) {
         choice_e: q.choice_e ?? choices.E ?? choices.e ?? null,
         correct_answer: q.correct_answer,
         official_explanation: q.explanation ?? null,
+        calculator_config: q.calculator_config ?? null,
         approved: true,
         active: true,
         source_type: 'original',

@@ -42,7 +42,7 @@ export function ScoreCard({
       <CardContent className="grid gap-6 p-6 sm:grid-cols-3">
         <div>
           <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-fog">Predicted</p>
-          <p className="mt-1 font-display text-5xl leading-none text-paper">
+          <p className="mt-1 font-display text-3xl leading-none text-paper">
             {predicted != null ? predicted.toLocaleString() : '—'}
           </p>
           {scoreLow != null && scoreHigh != null && (
@@ -58,13 +58,13 @@ export function ScoreCard({
         </div>
         <div>
           <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-fog">Target</p>
-          <p className="mt-1 font-display text-4xl leading-none">{target != null ? target.toLocaleString() : '—'}</p>
+          <p className="mt-1 font-display text-2xl leading-none">{target != null ? target.toLocaleString() : '—'}</p>
           <p className="mt-2 text-xs text-fog">{testLabel} estimate — not an official score</p>
         </div>
         {gap != null && (
           <div>
             <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-fog">Gap</p>
-            <p className={cn('mt-1 font-display text-4xl leading-none', ahead ? 'text-ok' : gap <= 50 ? 'text-warn' : 'text-bad')}>
+            <p className={cn('mt-1 font-display text-2xl leading-none', ahead ? 'text-ok' : gap <= 50 ? 'text-warn' : 'text-bad')}>
               {ahead ? 'On target' : `${gap} pts`}
             </p>
             <p className="mt-2 text-xs text-fog">

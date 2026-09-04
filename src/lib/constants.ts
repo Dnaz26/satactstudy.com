@@ -1,6 +1,18 @@
+export const MIN_TOPIC_QUESTIONS = 25
+
+/**
+ * Daily caps sized so worst-case AI + Stripe stay under 50% of the RHS collect
+ * price ($8 Core / $16 Plus). Bank questions have ~$0 variable cost.
+ * Peak DeepSeek Flash chat ≈ $0.00792. Stripe = 2.9% + $0.30.
+ * Core: 12 chats × 31d × $0.00792 + $0.53 ≈ $3.48 → 56% margin on $8.
+ * Plus: 25 chats × 31d × $0.00792 + $0.76 ≈ $6.90 → 57% margin on $16.
+ */
 export const PLAN_LIMITS = {
-  free: { questions_per_day: 5, ai_chats_per_day: 1 },
+  free: { questions_per_day: 0, ai_chats_per_day: 0 },
+  lite: { questions_per_day: 5, ai_chats_per_day: 1 },
   starter: { questions_per_day: 10, ai_chats_per_day: 3 },
+  core: { questions_per_day: 80, ai_chats_per_day: 12 },
+  plus: { questions_per_day: 200, ai_chats_per_day: 25 },
   pro: { questions_per_day: 50, ai_chats_per_day: 15 },
   elite: { questions_per_day: 999999, ai_chats_per_day: 999999 },
   access_code: { questions_per_day: 999999, ai_chats_per_day: 999999 },
@@ -29,16 +41,40 @@ export const SCORE_CONFIG = {
 } as const
 
 export const PLAN_PRICES = {
+  lite: 1,
   starter: 5,
+  core: 20,
+  plus: 40,
   pro: 20,
   elite: 100,
 } as const
 
+export const PLAN_PROMO_PRICES = {
+  core: 8,
+  plus: 16,
+} as const
+
+export const PAID_CHECKOUT_PLANS = ['core', 'plus'] as const
+
 export const PLAN_FEATURES = {
-  free: ['5 questions/day', '1 AI chat/day', 'Basic analytics'],
+  free: ['Pay or enter an access code to study'],
+  lite: ['5 questions/day', '1 AI chat/day', 'Study plan', 'Progress tracking'],
   starter: ['10 questions/day', '3 AI chats/day', 'Study plan', 'Progress tracking'],
+  core: ['80 questions/day', '12 AI chats/day', 'Study plan', 'Progress tracking', 'AI tutor'],
+  plus: ['200 questions/day', '25 AI chats/day', 'Full analytics', 'Vocabulary', 'AI tutor'],
   pro: ['50 questions/day', '15 AI chats/day', 'Full analytics', 'Vocabulary system', 'AI tutor'],
   elite: ['Unlimited questions', 'Unlimited AI', 'All features', 'Priority support'],
+} as const
+
+/** Peak DeepSeek V4 Flash rates used to size the $1 Lite cap. */
+export const DEEPSEEK_FLASH_PEAK = {
+  input_per_million: 0.44,
+  output_per_million: 1.32,
+} as const
+
+export const STRIPE_FEE = {
+  percent: 0.029,
+  fixed: 0.3,
 } as const
 
 export const MISTAKE_TAGS = [

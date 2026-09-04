@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/purity */
 import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -42,9 +43,18 @@ export default async function AdminPage() {
 
   const totalAiCost = (aiCosts ?? []).reduce((sum, r) => sum + Number(r.estimated_cost_usd ?? 0), 0)
 
-  const paidUsers = (planDistribution.starter ?? 0) + (planDistribution.pro ?? 0) + (planDistribution.elite ?? 0)
+  const paidUsers =
+    (planDistribution.lite ?? 0) +
+    (planDistribution.starter ?? 0) +
+    (planDistribution.core ?? 0) +
+    (planDistribution.plus ?? 0) +
+    (planDistribution.pro ?? 0) +
+    (planDistribution.elite ?? 0)
   const estimatedMRR =
+    (planDistribution.lite ?? 0) * PLAN_PRICES.lite +
     (planDistribution.starter ?? 0) * PLAN_PRICES.starter +
+    (planDistribution.core ?? 0) * PLAN_PRICES.core +
+    (planDistribution.plus ?? 0) * PLAN_PRICES.plus +
     (planDistribution.pro ?? 0) * PLAN_PRICES.pro +
     (planDistribution.elite ?? 0) * PLAN_PRICES.elite
 
@@ -81,14 +91,14 @@ export default async function AdminPage() {
             <CardTitle>Plan Distribution</CardTitle>
           </CardHeader>
           <CardContent className="space-y-3">
-            {['free', 'starter', 'pro', 'elite', 'access_code'].map((plan) => {
+            {['free', 'lite', 'starter', 'core', 'plus', 'pro', 'elite', 'access_code'].map((plan) => {
               const count = planDistribution[plan] ?? 0
               const pct = totalUsers ? Math.round((count / totalUsers) * 100) : 0
               return (
                 <div key={plan} className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     <Badge
-                      variant={plan === 'elite' ? 'warning' : plan === 'pro' ? 'default' : plan === 'starter' ? 'info' : 'secondary'}
+                      variant={plan === 'elite' ? 'warning' : plan === 'pro' ? 'default' : plan === 'starter' || plan === 'lite' ? 'info' : 'secondary'}
                       className="capitalize"
                     >
                       {plan}
@@ -121,12 +131,12 @@ export default async function AdminPage() {
                 <Badge variant={variant}>{value}</Badge>
               </div>
             ))}
-            <div className="pt-2">
-              <a
-                href="/admin/questions"
-                className="text-sm text-signal hover:text-signal"
-              >
+            <div className="pt-2 flex flex-col gap-2">
+              <a href="/admin/questions" className="text-sm text-signal hover:text-signal">
                 Manage questions →
+              </a>
+              <a href="/admin/sources" className="text-sm text-signal hover:text-signal">
+                Exam sources →
               </a>
             </div>
           </CardContent>

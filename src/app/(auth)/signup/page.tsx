@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { SectionKicker } from '@/components/brand'
 import { redeemPromoCode } from '@/lib/promo'
+import { GoogleButton } from '@/components/auth/google-button'
 
 export default function SignupPage() {
   const router = useRouter()
@@ -96,7 +97,7 @@ export default function SignupPage() {
     return (
       <div className="text-center">
         <SectionKicker>Check your inbox</SectionKicker>
-        <h2 className="mt-2 font-display text-3xl text-paper">Confirm your email</h2>
+        <h2 className="mt-2 font-display text-2xl text-paper">Confirm your email</h2>
         <p className="mt-3 text-sm text-fog">
           We sent a confirmation link to <strong className="text-paper">{email}</strong>. Open it, then log in to start studying.
         </p>
@@ -110,8 +111,11 @@ export default function SignupPage() {
   return (
     <div>
       <SectionKicker>New student</SectionKicker>
-      <h2 className="mt-2 font-display text-3xl text-paper">Start studying</h2>
-      <p className="mb-8 mt-1 text-sm text-fog">Name, email, password. Promo code is optional.</p>
+      <h2 className="mt-2 font-display text-2xl text-paper">Create account</h2>
+      <p className="mb-8 mt-1 text-sm text-fog">A code skips payment. Otherwise you pay next.</p>
+
+      <GoogleButton next="/onboarding" label="Continue with Google" />
+      <p className="my-4 text-center font-mono text-[10px] uppercase tracking-[0.16em] text-fog">or email</p>
 
       <form onSubmit={handleSignup} className="space-y-4">
         <Input label="Name" type="text" value={name} onChange={(e) => setName(e.target.value)} required autoComplete="name" />
@@ -133,7 +137,7 @@ export default function SignupPage() {
             onChange={(e) => setPromoCode(e.target.value)}
             placeholder="Optional"
             autoComplete="off"
-            helperText="Optional — enter it beside your password."
+            helperText="RHS: 2 weeks free and 60% off. Access codes skip payment."
           />
         </div>
 

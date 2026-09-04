@@ -2,13 +2,8 @@
 
 import * as React from 'react'
 import { useRouter } from 'next/navigation'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-import { Badge } from '@/components/ui/badge'
-import { EmptyState } from '@/components/ui/empty-state'
 import { Progress } from '@/components/ui/progress'
-import { cn } from '@/lib/utils'
-import { BookMarked, ThumbsUp, ThumbsDown, CheckCircle } from 'lucide-react'
 
 interface VocabWord {
   id: string
@@ -24,7 +19,7 @@ interface VocabularyClientProps {
   attemptMap: Record<string, { word_id: string; knew_it: boolean; next_review_at: string }>
 }
 
-export function VocabularyClient({ words, allWords }: VocabularyClientProps) {
+export function VocabularyClient({ words }: VocabularyClientProps) {
   const router = useRouter()
   const [currentIndex, setCurrentIndex] = React.useState(0)
   const [flipped, setFlipped] = React.useState(false)
@@ -57,98 +52,58 @@ export function VocabularyClient({ words, allWords }: VocabularyClientProps) {
 
   if (words.length === 0) {
     return (
-      <div className="max-w-2xl mx-auto">
-        <h1 className="text-2xl font-bold text-paper mb-6">Vocabulary</h1>
-        <Card>
-          <CardContent>
-            <EmptyState
-              icon={<BookMarked className="w-8 h-8" />}
-              title="All caught up!"
-              description="You've reviewed all available vocabulary words. Come back tomorrow for more."
-              action={{ label: 'Go to Dashboard', onClick: () => router.push('/dashboard') }}
-            />
-          </CardContent>
-        </Card>
+      <div className="mx-auto w-full max-w-md pt-2">
+        <h1 className="font-display text-2xl">Vocab</h1>
+        <p className="mt-4 text-sm text-fog">Caught up. Come back tomorrow.</p>
       </div>
     )
   }
 
   if (done) {
     return (
-      <div className="max-w-2xl mx-auto text-center py-12 space-y-6">
-        <CheckCircle className="w-16 h-16 text-ok mx-auto" />
-        <h1 className="text-2xl font-bold text-paper">Session Complete!</h1>
-        <p className="text-fog">You reviewed {completed} vocabulary words.</p>
-        <Button onClick={() => router.push('/dashboard')}>Back to Dashboard</Button>
+      <div className="mx-auto w-full max-w-md space-y-4 pt-8 text-center">
+        <h1 className="font-display text-2xl">Done</h1>
+        <p className="text-fog">{completed} words.</p>
+        <Button onClick={() => router.push('/dashboard')}>Home</Button>
       </div>
     )
   }
 
   return (
-    <div className="max-w-2xl mx-auto space-y-6">
+    <div className="mx-auto w-full max-w-md space-y-5 pt-2">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-paper">Vocabulary</h1>
-        <span className="text-sm text-fog">{currentIndex + 1} / {words.length}</span>
+        <h1 className="font-display text-2xl">Vocab</h1>
+        <span className="font-mono text-xs text-fog">{currentIndex + 1}/{words.length}</span>
       </div>
-
-      <Progress value={((currentIndex) / words.length) * 100} color="#8B5CF6" />
-
-      <Card
-        className="min-h-[280px] cursor-pointer select-none"
+      <Progress value={(currentIndex / words.length) * 100} color="#8B5CF6" />
+      <button
+        type="button"
+        className="flex min-h-[160px] w-full cursor-pointer flex-col items-center justify-center rounded-2xl neu p-5 text-center"
         onClick={() => setFlipped(!flipped)}
       >
-        <CardContent className="p-8 flex flex-col items-center justify-center min-h-[280px] text-center">
-          {!flipped ? (
-            <div>
-              <p className="text-xs text-fog uppercase tracking-widest mb-4">Click to reveal definition</p>
-              <h2 className="text-4xl font-bold text-paper">{currentWord?.word}</h2>
-              <Badge
-                variant={
-                  currentWord?.difficulty === 'hard' ? 'danger' :
-                  currentWord?.difficulty === 'medium' ? 'warning' : 'success'
-                }
-                className="mt-3 capitalize"
-              >
-                {currentWord?.difficulty}
-              </Badge>
-            </div>
-          ) : (
-            <div className="space-y-4">
-              <h2 className="text-2xl font-bold text-paper">{currentWord?.word}</h2>
-              <p className="text-fog text-lg leading-relaxed">{currentWord?.definition}</p>
-              {currentWord?.example_sentence && (
-                <p className="text-sm text-fog italic">&ldquo;{currentWord.example_sentence}&rdquo;</p>
-              )}
-            </div>
-          )}
-        </CardContent>
-      </Card>
-
-      {flipped && (
+        {!flipped ? (
+          <h2 className="font-display text-2xl">{currentWord?.word}</h2>
+        ) : (
+          <div className="space-y-3">
+            <h2 className="font-display text-2xl">{currentWord?.word}</h2>
+            <p className="text-fog">{currentWord?.definition}</p>
+            {currentWord?.example_sentence && (
+              <p className="text-sm italic text-fog">&ldquo;{currentWord.example_sentence}&rdquo;</p>
+            )}
+          </div>
+        )}
+      </button>
+      {flipped ? (
         <div className="flex gap-3">
-          <Button
-            variant="destructive"
-            className="flex-1 h-14"
-            onClick={() => handleAnswer(false)}
-            loading={loading}
-          >
-            <ThumbsDown className="w-5 h-5 mr-2" />
-            Didn&apos;t Know
+          <Button variant="destructive" className="flex-1" onClick={() => handleAnswer(false)} loading={loading}>
+            Miss
           </Button>
-          <Button
-            variant="success"
-            className="flex-1 h-14"
-            onClick={() => handleAnswer(true)}
-            loading={loading}
-          >
-            <ThumbsUp className="w-5 h-5 mr-2" />
-            Knew It!
+          <Button variant="success" className="flex-1" onClick={() => handleAnswer(true)} loading={loading}>
+            Know
           </Button>
         </div>
-      )}
-
-      {!flipped && (
-        <p className="text-center text-sm text-fog">Tap the card to see the definition</p>
+      ) : (
+        <p className="text-center font-mono text-[10px] uppercase tracking-[0.16em] text-fog">Tap</p>
       )}
     </div>
   )

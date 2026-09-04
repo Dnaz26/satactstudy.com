@@ -1,14 +1,20 @@
 import { NextRequest } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
 import { canAskAI, recordAIChat } from '@/lib/entitlements'
-import { callAI } from '@/lib/ai'
+import { PAYWALL_MESSAGE } from '@/lib/access'
+import { generateExplanation } from '@/lib/ai'
+import { parseAgentActions } from '@/lib/desmos/actions'
 import { z } from 'zod'
+import { dbId } from '@/lib/schema'
 
 const bodySchema = z.object({
-  questionId: z.string().uuid(),
+  questionId: dbId(),
   questionText: z.string().min(1),
   correctAnswer: z.string().min(1),
   topicName: z.string().min(1),
+  sectionName: z.string().optional(),
+  desmosAvailable: z.boolean().optional(),
+  desmosSummary: z.string().optional(),
 })
 
 export async function POST(request: NextRequest) {
@@ -37,8 +43,19 @@ export async function POST(request: NextRequest) {
 
     if (question?.ai_explanation) {
       try {
-        const cached = JSON.parse(question.ai_explanation) as { why: string; steps: string[]; answer: string; common_trap: string }
-        return Response.json({ explanation: cached })
+        const cached = JSON.parse(question.ai_explanation) as {
+          why: string
+          steps: string[]
+          answer: string
+          common_trap: string
+          desmosActions?: unknown
+        }
+        return Response.json({
+          explanation: {
+            ...cached,
+            desmosActions: parseAgentActions(cached.desmosActions),
+          },
+        })
       } catch {
         return Response.json({
           explanation: {
@@ -46,6 +63,7 @@ export async function POST(request: NextRequest) {
             steps: [],
             answer: correctAnswer,
             common_trap: '',
+            desmosActions: [],
           },
         })
       }
@@ -54,47 +72,24 @@ export async function POST(request: NextRequest) {
     const entitlement = await canAskAI(user.id)
     if (!entitlement.allowed) {
       return Response.json({
-        error: 'Daily AI chat limit reached.',
+        error: entitlement.paywall ? PAYWALL_MESSAGE : 'Daily AI chat limit reached.',
         limitReached: true,
+        paywall: entitlement.paywall ?? false,
       }, { status: 403 })
     }
 
-    const response = await callAI({
-      model: 'flash',
-      userId: user.id,
-      requestType: 'explanation',
-      json: true,
-      messages: [
-        {
-          role: 'system',
-          content: `You are an expert SAT/ACT tutor. Provide clear, step-by-step explanations.
-Return valid JSON: { "why": "string", "steps": ["string"], "answer": "string", "common_trap": "string" }`,
-        },
-        {
-          role: 'user',
-          content: `Question: ${questionText}\nCorrect Answer: ${correctAnswer}\nTopic: ${topicName}\n\nExplain this question thoroughly.`,
-        },
-      ],
-    })
-
-    let explanation
-    try {
-      explanation = JSON.parse(response) as { why: string; steps: string[]; answer: string; common_trap: string }
-    } catch {
-      explanation = {
-        why: 'This question tests core concepts in ' + topicName,
-        steps: [response],
-        answer: correctAnswer,
-        common_trap: 'Read all answer choices carefully before selecting.',
-      }
+    const generated = await generateExplanation(questionText.slice(0, 400), correctAnswer, topicName, user.id)
+    const explanation = {
+      ...generated,
+      desmosActions: parseAgentActions([]),
     }
 
-    await supabase
+    void supabase
       .from('questions')
       .update({ ai_explanation: JSON.stringify(explanation) })
       .eq('id', questionId)
 
-    await recordAIChat(user.id)
+    void recordAIChat(user.id)
 
     return Response.json({ explanation })
   } catch (err) {

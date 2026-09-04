@@ -22,7 +22,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           type={type}
           ref={ref}
           className={cn(
-            'flex h-12 w-full rounded-2xl neu-inset px-4 py-2 text-sm text-paper placeholder:text-fog/60',
+            'flex h-11 w-full rounded-2xl neu-inset px-3 py-2 text-sm text-paper placeholder:text-fog/60',
             'focus:outline-none focus:ring-2 focus:ring-signal/40',
             'disabled:cursor-not-allowed disabled:opacity-50',
             error && 'ring-2 ring-bad/50',

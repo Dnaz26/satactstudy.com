@@ -2,6 +2,7 @@ import { NextRequest } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
 import { z } from 'zod'
 import { createHash } from 'crypto'
+import { CHECKOUT_PROMO, isCheckoutPromo } from '@/lib/plans'
 
 const bodySchema = z.object({
   code: z.string().min(1),
@@ -19,6 +20,16 @@ export async function POST(request: NextRequest) {
 
     const parsed = bodySchema.safeParse(await request.json())
     if (!parsed.success) return Response.json({ error: 'Invalid request' }, { status: 400 })
+
+    if (isCheckoutPromo(parsed.data.code)) {
+      return Response.json({
+        success: true,
+        kind: 'checkout_promo',
+        code: CHECKOUT_PROMO.code,
+        trialDays: CHECKOUT_PROMO.trialDays,
+        percentOff: CHECKOUT_PROMO.percentOff,
+      })
+    }
 
     const codeHash = hashCode(parsed.data.code)
 

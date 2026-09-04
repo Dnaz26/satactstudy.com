@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { SectionKicker } from '@/components/brand'
 import { redeemPendingPromo } from '@/lib/promo'
+import { GoogleButton } from '@/components/auth/google-button'
 
 function LoginForm() {
   const router = useRouter()
@@ -45,8 +46,11 @@ function LoginForm() {
   return (
     <div>
       <SectionKicker>Session</SectionKicker>
-      <h2 className="mt-2 font-display text-3xl text-paper">Welcome back</h2>
+      <h2 className="mt-2 font-display text-2xl text-paper">Welcome back</h2>
       <p className="mb-8 mt-1 text-sm text-fog">Pick up where you left off.</p>
+
+      <GoogleButton next="/dashboard" label="Continue with Google" />
+      <p className="my-4 text-center font-mono text-[10px] uppercase tracking-[0.16em] text-fog">or email</p>
 
       <form onSubmit={handleLogin} className="space-y-5">
         <Input

@@ -47,7 +47,7 @@ export function DataReadout({
   return (
     <div>
       <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-fog">{label}</p>
-      <p className={cn('mt-1 font-display text-4xl leading-none', toneClass)}>{value}</p>
+      <p className={cn('mt-1 font-display text-2xl leading-none', toneClass)}>{value}</p>
       {hint && <p className="mt-1 text-xs text-fog">{hint}</p>}
     </div>
   )

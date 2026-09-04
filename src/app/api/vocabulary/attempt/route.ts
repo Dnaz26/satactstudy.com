@@ -1,9 +1,11 @@
 import { NextRequest } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
+import { denyIfUnpaid } from '@/lib/entitlements'
 import { z } from 'zod'
+import { dbId } from '@/lib/schema'
 
 const bodySchema = z.object({
-  wordId: z.string().uuid(),
+  wordId: dbId(),
   knewIt: z.boolean(),
 })
 
@@ -15,6 +17,9 @@ export async function POST(request: NextRequest) {
     if (!user) {
       return Response.json({ error: 'Unauthorized' }, { status: 401 })
     }
+
+    const blocked = await denyIfUnpaid(user.id)
+    if (blocked) return blocked
 
     const body = await request.json() as unknown
     const parsed = bodySchema.safeParse(body)

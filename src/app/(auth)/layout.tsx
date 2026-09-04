@@ -7,7 +7,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
       <div className="relative mb-8">
         <BrandMark />
       </div>
-      <div className="relative w-full max-w-md neu p-8">
+      <div className="relative w-full max-w-sm neu p-5">
         {children}
       </div>
     </div>

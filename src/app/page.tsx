@@ -1,21 +1,26 @@
 import Link from 'next/link'
+import { redirect } from 'next/navigation'
+import { createClient } from '@/lib/supabase/server'
 import { Button } from '@/components/ui/button'
 import { BrandMark, SectionKicker } from '@/components/brand'
 
 const SIGNALS = [
-  { k: '01', t: 'Topic mastery', d: 'Every skill scored. Not a vibe. A number.' },
-  { k: '02', t: 'Why you missed it', d: 'Plain-English steps. Trap called out. Next move.' },
-  { k: '03', t: 'What to do tonight', d: 'A timed plan. Weakest high-value topics first.' },
-  { k: '04', t: 'Score range', d: 'An estimate with a range. Never fake precision.' },
+  { k: '01', t: 'Mastery', d: 'Every skill scored.' },
+  { k: '02', t: 'Misses', d: 'Why you got it wrong.' },
+  { k: '03', t: 'Tonight', d: 'The next timed block.' },
+  { k: '04', t: 'Range', d: 'A score estimate, not a guess.' },
 ]
 
 const PLANS = [
-  { name: 'Starter', price: 5, line: '10 questions · 3 AI chats', id: 'starter' },
-  { name: 'Pro', price: 20, line: '50 questions · 15 AI chats', id: 'pro', hot: true },
-  { name: 'Elite', price: 100, line: 'Unlimited, with abuse protection', id: 'elite' },
+  { name: 'Core', price: 20, promo: 8, line: '80 questions/day · 12 AI chats/day', id: 'core' },
+  { name: 'Plus', price: 40, promo: 16, line: '200 questions/day · 25 AI chats/day', id: 'plus', hot: true },
 ]
 
-export default function LandingPage() {
+export default async function LandingPage() {
+  const supabase = await createClient()
+  const { data: { user } } = await supabase.auth.getUser()
+  if (user) redirect('/dashboard')
+
   return (
     <div className="relative min-h-screen overflow-hidden">
       <div className="pointer-events-none absolute inset-0 play-dots" />
@@ -30,7 +35,7 @@ export default function LandingPage() {
             <Button variant="ghost" size="sm">Log in</Button>
           </Link>
           <Link href="/signup">
-            <Button size="sm">Start studying</Button>
+            <Button size="sm">Start</Button>
           </Link>
         </nav>
       </header>
@@ -38,25 +43,22 @@ export default function LandingPage() {
       <main className="relative z-10 mx-auto grid max-w-6xl gap-16 px-6 pb-24 pt-10 lg:grid-cols-[1.15fr_0.85fr] lg:pt-16">
         <section>
           <SectionKicker>Practice → Diagnose → Improve</SectionKicker>
-          <h1 className="mt-4 font-display text-5xl leading-[0.92] text-paper sm:text-7xl">
+          <h1 className="mt-4 font-display text-4xl leading-[0.96] text-paper sm:text-5xl">
             Know exactly
             <br />
             what to study.
           </h1>
           <p className="mt-6 max-w-md text-lg text-fog">
-            Your personal coach for the SAT and ACT. Not 30 graphs. One next move.
+            Your SAT/ACT coach. One next move, not 30 graphs.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <Link href="/signup">
-              <Button size="xl">Start studying</Button>
+              <Button size="lg">Start studying</Button>
             </Link>
-            <Link href="#how">
-              <Button size="xl" variant="outline">See how it works</Button>
+            <Link href="/pricing">
+              <Button size="lg" variant="outline">See plans</Button>
             </Link>
           </div>
-          <p className="mt-4 font-mono text-[10px] uppercase tracking-[0.2em] text-fog">
-            Free to start · No credit card
-          </p>
         </section>
 
         <aside className="neu p-6">
@@ -69,21 +71,15 @@ export default function LandingPage() {
             <HudStat label="Target" value="1500" />
             <HudStat label="Gap" value="70" warn />
           </div>
-          <p className="mt-6 font-mono text-[10px] uppercase tracking-[0.2em] text-signal">Biggest weakness</p>
-          <p className="mt-1 font-display text-2xl">Linear inequalities</p>
+          <p className="mt-6 font-mono text-[10px] uppercase tracking-[0.2em] text-signal">Next</p>
+          <p className="mt-1 font-display text-lg">Linear inequalities</p>
           <div className="mt-3 h-2.5 w-full rounded-full neu-inset">
             <div className="h-full w-[54%] rounded-full bg-warn" />
           </div>
-          <p className="mt-2 font-mono text-xs text-fog">54 / 100 mastery</p>
-          <ol className="mt-6 space-y-2 pt-4 font-mono text-xs text-fog">
-            <li className="flex justify-between text-paper"><span>01 Linear inequalities</span><span>20m</span></li>
-            <li className="flex justify-between"><span>02 Transitions</span><span>15m</span></li>
-            <li className="flex justify-between"><span>03 Review mistakes</span><span>10m</span></li>
-          </ol>
         </aside>
       </main>
 
-      <section id="how" className="relative z-10">
+      <section className="relative z-10">
         <div className="mx-auto grid max-w-6xl gap-6 px-6 sm:grid-cols-4">
           {SIGNALS.map((s) => (
             <div key={s.k} className="neu p-6">
@@ -97,19 +93,24 @@ export default function LandingPage() {
 
       <section className="relative z-10 mx-auto max-w-6xl px-6 py-20">
         <SectionKicker>Pricing</SectionKicker>
-        <h2 className="mt-3 font-display text-4xl">Three paid lanes. One obvious next click.</h2>
+        <h2 className="mt-3 font-display text-2xl">Pay or enter a code. Then study.</h2>
+        <p className="mt-2 text-sm text-fog">Code RHS: 2 weeks free, then 60% off the list price.</p>
         <div className="mt-10 space-y-4">
           {PLANS.map((p) => (
             <div key={p.name} className="neu flex flex-col gap-4 px-6 py-5 sm:flex-row sm:items-center sm:justify-between">
               <div>
-                <p className="font-display text-2xl">
+                <p className="font-display text-lg">
                   {p.name}
                   {p.hot && <span className="ml-3 font-mono text-[10px] uppercase tracking-[0.2em] text-signal">Most used</span>}
                 </p>
                 <p className="text-sm text-fog">{p.line}</p>
               </div>
               <div className="flex items-center gap-6">
-                <p className="font-display text-3xl">${p.price}<span className="text-base text-fog">/mo</span></p>
+                <p className="font-display text-xl">
+                  <span className="mr-2 text-sm text-fog line-through">${p.price}</span>
+                  ${p.promo}
+                  <span className="text-xs text-fog">/mo with RHS</span>
+                </p>
                 <Link href={`/signup?plan=${p.id}`}>
                   <Button variant={p.hot ? 'default' : 'outline'}>Get {p.name}</Button>
                 </Link>

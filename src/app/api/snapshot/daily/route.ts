@@ -68,6 +68,15 @@ export async function POST() {
       })
     }
 
+    const { data: usage } = await supabase
+      .from('user_usage_daily')
+      .select('study_minutes')
+      .eq('user_id', user.id)
+      .eq('usage_date', today)
+      .maybeSingle()
+
+    const attemptMinutes = Math.round(((attempts ?? []).filter((a) => (a.created_at ?? '').startsWith(today)).reduce((sum, row) => sum + (row.time_spent_seconds ?? 0), 0)) / 60)
+
     await supabase.from('performance_snapshots').upsert({
       user_id: user.id,
       snapshot_date: today,
@@ -76,7 +85,7 @@ export async function POST() {
       ovr_score: prediction?.ovr_score ?? Math.round(avgMastery),
       total_questions: totalQ,
       total_correct: correctQ,
-      study_minutes: 0,
+      study_minutes: Math.max(usage?.study_minutes ?? 0, attemptMinutes),
     }, { onConflict: 'user_id,snapshot_date,test_type' })
 
     if (masteryData?.length) {

@@ -34,6 +34,8 @@ export async function POST(request: NextRequest) {
       model: 'flash',
       userId: user.id,
       requestType: 'study_plan',
+      speed: 'background',
+      maxTokens: 220,
       messages: [
         {
           role: 'system',

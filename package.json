@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "test": "npx --yes tsx --test src/lib/tutor/output.test.ts src/lib/tutor/context.test.ts src/lib/tutor/prompt.test.ts src/lib/desmos/strategies/detect.test.ts src/lib/questions/fingerprint.test.ts src/lib/questions/render.test.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.9.1",

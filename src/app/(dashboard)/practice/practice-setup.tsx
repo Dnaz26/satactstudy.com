@@ -1,14 +1,11 @@
 'use client'
 
 import * as React from 'react'
-import { useRouter } from 'next/navigation'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { Badge } from '@/components/ui/badge'
-import { UsageCounter } from '@/components/ui/usage-counter'
 import { PLAN_LIMITS } from '@/lib/constants'
-import { Play, BookOpen, Clock } from 'lucide-react'
+import { Play } from 'lucide-react'
 
 interface Topic {
   id: string
@@ -18,9 +15,16 @@ interface Topic {
     name: string
     sections?: {
       name: string
-      tests?: { name: string }[] | null
+      tests?: { name: string } | { name: string }[] | null
     } | null
   } | null
+}
+
+function testNamesOf(topic: Topic): string[] {
+  const tests = topic.categories?.sections?.tests
+  if (!tests) return []
+  if (Array.isArray(tests)) return tests.map((t) => t.name)
+  return [tests.name]
 }
 
 interface PracticeSetupProps {
@@ -32,168 +36,198 @@ interface PracticeSetupProps {
 
 export function PracticeSetup({ topics, plan, questionsUsedToday, defaultTestType }: PracticeSetupProps) {
   const router = useRouter()
+  const searchParams = useSearchParams()
+
   const [testType, setTestType] = React.useState<'SAT' | 'ACT'>(defaultTestType)
-  const [topicId, setTopicId] = React.useState<string>('all')
-  const [difficulty, setDifficulty] = React.useState<string>('mixed')
+  const [section, setSection] = React.useState('all')
+  const [topicId, setTopicId] = React.useState('all')
+  const [difficulty, setDifficulty] = React.useState('mixed')
   const [questionCount, setQuestionCount] = React.useState('10')
+  const [secondsPerQuestion, setSecondsPerQuestion] = React.useState('90')
   const [timed, setTimed] = React.useState(false)
   const [adaptive, setAdaptive] = React.useState(false)
+  const [unattempted, setUnattempted] = React.useState(false)
+  const [calculator, setCalculator] = React.useState(true)
+  const [fromMistakes, setFromMistakes] = React.useState(false)
+  const [shuffle, setShuffle] = React.useState(true)
+  const [categoryName, setCategoryName] = React.useState('')
+
+  React.useEffect(() => {
+    const urlTopic = searchParams.get('topicId') ?? searchParams.get('topic') ?? ''
+    const urlCategory = searchParams.get('categoryId') ?? ''
+    if (urlTopic) setTopicId(urlTopic)
+    if (searchParams.get('timed') === '1') setTimed(true)
+    const count = searchParams.get('count')
+    if (count) setQuestionCount(count)
+    setCategoryName(topics.find((t) => t.category_id === urlCategory)?.categories?.name ?? '')
+  }, [searchParams, topics])
 
   const planKey = plan as keyof typeof PLAN_LIMITS
-  const limit = PLAN_LIMITS[planKey]?.questions_per_day ?? 5
+  const limit = PLAN_LIMITS[planKey]?.questions_per_day ?? 0
   const remaining = Math.max(0, limit - questionsUsedToday)
   const isUnlimited = limit >= 999999
+  const locked = !isUnlimited && remaining === 0
 
   const filteredTopics = topics.filter((t) => {
-    const testNames = t.categories?.sections?.tests?.map((ts) => ts.name) ?? []
-    return testNames.includes(testType) || testNames.length === 0
+    const testNames = testNamesOf(t)
+    const matchesTest = testNames.includes(testType) || testNames.length === 0
+    const sectionName = t.categories?.sections?.name ?? ''
+    const matchesSection = section === 'all' || sectionName === section
+    return matchesTest && matchesSection
   })
 
   function handleStart() {
     const params = new URLSearchParams({
       testType,
-      topicId: topicId !== 'all' ? topicId : '',
       difficulty,
       count: questionCount,
       timed: timed ? '1' : '0',
       adaptive: adaptive ? '1' : '0',
+      unattempted: unattempted ? '1' : '0',
+      calculator: calculator ? '1' : '0',
+      shuffle: shuffle ? '1' : '0',
+      pace: secondsPerQuestion,
     })
+    if (topicId !== 'all') params.set('topicId', topicId)
+    if (categoryName) params.set('categoryName', categoryName)
+    if (section !== 'all') params.set('sectionName', section)
+    if (fromMistakes) params.set('fromMistakes', '1')
     router.push(`/practice/session?${params.toString()}`)
   }
 
   return (
-    <div className="max-w-2xl mx-auto space-y-6">
+    <div className="mx-auto w-full max-w-2xl space-y-5 pt-2 pb-8">
+      <h1 className="font-display text-2xl">Practice</h1>
+
       <div>
-        <h1 className="text-2xl font-bold text-paper mb-1">Practice</h1>
-        <p className="text-fog">Configure your session and start practicing.</p>
+        <p className="mb-2 font-mono text-[10px] uppercase tracking-[0.16em] text-fog">Test</p>
+        <div className="flex gap-2">
+          {(['SAT', 'ACT'] as const).map((t) => (
+            <button
+              key={t}
+              onClick={() => setTestType(t)}
+              className={`flex-1 rounded-2xl py-2 text-sm font-semibold ${
+                testType === t ? 'neu-raised text-white' : 'neu-sm text-paper'
+              }`}
+            >
+              {t}
+            </button>
+          ))}
+        </div>
       </div>
 
-      <UsageCounter
-        label="Questions used today"
-        used={questionsUsedToday}
-        limit={limit}
-      />
-
-      {!isUnlimited && remaining === 0 && (
-        <div className="rounded-xl border border-yellow-500/30 bg-yellow-500/10 p-4 text-sm text-yellow-400">
-          You&apos;ve reached your daily question limit. Upgrade your plan for more practice.
+      <div>
+        <p className="mb-2 font-mono text-[10px] uppercase tracking-[0.16em] text-fog">Section</p>
+        <div className="flex flex-wrap gap-2">
+          {['all', 'Math', 'Reading and Writing', 'English', 'Reading', 'Science'].map((s) => (
+            <button
+              key={s}
+              onClick={() => setSection(s)}
+              className={`rounded-xl px-3 py-2 text-sm ${section === s ? 'neu-raised text-white' : 'neu-sm text-paper'}`}
+            >
+              {s === 'all' ? 'All' : s === 'Reading and Writing' ? 'R&W' : s}
+            </button>
+          ))}
         </div>
+      </div>
+
+      <div>
+        <p className="mb-2 font-mono text-[10px] uppercase tracking-[0.16em] text-fog">Topic</p>
+        <Select value={topicId} onValueChange={setTopicId}>
+          <SelectTrigger>
+            <SelectValue placeholder="All topics" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="all">All topics</SelectItem>
+            {filteredTopics.map((t) => (
+              <SelectItem key={t.id} value={t.id}>{t.name}</SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      </div>
+
+      <div>
+        <p className="mb-2 font-mono text-[10px] uppercase tracking-[0.16em] text-fog">Difficulty</p>
+        <div className="flex flex-wrap gap-2">
+          {['mixed', 'easy', 'medium', 'hard'].map((d) => (
+            <button
+              key={d}
+              onClick={() => setDifficulty(d)}
+              className={`rounded-xl px-3 py-2 text-sm capitalize ${difficulty === d ? 'neu-raised text-white' : 'neu-sm text-paper'}`}
+            >
+              {d}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div>
+        <p className="mb-2 font-mono text-[10px] uppercase tracking-[0.16em] text-fog">Questions</p>
+        <div className="flex flex-wrap gap-2">
+          {['5', '10', '15', '20', '30', '44'].map((n) => (
+            <button
+              key={n}
+              onClick={() => setQuestionCount(n)}
+              disabled={!isUnlimited && Number(n) > remaining}
+              className={`rounded-xl px-3 py-2 text-sm disabled:opacity-40 ${
+                questionCount === n ? 'neu-raised text-white' : 'neu-sm text-paper'
+              }`}
+            >
+              {n}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div>
+        <p className="mb-2 font-mono text-[10px] uppercase tracking-[0.16em] text-fog">Seconds per question</p>
+        <div className="flex flex-wrap gap-2">
+          {['45', '60', '75', '90', '120'].map((n) => (
+            <button
+              key={n}
+              onClick={() => setSecondsPerQuestion(n)}
+              className={`rounded-xl px-3 py-2 text-sm ${secondsPerQuestion === n ? 'neu-raised text-white' : 'neu-sm text-paper'}`}
+            >
+              {n}s
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div className="grid grid-cols-2 gap-3 text-sm">
+        <label className="flex cursor-pointer items-center gap-2 neu-sm px-3 py-2">
+          <input type="checkbox" checked={timed} onChange={(e) => setTimed(e.target.checked)} className="accent-[#ff6b57]" />
+          Timed
+        </label>
+        <label className="flex cursor-pointer items-center gap-2 neu-sm px-3 py-2">
+          <input type="checkbox" checked={adaptive} onChange={(e) => setAdaptive(e.target.checked)} className="accent-[#ff6b57]" />
+          Adaptive
+        </label>
+        <label className="flex cursor-pointer items-center gap-2 neu-sm px-3 py-2">
+          <input type="checkbox" checked={unattempted} onChange={(e) => setUnattempted(e.target.checked)} className="accent-[#ff6b57]" />
+          New only
+        </label>
+        <label className="flex cursor-pointer items-center gap-2 neu-sm px-3 py-2">
+          <input type="checkbox" checked={calculator} onChange={(e) => setCalculator(e.target.checked)} className="accent-[#ff6b57]" />
+          Calculator
+        </label>
+        <label className="flex cursor-pointer items-center gap-2 neu-sm px-3 py-2">
+          <input type="checkbox" checked={fromMistakes} onChange={(e) => setFromMistakes(e.target.checked)} className="accent-[#ff6b57]" />
+          From misses
+        </label>
+        <label className="flex cursor-pointer items-center gap-2 neu-sm px-3 py-2">
+          <input type="checkbox" checked={shuffle} onChange={(e) => setShuffle(e.target.checked)} className="accent-[#ff6b57]" />
+          Shuffle
+        </label>
+      </div>
+
+      {locked && (
+        <a href="/pricing" className="block text-center text-sm text-signal">Upgrade for more</a>
       )}
 
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <BookOpen className="w-5 h-5 text-signal" />
-            Session Setup
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-5">
-          <div>
-            <label className="text-sm font-medium text-fog block mb-2">Test</label>
-            <div className="flex gap-2">
-              {(['SAT', 'ACT'] as const).map((t) => (
-                <button
-                  key={t}
-                  onClick={() => setTestType(t)}
-                  className={`flex-1 py-2.5 rounded-xl text-sm font-semibold border transition-all ${
-                    testType === t
-                      ? 'neu-raised text-white'
-                      : 'border-transparent neu-inset text-paper hover:opacity-90'
-                  }`}
-                >
-                  {t}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          <div>
-            <label className="text-sm font-medium text-fog block mb-2">Topic</label>
-            <Select value={topicId} onValueChange={setTopicId}>
-              <SelectTrigger>
-                <SelectValue placeholder="All topics" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All topics (mixed)</SelectItem>
-                {filteredTopics.map((t) => (
-                  <SelectItem key={t.id} value={t.id}>
-                    {t.name}
-                    {t.categories?.name && ` — ${t.categories.name}`}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-
-          <div>
-            <label className="text-sm font-medium text-fog block mb-2">Difficulty</label>
-            <Select value={difficulty} onValueChange={setDifficulty}>
-              <SelectTrigger>
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="mixed">Mixed</SelectItem>
-                <SelectItem value="easy">Easy</SelectItem>
-                <SelectItem value="medium">Medium</SelectItem>
-                <SelectItem value="hard">Hard</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-
-          <div>
-            <label className="text-sm font-medium text-fog block mb-2">Number of Questions</label>
-            <div className="flex gap-2 flex-wrap">
-              {['5', '10', '15', '20', '30'].map((n) => (
-                <button
-                  key={n}
-                  onClick={() => setQuestionCount(n)}
-                  disabled={!isUnlimited && Number(n) > remaining}
-                  className={`px-4 py-2 rounded-xl text-sm font-medium border transition-all disabled:opacity-40 disabled:cursor-not-allowed ${
-                    questionCount === n
-                      ? 'neu-raised text-white'
-                      : 'border-transparent neu-inset text-paper hover:opacity-90'
-                  }`}
-                >
-                  {n}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          <div className="flex items-center gap-6">
-            <label className="flex items-center gap-2 cursor-pointer">
-              <input
-                type="checkbox"
-                checked={timed}
-                onChange={(e) => setTimed(e.target.checked)}
-                className="h-4 w-4 rounded border-transparent neu-inset accent-[#ff6b57]"
-              />
-              <span className="text-sm text-paper flex items-center gap-1">
-                <Clock className="w-3.5 h-3.5 text-fog" />
-                Timed
-              </span>
-            </label>
-            <label className="flex items-center gap-2 cursor-pointer">
-              <input
-                type="checkbox"
-                checked={adaptive}
-                onChange={(e) => setAdaptive(e.target.checked)}
-                className="h-4 w-4 rounded border-transparent neu-inset accent-[#ff6b57]"
-              />
-              <span className="text-sm text-paper">Adaptive difficulty</span>
-            </label>
-          </div>
-        </CardContent>
-      </Card>
-
-      <Button
-        size="xl"
-        className="w-full"
-        onClick={handleStart}
-        disabled={!isUnlimited && remaining === 0}
-      >
-        <Play className="w-5 h-5 mr-2" />
-        Start Practice
+      <Button className="w-full" onClick={handleStart} disabled={locked}>
+        <Play className="mr-2 h-4 w-4" />
+        {locked ? 'Limit reached' : 'Start'}
       </Button>
     </div>
   )

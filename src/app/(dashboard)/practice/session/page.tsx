@@ -3,173 +3,329 @@
 import * as React from 'react'
 import { useSearchParams, useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/button'
-import { Badge } from '@/components/ui/badge'
 import { QuestionTimer } from '@/components/ui/question-timer'
+import { StudyTimer } from '@/components/ui/study-timer'
+import { MIN_TOPIC_QUESTIONS } from '@/lib/constants'
 import { AiTutorPanel } from '@/components/ui/ai-tutor-panel'
 import { LoadingSpinner } from '@/components/ui/loading-spinner'
-import { cn, formatTime } from '@/lib/utils'
-import { MISTAKE_TAGS } from '@/lib/constants'
+import { DesmosProvider, useDesmos } from '@/components/desmos/desmos-provider'
+import { DesmosPanel } from '@/components/desmos/desmos-panel'
+import { parseCalculatorConfig } from '@/lib/desmos/actions'
+import { cn } from '@/lib/utils'
+import type { TutorTrigger } from '@/lib/tutor/types'
+import { AlertCircle } from 'lucide-react'
 import {
-  ChevronRight,
-  Bot,
-  CheckCircle,
-  XCircle,
-  AlertCircle,
-  SkipForward,
-} from 'lucide-react'
+  AnswerSheet,
+  TestBooklet,
+  type BookletMark,
+  type BookletQuestion,
+} from '@/components/practice/test-booklet'
+import { PracticeTools } from '@/components/practice/practice-tools'
+import {
+  clearPracticeSnapshot,
+  readPracticeSnapshot,
+  writePracticeSnapshot,
+  type PracticeSnapshot,
+} from '@/lib/practice/persist'
 
-interface Question {
-  id: string
-  question_text: string
-  choices: Array<{ key: string; text: string }>
-  correct_answer: string
-  difficulty: 'easy' | 'medium' | 'hard'
-  topic_id: string | null
-  topic_name: string | null
+function answersMatch(selected: string, correct: string): boolean {
+  const a = selected.trim().toLowerCase()
+  const b = correct.trim().toLowerCase()
+  if (a === b) return true
+  const na = Number(a.replace(/,/g, ''))
+  const nb = Number(b.replace(/,/g, ''))
+  return Number.isFinite(na) && Number.isFinite(nb) && na === nb
 }
 
-interface Explanation {
-  why: string
-  steps: string[]
-  answer: string
-  common_trap: string
+function instantWhy(question: BookletQuestion): string {
+  if (question.ai_explanation) {
+    try {
+      const parsed = JSON.parse(question.ai_explanation) as { why?: string; steps?: string[] }
+      const steps = (parsed.steps ?? []).map((step) => step.trim()).filter(Boolean).slice(0, 4)
+      if (steps.length) {
+        const intro = parsed.why?.trim()
+        return [intro, ...steps.map((step, index) => `${index + 1}. ${step}`)].filter(Boolean).join('\n')
+      }
+      if (parsed.why) return parsed.why
+    } catch {
+      return question.ai_explanation.slice(0, 420)
+    }
+  }
+  if (question.official_explanation) return question.official_explanation.slice(0, 220)
+  return `The correct answer is ${question.correct_answer}.`
+}
+
+function sectionFromQuestions(questions: BookletQuestion[], fallback: string): string {
+  const names = [...new Set(questions.map((q) => q.section_name).filter(Boolean))] as string[]
+  if (names.length === 1) return names[0]
+  if (names.length > 1) return 'Mixed'
+  return fallback || 'Practice'
 }
 
 function SessionContent() {
   const searchParams = useSearchParams()
   const router = useRouter()
+  const desmos = useDesmos()
 
   const testType = searchParams.get('testType') ?? 'SAT'
   const topicId = searchParams.get('topicId') ?? ''
   const difficulty = searchParams.get('difficulty') ?? 'mixed'
-  const count = Number(searchParams.get('count') ?? 10)
-  const isTimed = searchParams.get('timed') === '1'
+  const count = Number(searchParams.get('count') ?? MIN_TOPIC_QUESTIONS)
+  const categoryName = searchParams.get('categoryName') ?? ''
+  const sectionName = searchParams.get('sectionName') ?? ''
+  const timed = searchParams.get('timed') === '1'
+  const pace = Number(searchParams.get('pace') ?? 90)
+  const taskId = searchParams.get('taskId') ?? ''
+  const fullTest = !topicId && count >= 20
 
-  const [questions, setQuestions] = React.useState<Question[]>([])
-  const [currentIndex, setCurrentIndex] = React.useState(0)
-  const [selected, setSelected] = React.useState<string | null>(null)
-  const [submitted, setSubmitted] = React.useState(false)
-  const [explanation, setExplanation] = React.useState<Explanation | null>(null)
-  const [loadingExplanation, setLoadingExplanation] = React.useState(false)
-  const [mistakeTag, setMistakeTag] = React.useState<string>('')
-  const [aiPanelOpen, setAiPanelOpen] = React.useState(false)
+  const [questions, setQuestions] = React.useState<BookletQuestion[]>([])
+  const [answers, setAnswers] = React.useState<Record<string, string>>({})
+  const [marks, setMarks] = React.useState<Record<string, BookletMark>>({})
+  const [focusedId, setFocusedId] = React.useState<string | null>(null)
   const [sessionId, setSessionId] = React.useState<string | null>(null)
   const [elapsed, setElapsed] = React.useState(0)
   const [timerRunning, setTimerRunning] = React.useState(false)
   const [loading, setLoading] = React.useState(true)
   const [error, setError] = React.useState('')
-  const [results, setResults] = React.useState<Array<{ questionId: string; isCorrect: boolean; timeSeconds: number }>>([])
+  const [aiPanelOpen, setAiPanelOpen] = React.useState(false)
+  const [pendingTrigger, setPendingTrigger] = React.useState<{ trigger: TutorTrigger; prompt: string } | null>(null)
+  const [hintUsed, setHintUsed] = React.useState<Record<string, boolean>>({})
+  const [clockStart, setClockStart] = React.useState(0)
+  const [sheetTestType, setSheetTestType] = React.useState(testType)
+  const startedAt = React.useRef<Record<string, number>>({})
+  const finished = React.useRef(false)
+
+  function snapshotFromState(overrides?: Partial<PracticeSnapshot>): PracticeSnapshot {
+    return {
+      version: 1,
+      kind: topicId ? 'topic' : 'main',
+      topicId,
+      taskId,
+      testType,
+      difficulty,
+      count,
+      categoryName,
+      sectionName,
+      timed,
+      pace,
+      sessionId,
+      questions,
+      answers,
+      marks,
+      focusedId,
+      elapsed,
+      hintUsed,
+      updatedAt: Date.now(),
+      ...overrides,
+    }
+  }
 
   React.useEffect(() => {
-    loadQuestions()
-  }, [])
-
-  async function loadQuestions() {
-    try {
-      const params = new URLSearchParams({
-        testType,
-        topicId,
-        difficulty,
-        count: String(count),
-      })
-      const res = await fetch(`/api/practice/questions?${params.toString()}`)
-      const data = await res.json() as { questions?: Question[]; sessionId?: string; error?: string }
-
-      if (!res.ok || data.error) {
-        setError(data.error ?? 'Failed to load questions')
+    let cancelled = false
+    async function loadQuestions() {
+      const saved = readPracticeSnapshot(topicId)
+      if (saved) {
+        setQuestions(saved.questions)
+        setAnswers(saved.answers)
+        setMarks(saved.marks)
+        setFocusedId(saved.focusedId ?? saved.questions[0]?.id ?? null)
+        setSessionId(saved.sessionId)
+        setHintUsed(saved.hintUsed)
+        setElapsed(saved.elapsed)
+        setClockStart(saved.elapsed)
+        setSheetTestType(saved.testType || testType)
+        if (saved.questions[0]) startedAt.current[saved.questions[0].id] = Date.now()
+        setTimerRunning(true)
         setLoading(false)
         return
       }
 
-      setQuestions(data.questions ?? [])
-      setSessionId(data.sessionId ?? null)
-      setTimerRunning(true)
-      setLoading(false)
-    } catch (err) {
-      setError('Failed to load questions. Please try again.')
-      setLoading(false)
+      try {
+        const params = new URLSearchParams({
+          testType,
+          topicId,
+          difficulty,
+          count: String(count),
+        })
+        if (categoryName) params.set('categoryName', categoryName)
+        if (sectionName) params.set('sectionName', sectionName)
+        const res = await fetch(`/api/practice/questions?${params.toString()}`)
+        const data = await res.json() as { questions?: BookletQuestion[]; sessionId?: string; error?: string; paywall?: boolean }
+        if (cancelled) return
+
+        if (data.paywall) {
+          router.replace('/pricing')
+          return
+        }
+
+        if (!res.ok || data.error) {
+          setError(data.error ?? 'Failed to load questions')
+          setLoading(false)
+          return
+        }
+
+        const loaded = data.questions ?? []
+        setQuestions(loaded)
+        setSessionId(data.sessionId ?? null)
+        setSheetTestType(testType)
+        setFocusedId(loaded[0]?.id ?? null)
+        if (loaded[0]) startedAt.current[loaded[0].id] = Date.now()
+        setTimerRunning(true)
+        setLoading(false)
+        writePracticeSnapshot({
+          version: 1,
+          kind: topicId ? 'topic' : 'main',
+          topicId,
+          taskId,
+          testType,
+          difficulty,
+          count,
+          categoryName,
+          sectionName,
+          timed,
+          pace,
+          sessionId: data.sessionId ?? null,
+          questions: loaded,
+          answers: {},
+          marks: {},
+          focusedId: loaded[0]?.id ?? null,
+          elapsed: 0,
+          hintUsed: {},
+          updatedAt: Date.now(),
+        })
+      } catch {
+        if (!cancelled) {
+          setError('Failed to load questions. Please try again.')
+          setLoading(false)
+        }
+      }
     }
+    void loadQuestions()
+    return () => {
+      cancelled = true
+    }
+  }, [testType, topicId, difficulty, count, categoryName, sectionName, timed, pace, taskId, router])
+
+  React.useEffect(() => {
+    if (loading || finished.current || questions.length === 0) return
+    writePracticeSnapshot(snapshotFromState())
+  }, [questions, answers, marks, focusedId, sessionId, hintUsed, loading, topicId, taskId, testType, difficulty, count, categoryName, sectionName, timed, pace])
+
+  const focused = questions.find((q) => q.id === focusedId) ?? questions[0]
+  const calculatorConfig = parseCalculatorConfig(focused?.calculator_config)
+
+  React.useEffect(() => {
+    if (!focused) return
+    desmos.applyQuestion(focused.id, calculatorConfig)
+  }, [focused?.id])
+
+  function focusQuestion(id: string) {
+    setFocusedId(id)
+    if (!startedAt.current[id]) startedAt.current[id] = Date.now()
+    document.getElementById(`q-${id}`)?.scrollIntoView({ behavior: 'smooth', block: 'center' })
   }
 
-  const currentQ = questions[currentIndex]
-  const isLast = currentIndex === questions.length - 1
+  function timeFor(id: string): number {
+    const start = startedAt.current[id]
+    if (!start) return Math.max(1, elapsed)
+    return Math.max(1, Math.round((Date.now() - start) / 1000))
+  }
 
-  async function handleSubmit() {
-    if (!selected || !currentQ) return
-    setTimerRunning(false)
-    setSubmitted(true)
-    const isCorrect = selected === currentQ.correct_answer
+  async function checkQuestion(id: string, openTutor = true) {
+    const question = questions.find((item) => item.id === id)
+    const value = answers[id]?.trim()
+    if (!question || !value || marks[id]) return
 
-    setResults((prev) => [
-      ...prev,
-      { questionId: currentQ.id, isCorrect, timeSeconds: elapsed },
-    ])
+    const localCorrect = answersMatch(value, question.correct_answer)
+    const why = localCorrect ? undefined : instantWhy(question)
+    setMarks((prev) => ({ ...prev, [id]: { correct: localCorrect, why } }))
 
-    setLoadingExplanation(true)
-    try {
-      const res = await fetch('/api/ai/explain', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          questionId: currentQ.id,
-          questionText: currentQ.question_text,
-          correctAnswer: currentQ.correct_answer,
-          topicName: currentQ.topic_name ?? 'General',
-        }),
+    if (!localCorrect && openTutor && !fullTest) {
+      setAiPanelOpen(true)
+      setPendingTrigger({
+        trigger: 'wrong_answer',
+        prompt: `I chose ${value}. That was wrong. Explain in 4 easy short steps why, then how to get the right answer.`,
       })
-      const data = await res.json() as { explanation?: Explanation }
-      if (data.explanation) setExplanation(data.explanation)
-    } catch {
-      // non-critical
-    } finally {
-      setLoadingExplanation(false)
     }
 
-    await fetch('/api/practice/attempt', {
+    void fetch('/api/practice/attempt', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        questionId: currentQ.id,
-        topicId: currentQ.topic_id,
+        questionId: question.id,
+        topicId: question.topic_id,
         sessionId,
-        selectedAnswer: selected,
-        isCorrect,
-        timeSeconds: elapsed,
-        difficulty: currentQ.difficulty,
-        mistakeTag: mistakeTag || undefined,
+        selectedAnswer: value,
+        timeSeconds: timeFor(id),
+        difficulty: question.difficulty,
+        tutorUsed: aiPanelOpen || !localCorrect,
+        hintUsed: Boolean(hintUsed[id]),
+        desmosUsed: desmos.open,
       }),
-    })
+    }).then(async (res) => {
+      const data = await res.json() as { isCorrect?: boolean; correctAnswer?: string }
+      if (typeof data.isCorrect === 'boolean' && data.isCorrect !== localCorrect) {
+        setMarks((prev) => ({
+          ...prev,
+          [id]: { correct: data.isCorrect as boolean, why: data.isCorrect ? undefined : why },
+        }))
+      }
+    }).catch(() => undefined)
   }
 
-  async function handleNext() {
-    if (isLast) {
-      const correctCount = results.filter((r) => r.isCorrect).length + (selected === currentQ?.correct_answer ? 1 : 0)
-      router.push(`/practice/results?correct=${correctCount}&total=${questions.length}&sessionId=${sessionId ?? ''}`)
-      return
+  async function scoreAll() {
+    const pending = questions.filter((q) => answers[q.id] && !marks[q.id])
+    for (const question of pending) {
+      await checkQuestion(question.id, false)
     }
-    setCurrentIndex(currentIndex + 1)
-    setSelected(null)
-    setSubmitted(false)
-    setExplanation(null)
-    setMistakeTag('')
-    setElapsed(0)
-    setTimerRunning(true)
+  }
+
+  function finish() {
+    const correctCount = questions.filter((q) => marks[q.id]?.correct).length
+    finished.current = true
+    clearPracticeSnapshot(topicId)
+    if (sessionId) {
+      void fetch('/api/practice/complete', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          sessionId,
+          correctCount,
+          completedQuestions: Object.keys(marks).length,
+          timeSpentSeconds: elapsed,
+        }),
+      }).catch(() => undefined)
+    }
+    if (taskId) {
+      void fetch('/api/schedule/complete', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ taskId }),
+      }).catch(() => undefined)
+    }
+    router.push(`/practice/results?correct=${correctCount}&total=${questions.length}&sessionId=${sessionId ?? ''}`)
+  }
+
+  function askTutor(trigger: TutorTrigger, prompt: string) {
+    if (trigger === 'hint' && focused) setHintUsed((prev) => ({ ...prev, [focused.id]: true }))
+    setAiPanelOpen(true)
+    setPendingTrigger({ trigger, prompt })
   }
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-[400px]">
-        <LoadingSpinner size="lg" text="Loading questions..." />
+      <div className="flex min-h-[400px] items-center justify-center">
+        <LoadingSpinner size="lg" text="Printing your test sheet..." />
       </div>
     )
   }
 
   if (error) {
     return (
-      <div className="max-w-2xl mx-auto text-center py-12">
-        <AlertCircle className="w-12 h-12 text-bad mx-auto mb-4" />
-        <h2 className="text-xl font-bold text-paper mb-2">Oops!</h2>
-        <p className="text-fog mb-6">{error}</p>
+      <div className="mx-auto max-w-2xl py-12 text-center">
+        <AlertCircle className="mx-auto mb-4 h-12 w-12 text-bad" />
+        <h2 className="mb-2 text-xl font-bold text-paper">Could not load the test</h2>
+        <p className="mb-6 text-fog">{error}</p>
         <Button onClick={() => router.push('/practice')}>Back to Practice</Button>
       </div>
     )
@@ -177,199 +333,140 @@ function SessionContent() {
 
   if (questions.length === 0) {
     return (
-      <div className="max-w-2xl mx-auto text-center py-12">
-        <AlertCircle className="w-12 h-12 text-yellow-400 mx-auto mb-4" />
-        <h2 className="text-xl font-bold text-paper mb-2">No questions found</h2>
-        <p className="text-fog mb-6">Try adjusting your filters or selecting a different topic.</p>
+      <div className="mx-auto max-w-2xl py-12 text-center">
+        <AlertCircle className="mx-auto mb-4 h-12 w-12 text-warn" />
+        <h2 className="mb-2 text-xl font-bold text-paper">No questions found</h2>
+        <p className="mb-6 text-fog">Try a different topic or section.</p>
         <Button onClick={() => router.push('/practice')}>Back to Practice</Button>
       </div>
     )
   }
 
-  const choices = currentQ.choices ?? []
+  const scored = Object.keys(marks).length
+  const filled = Object.values(answers).filter(Boolean).length
+  const allScored = scored === questions.length
+  const answerValue = focused ? answers[focused.id] ?? '' : ''
+  const focusedNumber = focused ? questions.findIndex((q) => q.id === focused.id) + 1 : 1
+  const timeLimit = timed ? Math.max(60, questions.length * Math.max(30, pace)) : 0
 
   return (
-    <div className={cn('max-w-3xl mx-auto space-y-6', aiPanelOpen && 'pr-84')}>
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <span className="text-sm text-fog">
-            Question {currentIndex + 1} of {questions.length}
-          </span>
-          <Badge variant={
-            currentQ.difficulty === 'hard' ? 'danger' :
-            currentQ.difficulty === 'medium' ? 'warning' : 'success'
-          } className="capitalize">
-            {currentQ.difficulty}
-          </Badge>
-          <Badge variant="secondary">{currentQ.topic_name}</Badge>
-        </div>
-        <div className="flex items-center gap-2">
+    <div className={cn('mx-auto w-full space-y-3 pb-8', desmos.open ? 'max-w-7xl' : 'max-w-6xl', aiPanelOpen && 'pr-4 md:pr-84')}>
+      <div className="flex flex-wrap items-center justify-between gap-2">
+        <p className="text-sm text-fog">
+          {sheetTestType} sheet · {filled}/{questions.length} filled · {scored} scored
+          {focused ? ` · Q${focusedNumber}` : ''}
+        </p>
+        <div className="flex flex-wrap items-center gap-2">
+          <StudyTimer running={timerRunning} label="Studied" />
           <QuestionTimer
-            mode="countup"
+            mode={timed ? 'countdown' : 'countup'}
+            initialSeconds={timed ? timeLimit : clockStart}
             running={timerRunning}
             onTick={setElapsed}
+            onTimeUp={() => setTimerRunning(false)}
           />
-          <Button
-            size="sm"
-            variant="ghost"
-            onClick={() => setAiPanelOpen(!aiPanelOpen)}
-          >
-            <Bot className="w-4 h-4 mr-1" />
-            Nova
-          </Button>
         </div>
       </div>
 
-      <div className="rounded-2xl border border-transparent neu p-6">
-        <p className="mb-6 whitespace-pre-wrap text-base leading-relaxed text-paper">{currentQ.question_text}</p>
+      <PracticeTools
+        chatOpen={aiPanelOpen}
+        calculatorOpen={desmos.open}
+        onChat={() => setAiPanelOpen(true)}
+        onCalculator={() => desmos.setOpen(!desmos.open)}
+        onHint={() => askTutor('hint', 'Give me a small hint only. Do not give the answer. If this is math, say what to type in Desmos.')}
+      />
 
-        <div className="space-y-2.5">
-          {choices.map(({ key: letter, text }) => {
-            const isSelected = selected === letter
-            const isCorrectChoice = submitted && letter === currentQ.correct_answer
-            const isWrong = submitted && isSelected && !isCorrectChoice
-
-            return (
-              <button
-                key={letter}
-                onClick={() => !submitted && setSelected(letter)}
-                disabled={submitted}
-                className={cn(
-                  'w-full flex items-start gap-3 rounded-2xl px-4 py-3 text-left text-sm transition-all',
-                  !submitted && !isSelected && 'neu-sm',
-                  !submitted && isSelected && 'neu-raised text-white',
-                  submitted && isCorrectChoice && 'neu-sm text-ok',
-                  submitted && isWrong && 'neu-sm text-bad',
-                  submitted && !isCorrectChoice && !isWrong && 'neu-inset opacity-50',
-                )}
-              >
-                <span className={cn(
-                  'flex-shrink-0 w-6 h-6 rounded-lg flex items-center justify-center text-xs font-bold',
-                  isCorrectChoice ? 'neu-sm text-ok' :
-                  isWrong ? 'neu-sm text-bad' :
-                  isSelected ? 'neu-raised text-white' :
-                  'text-fog'
-                )}>
-                  {letter}
-                </span>
-                <span className={cn(
-                  'flex-1 text-paper',
-                  isWrong && 'text-bad',
-                  isCorrectChoice && 'text-ok',
-                )}>
-                  {text}
-                </span>
-                {submitted && isCorrectChoice && <CheckCircle className="w-4 h-4 text-ok flex-shrink-0 mt-0.5" />}
-                {submitted && isWrong && <XCircle className="w-4 h-4 text-bad flex-shrink-0 mt-0.5" />}
-              </button>
-            )
-          })}
-        </div>
-
-        {!submitted && (
-          <Button
-            className="w-full mt-5"
-            onClick={handleSubmit}
-            disabled={!selected}
-          >
-            Submit Answer
-          </Button>
+      <div className={cn(
+        'grid gap-3',
+        desmos.open
+          ? 'grid-cols-1 lg:grid-cols-[minmax(0,0.7fr)_minmax(620px,1.3fr)]'
+          : 'grid-cols-[minmax(0,1fr)_min(220px,34vw)]'
+      )}>
+        <TestBooklet
+          testType={sheetTestType}
+          sectionLabel={sectionFromQuestions(questions, sectionName)}
+          questions={questions}
+          answers={answers}
+          marks={marks}
+          focusedId={focusedId}
+          onFocus={focusQuestion}
+          onAnswer={(id, value) => {
+            if (marks[id]) return
+            setAnswers((prev) => ({ ...prev, [id]: value }))
+            setFocusedId(id)
+          }}
+          onCheck={(id) => void checkQuestion(id)}
+        />
+        {desmos.open ? (
+          <div className="sticky top-2 self-start">
+            <DesmosPanel embedded />
+          </div>
+        ) : (
+          <div className="sticky top-2 max-h-[calc(100vh-7rem)] self-start overflow-y-auto">
+            <AnswerSheet
+              questions={questions}
+              answers={answers}
+              marks={marks}
+              focusedId={focusedId}
+              onJump={focusQuestion}
+            />
+          </div>
         )}
       </div>
 
-      {submitted && (
-        <div className="rounded-2xl border border-transparent neu p-6 space-y-4">
-          <div className="flex items-center gap-2 mb-1">
-            {selected === currentQ.correct_answer ? (
-              <CheckCircle className="w-5 h-5 text-ok" />
-            ) : (
-              <XCircle className="w-5 h-5 text-bad" />
-            )}
-            <h3 className="font-semibold text-paper">
-              {selected === currentQ.correct_answer ? 'Correct!' : `Incorrect — Answer: ${currentQ.correct_answer}`}
-            </h3>
-            <span className="text-xs text-fog ml-auto">{formatTime(elapsed)}</span>
-          </div>
-
-          {loadingExplanation && (
-            <div className="flex items-center gap-2 text-sm text-fog">
-              <LoadingSpinner size="sm" />
-              Getting AI explanation...
-            </div>
-          )}
-
-          {explanation && (
-            <div className="space-y-3">
-              <div className="p-3 rounded-xl neu-inset border border-transparent">
-                <p className="text-xs font-semibold text-signal mb-1">WHY</p>
-                <p className="text-sm text-paper">{explanation.why}</p>
-              </div>
-              {explanation.steps.map((step, i) => (
-                <div key={i} className="p-3 rounded-xl neu-inset border border-transparent">
-                  <p className="text-xs font-semibold text-violet-400 mb-1">STEP {i + 1}</p>
-                  <p className="text-sm text-paper">{step}</p>
-                </div>
-              ))}
-              {explanation.common_trap && (
-                <div className="p-3 rounded-xl bg-yellow-500/10 border border-yellow-500/30">
-                  <p className="text-xs font-semibold text-yellow-400 mb-1">⚠ COMMON TRAP</p>
-                  <p className="text-sm text-paper">{explanation.common_trap}</p>
-                </div>
-              )}
-            </div>
-          )}
-
-          {selected !== currentQ.correct_answer && (
-            <div>
-              <label className="text-xs text-fog block mb-2">Tag this mistake (optional)</label>
-              <div className="flex flex-wrap gap-2">
-                {MISTAKE_TAGS.map((tag) => (
-                  <button
-                    key={tag.id}
-                    onClick={() => setMistakeTag(mistakeTag === tag.id ? '' : tag.id)}
-                    className={cn(
-                      'px-3 py-1.5 border text-xs transition-all',
-                      mistakeTag === tag.id
-                        ? 'border-warn/50 bg-warn/20 text-warn'
-                        : 'border-line text-fog hover:border-line-hot'
-                    )}
-                  >
-                    {tag.label}
-                  </button>
-                ))}
-              </div>
-            </div>
-          )}
-
-          <div className="flex gap-3">
-            <Button variant="secondary" onClick={() => router.push('/practice')} className="flex-1">
-              <SkipForward className="w-4 h-4 mr-1" />
-              End Session
-            </Button>
-            <Button onClick={handleNext} className="flex-1">
-              {isLast ? 'See Results' : 'Next Question'}
-              <ChevronRight className="w-4 h-4 ml-1" />
-            </Button>
-          </div>
-        </div>
+      {desmos.open && (
+        <AnswerSheet
+          questions={questions}
+          answers={answers}
+          marks={marks}
+          focusedId={focusedId}
+          onJump={focusQuestion}
+        />
       )}
 
-      <AiTutorPanel
-        open={aiPanelOpen}
-        onClose={() => setAiPanelOpen(false)}
-        context={{
-          questionText: currentQ.question_text,
-          topicName: currentQ.topic_name ?? 'General',
-        }}
-      />
+      {!desmos.open && <DesmosPanel embedded={false} />}
+
+      <div className="flex flex-wrap gap-2">
+        <Button variant="secondary" onClick={() => void scoreAll()} disabled={filled === 0 || scored === filled}>
+          Score filled answers
+        </Button>
+        <Button onClick={finish} disabled={!allScored && scored === 0}>
+          {allScored ? 'See results' : `End with ${scored || 0} scored`}
+        </Button>
+      </div>
+
+      {focused && (
+        <AiTutorPanel
+          open={aiPanelOpen}
+          onClose={() => setAiPanelOpen(false)}
+          pendingTrigger={pendingTrigger}
+          context={{
+            questionId: focused.id,
+            questionText: focused.question_text,
+            topicId: focused.topic_id,
+            topicName: focused.topic_name ?? 'General',
+            sectionName: focused.section_name ?? undefined,
+            selectedAnswer: answerValue || undefined,
+            correctAnswer: marks[focused.id] ? focused.correct_answer : undefined,
+            choices: focused.choices,
+            officialExplanation: marks[focused.id] ? focused.official_explanation ?? undefined : undefined,
+            questionType: focused.section_name ?? focused.topic_name ?? undefined,
+            submitted: Boolean(marks[focused.id]),
+            isCorrect: marks[focused.id]?.correct,
+            desmosAvailable: true,
+          }}
+        />
+      )}
     </div>
   )
 }
 
 export default function PracticeSessionPage() {
   return (
-    <React.Suspense fallback={<div className="flex items-center justify-center p-16 text-fog">Loading session…</div>}>
-      <SessionContent />
+    <React.Suspense fallback={<div className="flex min-h-[400px] items-center justify-center"><LoadingSpinner size="lg" text="Printing your test sheet..." /></div>}>
+      <DesmosProvider enabled>
+        <SessionContent />
+      </DesmosProvider>
     </React.Suspense>
   )
 }

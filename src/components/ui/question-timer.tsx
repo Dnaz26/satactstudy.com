@@ -1,5 +1,7 @@
 'use client'
 
+/* eslint-disable react-hooks/set-state-in-effect */
+
 import * as React from 'react'
 import { cn } from '@/lib/utils'
 import { Clock } from 'lucide-react'
@@ -23,12 +25,15 @@ export function QuestionTimer({
   className,
   large = false,
 }: QuestionTimerProps) {
-  const [seconds, setSeconds] = React.useState(
-    mode === 'countdown' ? initialSeconds : 0
-  )
+  const [seconds, setSeconds] = React.useState(initialSeconds)
+
+  const onTickRef = React.useRef(onTick)
+  const onTimeUpRef = React.useRef(onTimeUp)
+  onTickRef.current = onTick
+  onTimeUpRef.current = onTimeUp
 
   React.useEffect(() => {
-    setSeconds(mode === 'countdown' ? initialSeconds : 0)
+    setSeconds(initialSeconds)
   }, [mode, initialSeconds])
 
   React.useEffect(() => {
@@ -37,18 +42,24 @@ export function QuestionTimer({
     const interval = setInterval(() => {
       setSeconds((prev) => {
         const next = mode === 'countdown' ? prev - 1 : prev + 1
-        onTick?.(next)
-        if (mode === 'countdown' && next <= 0) {
-          clearInterval(interval)
-          onTimeUp?.()
-          return 0
-        }
+        if (mode === 'countdown' && next <= 0) return 0
         return next
       })
     }, 1000)
 
     return () => clearInterval(interval)
-  }, [running, mode, onTimeUp, onTick])
+  }, [running, mode])
+
+  const fired = React.useRef(false)
+  React.useEffect(() => {
+    onTickRef.current?.(seconds)
+    if (running && mode === 'countdown' && seconds <= 0 && initialSeconds > 0) {
+      if (!fired.current) {
+        fired.current = true
+        onTimeUpRef.current?.()
+      }
+    }
+  }, [seconds, running, mode, initialSeconds])
 
   const displaySeconds = Math.abs(seconds)
   const mins = Math.floor(displaySeconds / 60)

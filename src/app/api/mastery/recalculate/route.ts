@@ -1,11 +1,11 @@
 import { NextRequest } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
 import { calculateTopicMastery, type AttemptData } from '@/lib/mastery'
-import { asDifficulty } from '@/lib/schema'
+import { asDifficulty, dbId } from '@/lib/schema'
 import { z } from 'zod'
 
 const bodySchema = z.object({
-  topicId: z.string().uuid().optional(),
+  topicId: dbId().optional(),
 })
 
 export async function POST(request: NextRequest) {
