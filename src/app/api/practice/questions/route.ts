@@ -73,7 +73,10 @@ export async function GET(request: NextRequest) {
       query = query.eq('difficulty', toDbDifficulty(difficulty))
     }
 
-    const { data: questions, error } = await query.limit(800)
+    const { data: questions, error } = await query
+      .order('topic_id', { ascending: true })
+      .order('difficulty_score', { ascending: true, nullsFirst: false })
+      .limit(800)
 
     if (error) {
       return Response.json({ error: 'Failed to fetch questions' }, { status: 500 })

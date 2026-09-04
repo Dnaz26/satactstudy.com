@@ -220,7 +220,10 @@ function mathDrafts(name: string, need: number): Draft[] {
       ))
     }
   }
-  return out.slice(0, need)
+  return out.slice(0, need).map((draft, index) => ({
+    ...draft,
+    question_text: `Topic fill ${index + 1}. ${draft.question_text}`,
+  }))
 }
 
 function verbalDrafts(name: string, need: number): Draft[] {
@@ -381,7 +384,10 @@ function verbalDrafts(name: string, need: number): Draft[] {
       ))
     }
   }
-  return out.slice(0, need)
+  return out.slice(0, need).map((draft, index) => ({
+    ...draft,
+    question_text: `Topic fill ${index + 1}. ${draft.question_text}`,
+  }))
 }
 
 function draftsFor(meta: TopicMeta, need: number): Draft[] {
@@ -471,6 +477,7 @@ export async function ensureTopicQuestionCount(
     category_name: meta.category_name,
     topic_name: meta.topic_name,
     difficulty: draft.difficulty,
+    difficulty_score: draft.difficulty === 'Easy' ? 0.28 : draft.difficulty === 'Hard' ? 0.76 : 0.52,
     question_text: draft.question_text,
     choice_a: draft.choice_a,
     choice_b: draft.choice_b,

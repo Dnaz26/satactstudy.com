@@ -1,4 +1,4 @@
-export const MIN_TOPIC_QUESTIONS = 25
+export const MIN_TOPIC_QUESTIONS = 40
 
 /**
  * Daily caps sized so worst-case AI + Stripe stay under 50% of the RHS collect
