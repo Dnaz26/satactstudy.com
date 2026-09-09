@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
-import { hasPaidAccess } from '@/lib/access'
+import { hasProductAccess } from '@/lib/access'
 import { asPlan } from '@/lib/schema'
 
 export async function GET(request: Request) {
@@ -37,14 +37,18 @@ export async function GET(request: Request) {
 
   const { data: profile } = await supabase
     .from('profiles')
-    .select('onboarding_completed, subscription_plan, role')
+    .select('onboarding_completed, subscription_plan, role, trial_ends_at')
     .eq('id', user.id)
     .single()
 
   if (!profile?.onboarding_completed) {
     return NextResponse.redirect(`${origin}/onboarding`)
   }
-  if (!hasPaidAccess(asPlan(profile.subscription_plan), profile.role)) {
+  if (!hasProductAccess({
+    plan: asPlan(profile.subscription_plan),
+    role: profile.role,
+    trialEndsAt: profile.trial_ends_at,
+  })) {
     return NextResponse.redirect(`${origin}/pricing`)
   }
 

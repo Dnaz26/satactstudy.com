@@ -1,6 +1,6 @@
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
-import { hasPaidAccess } from '@/lib/access'
+import { hasProductAccess } from '@/lib/access'
 import { asPlan } from '@/lib/schema'
 import { NavSidebar } from '@/components/nav-sidebar'
 import { LogOut } from 'lucide-react'
@@ -14,7 +14,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
 
   const { data: profile } = await supabase
     .from('profiles')
-    .select('full_name, subscription_plan, role, onboarding_completed')
+    .select('full_name, subscription_plan, role, onboarding_completed, trial_ends_at')
     .eq('id', user.id)
     .single()
 
@@ -22,7 +22,11 @@ export default async function DashboardLayout({ children }: { children: React.Re
     redirect('/onboarding')
   }
 
-  if (!hasPaidAccess(asPlan(profile?.subscription_plan), profile?.role)) {
+  if (!hasProductAccess({
+    plan: asPlan(profile?.subscription_plan),
+    role: profile?.role,
+    trialEndsAt: profile?.trial_ends_at,
+  })) {
     redirect('/pricing')
   }
 

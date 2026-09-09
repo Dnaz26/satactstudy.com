@@ -2,6 +2,7 @@ export const CHECKOUT_PROMO = {
   code: 'RHS',
   percentOff: 60,
   trialDays: 14,
+  label: 'RHS Special',
 } as const
 
 export type PublicPlanId = 'core' | 'plus'
@@ -18,4 +19,8 @@ export function isCheckoutPromo(code: string | null | undefined): boolean {
 
 export function promoPriceFromList(listPrice: number): number {
   return Math.round(listPrice * (1 - CHECKOUT_PROMO.percentOff / 100) * 100) / 100
+}
+
+export function isRhsBillingPromo(value: string | null | undefined): boolean {
+  return normalizePromo(value) === CHECKOUT_PROMO.code
 }

@@ -1,6 +1,6 @@
 import { NextResponse, type NextRequest } from 'next/server'
 import { updateSession } from '@/lib/supabase/middleware'
-import { hasPaidAccess } from '@/lib/access'
+import { hasProductAccess } from '@/lib/access'
 import { asPlan } from '@/lib/schema'
 
 const AUTH_ONLY = ['/login', '/signup', '/forgot-password']
@@ -27,6 +27,7 @@ const APP_PREFIXES = [
   '/reference',
 ]
 const OPEN_WITHOUT_PLAN = ['/pricing', '/pay', '/onboarding']
+const ONBOARDING_PREVIEW = ['/onboarding', '/practice']
 
 function startsWithAny(pathname: string, prefixes: string[]) {
   return prefixes.some((prefix) => pathname === prefix || pathname.startsWith(`${prefix}/`))
@@ -56,29 +57,37 @@ export async function proxy(request: NextRequest) {
 
   const { data: profile } = await supabase
     .from('profiles')
-    .select('subscription_plan, role, onboarding_completed')
+    .select('subscription_plan, role, onboarding_completed, trial_ends_at, billing_promo')
     .eq('id', user.id)
     .maybeSingle()
 
   const onboarded = Boolean(profile?.onboarding_completed)
-  const paid = hasPaidAccess(asPlan(profile?.subscription_plan), profile?.role)
+  const product = hasProductAccess({
+    plan: asPlan(profile?.subscription_plan),
+    role: profile?.role,
+    trialEndsAt: profile?.trial_ends_at,
+  })
 
   if (pathname === '/' || AUTH_ONLY.includes(pathname)) {
     if (!onboarded) return redirectTo('/onboarding')
-    return redirectTo(paid ? '/dashboard' : '/pricing')
+    return redirectTo(product ? '/dashboard' : '/pricing')
   }
 
-  if (!onboarded && !pathname.startsWith('/onboarding')) {
+  if (!onboarded) {
+    if (startsWithAny(pathname, ONBOARDING_PREVIEW) || pathname.startsWith('/api/')) {
+      return supabaseResponse
+    }
     if (startsWithAny(pathname, APP_PREFIXES) || pathname.startsWith('/pricing')) {
       return redirectTo('/onboarding')
     }
+    return supabaseResponse
   }
 
-  if (onboarded && !paid && startsWithAny(pathname, APP_PREFIXES) && !startsWithAny(pathname, OPEN_WITHOUT_PLAN)) {
+  if (onboarded && !product && startsWithAny(pathname, APP_PREFIXES) && !startsWithAny(pathname, OPEN_WITHOUT_PLAN)) {
     return redirectTo('/pricing')
   }
 
-  if (onboarded && paid && (pathname === '/pricing' || pathname === '/onboarding')) {
+  if (onboarded && product && (pathname === '/pricing' || pathname === '/onboarding')) {
     return redirectTo('/dashboard')
   }
 

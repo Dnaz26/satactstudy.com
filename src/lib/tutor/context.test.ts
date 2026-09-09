@@ -23,4 +23,6 @@ test('fast tutor context stays short and uses the request payload', () => {
   assert.match(ctx.compactPrompt, /Canonical: B/)
   assert.match(ctx.compactPrompt, /4 easy numbered steps/)
   assert.ok(ctx.compactPrompt.length < 800)
+  assert.equal(ctx.masteryOverall, null)
+  assert.deepEqual(ctx.toolsUsed, [])
 })

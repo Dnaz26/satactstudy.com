@@ -202,3 +202,166 @@ body {
   border-color: #e24b62;
   color: #fff;
 }
+
+@keyframes land-rise {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes land-drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -10px, 0);
+  }
+}
+
+@keyframes land-sheen {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}
+
+.land-rise {
+  animation: land-rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.land-rise-delay-1 {
+  animation-delay: 0.08s;
+}
+
+.land-rise-delay-2 {
+  animation-delay: 0.16s;
+}
+
+.land-rise-delay-3 {
+  animation-delay: 0.24s;
+}
+
+.land-drift {
+  animation: land-drift 7s ease-in-out infinite;
+}
+
+.land-hero-wash {
+  background:
+    radial-gradient(920px 520px at 12% 18%, rgba(255, 107, 87, 0.18), transparent 58%),
+    radial-gradient(780px 480px at 88% 8%, rgba(43, 158, 217, 0.22), transparent 55%),
+    radial-gradient(640px 420px at 70% 92%, rgba(34, 160, 107, 0.12), transparent 60%);
+}
+
+.land-brand-glow {
+  background: linear-gradient(120deg, #1f2d4a 0%, #ff6b57 42%, #2b9ed9 78%, #1f2d4a 100%);
+  background-size: 220% 220%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: land-sheen 8s ease-in-out infinite alternate;
+}
+
+.land-reason:hover {
+  transform: translateY(-4px);
+}
+
+.land-reason:hover .land-reason-icon {
+  background: var(--signal);
+  color: #fff;
+  box-shadow:
+    8px 8px 16px var(--neu-dark),
+    -8px -8px 16px var(--neu-light),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35);
+}
+
+@keyframes land-orb-pulse {
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: translate(-50%, 0) scale(1);
+  }
+  50% {
+    opacity: 0.55;
+    transform: translate(-50%, 12px) scale(1.06);
+  }
+}
+
+.land-orb {
+  background: radial-gradient(circle, rgba(255, 107, 87, 0.16), rgba(43, 158, 217, 0.08) 42%, transparent 68%);
+  filter: blur(8px);
+  animation: land-orb-pulse 9s ease-in-out infinite;
+}
+
+.land-cta {
+  border-radius: 2rem;
+}
+
+@keyframes rhs-burst-in {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -12px) scale(0.85);
+  }
+  18% {
+    opacity: 1;
+    transform: translate(-50%, 0) scale(1.05);
+  }
+  70% {
+    opacity: 1;
+    transform: translate(-50%, 0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -8px) scale(0.98);
+  }
+}
+
+@keyframes rhs-confetti-fall {
+  0% {
+    background-position: 0 -40px, 40px -80px, 80px -20px, 120px -100px;
+    opacity: 0;
+  }
+  12% {
+    opacity: 1;
+  }
+  100% {
+    background-position: 0 110%, 40px 120%, 80px 105%, 120px 130%;
+    opacity: 0;
+  }
+}
+
+.rhs-burst {
+  background: linear-gradient(135deg, #ff6b57, #2b9ed9 55%, #3ecf8e);
+  animation: rhs-burst-in 3.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.rhs-confetti {
+  background-image:
+    radial-gradient(circle, #ff6b57 2px, transparent 3px),
+    radial-gradient(circle, #2b9ed9 2px, transparent 3px),
+    radial-gradient(circle, #3ecf8e 2px, transparent 3px),
+    radial-gradient(circle, #f5c542 2px, transparent 3px);
+  background-size: 48px 48px, 56px 56px, 40px 40px, 64px 64px;
+  animation: rhs-confetti-fall 3.6s ease-out both;
+}
+
+.rhs-special-wash {
+  background:
+    radial-gradient(280px 120px at 0% 0%, rgba(255, 107, 87, 0.22), transparent 60%),
+    radial-gradient(260px 110px at 100% 100%, rgba(43, 158, 217, 0.2), transparent 55%);
+}
+
+.rhs-plan-glow {
+  box-shadow:
+    0 0 0 1px rgba(255, 107, 87, 0.28),
+    10px 10px 22px var(--neu-dark),
+    -10px -10px 22px var(--neu-light);
+}
+

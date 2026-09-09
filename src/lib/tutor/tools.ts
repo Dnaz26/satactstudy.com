@@ -77,3 +77,37 @@ export async function getRelatedPracticeQuestions(params: {
   const { data } = await query
   return data ?? []
 }
+
+/** Minimal profile snapshot for tutoring — never cross-user. */
+export async function getStudentProfileSnapshot(userId: string) {
+  const supabase = await createClient()
+  const { data } = await supabase
+    .from('profiles')
+    .select('test_preference, target_score, current_estimated_score, study_minutes_per_day, focus_section, weakest_areas')
+    .eq('id', userId)
+    .maybeSingle()
+
+  if (!data) return null
+
+  let custom_interest: string | null = null
+  try {
+    const { data: prefs } = await supabase
+      .from('tutor_preferences')
+      .select('custom_interest')
+      .eq('user_id', userId)
+      .maybeSingle()
+    custom_interest = prefs?.custom_interest ?? null
+  } catch {
+    custom_interest = null
+  }
+
+  return {
+    test_type: data.test_preference as string | null,
+    target_score: data.target_score as number | null,
+    current_score: data.current_estimated_score as number | null,
+    study_minutes_per_day: data.study_minutes_per_day as number | null,
+    focus_section: data.focus_section as string | null,
+    weakest_areas: data.weakest_areas as string[] | null,
+    custom_interest,
+  }
+}

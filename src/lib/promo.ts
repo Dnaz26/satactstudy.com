@@ -4,24 +4,18 @@ export type PromoResult = {
   ok: boolean
   error?: string
   checkoutPromo?: boolean
+  accessCode?: boolean
   trialDays?: number
   percentOff?: number
+  trialEndsAt?: string
 }
 
 export async function redeemPromoCode(code: string): Promise<PromoResult> {
   const trimmed = code.trim()
   if (!trimmed) return { ok: true }
 
-  if (isCheckoutPromo(trimmed)) {
-    if (typeof window !== 'undefined') {
-      sessionStorage.setItem('pending_promo', CHECKOUT_PROMO.code)
-    }
-    return {
-      ok: true,
-      checkoutPromo: true,
-      trialDays: CHECKOUT_PROMO.trialDays,
-      percentOff: CHECKOUT_PROMO.percentOff,
-    }
+  if (isCheckoutPromo(trimmed) && typeof window !== 'undefined') {
+    sessionStorage.setItem('pending_promo', CHECKOUT_PROMO.code)
   }
 
   try {
@@ -32,8 +26,15 @@ export async function redeemPromoCode(code: string): Promise<PromoResult> {
     })
 
     if (res.status === 401) {
-      sessionStorage.setItem('pending_promo', trimmed)
-      return { ok: false, error: 'pending' }
+      sessionStorage.setItem('pending_promo', isCheckoutPromo(trimmed) ? CHECKOUT_PROMO.code : trimmed)
+      return isCheckoutPromo(trimmed)
+        ? {
+            ok: true,
+            checkoutPromo: true,
+            trialDays: CHECKOUT_PROMO.trialDays,
+            percentOff: CHECKOUT_PROMO.percentOff,
+          }
+        : { ok: false, error: 'pending' }
     }
 
     const data = (await res.json()) as {
@@ -42,6 +43,7 @@ export async function redeemPromoCode(code: string): Promise<PromoResult> {
       kind?: string
       trialDays?: number
       percentOff?: number
+      trialEndsAt?: string
     }
 
     if (data.kind === 'checkout_promo' || isCheckoutPromo(trimmed)) {
@@ -51,15 +53,24 @@ export async function redeemPromoCode(code: string): Promise<PromoResult> {
         checkoutPromo: true,
         trialDays: data.trialDays ?? CHECKOUT_PROMO.trialDays,
         percentOff: data.percentOff ?? CHECKOUT_PROMO.percentOff,
+        trialEndsAt: data.trialEndsAt,
       }
     }
 
     if (data.success) {
       sessionStorage.removeItem('pending_promo')
-      return { ok: true }
+      return { ok: true, accessCode: true }
     }
     return { ok: false, error: data.error ?? 'Invalid promo code' }
   } catch {
+    if (isCheckoutPromo(trimmed)) {
+      return {
+        ok: true,
+        checkoutPromo: true,
+        trialDays: CHECKOUT_PROMO.trialDays,
+        percentOff: CHECKOUT_PROMO.percentOff,
+      }
+    }
     return { ok: false, error: 'Could not apply promo code' }
   }
 }
@@ -68,15 +79,6 @@ export async function redeemPendingPromo(): Promise<PromoResult | void> {
   if (typeof window === 'undefined') return
   const pending = sessionStorage.getItem('pending_promo')
   if (!pending) return
-  if (isCheckoutPromo(pending)) {
-    sessionStorage.setItem('pending_promo', CHECKOUT_PROMO.code)
-    return {
-      ok: true,
-      checkoutPromo: true,
-      trialDays: CHECKOUT_PROMO.trialDays,
-      percentOff: CHECKOUT_PROMO.percentOff,
-    }
-  }
   return redeemPromoCode(pending)
 }
 

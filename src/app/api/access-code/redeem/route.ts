@@ -3,6 +3,7 @@ import { createClient } from '@/lib/supabase/server'
 import { z } from 'zod'
 import { createHash } from 'crypto'
 import { CHECKOUT_PROMO, isCheckoutPromo } from '@/lib/plans'
+import { rhsTrialEndsAt } from '@/lib/access'
 
 const bodySchema = z.object({
   code: z.string().min(1),
@@ -22,12 +23,23 @@ export async function POST(request: NextRequest) {
     if (!parsed.success) return Response.json({ error: 'Invalid request' }, { status: 400 })
 
     if (isCheckoutPromo(parsed.data.code)) {
+      const started = new Date()
+      const trialEnds = rhsTrialEndsAt(started)
+      await supabase.from('profiles').update({
+        billing_promo: CHECKOUT_PROMO.code,
+        trial_started_at: started.toISOString(),
+        trial_ends_at: trialEnds,
+        updated_at: started.toISOString(),
+      }).eq('id', user.id)
+
       return Response.json({
         success: true,
         kind: 'checkout_promo',
         code: CHECKOUT_PROMO.code,
         trialDays: CHECKOUT_PROMO.trialDays,
         percentOff: CHECKOUT_PROMO.percentOff,
+        trialStartedAt: started.toISOString(),
+        trialEndsAt: trialEnds,
       })
     }
 
@@ -60,7 +72,13 @@ export async function POST(request: NextRequest) {
       .maybeSingle()
 
     if (existing) {
-      return Response.json({ error: 'You have already used this access code' }, { status: 409 })
+      await supabase.from('profiles').update({
+        subscription_plan: 'access_code',
+        subscription_status: 'active',
+        access_code_used: parsed.data.code.trim(),
+        updated_at: new Date().toISOString(),
+      }).eq('id', user.id)
+      return Response.json({ success: true, kind: 'access_code', plan: accessCode.plan_granted ?? 'elite', already: true })
     }
 
     await supabase.from('access_code_redemptions').insert({
@@ -82,7 +100,7 @@ export async function POST(request: NextRequest) {
       updated_at: new Date().toISOString(),
     }).eq('id', user.id)
 
-    return Response.json({ success: true, plan: planGranted })
+    return Response.json({ success: true, kind: 'access_code', plan: planGranted })
   } catch (err) {
     console.error(err)
     return Response.json({ error: 'Internal server error' }, { status: 500 })

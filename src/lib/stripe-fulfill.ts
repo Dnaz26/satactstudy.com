@@ -1,4 +1,5 @@
 import { createServiceClient } from '@/lib/supabase/server'
+import { CHECKOUT_PROMO } from './plans'
 import { getStripe, isPaidPlanId, type PaidPlanId } from './stripe'
 
 export async function grantPaidPlan(opts: {
@@ -7,6 +8,7 @@ export async function grantPaidPlan(opts: {
   customerId?: string | null
   subscriptionId?: string | null
   status?: string
+  billingPromo?: string | null
 }): Promise<void> {
   const supabase = await createServiceClient()
   const { error } = await supabase
@@ -16,6 +18,7 @@ export async function grantPaidPlan(opts: {
       stripe_customer_id: opts.customerId ?? undefined,
       stripe_subscription_id: opts.subscriptionId ?? undefined,
       subscription_status: opts.status ?? 'active',
+      billing_promo: opts.billingPromo === undefined ? undefined : opts.billingPromo,
       updated_at: new Date().toISOString(),
     })
     .eq('id', opts.userId)
@@ -70,13 +73,14 @@ export async function fulfillCheckoutSession(userId: string, sessionId: string):
     return { granted: false, plan: null }
   }
 
-  const trial = session.metadata?.promo === 'RHS' && session.mode === 'subscription'
+  const trial = session.metadata?.promo === CHECKOUT_PROMO.code && session.mode === 'subscription'
   await grantPaidPlan({
     userId,
     plan: chosen,
     customerId,
     subscriptionId: typeof session.subscription === 'string' ? session.subscription : null,
     status: trial ? 'trialing' : 'active',
+    billingPromo: session.metadata?.promo === CHECKOUT_PROMO.code ? CHECKOUT_PROMO.code : null,
   })
 
   return { granted: true, plan: chosen }

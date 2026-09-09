@@ -546,6 +546,7 @@ export type Database = {
       profiles: {
         Row: {
           access_code_used: string | null
+          billing_promo: string | null
           created_at: string | null
           current_estimated_score: number | null
           diagnostic_completed: boolean | null
@@ -570,10 +571,15 @@ export type Database = {
           target_score: number | null
           test_date: string | null
           test_preference: string | null
+          trial_ai_chats_used: number | null
+          trial_ends_at: string | null
+          trial_questions_used: number | null
+          trial_started_at: string | null
           updated_at: string | null
         }
         Insert: {
           access_code_used?: string | null
+          billing_promo?: string | null
           created_at?: string | null
           current_estimated_score?: number | null
           diagnostic_completed?: boolean | null
@@ -598,10 +604,15 @@ export type Database = {
           target_score?: number | null
           test_date?: string | null
           test_preference?: string | null
+          trial_ai_chats_used?: number | null
+          trial_ends_at?: string | null
+          trial_questions_used?: number | null
+          trial_started_at?: string | null
           updated_at?: string | null
         }
         Update: {
           access_code_used?: string | null
+          billing_promo?: string | null
           created_at?: string | null
           current_estimated_score?: number | null
           diagnostic_completed?: boolean | null
@@ -626,6 +637,10 @@ export type Database = {
           target_score?: number | null
           test_date?: string | null
           test_preference?: string | null
+          trial_ai_chats_used?: number | null
+          trial_ends_at?: string | null
+          trial_questions_used?: number | null
+          trial_started_at?: string | null
           updated_at?: string | null
         }
         Relationships: []

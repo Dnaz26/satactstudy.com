@@ -12,23 +12,38 @@ import { redeemPromoCode } from '@/lib/promo'
 import { PLANS, displayPrice, planCadence, type PaidPlanId } from '@/lib/stripe'
 import { cn } from '@/lib/utils'
 
-export function PricingClient({ loggedIn }: { loggedIn: boolean }) {
+export function PricingClient({ loggedIn, initialPromo = false }: { loggedIn: boolean; initialPromo?: boolean }) {
   const router = useRouter()
-  const [code, setCode] = React.useState('')
-  const [promoApplied, setPromoApplied] = React.useState(false)
+  const [code, setCode] = React.useState(initialPromo ? CHECKOUT_PROMO.code : '')
+  const [promoApplied, setPromoApplied] = React.useState(initialPromo)
   const [redeeming, setRedeeming] = React.useState(false)
   const [error, setError] = React.useState('')
   const [note, setNote] = React.useState('')
+  const [celebrate, setCelebrate] = React.useState(false)
+
+  function applyRhsSpecial(showBurst = true) {
+    sessionStorage.setItem('pending_promo', CHECKOUT_PROMO.code)
+    setPromoApplied(true)
+    setCode(CHECKOUT_PROMO.code)
+    setNote(
+      `${CHECKOUT_PROMO.label} unlocked — ${CHECKOUT_PROMO.trialDays} days free, then ${CHECKOUT_PROMO.percentOff}% off forever.`,
+    )
+    if (showBurst) {
+      setCelebrate(true)
+      window.setTimeout(() => setCelebrate(false), 4200)
+    }
+  }
 
   React.useEffect(() => {
+    if (initialPromo) {
+      applyRhsSpecial(false)
+      return
+    }
     const pending = sessionStorage.getItem('pending_promo')
     if (isCheckoutPromo(pending)) {
-      sessionStorage.setItem('pending_promo', CHECKOUT_PROMO.code)
-      setPromoApplied(true)
-      setCode(CHECKOUT_PROMO.code)
-      setNote(`${CHECKOUT_PROMO.code} applied — ${CHECKOUT_PROMO.trialDays} days free, then ${CHECKOUT_PROMO.percentOff}% off.`)
+      applyRhsSpecial(false)
     }
-  }, [])
+  }, [initialPromo])
 
   function choosePlan(plan: PaidPlanId) {
     setError('')
@@ -45,10 +60,7 @@ export function PricingClient({ loggedIn }: { loggedIn: boolean }) {
     setNote('')
     const trimmed = code.trim()
     if (isCheckoutPromo(trimmed)) {
-      sessionStorage.setItem('pending_promo', CHECKOUT_PROMO.code)
-      setPromoApplied(true)
-      setCode(CHECKOUT_PROMO.code)
-      setNote(`${CHECKOUT_PROMO.code} applied — ${CHECKOUT_PROMO.trialDays} days free, then ${CHECKOUT_PROMO.percentOff}% off the list price.`)
+      applyRhsSpecial(true)
       return
     }
 
@@ -61,8 +73,7 @@ export function PricingClient({ loggedIn }: { loggedIn: boolean }) {
     setRedeeming(true)
     const result = await redeemPromoCode(trimmed)
     if (result.checkoutPromo) {
-      setPromoApplied(true)
-      setNote(`${CHECKOUT_PROMO.code} applied — ${CHECKOUT_PROMO.trialDays} days free, then ${CHECKOUT_PROMO.percentOff}% off.`)
+      applyRhsSpecial(true)
       setRedeeming(false)
       return
     }
@@ -76,7 +87,16 @@ export function PricingClient({ loggedIn }: { loggedIn: boolean }) {
   }
 
   return (
-    <div className="flex min-h-screen flex-col px-5 py-5">
+    <div className="relative flex min-h-screen flex-col overflow-hidden px-5 py-5">
+      {celebrate && (
+        <div className="pointer-events-none absolute inset-0 z-20 overflow-hidden" aria-hidden="true">
+          <div className="rhs-confetti absolute inset-0" />
+          <div className="rhs-burst absolute left-1/2 top-24 -translate-x-1/2 rounded-full px-5 py-2 font-display text-lg text-white shadow-lg">
+            {CHECKOUT_PROMO.label} · {CHECKOUT_PROMO.percentOff}% OFF
+          </div>
+        </div>
+      )}
+
       <div className="mb-5 flex items-center justify-between">
         <BrandMark href={loggedIn ? '/pricing' : '/'} />
         {loggedIn ? (
@@ -91,14 +111,38 @@ export function PricingClient({ loggedIn }: { loggedIn: boolean }) {
       </div>
 
       <div className="mx-auto flex w-full max-w-2xl flex-col gap-4">
-        <Companion compact mode="studying" message="Pick a plan, then enter or update your card." />
+        <Companion
+          compact
+          mode={promoApplied ? 'success' : 'studying'}
+          message={
+            promoApplied
+              ? `${CHECKOUT_PROMO.label} is live — Core $${PLANS[0].promoPrice}/mo and Plus $${PLANS[1].promoPrice}/mo after ${CHECKOUT_PROMO.trialDays} free days.`
+              : 'Pick a plan, then enter or update your card.'
+          }
+        />
 
-        <div>
-          <h1 className="font-display text-2xl text-paper">Unlock study</h1>
-          <p className="mt-1 text-sm text-fog">
-            List price is ${PLANS[0].price} and ${PLANS[1].price}. Enter {CHECKOUT_PROMO.code} for {CHECKOUT_PROMO.trialDays} days free and {CHECKOUT_PROMO.percentOff}% off.
-          </p>
-        </div>
+        {promoApplied ? (
+          <div className="rhs-special neu relative overflow-hidden p-4">
+            <div className="rhs-special-wash pointer-events-none absolute inset-0" aria-hidden="true" />
+            <p className="relative font-mono text-[10px] uppercase tracking-[0.22em] text-signal">
+              {CHECKOUT_PROMO.label}
+            </p>
+            <h1 className="relative mt-1 font-display text-2xl text-paper">
+              {CHECKOUT_PROMO.percentOff}% off unlocked
+            </h1>
+            <p className="relative mt-1 text-sm text-fog">
+              ${PLANS[0].price} → ${PLANS[0].promoPrice} · ${PLANS[1].price} → ${PLANS[1].promoPrice} ·{' '}
+              {CHECKOUT_PROMO.trialDays} days free first
+            </p>
+          </div>
+        ) : (
+          <div>
+            <h1 className="font-display text-2xl text-paper">Unlock study</h1>
+            <p className="mt-1 text-sm text-fog">
+              Core ${PLANS[0].price}/mo · Plus ${PLANS[1].price}/mo. Have a code? Enter it below.
+            </p>
+          </div>
+        )}
 
         <div className="grid gap-2 sm:grid-cols-2">
           {PLANS.map((plan) => {
@@ -109,31 +153,34 @@ export function PricingClient({ loggedIn }: { loggedIn: boolean }) {
                 type="button"
                 onClick={() => choosePlan(plan.id)}
                 className={cn(
-                  'flex flex-col items-start justify-between rounded-2xl p-4 text-left',
-                  plan.hot ? 'neu-raised text-white' : 'neu text-paper'
+                  'relative flex flex-col items-start justify-between overflow-hidden rounded-2xl p-4 text-left transition-transform',
+                  plan.hot ? 'neu-raised text-white' : 'neu text-paper',
+                  promoApplied && 'rhs-plan-glow',
                 )}
               >
+                {promoApplied && (
+                  <span
+                    className={cn(
+                      'absolute right-3 top-3 rounded-full px-2 py-0.5 font-mono text-[9px] font-semibold uppercase tracking-[0.14em]',
+                      plan.hot ? 'bg-white/20 text-white' : 'bg-signal/15 text-signal',
+                    )}
+                  >
+                    {CHECKOUT_PROMO.percentOff}% off
+                  </span>
+                )}
                 <div>
                   <p className="font-display text-lg">{plan.name}</p>
                   <p className={cn('mt-1 text-xs', plan.hot ? 'text-white/80' : 'text-fog')}>{plan.line}</p>
                 </div>
                 <div className="mt-3 flex w-full items-end justify-between">
                   <div>
-                    {promoApplied && plan.promoPrice != null ? (
-                      <p className="font-display text-xl">
-                        <span className="mr-2 text-sm line-through opacity-60">${plan.price}</span>
-                        ${charged}
-                        <span className="text-xs opacity-70"> {planCadence(plan)}</span>
-                      </p>
-                    ) : (
-                      <p className="font-display text-xl">
-                        ${plan.price}
-                        <span className="text-xs opacity-70"> {planCadence(plan)}</span>
-                      </p>
-                    )}
+                    <p className="font-display text-xl">
+                      ${charged}
+                      <span className="text-xs opacity-70"> {planCadence(plan)}</span>
+                    </p>
                     {promoApplied && (
                       <p className={cn('mt-1 text-[10px] uppercase tracking-[0.14em]', plan.hot ? 'text-white/70' : 'text-fog')}>
-                        {CHECKOUT_PROMO.trialDays} days free
+                        {CHECKOUT_PROMO.label} · {CHECKOUT_PROMO.trialDays} days free
                       </p>
                     )}
                   </div>
@@ -152,6 +199,9 @@ export function PricingClient({ loggedIn }: { loggedIn: boolean }) {
               onChange={(e) => setCode(e.target.value)}
               placeholder="Promo or access code"
               className="flex-1"
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') void redeem()
+              }}
             />
             <Button onClick={() => void redeem()} loading={redeeming} disabled={!code.trim()}>
               Apply

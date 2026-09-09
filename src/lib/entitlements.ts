@@ -1,7 +1,8 @@
 import { createClient } from './supabase/server'
-import { PLAN_LIMITS } from './constants'
+import { PLAN_LIMITS, PLAN_LIMITS_PROMO } from './constants'
+import { ONBOARDING_TRIAL, hasActiveTrial, hasPaidAccess, hasProductAccess, PAYWALL_MESSAGE } from './access'
+import { isRhsBillingPromo } from './plans'
 import { asPlan, todayISO } from './schema'
-import { hasPaidAccess, PAYWALL_MESSAGE } from './access'
 
 export type UserPlan = 'free' | 'lite' | 'starter' | 'core' | 'plus' | 'pro' | 'elite' | 'access_code'
 
@@ -12,21 +13,57 @@ export interface EntitlementResult {
   paywall?: boolean
 }
 
-export async function getAccessProfile(userId: string): Promise<{
+type DailyLimits = { questions_per_day: number; ai_chats_per_day: number }
+
+export type AccessProfile = {
   plan: UserPlan
   role: string
   allowed: boolean
-}> {
+  billingPromo: string | null
+  onboardingCompleted: boolean
+  trialEndsAt: string | null
+  trialStartedAt: string | null
+  trialQuestionsUsed: number
+  trialAiChatsUsed: number
+  diagnosticCompleted: boolean
+}
+
+function limitsForPlan(plan: UserPlan, billingPromo: string | null | undefined): DailyLimits {
+  if (isRhsBillingPromo(billingPromo) && (plan === 'core' || plan === 'plus')) {
+    return PLAN_LIMITS_PROMO[plan]
+  }
+  return PLAN_LIMITS[plan]
+}
+
+export async function getAccessProfile(userId: string): Promise<AccessProfile> {
   const supabase = await createClient()
   const { data } = await supabase
     .from('profiles')
-    .select('subscription_plan, role')
+    .select(
+      'subscription_plan, role, billing_promo, onboarding_completed, trial_ends_at, trial_started_at, trial_questions_used, trial_ai_chats_used, diagnostic_completed',
+    )
     .eq('id', userId)
     .single()
 
   const plan = asPlan(data?.subscription_plan)
   const role = data?.role ?? 'student'
-  return { plan, role, allowed: hasPaidAccess(plan, role) }
+  const billingPromo = data?.billing_promo ?? null
+  const trialEndsAt = data?.trial_ends_at ?? null
+  const onboardingCompleted = Boolean(data?.onboarding_completed)
+  const allowed = hasProductAccess({ plan, role, trialEndsAt }) || !onboardingCompleted
+
+  return {
+    plan,
+    role,
+    allowed,
+    billingPromo,
+    onboardingCompleted,
+    trialEndsAt,
+    trialStartedAt: data?.trial_started_at ?? null,
+    trialQuestionsUsed: data?.trial_questions_used ?? 0,
+    trialAiChatsUsed: data?.trial_ai_chats_used ?? 0,
+    diagnosticCompleted: Boolean(data?.diagnostic_completed),
+  }
 }
 
 export async function getUserPlan(userId: string): Promise<UserPlan> {
@@ -61,15 +98,34 @@ export async function canAnswerQuestion(userId: string): Promise<EntitlementResu
   const access = await getAccessProfile(userId)
   const usage = await getDailyUsage(userId)
 
-  if (!access.allowed) {
-    return { allowed: false, used: usage.questions_answered, limit: 0, paywall: true }
-  }
-
   if (access.role === 'admin') {
     return { allowed: true, used: usage.questions_answered, limit: 999999 }
   }
 
-  const limits = PLAN_LIMITS[access.plan]
+  // Pre-paywall onboarding preview: 5 lifetime questions.
+  if (!access.onboardingCompleted) {
+    return {
+      allowed: access.trialQuestionsUsed < ONBOARDING_TRIAL.questions,
+      used: access.trialQuestionsUsed,
+      limit: ONBOARDING_TRIAL.questions,
+    }
+  }
+
+  if (!hasProductAccess({ plan: access.plan, role: access.role, trialEndsAt: access.trialEndsAt })) {
+    return { allowed: false, used: usage.questions_answered, limit: 0, paywall: true }
+  }
+
+  // RHS free window uses Core list limits (full product feel before paywall).
+  if (hasActiveTrial(access.trialEndsAt) && !hasPaidAccess(access.plan, access.role)) {
+    const limits = PLAN_LIMITS.core
+    return {
+      allowed: usage.questions_answered < limits.questions_per_day,
+      used: usage.questions_answered,
+      limit: limits.questions_per_day,
+    }
+  }
+
+  const limits = limitsForPlan(access.plan, access.billingPromo)
   return {
     allowed: usage.questions_answered < limits.questions_per_day,
     used: usage.questions_answered,
@@ -81,15 +137,32 @@ export async function canAskAI(userId: string): Promise<EntitlementResult> {
   const access = await getAccessProfile(userId)
   const usage = await getDailyUsage(userId)
 
-  if (!access.allowed) {
-    return { allowed: false, used: usage.ai_chats_used, limit: 0, paywall: true }
-  }
-
   if (access.role === 'admin') {
     return { allowed: true, used: usage.ai_chats_used, limit: 999999 }
   }
 
-  const limits = PLAN_LIMITS[access.plan]
+  if (!access.onboardingCompleted) {
+    return {
+      allowed: access.trialAiChatsUsed < ONBOARDING_TRIAL.aiChats,
+      used: access.trialAiChatsUsed,
+      limit: ONBOARDING_TRIAL.aiChats,
+    }
+  }
+
+  if (!hasProductAccess({ plan: access.plan, role: access.role, trialEndsAt: access.trialEndsAt })) {
+    return { allowed: false, used: usage.ai_chats_used, limit: 0, paywall: true }
+  }
+
+  if (hasActiveTrial(access.trialEndsAt) && !hasPaidAccess(access.plan, access.role)) {
+    const limits = PLAN_LIMITS.core
+    return {
+      allowed: usage.ai_chats_used < limits.ai_chats_per_day,
+      used: usage.ai_chats_used,
+      limit: limits.ai_chats_per_day,
+    }
+  }
+
+  const limits = limitsForPlan(access.plan, access.billingPromo)
   return {
     allowed: usage.ai_chats_used < limits.ai_chats_per_day,
     used: usage.ai_chats_used,
@@ -100,6 +173,17 @@ export async function canAskAI(userId: string): Promise<EntitlementResult> {
 export async function recordQuestionAnswered(userId: string): Promise<void> {
   const supabase = await createClient()
   const today = todayISO()
+  const access = await getAccessProfile(userId)
+
+  if (!access.onboardingCompleted) {
+    await supabase
+      .from('profiles')
+      .update({
+        trial_questions_used: access.trialQuestionsUsed + 1,
+        updated_at: new Date().toISOString(),
+      })
+      .eq('id', userId)
+  }
 
   const { data: existing } = await supabase
     .from('user_usage_daily')
@@ -126,6 +210,17 @@ export async function recordQuestionAnswered(userId: string): Promise<void> {
 export async function recordAIChat(userId: string): Promise<void> {
   const supabase = await createClient()
   const today = todayISO()
+  const access = await getAccessProfile(userId)
+
+  if (!access.onboardingCompleted) {
+    await supabase
+      .from('profiles')
+      .update({
+        trial_ai_chats_used: access.trialAiChatsUsed + 1,
+        updated_at: new Date().toISOString(),
+      })
+      .eq('id', userId)
+  }
 
   const { data: existing } = await supabase
     .from('user_usage_daily')

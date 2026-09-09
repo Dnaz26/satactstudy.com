@@ -1,7 +1,7 @@
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { asPlan } from '@/lib/schema'
-import { hasPaidAccess } from '@/lib/access'
+import { hasPaidAccess, hasProductAccess } from '@/lib/access'
 import { isCheckoutPromo } from '@/lib/plans'
 import { isPaidPlanId } from '@/lib/stripe'
 import { PayClient } from './pay-client'
@@ -23,7 +23,7 @@ export default async function PayPage({
 
   const { data: profile } = await supabase
     .from('profiles')
-    .select('subscription_plan, role, onboarding_completed, full_name')
+    .select('subscription_plan, role, onboarding_completed, full_name, trial_ends_at, billing_promo')
     .eq('id', user.id)
     .single()
 
@@ -33,8 +33,13 @@ export default async function PayPage({
 
   const params = incoming
   const plan = isPaidPlanId(params.plan) ? params.plan : null
-  const promo = isCheckoutPromo(params.promo)
+  const promo = isCheckoutPromo(params.promo) || isCheckoutPromo(profile?.billing_promo)
   const paid = hasPaidAccess(asPlan(profile?.subscription_plan), profile?.role)
+  const product = hasProductAccess({
+    plan: asPlan(profile?.subscription_plan),
+    role: profile?.role,
+    trialEndsAt: profile?.trial_ends_at,
+  })
 
   if (!plan && !paid) {
     redirect('/pricing')
@@ -45,7 +50,7 @@ export default async function PayPage({
       plan={plan}
       promo={promo}
       currentPlan={asPlan(profile?.subscription_plan)}
-      updateCard={paid && !plan}
+      updateCard={product && !plan}
       updated={params.updated === '1'}
       name={profile?.full_name ?? ''}
     />

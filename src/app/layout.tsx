@@ -20,10 +20,10 @@ const plex = IBM_Plex_Mono({
 })
 
 export const metadata: Metadata = {
-  title: 'SAT ACT AI — Know exactly what to study',
+  title: 'SAT ACT AI — Study the way you actually learn',
   description:
-    'Know exactly what you are good at, exactly what you are bad at, and exactly what to study next.',
-}
+    'Personalized SAT and ACT practice with Nova. Custom examples, a live score range, a nightly plan, Desmos shortcuts, Rapid Fire, and tutoring — from $10/month.',
+  }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (

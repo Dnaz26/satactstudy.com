@@ -1,8 +1,9 @@
 import { NextRequest } from 'next/server'
 import type Stripe from 'stripe'
 import { createServiceClient } from '@/lib/supabase/server'
+import { CHECKOUT_PROMO } from '@/lib/plans'
 import { grantPaidPlan } from '@/lib/stripe-fulfill'
-import { getStripe, isPaidPlanId, planFromPriceId, type PaidPlanId } from '@/lib/stripe'
+import { getStripe, isPaidPlanId, planFromPriceId, rhsCouponId, type PaidPlanId } from '@/lib/stripe'
 
 function liveSubscription(status: string): boolean {
   return status === 'active' || status === 'trialing'
@@ -19,6 +20,27 @@ function checkoutReady(session: Stripe.Checkout.Session): boolean {
   if (session.status !== 'complete') return false
   if (session.mode === 'subscription') return true
   return session.payment_status === 'paid' || session.payment_status === 'no_payment_required'
+}
+
+function subscriptionHasRhs(subscription: Stripe.Subscription): boolean {
+  if (subscription.metadata?.promo === CHECKOUT_PROMO.code) return true
+  const couponId = rhsCouponId()
+  for (const entry of subscription.discounts ?? []) {
+    if (typeof entry === 'string') {
+      if (couponId && entry === couponId) return true
+      continue
+    }
+    const coupon = entry.source?.coupon
+    if (!coupon) continue
+    if (typeof coupon === 'string') {
+      if (couponId && coupon === couponId) return true
+      continue
+    }
+    if (couponId && coupon.id === couponId) return true
+    if (coupon.name?.toUpperCase().includes('RHS')) return true
+    if (coupon.percent_off === CHECKOUT_PROMO.percentOff && coupon.duration === 'forever') return true
+  }
+  return false
 }
 
 export async function POST(request: NextRequest) {
@@ -49,12 +71,14 @@ export async function POST(request: NextRequest) {
 
         if (!userId || !plan || !checkoutReady(session)) break
 
+        const rhs = session.metadata?.promo === CHECKOUT_PROMO.code
         await grantPaidPlan({
           userId,
           plan,
           customerId: typeof session.customer === 'string' ? session.customer : null,
           subscriptionId: typeof session.subscription === 'string' ? session.subscription : null,
-          status: session.metadata?.promo === 'RHS' && session.mode === 'subscription' ? 'trialing' : 'active',
+          status: rhs && session.mode === 'subscription' ? 'trialing' : 'active',
+          billingPromo: rhs ? CHECKOUT_PROMO.code : null,
         })
 
         break
@@ -78,10 +102,12 @@ export async function POST(request: NextRequest) {
         const firstItem = subscription.items.data[0]
         const periodStart = firstItem?.current_period_start ?? subscription.billing_cycle_anchor
         const periodEnd = firstItem?.current_period_end ?? (subscription.cancel_at ?? subscription.billing_cycle_anchor)
+        const rhs = subscriptionHasRhs(subscription)
 
         await supabase.from('profiles').update({
           subscription_plan: liveSubscription(subscription.status) ? plan : 'free',
           subscription_status: subscription.status,
+          billing_promo: liveSubscription(subscription.status) && rhs ? CHECKOUT_PROMO.code : null,
           updated_at: new Date().toISOString(),
         }).eq('id', profile.id)
 
@@ -115,6 +141,7 @@ export async function POST(request: NextRequest) {
         await supabase.from('profiles').update({
           subscription_plan: 'free',
           subscription_status: 'canceled',
+          billing_promo: null,
           updated_at: new Date().toISOString(),
         }).eq('id', profile.id)
 

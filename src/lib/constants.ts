@@ -1,21 +1,32 @@
 export const MIN_TOPIC_QUESTIONS = 40
 
 /**
- * Daily caps sized so worst-case AI + Stripe stay under 50% of the RHS collect
- * price ($8 Core / $16 Plus). Bank questions have ~$0 variable cost.
- * Peak DeepSeek Flash chat ≈ $0.00792. Stripe = 2.9% + $0.30.
- * Core: 12 chats × 31d × $0.00792 + $0.53 ≈ $3.48 → 56% margin on $8.
- * Plus: 25 chats × 31d × $0.00792 + $0.76 ≈ $6.90 → 57% margin on $16.
+ * Daily caps sized for >35% margin after Stripe (2.9%+$0.30) on DeepSeek Flash
+ * peak chat cost (~$0.00792). Bank questions ≈ $0 variable cost.
+ *
+ * List collect: Core $10 / Plus $20
+ * RHS collect (60% off): Core $4 / Plus $8 — uses PLAN_LIMITS_PROMO silently.
+ *
+ * Core list: 20 chats × 31 × $0.00792 + $0.59 ≈ $5.50 → ~45% margin on $10
+ * Plus list: 45 chats × 31 × $0.00792 + $0.88 ≈ $11.93 → ~40% margin on $20
+ * Core RHS: 8 chats × 31 × $0.00792 + $0.42 ≈ $2.38 → ~40% margin on $4
+ * Plus RHS: 18 chats × 31 × $0.00792 + $0.53 ≈ $4.95 → ~38% margin on $8
  */
 export const PLAN_LIMITS = {
   free: { questions_per_day: 0, ai_chats_per_day: 0 },
   lite: { questions_per_day: 5, ai_chats_per_day: 1 },
   starter: { questions_per_day: 10, ai_chats_per_day: 3 },
-  core: { questions_per_day: 80, ai_chats_per_day: 12 },
-  plus: { questions_per_day: 200, ai_chats_per_day: 25 },
+  core: { questions_per_day: 125, ai_chats_per_day: 20 },
+  plus: { questions_per_day: 300, ai_chats_per_day: 45 },
   pro: { questions_per_day: 50, ai_chats_per_day: 15 },
   elite: { questions_per_day: 999999, ai_chats_per_day: 999999 },
   access_code: { questions_per_day: 999999, ai_chats_per_day: 999999 },
+} as const
+
+/** Silent RHS collect limits — not advertised; keeps margin above 35% at $4 / $8. */
+export const PLAN_LIMITS_PROMO = {
+  core: { questions_per_day: 50, ai_chats_per_day: 8 },
+  plus: { questions_per_day: 120, ai_chats_per_day: 18 },
 } as const
 
 export const MASTERY_CONFIG = {
@@ -43,15 +54,15 @@ export const SCORE_CONFIG = {
 export const PLAN_PRICES = {
   lite: 1,
   starter: 5,
-  core: 20,
-  plus: 40,
+  core: 10,
+  plus: 20,
   pro: 20,
   elite: 100,
 } as const
 
 export const PLAN_PROMO_PRICES = {
-  core: 8,
-  plus: 16,
+  core: 4,
+  plus: 8,
 } as const
 
 export const PAID_CHECKOUT_PLANS = ['core', 'plus'] as const
@@ -60,13 +71,13 @@ export const PLAN_FEATURES = {
   free: ['Pay or enter an access code to study'],
   lite: ['5 questions/day', '1 AI chat/day', 'Study plan', 'Progress tracking'],
   starter: ['10 questions/day', '3 AI chats/day', 'Study plan', 'Progress tracking'],
-  core: ['80 questions/day', '12 AI chats/day', 'Study plan', 'Progress tracking', 'AI tutor'],
-  plus: ['200 questions/day', '25 AI chats/day', 'Full analytics', 'Vocabulary', 'AI tutor'],
+  core: ['125 questions/day', '20 AI chats/day', 'Study plan', 'Progress tracking', 'AI tutor'],
+  plus: ['300 questions/day', '45 AI chats/day', 'Full analytics', 'Vocabulary', 'AI tutor'],
   pro: ['50 questions/day', '15 AI chats/day', 'Full analytics', 'Vocabulary system', 'AI tutor'],
   elite: ['Unlimited questions', 'Unlimited AI', 'All features', 'Priority support'],
 } as const
 
-/** Peak DeepSeek V4 Flash rates used to size the $1 Lite cap. */
+/** Peak DeepSeek V4 Flash rates used to size caps. */
 export const DEEPSEEK_FLASH_PEAK = {
   input_per_million: 0.44,
   output_per_million: 1.32,

@@ -76,15 +76,27 @@ export function PayClient({
       <div className="mx-auto flex w-full max-w-md flex-col gap-3">
         <Companion
           compact
-          mode={updated ? 'success' : 'studying'}
+          mode={updated ? 'success' : promo ? 'success' : 'studying'}
           message={updated
             ? `${name || 'You'} — your card is saved.`
             : updateCard
               ? 'Update the card on this plan.'
               : promo
-                ? `${CHECKOUT_PROMO.code}: ${CHECKOUT_PROMO.trialDays} days free, then $${charged}/mo.`
+                ? `${CHECKOUT_PROMO.label}: ${CHECKOUT_PROMO.trialDays} days free, then $${charged}/mo (${CHECKOUT_PROMO.percentOff}% off).`
                 : `You picked ${selected?.name ?? 'a plan'}. Enter your card next.`}
         />
+
+        {promo && !updateCard && (
+          <div className="rhs-special neu relative overflow-hidden p-3">
+            <div className="rhs-special-wash pointer-events-none absolute inset-0" aria-hidden="true" />
+            <p className="relative font-mono text-[10px] uppercase tracking-[0.2em] text-signal">
+              {CHECKOUT_PROMO.label}
+            </p>
+            <p className="relative mt-1 font-display text-lg text-paper">
+              ${selected?.price ?? '—'} → ${charged}/mo · {CHECKOUT_PROMO.percentOff}% off
+            </p>
+          </div>
+        )}
 
         <div className="neu flex items-end justify-between gap-3 p-4">
           <div>
@@ -101,16 +113,13 @@ export function PayClient({
           </div>
           {selected && (
             <div className="text-right">
-              {promo && selected.promoPrice != null ? (
-                <p className="font-display text-xl">
-                  <span className="mr-2 text-sm text-fog line-through">${selected.price}</span>
-                  ${charged}
-                  <span className="text-xs text-fog"> {planCadence(selected)}</span>
-                </p>
-              ) : (
-                <p className="font-display text-xl">
-                  ${selected.price}
-                  <span className="text-xs text-fog"> {planCadence(selected)}</span>
+              <p className="font-display text-xl">
+                ${charged}
+                <span className="text-xs text-fog"> {planCadence(selected)}</span>
+              </p>
+              {promo && (
+                <p className="mt-1 font-mono text-[9px] uppercase tracking-[0.14em] text-signal">
+                  {CHECKOUT_PROMO.label}
                 </p>
               )}
             </div>

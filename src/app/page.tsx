@@ -1,20 +1,41 @@
+import type { Metadata } from 'next'
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
+import {
+  BookOpenCheck,
+  CalendarClock,
+  Gauge,
+  Layers,
+  MessageCircleHeart,
+  SlidersHorizontal,
+  Triangle,
+  Wallet,
+  Zap,
+} from 'lucide-react'
 import { createClient } from '@/lib/supabase/server'
 import { Button } from '@/components/ui/button'
 import { BrandMark, SectionKicker } from '@/components/brand'
+import { HeroPreview } from '@/components/landing/hero-preview'
+import { ProofCharts } from '@/components/landing/proof-charts'
+import { PLANS } from '@/lib/stripe'
 
-const SIGNALS = [
-  { k: '01', t: 'Mastery', d: 'Every skill scored.' },
-  { k: '02', t: 'Misses', d: 'Why you got it wrong.' },
-  { k: '03', t: 'Tonight', d: 'The next timed block.' },
-  { k: '04', t: 'Range', d: 'A score estimate, not a guess.' },
-]
+export const metadata: Metadata = {
+  title: 'SAT ACT AI — Study the way you actually learn',
+  description:
+    'Personalized SAT and ACT practice with Nova. Custom examples, score tracking, nightly plans, Desmos, Rapid Fire — from $10/month.',
+}
 
-const PLANS = [
-  { name: 'Core', price: 20, promo: 8, line: '80 questions/day · 12 AI chats/day', id: 'core' },
-  { name: 'Plus', price: 40, promo: 16, line: '200 questions/day · 25 AI chats/day', id: 'plus', hot: true },
-]
+const FEATURES = [
+  { icon: SlidersHorizontal, label: 'Your examples', stat: '+40%' },
+  { icon: Gauge, label: 'Score tracking', stat: 'Live' },
+  { icon: CalendarClock, label: 'Nightly plan', stat: '+240' },
+  { icon: BookOpenCheck, label: 'Unlimited tests', stat: '∞' },
+  { icon: Triangle, label: 'Desmos tricks', stat: '−7m' },
+  { icon: Layers, label: 'All topics', stat: '68' },
+  { icon: Zap, label: 'Rapid Fire', stat: '12s' },
+  { icon: MessageCircleHeart, label: 'Tutoring mode', stat: 'Stay' },
+  { icon: Wallet, label: 'From', stat: `$${PLANS[0]?.price ?? 10}` },
+] as const
 
 export default async function LandingPage() {
   const supabase = await createClient()
@@ -22,123 +43,132 @@ export default async function LandingPage() {
   if (user) redirect('/dashboard')
 
   return (
-    <div className="relative min-h-screen overflow-hidden">
-      <div className="pointer-events-none absolute inset-0 play-dots" />
+    <div className="relative min-h-screen overflow-x-hidden">
+      <div className="pointer-events-none absolute inset-0 land-hero-wash" aria-hidden="true" />
+      <div className="pointer-events-none absolute inset-0 play-dots opacity-50" aria-hidden="true" />
+      <div className="pointer-events-none absolute left-1/2 top-0 h-[36rem] w-[36rem] -translate-x-1/2 rounded-full land-orb" aria-hidden="true" />
 
       <header className="relative z-10 mx-auto flex max-w-6xl items-center justify-between px-6 py-5">
         <BrandMark />
         <nav className="flex items-center gap-3">
-          <Link href="/pricing" className="hidden text-xs uppercase tracking-[0.18em] text-fog hover:text-paper sm:inline">
+          <Link href="#proof" className="hidden text-xs uppercase tracking-[0.18em] text-fog hover:text-paper md:inline">
+            Data
+          </Link>
+          <Link href="/pricing" className="hidden text-xs uppercase tracking-[0.18em] text-fog hover:text-paper md:inline">
             Pricing
           </Link>
-          <Link href="/login">
-            <Button variant="ghost" size="sm">Log in</Button>
-          </Link>
-          <Link href="/signup">
-            <Button size="sm">Start</Button>
-          </Link>
+          <Button asChild variant="ghost" size="sm">
+            <Link href="/login">Log in</Link>
+          </Button>
+          <Button asChild size="sm">
+            <Link href="/signup">Start</Link>
+          </Button>
         </nav>
       </header>
 
-      <main className="relative z-10 mx-auto grid max-w-6xl gap-16 px-6 pb-24 pt-10 lg:grid-cols-[1.15fr_0.85fr] lg:pt-16">
-        <section>
-          <SectionKicker>Practice → Diagnose → Improve</SectionKicker>
-          <h1 className="mt-4 font-display text-4xl leading-[0.96] text-paper sm:text-5xl">
-            Know exactly
-            <br />
-            what to study.
-          </h1>
-          <p className="mt-6 max-w-md text-lg text-fog">
-            Your SAT/ACT coach. One next move, not 30 graphs.
+      <main className="relative z-10 mx-auto grid max-w-6xl items-center gap-8 px-6 pb-10 pt-2 lg:grid-cols-2 lg:gap-10 lg:pb-14">
+        <section className="land-rise">
+          <p className="font-display text-[clamp(3rem,9vw,5.2rem)] leading-[0.88]">
+            <span className="land-brand-glow">SAT ACT AI</span>
           </p>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <Link href="/signup">
-              <Button size="lg">Start studying</Button>
-            </Link>
-            <Link href="/pricing">
-              <Button size="lg" variant="outline">See plans</Button>
-            </Link>
+          <h1 className="land-rise land-rise-delay-1 mt-4 max-w-md font-display text-2xl leading-tight text-paper sm:text-3xl">
+            Pictures of progress. Not walls of text.
+          </h1>
+          <p className="land-rise land-rise-delay-2 mt-3 max-w-sm text-fog">
+            Custom examples · live score · nightly plan · from ${PLANS[0].price}/mo
+          </p>
+          <div className="land-rise land-rise-delay-3 mt-7 flex flex-wrap gap-3">
+            <Button asChild size="lg">
+              <Link href="/signup">Start free</Link>
+            </Button>
+            <Button asChild size="lg" variant="outline">
+              <Link href="#proof">See the graphs</Link>
+            </Button>
           </div>
         </section>
-
-        <aside className="neu p-6">
-          <div className="flex items-center justify-between pb-3">
-            <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-fog">Tonight</span>
-            <span className="h-2.5 w-2.5 rounded-full bg-ok" />
-          </div>
-          <div className="mt-5 grid grid-cols-3 gap-3">
-            <HudStat label="Predicted" value="1430" />
-            <HudStat label="Target" value="1500" />
-            <HudStat label="Gap" value="70" warn />
-          </div>
-          <p className="mt-6 font-mono text-[10px] uppercase tracking-[0.2em] text-signal">Next</p>
-          <p className="mt-1 font-display text-lg">Linear inequalities</p>
-          <div className="mt-3 h-2.5 w-full rounded-full neu-inset">
-            <div className="h-full w-[54%] rounded-full bg-warn" />
-          </div>
-        </aside>
+        <div className="land-rise land-rise-delay-2">
+          <HeroPreview />
+        </div>
       </main>
 
-      <section className="relative z-10">
-        <div className="mx-auto grid max-w-6xl gap-6 px-6 sm:grid-cols-4">
-          {SIGNALS.map((s) => (
-            <div key={s.k} className="neu p-6">
-              <p className="font-mono text-[10px] text-signal">{s.k}</p>
-              <h2 className="mt-3 font-display text-xl">{s.t}</h2>
-              <p className="mt-2 text-sm text-fog">{s.d}</p>
+      <section className="relative z-10 mx-auto max-w-6xl px-6 pb-8">
+        <div className="grid grid-cols-3 gap-3 sm:grid-cols-3 lg:grid-cols-9">
+          {FEATURES.map((f) => {
+            const Icon = f.icon
+            return (
+              <div key={f.label} className="neu-sm flex flex-col items-center gap-2 px-2 py-4 text-center">
+                <span className="flex h-9 w-9 items-center justify-center rounded-xl text-signal">
+                  <Icon className="h-4 w-4" aria-hidden="true" />
+                </span>
+                <p className="font-display text-lg leading-none">{f.stat}</p>
+                <p className="font-mono text-[9px] uppercase tracking-[0.12em] text-fog">{f.label}</p>
+              </div>
+            )
+          })}
+        </div>
+      </section>
+
+      <section id="proof" className="relative z-10 mx-auto max-w-6xl px-6 py-10">
+        <div className="mb-6 flex flex-wrap items-end justify-between gap-3">
+          <div>
+            <SectionKicker>The data</SectionKicker>
+            <h2 className="mt-2 font-display text-3xl sm:text-4xl">What moves the score</h2>
+          </div>
+          <p className="max-w-xs text-sm text-fog">StudentQuest models · same student · different format</p>
+        </div>
+        <ProofCharts />
+      </section>
+
+      <section className="relative z-10 mx-auto max-w-6xl px-6 py-12">
+        <SectionKicker>Price</SectionKicker>
+        <h2 className="mt-2 font-display text-3xl">From ${PLANS[0].price} / mo</h2>
+        <p className="mt-1 text-sm text-fog">
+          Core ${PLANS[0].price} · Plus ${PLANS[1].price}. Have a code? Apply it on pricing.
+        </p>
+        <div className="mt-8 grid gap-4 sm:grid-cols-2">
+          {PLANS.map((plan) => (
+            <div key={plan.name} className="neu flex items-center justify-between gap-4 px-6 py-5">
+              <div>
+                <p className="font-display text-xl">
+                  {plan.name}
+                  {plan.hot ? <span className="ml-2 font-mono text-[10px] text-signal">HOT</span> : null}
+                </p>
+                <p className="font-display text-2xl text-paper">${plan.price}/mo</p>
+              </div>
+              <Button asChild variant={plan.hot ? 'default' : 'outline'}>
+                <Link href={`/signup?plan=${plan.id}`}>Get</Link>
+              </Button>
             </div>
           ))}
         </div>
       </section>
 
-      <section className="relative z-10 mx-auto max-w-6xl px-6 py-20">
-        <SectionKicker>Pricing</SectionKicker>
-        <h2 className="mt-3 font-display text-2xl">Pay or enter a code. Then study.</h2>
-        <p className="mt-2 text-sm text-fog">Code RHS: 2 weeks free, then 60% off the list price.</p>
-        <div className="mt-10 space-y-4">
-          {PLANS.map((p) => (
-            <div key={p.name} className="neu flex flex-col gap-4 px-6 py-5 sm:flex-row sm:items-center sm:justify-between">
-              <div>
-                <p className="font-display text-lg">
-                  {p.name}
-                  {p.hot && <span className="ml-3 font-mono text-[10px] uppercase tracking-[0.2em] text-signal">Most used</span>}
-                </p>
-                <p className="text-sm text-fog">{p.line}</p>
-              </div>
-              <div className="flex items-center gap-6">
-                <p className="font-display text-xl">
-                  <span className="mr-2 text-sm text-fog line-through">${p.price}</span>
-                  ${p.promo}
-                  <span className="text-xs text-fog">/mo with RHS</span>
-                </p>
-                <Link href={`/signup?plan=${p.id}`}>
-                  <Button variant={p.hot ? 'default' : 'outline'}>Get {p.name}</Button>
-                </Link>
-              </div>
-            </div>
-          ))}
+      <section className="relative z-10 mx-auto max-w-6xl px-6 pb-20">
+        <div className="land-cta relative neu flex flex-col items-start justify-between gap-5 overflow-hidden px-8 py-10 sm:flex-row sm:items-center">
+          <div
+            className="pointer-events-none absolute inset-0"
+            style={{
+              background:
+                'radial-gradient(420px 180px at 0% 0%, rgba(255,107,87,0.16), transparent 55%), radial-gradient(360px 160px at 100% 100%, rgba(43,158,217,0.14), transparent 50%)',
+            }}
+            aria-hidden="true"
+          />
+          <h2 className="relative z-10 font-display text-3xl leading-tight">Ready?</h2>
+          <Button asChild size="lg" className="relative z-10">
+            <Link href="/signup">Create account</Link>
+          </Button>
         </div>
       </section>
 
       <footer className="relative z-10 px-6 py-8">
-        <div className="mx-auto flex max-w-6xl flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
+        <div className="mx-auto flex max-w-6xl items-center justify-between">
           <BrandMark />
-          <div className="flex gap-6 font-mono text-[10px] uppercase tracking-[0.18em] text-fog">
-            <Link href="/pricing" className="hover:text-paper">Pricing</Link>
-            <Link href="/login" className="hover:text-paper">Login</Link>
-            <Link href="/signup" className="hover:text-paper">Sign up</Link>
+          <div className="flex gap-5 font-mono text-[10px] uppercase tracking-[0.16em] text-fog">
+            <Link href="/pricing">Pricing</Link>
+            <Link href="/login">Login</Link>
           </div>
         </div>
       </footer>
-    </div>
-  )
-}
-
-function HudStat({ label, value, warn }: { label: string; value: string; warn?: boolean }) {
-  return (
-    <div className="neu-sm p-3">
-      <p className="font-mono text-[9px] uppercase tracking-[0.18em] text-fog">{label}</p>
-      <p className={`mt-1 font-display text-2xl ${warn ? 'text-warn' : 'text-paper'}`}>{value}</p>
     </div>
   )
 }
