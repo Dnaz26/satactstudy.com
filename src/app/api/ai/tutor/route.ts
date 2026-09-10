@@ -72,6 +72,16 @@ export async function POST(request: NextRequest) {
 
     void recordAIChat(user.id)
 
+    const questionId = parsed.data.context?.questionId
+    if (questionId) {
+      void supabase.from('ai_conversations').insert({
+        user_id: user.id,
+        question_id: questionId,
+        session_id: null,
+        context: parsed.data.trigger ?? 'chat',
+      })
+    }
+
     if (parsed.data.stream === false) {
       const output = await runTutorAgent(agentParams)
       return Response.json({

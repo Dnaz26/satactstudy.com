@@ -102,35 +102,16 @@ export async function canAnswerQuestion(userId: string): Promise<EntitlementResu
     return { allowed: true, used: usage.questions_answered, limit: 999999 }
   }
 
-  // Pre-paywall onboarding preview: 5 lifetime questions.
-  if (!access.onboardingCompleted) {
-    return {
-      allowed: access.trialQuestionsUsed < ONBOARDING_TRIAL.questions,
-      used: access.trialQuestionsUsed,
-      limit: ONBOARDING_TRIAL.questions,
-    }
+  // No daily question caps — practice exams are 100 Q and must never hit a soft wall.
+  if (!access.onboardingCompleted || hasProductAccess({
+    plan: access.plan,
+    role: access.role,
+    trialEndsAt: access.trialEndsAt,
+  })) {
+    return { allowed: true, used: usage.questions_answered, limit: 999999 }
   }
 
-  if (!hasProductAccess({ plan: access.plan, role: access.role, trialEndsAt: access.trialEndsAt })) {
-    return { allowed: false, used: usage.questions_answered, limit: 0, paywall: true }
-  }
-
-  // RHS free window uses Core list limits (full product feel before paywall).
-  if (hasActiveTrial(access.trialEndsAt) && !hasPaidAccess(access.plan, access.role)) {
-    const limits = PLAN_LIMITS.core
-    return {
-      allowed: usage.questions_answered < limits.questions_per_day,
-      used: usage.questions_answered,
-      limit: limits.questions_per_day,
-    }
-  }
-
-  const limits = limitsForPlan(access.plan, access.billingPromo)
-  return {
-    allowed: usage.questions_answered < limits.questions_per_day,
-    used: usage.questions_answered,
-    limit: limits.questions_per_day,
-  }
+  return { allowed: false, used: usage.questions_answered, limit: 0, paywall: true }
 }
 
 export async function canAskAI(userId: string): Promise<EntitlementResult> {

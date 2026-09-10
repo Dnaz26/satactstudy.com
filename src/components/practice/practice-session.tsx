@@ -29,6 +29,7 @@ import {
 } from '@/lib/practice/persist'
 import { HighlightNoteChrome, useHighlightNotes } from '@/components/practice/highlight-notes'
 import {
+  buildExamModules,
   buildPracticeModules,
   questionsForModule,
   type PracticeModule,
@@ -83,9 +84,11 @@ function SessionContent() {
   const pace = Number(searchParams.get('pace') ?? 90)
   const taskId = searchParams.get('taskId') ?? ''
   const modeParam = searchParams.get('mode')
+  const examId = searchParams.get('examId') ?? ''
   const fromOnboarding = searchParams.get('from') === 'onboarding'
+  const examMode = Boolean(examId) || modeParam === 'exam'
   const fullTest =
-    modeParam === 'full' || (!topicId && count >= 20 && !fromOnboarding)
+    examMode || modeParam === 'full' || (!topicId && count >= 20 && !fromOnboarding)
 
   const [questions, setQuestions] = React.useState<BookletQuestion[]>([])
   const [answers, setAnswers] = React.useState<Record<string, string>>({})
@@ -105,6 +108,8 @@ function SessionContent() {
   const [moduleIndex, setModuleIndex] = React.useState(0)
   const [sectionExpired, setSectionExpired] = React.useState(false)
   const [activeScreen, setActiveScreen] = React.useState<'test' | 'desmos'>('test')
+  const [examTitle, setExamTitle] = React.useState('')
+  const [examMeta, setExamMeta] = React.useState<{ readingIds: string[]; englishIds: string[]; mathIds: string[] } | null>(null)
   const startedAt = React.useRef<Record<string, number>>({})
   const finished = React.useRef(false)
   const bookletRef = React.useRef<HTMLDivElement>(null)
@@ -112,8 +117,12 @@ function SessionContent() {
   const highlight = useHighlightNotes(bookletRef)
 
   const modules = React.useMemo(
-    () => (fullTest ? buildPracticeModules(sheetTestType || testType, questions) : []),
-    [fullTest, sheetTestType, testType, questions],
+    () => {
+      if (!fullTest) return []
+      if (examMode) return buildExamModules(questions, examMeta ?? undefined)
+      return buildPracticeModules(sheetTestType || testType, questions)
+    },
+    [fullTest, examMode, questions, examMeta, sheetTestType, testType],
   )
   const currentModule: PracticeModule | null = fullTest ? modules[moduleIndex] ?? null : null
   const moduleQuestions = React.useMemo(
@@ -162,10 +171,108 @@ function SessionContent() {
   }
 
   React.useEffect(() => {
+    // Old /practice?mode=full links must never open the daily-limit session path.
+    if (!examId && !topicId && (modeParam === 'full' || (!fromOnboarding && count >= 20))) {
+      router.replace('/practice')
+    }
+  }, [examId, topicId, modeParam, fromOnboarding, count, router])
+
+  React.useEffect(() => {
     let cancelled = false
     async function loadQuestions() {
-      const saved = readPracticeSnapshot(topicId)
-      if (saved) {
+      if (!examId && !topicId && (modeParam === 'full' || (!fromOnboarding && count >= 20))) {
+        return
+      }
+
+      if (examMode && examId) {
+        try {
+          const res = await fetch('/api/practice/exams', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ examId }),
+          })
+          const data = await res.json() as {
+            exam?: { id: string; title: string; readingIds: string[]; englishIds: string[]; mathIds: string[] }
+            sessionId?: string | null
+            questions?: BookletQuestion[]
+            progress?: {
+              answers: Record<string, string>
+              marks: Record<string, BookletMark>
+              focusedId: string | null
+              moduleIndex: number
+              moduleSecondsLeft: number | null
+              elapsed: number
+              hintUsed: Record<string, boolean>
+            } | null
+            error?: string
+            paywall?: boolean
+            completed?: boolean
+          }
+          if (cancelled) return
+          if (data.paywall) {
+            router.replace('/pricing')
+            return
+          }
+          if (data.completed) {
+            setError('This exam is already completed. Only the score is kept.')
+            setLoading(false)
+            return
+          }
+          if (!res.ok || data.error) {
+            setError(data.error ?? 'Failed to load exam')
+            setLoading(false)
+            return
+          }
+
+          const loaded = data.questions ?? []
+          const meta = {
+            readingIds: data.exam?.readingIds ?? [],
+            englishIds: data.exam?.englishIds ?? [],
+            mathIds: data.exam?.mathIds ?? [],
+          }
+          const built = buildExamModules(loaded, meta)
+          const progress = data.progress
+          const restoredIndex = Math.min(
+            Math.max(0, progress?.moduleIndex ?? 0),
+            Math.max(0, built.length - 1),
+          )
+          const firstModule = built[restoredIndex] ?? built[0] ?? null
+          const firstId = progress?.focusedId ?? firstModule?.questionIds[0] ?? loaded[0]?.id ?? null
+
+          setExamTitle(data.exam?.title ?? 'Practice Exam')
+          setExamMeta(meta)
+          setQuestions(loaded)
+          setSessionId(data.sessionId ?? null)
+          setSheetTestType('Exam')
+          setAnswers(progress?.answers ?? {})
+          setMarks(progress?.marks ?? {})
+          setHintUsed(progress?.hintUsed ?? {})
+          setElapsed(progress?.elapsed ?? 0)
+          setModuleIndex(restoredIndex)
+          setModuleSecondsLeft(
+            typeof progress?.moduleSecondsLeft === 'number'
+              ? progress.moduleSecondsLeft
+              : firstModule?.seconds ?? 0,
+          )
+          setSectionExpired(false)
+          setFocusedId(firstId)
+          if (firstId) startedAt.current[firstId] = Date.now()
+          setTimerRunning(true)
+          setLoading(false)
+          return
+        } catch {
+          if (!cancelled) {
+            setError('Failed to load exam. Please try again.')
+            setLoading(false)
+          }
+          return
+        }
+      }
+
+      const saved = !examMode && topicId ? readPracticeSnapshot(topicId) : null
+      // Never restore the old main full-test localStorage sheet (it triggers the daily-limit path).
+      if (!topicId) clearPracticeSnapshot('')
+      if (saved && !examMode) {
         setQuestions(saved.questions)
         setAnswers(saved.answers)
         setMarks(saved.marks)
@@ -206,7 +313,6 @@ function SessionContent() {
         })
         if (categoryName) params.set('categoryName', categoryName)
         if (sectionName) params.set('sectionName', sectionName)
-        if (fullTest) params.set('mode', 'full')
         const res = await fetch(`/api/practice/questions?${params.toString()}`)
         const data = await res.json() as {
           questions?: BookletQuestion[]
@@ -228,14 +334,11 @@ function SessionContent() {
         }
 
         const loaded = data.questions ?? []
-        const built = fullTest ? buildPracticeModules(testType, loaded) : []
-        const firstModule = built[0] ?? null
-        const firstId = firstModule?.questionIds[0] ?? loaded[0]?.id ?? null
+        const firstId = loaded[0]?.id ?? null
         setQuestions(loaded)
         setSessionId(data.sessionId ?? null)
         setSheetTestType(testType)
         setModuleIndex(0)
-        setModuleSecondsLeft(firstModule?.seconds ?? 0)
         setSectionExpired(false)
         setFocusedId(firstId)
         if (firstId) startedAt.current[firstId] = Date.now()
@@ -261,7 +364,6 @@ function SessionContent() {
           elapsed: 0,
           hintUsed: {},
           moduleIndex: 0,
-          moduleSecondsLeft: firstModule?.seconds,
           updatedAt: Date.now(),
         })
       } catch {
@@ -275,10 +377,30 @@ function SessionContent() {
     return () => {
       cancelled = true
     }
-  }, [testType, topicId, difficulty, count, categoryName, sectionName, timed, pace, taskId, router, fullTest, modeParam])
+  }, [testType, topicId, difficulty, count, categoryName, sectionName, timed, pace, taskId, router, fullTest, modeParam, examMode, examId])
 
   React.useEffect(() => {
     if (loading || finished.current || questions.length === 0) return
+    if (examMode && examId) {
+      const handle = window.setTimeout(() => {
+        void fetch('/api/practice/exams/progress', {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            examId,
+            answers,
+            marks,
+            focusedId,
+            moduleIndex,
+            moduleSecondsLeft,
+            elapsed,
+            hintUsed,
+            sessionId,
+          }),
+        }).catch(() => undefined)
+      }, 700)
+      return () => window.clearTimeout(handle)
+    }
     writePracticeSnapshot(snapshotFromState())
   }, [
     questions,
@@ -300,6 +422,8 @@ function SessionContent() {
     moduleIndex,
     moduleSecondsLeft,
     elapsed,
+    examMode,
+    examId,
   ])
 
   React.useEffect(() => {
@@ -416,7 +540,20 @@ function SessionContent() {
     const correctCount = questions.filter((q) => marks[q.id]?.correct).length
     finished.current = true
     clearPracticeSnapshot(topicId)
-    if (sessionId) {
+
+    if (examMode && examId) {
+      void fetch('/api/practice/exams/progress', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          examId,
+          correctCount,
+          completedQuestions: Object.keys(marks).length,
+          timeSpentSeconds: elapsed,
+          sessionId,
+        }),
+      }).catch(() => undefined)
+    } else if (sessionId) {
       void fetch('/api/practice/complete', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -428,6 +565,7 @@ function SessionContent() {
         }),
       }).catch(() => undefined)
     }
+
     if (taskId) {
       void fetch('/api/schedule/complete', {
         method: 'POST',
@@ -563,7 +701,7 @@ function SessionContent() {
       <div className="flex flex-wrap items-center justify-between gap-2">
         <div className="min-w-0">
           <p className="text-sm text-fog">
-            {sheetTestType} {fullTest ? 'practice test' : 'sheet'}
+            {examMode ? (examTitle || 'Practice exam') : `${sheetTestType} ${fullTest ? 'practice test' : 'sheet'}`}
             {fullTest && currentModule ? ` · ${currentModule.label}` : ''}
             {' · '}
             {filledModule}/{moduleQuestions.length} filled · {scoredModule} scored

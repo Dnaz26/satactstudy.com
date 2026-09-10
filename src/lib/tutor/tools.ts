@@ -60,6 +60,7 @@ export async function getRecentAttempts(userId: string, topicId?: string | null)
 }
 
 export async function getRelatedPracticeQuestions(params: {
+  userId?: string
   topicId?: string | null
   excludeId?: string
 }) {
@@ -71,11 +72,22 @@ export async function getRelatedPracticeQuestions(params: {
     .eq('approved', true)
     .eq('active', true)
     .eq('topic_id', params.topicId)
-    .limit(4)
+    .limit(24)
 
   if (params.excludeId) query = query.neq('id', params.excludeId)
   const { data } = await query
-  return data ?? []
+  let rows = data ?? []
+  if (params.userId) {
+    const [{ data: attempts }, { data: chats }] = await Promise.all([
+      supabase.from('attempts').select('question_id').eq('user_id', params.userId),
+      supabase.from('ai_conversations').select('question_id').eq('user_id', params.userId).not('question_id', 'is', null),
+    ])
+    const used = new Set<string>()
+    for (const row of attempts ?? []) if (row.question_id) used.add(row.question_id)
+    for (const row of chats ?? []) if (row.question_id) used.add(row.question_id)
+    rows = rows.filter((q) => !used.has(q.id))
+  }
+  return rows.slice(0, 4)
 }
 
 /** Minimal profile snapshot for tutoring — never cross-user. */

@@ -16,6 +16,7 @@ export type BookletQuestion = {
   topic_id: string | null
   topic_name: string | null
   section_name?: string | null
+  category_name?: string | null
   test_type?: string | null
   question_type?: string | null
   passage_title?: string | null

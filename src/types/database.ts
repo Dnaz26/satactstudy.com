@@ -471,6 +471,42 @@ export type Database = {
           },
         ]
       }
+      practice_exams: {
+        Row: {
+          created_at: string
+          english_ids: string[]
+          exam_number: number
+          id: string
+          math_ids: string[]
+          question_ids: string[]
+          reading_ids: string[]
+          title: string
+          total_questions: number
+        }
+        Insert: {
+          created_at?: string
+          english_ids?: string[]
+          exam_number: number
+          id?: string
+          math_ids?: string[]
+          question_ids: string[]
+          reading_ids?: string[]
+          title: string
+          total_questions?: number
+        }
+        Update: {
+          created_at?: string
+          english_ids?: string[]
+          exam_number?: number
+          id?: string
+          math_ids?: string[]
+          question_ids?: string[]
+          reading_ids?: string[]
+          title?: string
+          total_questions?: number
+        }
+        Relationships: []
+      }
       practice_sessions: {
         Row: {
           completed_at: string | null
@@ -1765,7 +1801,92 @@ export type Database = {
           times_shown?: number
           times_used?: number
         }
-        Relationships: []
+        Relationships: [        ]
+      }
+      user_practice_exams: {
+        Row: {
+          answers: Json
+          completed_at: string | null
+          completed_questions: number | null
+          correct_count: number | null
+          elapsed_seconds: number
+          exam_id: string
+          focused_id: string | null
+          hint_used: Json
+          id: string
+          marks: Json
+          module_index: number
+          module_seconds_left: number | null
+          session_id: string | null
+          started_at: string
+          status: string
+          time_spent_seconds: number | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          answers?: Json
+          completed_at?: string | null
+          completed_questions?: number | null
+          correct_count?: number | null
+          elapsed_seconds?: number
+          exam_id: string
+          focused_id?: string | null
+          hint_used?: Json
+          id?: string
+          marks?: Json
+          module_index?: number
+          module_seconds_left?: number | null
+          session_id?: string | null
+          started_at?: string
+          status?: string
+          time_spent_seconds?: number | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          answers?: Json
+          completed_at?: string | null
+          completed_questions?: number | null
+          correct_count?: number | null
+          elapsed_seconds?: number
+          exam_id?: string
+          focused_id?: string | null
+          hint_used?: Json
+          id?: string
+          marks?: Json
+          module_index?: number
+          module_seconds_left?: number | null
+          session_id?: string | null
+          started_at?: string
+          status?: string
+          time_spent_seconds?: number | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_practice_exams_exam_id_fkey"
+            columns: ["exam_id"]
+            isOneToOne: false
+            referencedRelation: "practice_exams"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "user_practice_exams_session_id_fkey"
+            columns: ["session_id"]
+            isOneToOne: false
+            referencedRelation: "practice_sessions"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "user_practice_exams_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       vocabulary_attempts: {
         Row: {

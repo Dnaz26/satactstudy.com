@@ -5,7 +5,7 @@ import { PAYWALL_MESSAGE } from '@/lib/access'
 import { asDifficulty, questionChoices, toDbDifficulty } from '@/lib/schema'
 import { MIN_TOPIC_QUESTIONS } from '@/lib/constants'
 import { ensureTopicQuestionCount } from '@/lib/questions/expand-topic'
-import { fullTestCount, pickFullTestQuestions } from '@/lib/practice/modules'
+import { getUsedQuestionIds } from '@/lib/practice/used-questions'
 import { z } from 'zod'
 
 const querySchema = z.object({
@@ -15,7 +15,7 @@ const querySchema = z.object({
   categoryName: z.string().optional(),
   difficulty: z.enum(['easy', 'medium', 'hard', 'mixed']).optional().default('mixed'),
   count: z.coerce.number().min(1).max(200).optional().default(MIN_TOPIC_QUESTIONS),
-  mode: z.enum(['full', 'topic']).optional(),
+  mode: z.enum(['full', 'topic', 'exam']).optional(),
 })
 
 const QUESTION_FIELDS = 'id, question_text, choice_a, choice_b, choice_c, choice_d, choice_e, correct_answer, difficulty, difficulty_score, topic_id, topic_name, section_name, category_name, test_type, official_explanation, ai_explanation, calculator_config, calculator_allowed, desmos_useful, desmos_mode, question_type, reasoning_type, image_url, passage_id, source_rights_status, source_type, passages(title, content)'
@@ -44,23 +44,16 @@ export async function GET(request: NextRequest) {
       return Response.json({ error: 'Invalid parameters' }, { status: 400 })
     }
 
-    const { testType, topicId, sectionName, categoryName, difficulty, count, mode } = parsed.data
+    const { testType, topicId, sectionName, categoryName, difficulty, count } = parsed.data
     const entitlement = await canAnswerQuestion(user.id)
     if (entitlement.paywall) {
       return Response.json({ error: PAYWALL_MESSAGE, paywall: true }, { status: 403 })
     }
-    const requestedCount =
-      mode === 'full' && !topicId && testType
-        ? Math.max(count, fullTestCount(testType))
-        : count
-    const actualCount = Math.min(requestedCount, Math.max(0, entitlement.limit - entitlement.used))
-
-    if (actualCount <= 0) {
-      return Response.json({
-        error: "You've used today's questions. They reset tomorrow.",
-        limitReached: true,
-      }, { status: 403 })
+    if (!entitlement.allowed) {
+      return Response.json({ error: PAYWALL_MESSAGE, paywall: true }, { status: 403 })
     }
+
+    const actualCount = Math.min(count, 200)
 
     if (topicId) {
       await ensureTopicQuestionCount(supabase, topicId, MIN_TOPIC_QUESTIONS)
@@ -83,41 +76,35 @@ export async function GET(request: NextRequest) {
     const { data: questions, error } = await query
       .order('topic_id', { ascending: true })
       .order('difficulty_score', { ascending: true, nullsFirst: false })
-      .limit(mode === 'full' ? 2500 : 800)
+      .limit(2500)
 
     if (error) {
       return Response.json({ error: 'Failed to fetch questions' }, { status: 500 })
     }
 
-    const { data: seenRows } = await supabase
-      .from('attempts')
-      .select('question_id')
-      .eq('user_id', user.id)
-    const seenIds = new Set((seenRows ?? []).map((row) => row.question_id))
-    const pool = questions ?? []
-    const fresh = pool.filter((q) => !seenIds.has(q.id))
-    const used = pool.filter((q) => seenIds.has(q.id))
-    const source = fresh.length > 0 ? fresh : used
-
-    function pickBalanced(items: typeof source, take: number): typeof source {
-      if (mode === 'full' && !topicId && testType) {
-        return pickFullTestQuestions(items, testType, take)
-      }
-      return [...items].sort(() => Math.random() - 0.5).slice(0, take)
+    const usedIds = await getUsedQuestionIds(user.id)
+    const fresh = (questions ?? []).filter((q) => !usedIds.has(q.id))
+    if (fresh.length === 0) {
+      return Response.json({
+        error: 'No unused questions left for this drill. Try another topic or a practice exam.',
+      }, { status: 404 })
     }
 
-    const shuffled = pickBalanced(source, actualCount).map((q) => {
-      const passageRel = q.passages as { title?: string | null; content?: string | null } | { title?: string | null; content?: string | null }[] | null
-      const passage = Array.isArray(passageRel) ? passageRel[0] : passageRel
-      return {
-        ...q,
-        passages: undefined,
-        passage_title: passage?.title ?? null,
-        passage_content: passage?.content ?? null,
-        difficulty: asDifficulty(q.difficulty),
-        choices: questionChoices(q),
-      }
-    })
+    const shuffled = [...fresh]
+      .sort(() => Math.random() - 0.5)
+      .slice(0, actualCount)
+      .map((q) => {
+        const passageRel = q.passages as { title?: string | null; content?: string | null } | { title?: string | null; content?: string | null }[] | null
+        const passage = Array.isArray(passageRel) ? passageRel[0] : passageRel
+        return {
+          ...q,
+          passages: undefined,
+          passage_title: passage?.title ?? null,
+          passage_content: passage?.content ?? null,
+          difficulty: asDifficulty(q.difficulty),
+          choices: questionChoices(q),
+        }
+      })
 
     const { data: session } = await supabase
       .from('practice_sessions')
@@ -125,13 +112,13 @@ export async function GET(request: NextRequest) {
         user_id: user.id,
         test_type: testType ?? null,
         topic_id: topicId || null,
-        is_timed: mode === 'full',
+        is_timed: false,
         total_questions: shuffled.length,
         completed_questions: 0,
         correct_count: 0,
         time_spent_seconds: 0,
         status: 'in_progress',
-        session_type: mode === 'full' ? 'practice_test' : 'practice',
+        session_type: 'practice',
       })
       .select('id')
       .single()
@@ -139,7 +126,7 @@ export async function GET(request: NextRequest) {
     return Response.json({
       questions: shuffled,
       sessionId: session?.id ?? null,
-      questionsRemaining: entitlement.limit - entitlement.used - shuffled.length,
+      questionsRemaining: Math.max(0, entitlement.limit - shuffled.length),
     })
   } catch (err) {
     console.error(err)

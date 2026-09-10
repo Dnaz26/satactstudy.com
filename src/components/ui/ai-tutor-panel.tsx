@@ -3,7 +3,7 @@
 import * as React from 'react'
 import { cn } from '@/lib/utils'
 import { Button } from './button'
-import { X, Send, Bot, ImagePlus } from 'lucide-react'
+import { X, Send, Sparkles, ImagePlus, Loader2 } from 'lucide-react'
 import type { TutorTrigger } from '@/lib/tutor/types'
 import { TutorRichText } from '@/components/practice/question-prompt'
 import { formatTutorSteps } from '@/lib/tutor/output'
@@ -90,28 +90,41 @@ function graphActionsFromText(text: string): DesmosAgentAction[] {
 }
 
 function TutorBubble({ content, streaming }: { content: string; streaming?: boolean }) {
-  if (!content.trim()) return <>{streaming ? '…' : ''}</>
+  if (!content.trim()) {
+    return (
+      <span className="inline-flex items-center gap-2 text-fog">
+        <Loader2 className="h-3.5 w-3.5 animate-spin" />
+        {streaming ? 'Nova is thinking…' : ''}
+      </span>
+    )
+  }
   const steps = formatTutorSteps(content)
   if (!steps) {
-    return <TutorRichText text={content} className="text-sm leading-5" />
+    return <TutorRichText text={content} className="text-[13px] leading-5" />
   }
   return (
-    <ol className="list-decimal space-y-2 pl-4">
+    <ol className="list-decimal space-y-2.5 pl-4">
       {steps.map((step, index) => (
-        <li key={index}>
-          <TutorRichText text={step} className="text-sm leading-5" />
+        <li key={index} className="marker:font-semibold marker:text-signal">
+          <TutorRichText text={step} className="text-[13px] leading-5" />
         </li>
       ))}
     </ol>
   )
 }
 
+const QUICK_PROMPTS = [
+  { label: 'Hint', prompt: 'Give me a small hint only. Do not give the answer.', trigger: 'hint' as TutorTrigger },
+  { label: 'Why?', prompt: 'Explain why the right answer works in short steps.', trigger: 'chat' as TutorTrigger },
+  { label: 'Desmos', prompt: 'If Desmos helps, tell me exactly what to type.', trigger: 'chat' as TutorTrigger },
+]
+
 export function AiTutorPanel({ open, onClose, pendingTrigger, context, className }: AiTutorPanelProps) {
   const desmos = useDesmosOptional()
   const [messages, setMessages] = React.useState<Message[]>([
     {
       role: 'assistant',
-      content: `Hi! I'm Nova. ${context?.topicName ? `We can work on ${context.topicName}.` : 'Ask me about this question.'}`,
+      content: `Hi — I'm Nova. ${context?.topicName ? `Let's work through ${context.topicName}.` : 'Ask me anything about this question.'}`,
     },
   ])
   const [input, setInput] = React.useState('')
@@ -134,7 +147,7 @@ export function AiTutorPanel({ open, onClose, pendingTrigger, context, className
     setMessages([
       {
         role: 'assistant',
-        content: `Hi! I'm Nova. ${context?.topicName ? `We can work on ${context.topicName}.` : 'Ask me about this question.'}`,
+        content: `Hi — I'm Nova. ${context?.topicName ? `Let's work through ${context.topicName}.` : 'Ask me anything about this question.'}`,
       },
     ])
   }, [context?.questionId, context?.topicName])
@@ -180,7 +193,7 @@ export function AiTutorPanel({ open, onClose, pendingTrigger, context, className
         const data = await res.json() as { error?: string }
         setMessages((prev) => {
           const next = [...prev]
-          next[next.length - 1] = { role: 'assistant', content: data.error ?? 'Daily AI limit reached.' }
+          next[next.length - 1] = { role: 'assistant', content: data.error ?? 'AI limit reached for today.' }
           return next
         })
         return
@@ -258,22 +271,44 @@ export function AiTutorPanel({ open, onClose, pendingTrigger, context, className
       aria-hidden={!open}
       inert={!open}
       className={cn(
-        'fixed right-0 top-0 h-full w-80 neu border-l border-transparent flex flex-col z-50 transition-transform duration-300',
+        'fixed right-0 top-0 z-50 flex h-full w-[min(100vw,24rem)] flex-col overflow-hidden border-l border-[var(--line)] bg-[linear-gradient(180deg,#fffaf5_0%,#f7f1ea_48%,#fff7f2_100%)] shadow-[-18px_0_48px_rgba(40,24,16,0.12)] transition-transform duration-300',
         open ? 'translate-x-0' : 'pointer-events-none translate-x-full',
-        className
+        className,
       )}
     >
-      <div className="flex items-center justify-between p-4 border-b border-transparent">
-        <div className="flex items-center gap-2">
-          <Bot className="w-5 h-5 text-signal" />
-          <span className="font-semibold text-paper">Nova AI Tutor</span>
+      <div className="relative overflow-hidden px-4 pb-4 pt-5">
+        <div className="pointer-events-none absolute -right-8 -top-10 h-36 w-36 rounded-full bg-signal/20 blur-2xl" />
+        <div className="pointer-events-none absolute left-8 top-0 h-20 w-20 rounded-full bg-[#2b9ed9]/15 blur-xl" />
+        <div className="relative flex items-start justify-between gap-3">
+          <div className="flex items-center gap-3">
+            <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-signal text-white shadow-[0_12px_28px_rgba(255,107,87,0.35)]">
+              <Sparkles className="h-5 w-5" />
+            </div>
+            <div>
+              <p className="font-display text-lg leading-none text-paper">Nova</p>
+              <p className="mt-1 text-xs text-fog">
+                {context?.sectionName || context?.topicName || 'Your SAT / ACT tutor'}
+              </p>
+            </div>
+          </div>
+          <button
+            type="button"
+            onClick={onClose}
+            className="flex h-9 w-9 items-center justify-center rounded-full bg-white/70 text-fog transition hover:text-paper"
+            aria-label="Close tutor"
+          >
+            <X className="h-4 w-4" />
+          </button>
         </div>
-        <button onClick={onClose} className="text-fog hover:text-paper transition-colors">
-          <X className="w-4 h-4" />
-        </button>
+        {context?.questionText && (
+          <div className="relative mt-4 rounded-2xl border border-white/70 bg-white/65 px-3 py-2.5 shadow-[inset_0_1px_0_rgba(255,255,255,0.8)]">
+            <p className="mb-1 font-mono text-[10px] uppercase tracking-[0.14em] text-fog">This question</p>
+            <p className="line-clamp-3 text-xs leading-5 text-paper">{context.questionText}</p>
+          </div>
+        )}
       </div>
 
-      <div className="flex-1 overflow-y-auto p-4 space-y-4">
+      <div className="flex-1 space-y-3 overflow-y-auto px-4 pb-3">
         {messages.map((msg, i) => (
           <div
             key={i}
@@ -281,10 +316,10 @@ export function AiTutorPanel({ open, onClose, pendingTrigger, context, className
           >
             <div
               className={cn(
-                'max-w-[85%] rounded-2xl px-4 py-2.5 text-sm',
+                'max-w-[92%] rounded-[1.35rem] px-3.5 py-2.5 text-sm',
                 msg.role === 'user'
-                  ? 'whitespace-pre-wrap neu-raised text-white rounded-br-sm'
-                  : 'neu-inset text-paper rounded-bl-sm'
+                  ? 'rounded-br-md bg-signal text-white shadow-[0_10px_24px_rgba(255,107,87,0.28)]'
+                  : 'rounded-bl-md border border-white/80 bg-white/80 text-paper shadow-[0_8px_20px_rgba(40,24,16,0.06)]',
               )}
             >
               {msg.role === 'assistant' ? (
@@ -293,7 +328,7 @@ export function AiTutorPanel({ open, onClose, pendingTrigger, context, className
                   streaming={streaming && i === messages.length - 1}
                 />
               ) : (
-                msg.content
+                <span className="whitespace-pre-wrap text-[13px] leading-5">{msg.content}</span>
               )}
             </div>
           </div>
@@ -301,10 +336,23 @@ export function AiTutorPanel({ open, onClose, pendingTrigger, context, className
         <div ref={bottomRef} />
       </div>
 
-      <div className="p-4 border-t border-transparent space-y-2">
+      <div className="space-y-2 border-t border-[var(--line)] bg-white/55 px-4 py-3 backdrop-blur-sm">
+        <div className="flex flex-wrap gap-1.5">
+          {QUICK_PROMPTS.map((item) => (
+            <button
+              key={item.label}
+              type="button"
+              disabled={loading}
+              onClick={() => void send(item.prompt, item.trigger)}
+              className="rounded-full border border-black/5 bg-white/80 px-2.5 py-1 text-[11px] font-semibold text-paper transition hover:border-signal/30 hover:text-signal disabled:opacity-50"
+            >
+              {item.label}
+            </button>
+          ))}
+        </div>
         {imageDataUrl && <p className="text-xs text-ok">Image attached for Nova</p>}
-        <div className="flex gap-2">
-          <label className="neu-sm flex h-10 w-10 cursor-pointer items-center justify-center text-fog hover:text-paper">
+        <div className="flex items-end gap-2">
+          <label className="flex h-11 w-11 shrink-0 cursor-pointer items-center justify-center rounded-2xl border border-black/5 bg-white text-fog transition hover:text-paper">
             <ImagePlus className="h-4 w-4" />
             <input
               type="file"
@@ -313,19 +361,26 @@ export function AiTutorPanel({ open, onClose, pendingTrigger, context, className
               onChange={(e) => onPickImage(e.target.files?.[0])}
             />
           </label>
-          <input
+          <textarea
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && sendMessage()}
-            placeholder="Ask Nova anything..."
-            className="flex-1 h-10 rounded-xl border border-transparent neu-inset px-3 text-sm text-paper placeholder:text-fog focus:outline-none focus:ring-2 focus:ring-signal/40"
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault()
+                void sendMessage()
+              }
+            }}
+            rows={1}
+            placeholder="Ask Nova…"
+            className="max-h-28 min-h-11 flex-1 resize-none rounded-2xl border border-black/5 bg-white px-3.5 py-2.5 text-sm text-paper placeholder:text-fog focus:outline-none focus:ring-2 focus:ring-signal/35"
           />
           <Button
             size="icon"
-            onClick={sendMessage}
+            onClick={() => void sendMessage()}
             disabled={loading || !input.trim()}
+            className="h-11 w-11 rounded-2xl shadow-[0_10px_22px_rgba(255,107,87,0.28)]"
           >
-            <Send className="w-4 h-4" />
+            <Send className="h-4 w-4" />
           </Button>
         </div>
       </div>
