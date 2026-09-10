@@ -1,10 +1,9 @@
-'use client'
-
 import { createClient } from '@/lib/supabase/client'
+import { authCallbackUrl } from '@/lib/auth/redirect'
 
 export async function signInWithGoogle(next = '/onboarding'): Promise<{ error?: string }> {
   const supabase = createClient()
-  const redirectTo = `${window.location.origin}/auth/callback?next=${encodeURIComponent(next)}`
+  const redirectTo = authCallbackUrl(next)
   const { error } = await supabase.auth.signInWithOAuth({
     provider: 'google',
     options: {

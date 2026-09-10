@@ -98,7 +98,10 @@ export function getGreeting(): string {
 export function publicAppUrl(): string {
   const explicit = process.env.NEXT_PUBLIC_APP_URL?.trim()
   if (explicit && !/localhost|127\.0\.0\.1/i.test(explicit)) return explicit.replace(/\/$/, '')
-  const vercel = process.env.VERCEL_PROJECT_PRODUCTION_URL || process.env.VERCEL_URL
+  const vercel =
+    process.env.VERCEL_PROJECT_PRODUCTION_URL ||
+    process.env.NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL ||
+    process.env.VERCEL_URL
   if (vercel) return `https://${vercel.replace(/^https?:\/\//, '').replace(/\/$/, '')}`
   return (explicit || 'http://localhost:3000').replace(/\/$/, '')
 }

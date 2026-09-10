@@ -3,6 +3,7 @@
 import * as React from 'react'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/client'
+import { authCallbackUrl } from '@/lib/auth/redirect'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { SectionKicker } from '@/components/brand'
@@ -21,7 +22,7 @@ export default function ForgotPasswordPage() {
 
     const supabase = createClient()
     const { error: resetError } = await supabase.auth.resetPasswordForEmail(email, {
-      redirectTo: `${window.location.origin}/auth/callback?next=/settings`,
+      redirectTo: authCallbackUrl('/settings'),
     })
 
     setLoading(false)
