@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""Wave-2 original SAT/ACT bank from official exam skill maps.
+"""Wave-3 original SAT/ACT bank from May 2023 SAT skill map.
 
-Never copies College Board, ACT, or McGraw-Hill wording. Items are original
-StudentQuest questions aligned to the same topic/difficulty structure used on
-those exams.
+Never copies College Board, ACT, or commercial wording. Items are original
+StudentQuest questions aligned to the same topic/difficulty structure.
+Numbers and answer choices are freshly generated (new RNG seed).
 """
 from __future__ import annotations
 
@@ -14,11 +14,11 @@ import re
 from fractions import Fraction
 from pathlib import Path
 
-RNG = random.Random(20260903)
+RNG = random.Random(20230905)
 TID = "d1000000-0000-0000-0000-{}"
 QID = "f3000000-0000-0000-0000-{}"
 PID = "f3100000-0000-0000-0000-{}"
-START = 3000
+START = 8000
 PER_DIFF = 14
 
 TOPICS = {
@@ -983,7 +983,7 @@ def emit_sql(rows: list[dict], passages_in: list[dict], out_dir: Path, batch_siz
             "approved": True,
             "active": True,
             "passage_id": q.get("passage_id"),
-            "exam_name": "StudentQuest PDF-skill original bank",
+            "exam_name": "StudentQuest May-2023-skill-map original bank",
             "calculator_config": json.dumps({"calculator_enabled": q["calculator_allowed"], "calculator_recommended": q["desmos_useful"]}),
         }
         names, vals = [], []

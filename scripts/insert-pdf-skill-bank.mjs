@@ -99,13 +99,15 @@ for (const group of chunk(questions, 40)) {
     approved: true,
     active: true,
     passage_id: q.passage_id ?? null,
-    exam_name: 'StudentQuest PDF-skill original bank',
+    exam_name: 'StudentQuest May-2023-skill-map original bank',
     calculator_config: {
       calculator_enabled: q.calculator_allowed,
       calculator_recommended: q.desmos_useful,
     },
   }))
-  await upsert('questions', rows, 'id')
+  // Use upsert without ignoreDuplicates so refreshed content can land on new IDs.
+  const { error } = await supabase.from('questions').upsert(rows, { onConflict: 'id' })
+  if (error) throw new Error(`questions: ${error.message}`)
 
   const choices = []
   const mappings = []

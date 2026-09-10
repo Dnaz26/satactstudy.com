@@ -21,6 +21,8 @@ export type PracticeSnapshot = {
   focusedId: string | null
   elapsed: number
   hintUsed: Record<string, boolean>
+  moduleIndex?: number
+  moduleSecondsLeft?: number
   updatedAt: number
 }
 

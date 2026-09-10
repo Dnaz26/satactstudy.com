@@ -23,7 +23,15 @@ export function DesmosToggle({ className }: { className?: string }) {
   )
 }
 
-export function DesmosPanel({ embedded = false }: { embedded?: boolean }) {
+export function DesmosPanel({
+  embedded = false,
+  screen = false,
+  onBack,
+}: {
+  embedded?: boolean
+  screen?: boolean
+  onBack?: () => void
+}) {
   const {
     open,
     expanded,
@@ -57,7 +65,57 @@ export function DesmosPanel({ embedded = false }: { embedded?: boolean }) {
     }
   }, [resize, setPanelWidth])
 
+  React.useEffect(() => {
+    if (screen) {
+      setOpen(true)
+      resize()
+    }
+  }, [screen, setOpen, resize])
+
   const width = expanded ? 960 : panelWidth
+
+  if (screen) {
+    return (
+      <aside className="flex h-full min-h-[70vh] w-full flex-col overflow-hidden rounded-2xl border border-[var(--line)] bg-[#faf7f2]">
+        <div className="flex items-center justify-between px-4 py-3">
+          <div>
+            <p className="font-semibold text-paper">Desmos</p>
+            <p className="text-xs text-fog">Screen 2 · ⌘/Ctrl+1 returns to the test</p>
+          </div>
+          <button
+            type="button"
+            onClick={() => {
+              onBack?.()
+              setOpen(false)
+            }}
+            className="neu-sm flex h-9 w-9 items-center justify-center text-fog hover:text-paper"
+            aria-label="Back to test"
+          >
+            <X className="h-4 w-4" />
+          </button>
+        </div>
+        <div className="relative min-h-0 flex-1 px-3 pb-3">
+          <div ref={attachHost} className="h-full min-h-[420px] w-full overflow-hidden rounded-xl bg-white" />
+          {status !== 'ready' && (
+            <div className="absolute inset-3 flex flex-col items-center justify-center rounded-xl bg-panel/90 text-center">
+              {status === 'error' ? (
+                <>
+                  <p className="mb-2 text-sm text-paper">Calculator could not load.</p>
+                  <p className="mb-4 max-w-xs text-xs text-fog">{error || 'You can still answer the question.'}</p>
+                  <Button size="sm" onClick={retry}>
+                    <RefreshCw className="mr-1 h-3.5 w-3.5" />
+                    Retry
+                  </Button>
+                </>
+              ) : (
+                <p className="text-sm text-fog">Loading Desmos…</p>
+              )}
+            </div>
+          )}
+        </div>
+      </aside>
+    )
+  }
 
   return (
     <aside

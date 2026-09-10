@@ -1,6 +1,7 @@
 import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
 import { closerTest } from '@/lib/schema'
+import { fullTestCount } from '@/lib/practice/modules'
 
 export default async function PracticePage({
   searchParams,
@@ -31,7 +32,9 @@ export default async function PracticePage({
     query.set('topicId', params.topicId)
     query.set('count', params.count ?? '10')
   } else {
-    query.set('count', '60')
+    query.set('count', String(fullTestCount(testType)))
+    query.set('timed', '1')
+    query.set('mode', 'full')
   }
   if (params.taskId) query.set('taskId', params.taskId)
   redirect(`/practice/session?${query.toString()}`)
