@@ -1,4 +1,4 @@
-# SAT ACT AI
+# Prep SAT ACT
 
 **Your Personal AI Coach for the SAT & ACT**
 
@@ -24,7 +24,7 @@ Know exactly what to study. Improve every day.
 
 ## Overview
 
-SAT ACT AI is a full-stack SaaS application for SAT and ACT preparation. It combines:
+Prep SAT ACT is a full-stack SaaS application for SAT and ACT preparation. It combines:
 
 - **Adaptive practice engine** — questions get harder/easier based on performance
 - **Granular mastery tracking** — topic-by-topic accuracy, speed, trend analysis

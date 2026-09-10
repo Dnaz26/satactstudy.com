@@ -88,7 +88,7 @@ function StatCard({
 }) {
   return (
     <div className="neu flex items-start gap-4 p-5">
-      <div className={cn('flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl', accent ? 'neu-raised text-white' : 'neu-sm text-signal')}>
+      <div className={cn('flex h-11 w-11 shrink-0 items-center justify-center rounded-full', accent ? 'bg-signal text-white shadow-[0_10px_22px_rgba(255,92,57,0.25)]' : 'bg-panel-2 text-signal border border-[var(--line)]')}>
         <Icon className="h-5 w-5" />
       </div>
       <div className="min-w-0 flex-1">
@@ -162,8 +162,8 @@ export function DashboardHome({
       <div className="neu p-6 sm:p-7">
         <div className="mb-5 flex flex-wrap items-center justify-between gap-4">
           <div className="flex items-center gap-4">
-            <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl neu-sm text-signal">
-              <ClipboardList className="h-6 w-6" />
+            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-[var(--line)] bg-panel-2 text-signal">
+              <ClipboardList className="h-5 w-5" />
             </div>
             <div>
               <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-fog">To do today</p>
@@ -181,9 +181,9 @@ export function DashboardHome({
         <div className="space-y-3">
           <Link
             href={practiceHref}
-            className="flex items-center gap-4 rounded-2xl px-4 py-4 neu-sm transition-transform hover:-translate-y-0.5"
+            className="flex items-center gap-4 rounded-2xl border border-[var(--line)] bg-panel-2 px-4 py-4 transition-transform hover:-translate-y-0.5"
           >
-            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl neu-raised text-white">
+            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-signal text-white shadow-[0_10px_22px_rgba(255,92,57,0.25)]">
               <BookOpen className="h-5 w-5" />
             </div>
             <div className="min-w-0 flex-1">
@@ -202,10 +202,10 @@ export function DashboardHome({
                 href={taskHref(task, testType, practiceHref)}
                 className={cn(
                   'flex items-center gap-4 rounded-2xl px-4 py-4 transition-transform',
-                  task.done ? 'neu-inset text-fog' : 'neu-sm hover:-translate-y-0.5'
+                  task.done ? 'neu-inset text-fog' : 'border border-[var(--line)] bg-white hover:-translate-y-0.5'
                 )}
               >
-                <div className={cn('flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl', task.done ? 'bg-ok/20 text-ok' : 'neu-sm text-signal')}>
+                <div className={cn('flex h-11 w-11 shrink-0 items-center justify-center rounded-full', task.done ? 'bg-ok/15 text-ok' : 'bg-panel-2 text-signal border border-[var(--line)]')}>
                   <Icon className="h-5 w-5" />
                 </div>
                 <div className="min-w-0 flex-1">

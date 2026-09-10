@@ -56,8 +56,10 @@ function NavLink({ item, pathname }: { item: NavItem; pathname: string }) {
     <Link
       href={item.href}
       className={cn(
-        'flex items-center gap-3 rounded-2xl px-3 py-2 text-sm transition-all',
-        active ? 'neu-sm font-semibold text-signal' : 'text-fog hover:text-paper'
+        'flex items-center gap-3 rounded-full px-3 py-2.5 text-sm transition-all',
+        active
+          ? 'bg-signal text-white shadow-[0_10px_24px_rgba(255,92,57,0.25)] font-semibold'
+          : 'text-fog hover:bg-white/70 hover:text-paper'
       )}
     >
       <Icon className="h-4 w-4 shrink-0" />
@@ -89,7 +91,7 @@ export function NavSidebar({ isAdmin = false }: { isAdmin?: boolean }) {
         <button
           type="button"
           onClick={toggle}
-          className="fixed bottom-4 left-3 z-50 flex h-11 w-11 items-center justify-center rounded-2xl neu-raised text-white"
+          className="fixed bottom-4 left-3 z-50 flex h-11 w-11 items-center justify-center rounded-full bg-signal text-white shadow-[0_14px_30px_rgba(255,92,57,0.28)]"
           aria-label="Open side panel"
           title="Open menu"
         >
@@ -100,7 +102,7 @@ export function NavSidebar({ isAdmin = false }: { isAdmin?: boolean }) {
   }
 
   return (
-    <aside className="flex h-full w-56 flex-col bg-ink p-3">
+    <aside className="app-sidebar flex h-full w-56 flex-col p-3">
       <div className="flex items-center p-3">
         <BrandMark href="/dashboard" />
       </div>
@@ -118,7 +120,7 @@ export function NavSidebar({ isAdmin = false }: { isAdmin?: boolean }) {
         <button
           type="button"
           onClick={toggle}
-          className="flex w-full items-center gap-3 rounded-2xl px-3 py-2 text-sm text-fog hover:text-paper"
+          className="flex w-full items-center gap-3 rounded-full px-3 py-2.5 text-sm text-fog hover:bg-white/70 hover:text-paper"
           aria-label="Close side panel"
         >
           <DoorClosed className="h-4 w-4 shrink-0" />

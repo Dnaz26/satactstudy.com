@@ -3,6 +3,7 @@
 import * as React from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
+import { Check } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { BrandMark } from '@/components/brand'
@@ -110,7 +111,7 @@ export function PricingClient({ loggedIn, initialPromo = false }: { loggedIn: bo
         )}
       </div>
 
-      <div className="mx-auto flex w-full max-w-2xl flex-col gap-4">
+      <div className="mx-auto flex w-full max-w-4xl flex-col gap-4">
         <Companion
           compact
           mode={promoApplied ? 'success' : 'studying'}
@@ -139,12 +140,12 @@ export function PricingClient({ loggedIn, initialPromo = false }: { loggedIn: bo
           <div>
             <h1 className="font-display text-2xl text-paper">Unlock study</h1>
             <p className="mt-1 text-sm text-fog">
-              Core ${PLANS[0].price}/mo · Plus ${PLANS[1].price}/mo. Have a code? Enter it below.
+              Eight inclusions on every plan. Core ${PLANS[0].price}/mo · Plus ${PLANS[1].price}/mo.
             </p>
           </div>
         )}
 
-        <div className="grid gap-2 sm:grid-cols-2">
+        <div className="grid gap-4 lg:grid-cols-2">
           {PLANS.map((plan) => {
             const charged = displayPrice(plan, promoApplied)
             return (
@@ -153,39 +154,56 @@ export function PricingClient({ loggedIn, initialPromo = false }: { loggedIn: bo
                 type="button"
                 onClick={() => choosePlan(plan.id)}
                 className={cn(
-                  'relative flex flex-col items-start justify-between overflow-hidden rounded-2xl p-4 text-left transition-transform',
-                  plan.hot ? 'neu-raised text-white' : 'neu text-paper',
+                  'relative flex flex-col overflow-hidden rounded-3xl border p-6 text-left transition-transform hover:-translate-y-0.5',
+                  plan.hot
+                    ? 'border-signal bg-white shadow-[0_20px_50px_rgba(255,92,57,0.18)] ring-2 ring-signal'
+                    : 'border-[var(--line)] bg-white shadow-[0_12px_40px_rgba(40,24,12,0.06)]',
                   promoApplied && 'rhs-plan-glow',
                 )}
               >
                 {promoApplied && (
-                  <span
-                    className={cn(
-                      'absolute right-3 top-3 rounded-full px-2 py-0.5 font-mono text-[9px] font-semibold uppercase tracking-[0.14em]',
-                      plan.hot ? 'bg-white/20 text-white' : 'bg-signal/15 text-signal',
-                    )}
-                  >
+                  <span className="absolute right-4 top-4 rounded-full bg-signal/15 px-2 py-0.5 font-mono text-[9px] font-semibold uppercase tracking-[0.14em] text-signal">
                     {CHECKOUT_PROMO.percentOff}% off
                   </span>
                 )}
-                <div>
-                  <p className="font-display text-lg">{plan.name}</p>
-                  <p className={cn('mt-1 text-xs', plan.hot ? 'text-white/80' : 'text-fog')}>{plan.line}</p>
-                </div>
-                <div className="mt-3 flex w-full items-end justify-between">
+                <div className="flex items-start justify-between gap-3">
                   <div>
-                    <p className="font-display text-xl">
-                      ${charged}
-                      <span className="text-xs opacity-70"> {planCadence(plan)}</span>
+                    <p className="font-display text-2xl text-paper">
+                      {plan.name}
+                      {plan.hot ? (
+                        <span className="ml-2 font-mono text-[10px] text-signal">MOST CHOSEN</span>
+                      ) : null}
                     </p>
-                    {promoApplied && (
-                      <p className={cn('mt-1 text-[10px] uppercase tracking-[0.14em]', plan.hot ? 'text-white/70' : 'text-fog')}>
-                        {CHECKOUT_PROMO.label} · {CHECKOUT_PROMO.trialDays} days free
-                      </p>
-                    )}
+                    <p className="mt-2 max-w-xs text-sm leading-relaxed text-fog">{plan.blurb}</p>
                   </div>
-                  <span className="text-sm font-semibold">{loggedIn ? 'Continue' : 'Get'}</span>
+                  <div className="text-right">
+                    <p className="font-display text-3xl tracking-tight text-paper">${charged}</p>
+                    <p className="text-xs text-fog">{planCadence(plan)}</p>
+                    {promoApplied ? (
+                      <p className="mt-1 text-[10px] uppercase tracking-[0.14em] text-fog">
+                        {CHECKOUT_PROMO.trialDays} days free
+                      </p>
+                    ) : null}
+                  </div>
                 </div>
+                <ul className="mt-5 space-y-2">
+                  {plan.bullets.map((item) => (
+                    <li key={item} className="flex items-start gap-2 text-sm text-paper">
+                      <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[rgba(34,160,107,0.12)] text-ok">
+                        <Check className="h-3 w-3" aria-hidden="true" />
+                      </span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+                <span
+                  className={cn(
+                    'mt-6 inline-flex items-center justify-center rounded-full px-4 py-2.5 text-sm font-semibold',
+                    plan.hot ? 'bg-signal text-white' : 'border border-[var(--line)] bg-[#faf7f2] text-paper',
+                  )}
+                >
+                  {loggedIn ? `Continue with ${plan.name}` : `Get ${plan.name}`}
+                </span>
               </button>
             )
           })}

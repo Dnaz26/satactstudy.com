@@ -1,41 +1,18 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
-import {
-  BookOpenCheck,
-  CalendarClock,
-  Gauge,
-  Layers,
-  MessageCircleHeart,
-  SlidersHorizontal,
-  Triangle,
-  Wallet,
-  Zap,
-} from 'lucide-react'
+import { ArrowRight, Check, Menu } from 'lucide-react'
 import { createClient } from '@/lib/supabase/server'
-import { Button } from '@/components/ui/button'
-import { BrandMark, SectionKicker } from '@/components/brand'
-import { HeroPreview } from '@/components/landing/hero-preview'
-import { ProofCharts } from '@/components/landing/proof-charts'
+import { BrandMark, BRAND_NAME } from '@/components/brand'
+import { DataProof } from '@/components/landing/data-proof'
+import { ProductShowcase } from '@/components/landing/product-showcase'
 import { PLANS } from '@/lib/stripe'
 
 export const metadata: Metadata = {
-  title: 'SAT ACT AI — Study the way you actually learn',
+  title: `${BRAND_NAME} — Study the way you actually learn`,
   description:
     'Personalized SAT and ACT practice with Nova. Custom examples, score tracking, nightly plans, Desmos, Rapid Fire — from $10/month.',
 }
-
-const FEATURES = [
-  { icon: SlidersHorizontal, label: 'Your examples', stat: '+40%' },
-  { icon: Gauge, label: 'Score tracking', stat: 'Live' },
-  { icon: CalendarClock, label: 'Nightly plan', stat: '+240' },
-  { icon: BookOpenCheck, label: 'Unlimited tests', stat: '∞' },
-  { icon: Triangle, label: 'Desmos tricks', stat: '−7m' },
-  { icon: Layers, label: 'All topics', stat: '68' },
-  { icon: Zap, label: 'Rapid Fire', stat: '12s' },
-  { icon: MessageCircleHeart, label: 'Tutoring mode', stat: 'Stay' },
-  { icon: Wallet, label: 'From', stat: `$${PLANS[0]?.price ?? 10}` },
-] as const
 
 export default async function LandingPage() {
   const supabase = await createClient()
@@ -43,129 +20,146 @@ export default async function LandingPage() {
   if (user) redirect('/dashboard')
 
   return (
-    <div className="relative min-h-screen overflow-x-hidden">
-      <div className="pointer-events-none absolute inset-0 land-hero-wash" aria-hidden="true" />
-      <div className="pointer-events-none absolute inset-0 play-dots opacity-50" aria-hidden="true" />
-      <div className="pointer-events-none absolute left-1/2 top-0 h-[36rem] w-[36rem] -translate-x-1/2 rounded-full land-orb" aria-hidden="true" />
-
-      <header className="relative z-10 mx-auto flex max-w-6xl items-center justify-between px-6 py-5">
-        <BrandMark />
-        <nav className="flex items-center gap-3">
-          <Link href="#proof" className="hidden text-xs uppercase tracking-[0.18em] text-fog hover:text-paper md:inline">
-            Data
-          </Link>
-          <Link href="/pricing" className="hidden text-xs uppercase tracking-[0.18em] text-fog hover:text-paper md:inline">
-            Pricing
-          </Link>
-          <Button asChild variant="ghost" size="sm">
-            <Link href="/login">Log in</Link>
-          </Button>
-          <Button asChild size="sm">
-            <Link href="/signup">Start</Link>
-          </Button>
-        </nav>
+    <div className="cast-page relative min-h-screen overflow-x-hidden">
+      <header className="relative z-30 mx-auto max-w-6xl px-4 pt-5 sm:px-6">
+        <div className="cast-nav cast-pill flex items-center justify-between gap-3 px-3 py-2.5 sm:px-4">
+          <BrandMark href="/" />
+          <div className="flex items-center gap-2">
+            <Link href="#proof" className="hidden px-3 text-sm text-fog hover:text-paper md:inline">
+              Data
+            </Link>
+            <Link href="#product" className="hidden px-3 text-sm text-fog hover:text-paper md:inline">
+              Product
+            </Link>
+            <Link href="/pricing" className="hidden px-3 text-sm text-fog hover:text-paper md:inline">
+              Pricing
+            </Link>
+            <Link
+              href="/signup"
+              className="cast-pill cast-cta inline-flex items-center gap-1.5 px-4 py-2.5 text-sm font-semibold"
+            >
+              Start free <ArrowRight className="h-4 w-4" />
+            </Link>
+            <Link
+              href="/login"
+              className="cast-pill inline-flex h-10 w-10 items-center justify-center border border-[var(--line)] bg-white text-paper"
+              aria-label="Log in"
+            >
+              <Menu className="h-4 w-4" />
+            </Link>
+          </div>
+        </div>
       </header>
 
-      <main className="relative z-10 mx-auto grid max-w-6xl items-center gap-8 px-6 pb-10 pt-2 lg:grid-cols-2 lg:gap-10 lg:pb-14">
-        <section className="land-rise">
-          <p className="font-display text-[clamp(3rem,9vw,5.2rem)] leading-[0.88]">
-            <span className="land-brand-glow">SAT ACT AI</span>
-          </p>
-          <h1 className="land-rise land-rise-delay-1 mt-4 max-w-md font-display text-2xl leading-tight text-paper sm:text-3xl">
-            Pictures of progress. Not walls of text.
-          </h1>
-          <p className="land-rise land-rise-delay-2 mt-3 max-w-sm text-fog">
-            Custom examples · live score · nightly plan · from ${PLANS[0].price}/mo
-          </p>
-          <div className="land-rise land-rise-delay-3 mt-7 flex flex-wrap gap-3">
-            <Button asChild size="lg">
-              <Link href="/signup">Start free</Link>
-            </Button>
-            <Button asChild size="lg" variant="outline">
-              <Link href="#proof">See the graphs</Link>
-            </Button>
+      <main className="cast-hero-fill cast-stage relative z-10 mx-auto flex max-w-5xl flex-col items-center justify-center px-4 pb-16 pt-16 text-center sm:px-6 sm:pt-20">
+        <div className="relative z-10 mx-auto max-w-2xl">
+          <div className="mb-6 flex items-center justify-center gap-3">
+            <span className="flex h-12 w-12 items-center justify-center rounded-full bg-signal font-display text-xl font-extrabold text-white shadow-[0_12px_28px_rgba(255,92,57,0.32)]">
+              P
+            </span>
+            <p className="font-display text-2xl tracking-tight text-paper sm:text-3xl">{BRAND_NAME}</p>
           </div>
-        </section>
-        <div className="land-rise land-rise-delay-2">
-          <HeroPreview />
+          <h1 className="mt-2 font-display text-[clamp(2.75rem,7.5vw,4.5rem)] leading-[0.96] tracking-tight text-paper">
+            Turn practice into a <span className="cast-accent">score jump.</span>
+          </h1>
+          <p className="mx-auto mt-5 max-w-lg text-[17px] leading-relaxed text-fog">
+            Charts that show why it works. A reel that shows Nova tutoring, planning, and rewarding real progress.
+          </p>
+
+          <div className="mx-auto mt-9 flex max-w-xl flex-col gap-2 rounded-full border border-[var(--line)] bg-white p-1.5 shadow-[0_24px_50px_rgba(40,24,12,0.1)] sm:flex-row sm:items-center">
+            <p className="flex-1 px-4 py-3 text-left text-sm text-fog">
+              Free diagnostic · no card
+            </p>
+            <Link
+              href="/signup"
+              className="cast-pill cast-cta inline-flex items-center justify-center gap-1.5 px-5 py-3 text-sm font-semibold"
+            >
+              Start free <ArrowRight className="h-4 w-4" />
+            </Link>
+          </div>
         </div>
       </main>
 
-      <section className="relative z-10 mx-auto max-w-6xl px-6 pb-8">
-        <div className="grid grid-cols-3 gap-3 sm:grid-cols-3 lg:grid-cols-9">
-          {FEATURES.map((f) => {
-            const Icon = f.icon
-            return (
-              <div key={f.label} className="neu-sm flex flex-col items-center gap-2 px-2 py-4 text-center">
-                <span className="flex h-9 w-9 items-center justify-center rounded-xl text-signal">
-                  <Icon className="h-4 w-4" aria-hidden="true" />
-                </span>
-                <p className="font-display text-lg leading-none">{f.stat}</p>
-                <p className="font-mono text-[9px] uppercase tracking-[0.12em] text-fog">{f.label}</p>
-              </div>
-            )
-          })}
+      <section id="proof" className="relative z-10 mx-auto max-w-6xl px-4 py-20 sm:px-6">
+        <div className="mb-10 max-w-2xl">
+          <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-signal">1 · The data</p>
+          <h2 className="mt-2 font-display text-3xl tracking-tight sm:text-4xl">Why Prep SAT ACT works</h2>
+          <p className="mt-3 text-[15px] leading-relaxed text-fog">
+            Year growth, monthly lift, customization, method pie, and the checklist of what we ship.
+          </p>
         </div>
+        <DataProof />
       </section>
 
-      <section id="proof" className="relative z-10 mx-auto max-w-6xl px-6 py-10">
-        <div className="mb-6 flex flex-wrap items-end justify-between gap-3">
-          <div>
-            <SectionKicker>The data</SectionKicker>
-            <h2 className="mt-2 font-display text-3xl sm:text-4xl">What moves the score</h2>
-          </div>
-          <p className="max-w-xs text-sm text-fog">StudentQuest models · same student · different format</p>
+      <section id="product" className="relative z-10 mx-auto max-w-6xl px-4 py-20 sm:px-6">
+        <div className="mb-10 max-w-2xl">
+          <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-signal">2 · The product</p>
+          <h2 className="mt-2 font-display text-3xl tracking-tight sm:text-4xl">Watch Nova work</h2>
+          <p className="mt-3 text-[15px] leading-relaxed text-fog">
+            A product reel — hard math with Desmos, hard English, rewards, practice tests, tonight&apos;s plan, 5,000 questions, levels.
+          </p>
         </div>
-        <ProofCharts />
+        <ProductShowcase />
       </section>
 
-      <section className="relative z-10 mx-auto max-w-6xl px-6 py-12">
-        <SectionKicker>Price</SectionKicker>
-        <h2 className="mt-2 font-display text-3xl">From ${PLANS[0].price} / mo</h2>
-        <p className="mt-1 text-sm text-fog">
-          Core ${PLANS[0].price} · Plus ${PLANS[1].price}. Have a code? Apply it on pricing.
-        </p>
-        <div className="mt-8 grid gap-4 sm:grid-cols-2">
+      <section className="relative z-10 mx-auto max-w-6xl px-4 py-16 sm:px-6">
+        <div className="mb-10 max-w-2xl">
+          <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-signal">Pricing</p>
+          <h2 className="mt-2 font-display text-3xl tracking-tight sm:text-4xl">Pick a plan</h2>
+          <p className="mt-3 text-[15px] text-fog">
+            Clear limits. Eight inclusions each. Start on Core or go Plus for the higher daily ceiling.
+          </p>
+        </div>
+        <div className="grid gap-5 lg:grid-cols-2">
           {PLANS.map((plan) => (
-            <div key={plan.name} className="neu flex items-center justify-between gap-4 px-6 py-5">
-              <div>
-                <p className="font-display text-xl">
-                  {plan.name}
-                  {plan.hot ? <span className="ml-2 font-mono text-[10px] text-signal">HOT</span> : null}
-                </p>
-                <p className="font-display text-2xl text-paper">${plan.price}/mo</p>
+            <div
+              key={plan.name}
+              className={`cast-card flex flex-col p-7 ${plan.hot ? 'ring-2 ring-signal' : ''}`}
+            >
+              <div className="flex items-start justify-between gap-3">
+                <div>
+                  <p className="font-display text-2xl">
+                    {plan.name}
+                    {plan.hot ? <span className="ml-2 font-mono text-[10px] text-signal">MOST CHOSEN</span> : null}
+                  </p>
+                  <p className="mt-2 max-w-sm text-sm leading-relaxed text-fog">{plan.blurb}</p>
+                </div>
+                <div className="text-right">
+                  <p className="font-display text-4xl tracking-tight">${plan.price}</p>
+                  <p className="text-sm text-fog">/ month</p>
+                </div>
               </div>
-              <Button asChild variant={plan.hot ? 'default' : 'outline'}>
-                <Link href={`/signup?plan=${plan.id}`}>Get</Link>
-              </Button>
+              <ul className="mt-6 space-y-2.5">
+                {plan.bullets.map((item) => (
+                  <li key={item} className="flex items-start gap-2.5 text-sm text-paper">
+                    <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[rgba(34,160,107,0.12)] text-ok">
+                      <Check className="h-3 w-3" aria-hidden="true" />
+                    </span>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+              <Link
+                href={`/signup?plan=${plan.id}`}
+                className={
+                  plan.hot
+                    ? 'cast-pill cast-cta mt-7 inline-flex items-center justify-center gap-1.5 px-5 py-3 text-sm font-semibold'
+                    : 'cast-pill mt-7 inline-flex items-center justify-center gap-1.5 border border-[var(--line)] bg-white px-5 py-3 text-sm font-semibold'
+                }
+              >
+                Get {plan.name} <ArrowRight className="h-4 w-4" />
+              </Link>
             </div>
           ))}
         </div>
       </section>
 
-      <section className="relative z-10 mx-auto max-w-6xl px-6 pb-20">
-        <div className="land-cta relative neu flex flex-col items-start justify-between gap-5 overflow-hidden px-8 py-10 sm:flex-row sm:items-center">
-          <div
-            className="pointer-events-none absolute inset-0"
-            style={{
-              background:
-                'radial-gradient(420px 180px at 0% 0%, rgba(255,107,87,0.16), transparent 55%), radial-gradient(360px 160px at 100% 100%, rgba(43,158,217,0.14), transparent 50%)',
-            }}
-            aria-hidden="true"
-          />
-          <h2 className="relative z-10 font-display text-3xl leading-tight">Ready?</h2>
-          <Button asChild size="lg" className="relative z-10">
-            <Link href="/signup">Create account</Link>
-          </Button>
-        </div>
-      </section>
-
-      <footer className="relative z-10 px-6 py-8">
+      <footer className="relative z-10 border-t border-[var(--line)] px-6 py-8">
         <div className="mx-auto flex max-w-6xl items-center justify-between">
-          <BrandMark />
-          <div className="flex gap-5 font-mono text-[10px] uppercase tracking-[0.16em] text-fog">
-            <Link href="/pricing">Pricing</Link>
-            <Link href="/login">Login</Link>
+          <p className="font-display text-sm">{BRAND_NAME}</p>
+          <div className="flex gap-5 text-sm text-fog">
+            <Link href="/pricing" className="hover:text-paper">Pricing</Link>
+            <Link href="/login" className="hover:text-paper">Login</Link>
           </div>
         </div>
       </footer>

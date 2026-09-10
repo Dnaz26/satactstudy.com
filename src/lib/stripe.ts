@@ -1,5 +1,5 @@
 import Stripe from 'stripe'
-import { PLAN_LIMITS, PLAN_PRICES, PLAN_PROMO_PRICES } from './constants'
+import { PLAN_FEATURES, PLAN_LIMITS, PLAN_PRICES, PLAN_PROMO_PRICES } from './constants'
 import { CHECKOUT_PROMO, isCheckoutPromo, promoPriceFromList } from './plans'
 
 export type PaidPlanId = 'lite' | 'starter' | 'core' | 'plus' | 'pro' | 'elite'
@@ -16,6 +16,8 @@ export type PlanInfo = {
   promoPrice?: number
   id: PaidPlanId
   line: string
+  blurb: string
+  bullets: readonly string[]
   hot?: boolean
   once?: boolean
 }
@@ -27,6 +29,8 @@ export const PLANS: PlanInfo[] = [
     promoPrice: PLAN_PROMO_PRICES.core,
     id: 'core',
     line: `${PLAN_LIMITS.core.questions_per_day} questions/day · ${PLAN_LIMITS.core.ai_chats_per_day} AI chats/day`,
+    blurb: 'Daily practice + Nova tutoring for serious prep without overload.',
+    bullets: PLAN_FEATURES.core,
   },
   {
     name: 'Plus',
@@ -34,17 +38,48 @@ export const PLANS: PlanInfo[] = [
     promoPrice: PLAN_PROMO_PRICES.plus,
     id: 'plus',
     line: `${PLAN_LIMITS.plus.questions_per_day} questions/day · ${PLAN_LIMITS.plus.ai_chats_per_day} AI chats/day`,
+    blurb: 'Higher caps, full analytics, and vocabulary for students chasing big jumps.',
+    bullets: PLAN_FEATURES.plus,
     hot: true,
   },
 ]
 
 const LEGACY_PLANS: Record<PaidPlanId, PlanInfo> = {
-  lite: { name: 'Lite', price: PLAN_PRICES.lite, id: 'lite', line: '5 questions · 1 AI chat', once: true },
-  starter: { name: 'Starter', price: PLAN_PRICES.starter, id: 'starter', line: '10 questions · 3 AI chats' },
+  lite: {
+    name: 'Lite',
+    price: PLAN_PRICES.lite,
+    id: 'lite',
+    line: '5 questions · 1 AI chat',
+    blurb: 'One-time connection test.',
+    bullets: PLAN_FEATURES.lite,
+    once: true,
+  },
+  starter: {
+    name: 'Starter',
+    price: PLAN_PRICES.starter,
+    id: 'starter',
+    line: '10 questions · 3 AI chats',
+    blurb: 'Light daily practice.',
+    bullets: PLAN_FEATURES.starter,
+  },
   core: PLANS[0],
   plus: PLANS[1],
-  pro: { name: 'Pro', price: PLAN_PRICES.pro, id: 'pro', line: '50 questions · 15 AI chats' },
-  elite: { name: 'Elite', price: PLAN_PRICES.elite, id: 'elite', line: 'Unlimited' },
+  pro: {
+    name: 'Pro',
+    price: PLAN_PRICES.pro,
+    id: 'pro',
+    line: '50 questions · 15 AI chats',
+    blurb: 'Legacy plan.',
+    bullets: PLAN_FEATURES.pro,
+  },
+  elite: {
+    name: 'Elite',
+    price: PLAN_PRICES.elite,
+    id: 'elite',
+    line: 'Unlimited',
+    blurb: 'Legacy unlimited plan.',
+    bullets: PLAN_FEATURES.elite,
+  },
 }
 
 export function planInfo(plan: PaidPlanId): PlanInfo {

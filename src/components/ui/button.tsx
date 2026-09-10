@@ -6,16 +6,16 @@ import { cva, type VariantProps } from 'class-variance-authority'
 import { cn } from '@/lib/utils'
 
 const buttonVariants = cva(
-  'inline-flex items-center justify-center whitespace-nowrap rounded-2xl text-sm font-semibold tracking-tight transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-signal focus-visible:ring-offset-2 focus-visible:ring-offset-ink disabled:pointer-events-none disabled:opacity-40',
+  'inline-flex items-center justify-center whitespace-nowrap rounded-full text-sm font-semibold tracking-tight transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-signal focus-visible:ring-offset-2 focus-visible:ring-offset-ink disabled:pointer-events-none disabled:opacity-40',
   {
     variants: {
       variant: {
-        default: 'neu-raised text-white hover:bg-signal-hot',
-        secondary: 'neu-sm text-paper hover:brightness-[0.98]',
-        ghost: 'text-fog hover:text-paper rounded-2xl',
-        destructive: 'bg-bad text-white rounded-2xl hover:brightness-110',
-        outline: 'neu-inset text-paper',
-        success: 'bg-ok text-white rounded-2xl hover:brightness-110',
+        default: 'bg-signal text-white shadow-[0_14px_30px_rgba(255,92,57,0.28)] hover:bg-signal-hot',
+        secondary: 'bg-panel text-paper border border-[var(--line)] shadow-[0_8px_20px_rgba(40,24,12,0.05)] hover:bg-panel-2',
+        ghost: 'text-fog hover:text-paper rounded-full',
+        destructive: 'bg-bad text-white hover:brightness-110',
+        outline: 'bg-panel-2 text-paper border border-[var(--line)]',
+        success: 'bg-ok text-white hover:brightness-110',
       },
       size: {
         default: 'h-10 px-4',

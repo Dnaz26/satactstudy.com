@@ -1,22 +1,30 @@
 @import "tailwindcss";
 
 :root {
-  --ink: #eaf4ff;
-  --panel: #eaf4ff;
-  --panel-2: #dce8fa;
-  --line: #c9d8ee;
-  --line-hot: #adc2e0;
-  --fog: #5f7190;
-  --paper: #1f2d4a;
-  --signal: #ff6b57;
-  --signal-hot: #ff8574;
+  /* Cast-inspired app theme */
+  --ink: #f6f1ea;
+  --panel: #ffffff;
+  --panel-2: #faf7f2;
+  --line: rgba(20, 20, 20, 0.08);
+  --line-hot: rgba(20, 20, 20, 0.14);
+  --fog: #6b6670;
+  --paper: #141414;
+  --signal: #ff5c39;
+  --signal-hot: #ff734f;
   --ok: #22a06b;
   --warn: #e08a12;
   --bad: #e24b62;
   --ice: #2b9ed9;
-  --steel: #7b8fad;
-  --neu-dark: #c5d4ea;
+  --steel: #8a8490;
+  --neu-dark: rgba(40, 24, 12, 0.08);
   --neu-light: #ffffff;
+  --cast-bg: #f6f1ea;
+  --cast-ink: #141414;
+  --cast-muted: #6b6670;
+  --cast-coral: #ff5c39;
+  --cast-coral-hot: #ff734f;
+  --cast-card: #ffffff;
+  --cast-line: rgba(20, 20, 20, 0.08);
 }
 
 @theme inline {
@@ -49,9 +57,9 @@ html {
 
 body {
   background:
-    radial-gradient(1100px 620px at 8% -12%, #ffe4d4 0%, transparent 58%),
-    radial-gradient(900px 520px at 100% 0%, #d4f4ff 0%, transparent 52%),
-    radial-gradient(800px 420px at 70% 110%, #ead9ff 0%, transparent 52%),
+    radial-gradient(900px 520px at 50% -8%, #fff7ef 0%, transparent 58%),
+    radial-gradient(720px 420px at 8% 40%, rgba(255, 92, 57, 0.07), transparent 55%),
+    radial-gradient(640px 380px at 92% 30%, rgba(43, 158, 217, 0.05), transparent 50%),
     var(--ink);
   color: var(--paper);
   font-family: var(--font-outfit), system-ui, sans-serif;
@@ -72,13 +80,13 @@ body {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--line-hot);
+  background: rgba(20, 20, 20, 0.14);
   border-radius: 999px;
 }
 
 .font-display {
   font-family: var(--font-nunito), var(--font-outfit), sans-serif;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.035em;
   font-weight: 800;
 }
 
@@ -86,45 +94,44 @@ body {
   font-family: var(--font-plex), ui-monospace, monospace;
 }
 
+/* Soft cast cards — used across landing + dashboard via existing neu classes */
 .neu {
-  background: var(--ink);
-  border: none;
+  background: var(--panel);
+  border: 1px solid var(--line);
   border-radius: 1.5rem;
-  box-shadow: 10px 10px 20px var(--neu-dark), -10px -10px 20px var(--neu-light);
+  box-shadow: 0 18px 40px rgba(40, 24, 12, 0.06);
 }
 
 .neu-sm {
-  background: var(--ink);
-  border: none;
+  background: var(--panel);
+  border: 1px solid var(--line);
   border-radius: 1.15rem;
-  box-shadow: 6px 6px 12px var(--neu-dark), -6px -6px 12px var(--neu-light);
+  box-shadow: 0 10px 24px rgba(40, 24, 12, 0.05);
 }
 
 .neu-inset {
-  background: var(--ink);
-  border: none;
+  background: var(--panel-2);
+  border: 1px solid var(--line);
   border-radius: 1.15rem;
-  box-shadow: inset 6px 6px 12px var(--neu-dark), inset -6px -6px 12px var(--neu-light);
+  box-shadow: inset 0 1px 2px rgba(40, 24, 12, 0.04);
 }
 
 .neu-raised {
   background: var(--signal);
   border: none;
-  border-radius: 1.15rem;
-  box-shadow:
-    8px 8px 16px var(--neu-dark),
-    -8px -8px 16px var(--neu-light),
-    inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  border-radius: 999px;
+  color: #fff;
+  box-shadow: 0 14px 30px rgba(255, 92, 57, 0.28);
 }
 
 .neu-pressed:active,
 .neu-raised:active {
-  box-shadow: inset 5px 5px 10px rgba(31, 45, 74, 0.18), inset -3px -3px 8px rgba(255, 255, 255, 0.35);
+  box-shadow: 0 8px 18px rgba(255, 92, 57, 0.22);
   transform: translateY(1px);
 }
 
 .play-dots {
-  background-image: radial-gradient(rgba(31, 45, 74, 0.07) 1.1px, transparent 1.1px);
+  background-image: radial-gradient(rgba(20, 20, 20, 0.05) 1.1px, transparent 1.1px);
   background-size: 18px 18px;
 }
 
@@ -157,19 +164,18 @@ body {
 }
 
 .test-sheet {
-  background:
-    linear-gradient(180deg, #fffef8 0%, #f6f0e2 100%);
+  background: linear-gradient(180deg, #fffef8 0%, #f6f0e2 100%);
   color: #1c2740;
   box-shadow:
     0 0 0 1px rgba(120, 96, 56, 0.16),
-    12px 18px 36px rgba(31, 45, 74, 0.14);
+    12px 18px 36px rgba(20, 20, 20, 0.08);
 }
 
 .test-sheet-lines {
   background-image: repeating-linear-gradient(
     transparent,
     transparent 26px,
-    rgba(31, 45, 74, 0.035) 27px
+    rgba(20, 20, 20, 0.035) 27px
   );
 }
 
@@ -214,113 +220,151 @@ body {
   }
 }
 
-@keyframes land-drift {
-  0%,
-  100% {
-    transform: translate3d(0, 0, 0);
-  }
-  50% {
-    transform: translate3d(0, -10px, 0);
-  }
-}
-
-@keyframes land-sheen {
-  0% {
-    background-position: 0% 50%;
-  }
-  100% {
-    background-position: 100% 50%;
-  }
-}
-
 .land-rise {
   animation: land-rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
-.land-rise-delay-1 {
-  animation-delay: 0.08s;
+.land-rise-delay-1 { animation-delay: 0.08s; }
+.land-rise-delay-2 { animation-delay: 0.16s; }
+.land-rise-delay-3 { animation-delay: 0.24s; }
+
+.cast-page {
+  background: transparent;
+  color: var(--cast-ink);
 }
 
-.land-rise-delay-2 {
-  animation-delay: 0.16s;
+.cast-nav {
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid var(--cast-line);
+  box-shadow: 0 18px 50px rgba(40, 24, 12, 0.08);
+  backdrop-filter: blur(14px);
 }
 
-.land-rise-delay-3 {
-  animation-delay: 0.24s;
+.cast-pill {
+  border-radius: 999px;
 }
 
-.land-drift {
-  animation: land-drift 7s ease-in-out infinite;
-}
-
-.land-hero-wash {
-  background:
-    radial-gradient(920px 520px at 12% 18%, rgba(255, 107, 87, 0.18), transparent 58%),
-    radial-gradient(780px 480px at 88% 8%, rgba(43, 158, 217, 0.22), transparent 55%),
-    radial-gradient(640px 420px at 70% 92%, rgba(34, 160, 107, 0.12), transparent 60%);
-}
-
-.land-brand-glow {
-  background: linear-gradient(120deg, #1f2d4a 0%, #ff6b57 42%, #2b9ed9 78%, #1f2d4a 100%);
-  background-size: 220% 220%;
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  animation: land-sheen 8s ease-in-out infinite alternate;
-}
-
-.land-reason:hover {
-  transform: translateY(-4px);
-}
-
-.land-reason:hover .land-reason-icon {
-  background: var(--signal);
+.cast-cta {
+  background: var(--cast-coral);
   color: #fff;
-  box-shadow:
-    8px 8px 16px var(--neu-dark),
-    -8px -8px 16px var(--neu-light),
-    inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  box-shadow: 0 14px 34px rgba(255, 92, 57, 0.28);
+  transition: transform 0.2s ease, background 0.2s ease;
 }
 
-@keyframes land-orb-pulse {
+.cast-cta:hover {
+  background: var(--cast-coral-hot);
+  transform: translateY(-1px);
+}
+
+.cast-card {
+  background: var(--cast-card);
+  border: 1px solid var(--cast-line);
+  border-radius: 1.75rem;
+  box-shadow: 0 18px 40px rgba(40, 24, 12, 0.06);
+}
+
+.cast-card-3d {
+  transform-style: preserve-3d;
+  box-shadow:
+    0 24px 50px rgba(40, 24, 12, 0.09),
+    0 1px 0 rgba(255, 255, 255, 0.85) inset;
+}
+
+.cast-stage {
+  perspective: 1400px;
+  transform-style: preserve-3d;
+}
+
+.cast-float {
+  animation: cast-float 8s ease-in-out infinite;
+}
+
+.cast-float-delay { animation-delay: 1.4s; }
+.cast-float-delay-2 { animation-delay: 2.4s; }
+
+@keyframes cast-float {
   0%,
   100% {
-    opacity: 0.35;
-    transform: translate(-50%, 0) scale(1);
+    transform: translate3d(0, 0, var(--cast-z, 0px)) rotateY(var(--cast-ry, 0deg)) rotateZ(var(--cast-tilt, -6deg));
   }
   50% {
-    opacity: 0.55;
-    transform: translate(-50%, 12px) scale(1.06);
+    transform: translate3d(0, -10px, var(--cast-z, 0px)) rotateY(var(--cast-ry, 0deg)) rotateZ(var(--cast-tilt, -6deg));
   }
 }
 
-.land-orb {
-  background: radial-gradient(circle, rgba(255, 107, 87, 0.16), rgba(43, 158, 217, 0.08) 42%, transparent 68%);
-  filter: blur(8px);
-  animation: land-orb-pulse 9s ease-in-out infinite;
+.cast-video {
+  background: #0f0f12;
+  border-radius: 1.75rem;
+  box-shadow:
+    0 40px 80px rgba(20, 12, 8, 0.28),
+    0 0 0 1px rgba(255, 255, 255, 0.06) inset;
+  overflow: hidden;
 }
 
-.land-cta {
-  border-radius: 2rem;
+.cast-video-bezel {
+  background: linear-gradient(180deg, #1a1a1f 0%, #0f0f12 100%);
+}
+
+.cast-video-screen {
+  background:
+    radial-gradient(800px 400px at 20% 0%, rgba(255, 92, 57, 0.14), transparent 55%),
+    radial-gradient(600px 360px at 90% 100%, rgba(43, 158, 217, 0.1), transparent 50%),
+    #121218;
+}
+
+.cast-depth-grid {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 28px 28px;
+  transform: perspective(600px) rotateX(58deg) scale(1.4);
+  transform-origin: center top;
+}
+
+.cast-accent {
+  color: var(--cast-coral);
+  font-style: italic;
+}
+
+.cast-mark {
+  background: linear-gradient(120deg, transparent 0%, rgba(255, 92, 57, 0.28) 45%, transparent 100%);
+  border-radius: 0.2em;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+.cast-note {
+  background: #fff8c9;
+  border: 1px solid rgba(224, 138, 18, 0.35);
+  border-radius: 0.85rem;
+  box-shadow: 0 10px 24px rgba(40, 24, 12, 0.08);
+}
+
+.cast-hero-fill {
+  min-height: min(88vh, 860px);
+}
+
+.app-shell {
+  background: transparent;
+}
+
+.app-sidebar {
+  background: rgba(255, 255, 255, 0.72);
+  border-right: 1px solid var(--line);
+  backdrop-filter: blur(16px);
+}
+
+.app-topbar {
+  background: rgba(255, 255, 255, 0.55);
+  border-bottom: 1px solid var(--line);
+  backdrop-filter: blur(14px);
 }
 
 @keyframes rhs-burst-in {
-  0% {
-    opacity: 0;
-    transform: translate(-50%, -12px) scale(0.85);
-  }
-  18% {
-    opacity: 1;
-    transform: translate(-50%, 0) scale(1.05);
-  }
-  70% {
-    opacity: 1;
-    transform: translate(-50%, 0) scale(1);
-  }
-  100% {
-    opacity: 0;
-    transform: translate(-50%, -8px) scale(0.98);
-  }
+  0% { opacity: 0; transform: translate(-50%, -12px) scale(0.85); }
+  18% { opacity: 1; transform: translate(-50%, 0) scale(1.05); }
+  70% { opacity: 1; transform: translate(-50%, 0) scale(1); }
+  100% { opacity: 0; transform: translate(-50%, -8px) scale(0.98); }
 }
 
 @keyframes rhs-confetti-fall {
@@ -328,9 +372,7 @@ body {
     background-position: 0 -40px, 40px -80px, 80px -20px, 120px -100px;
     opacity: 0;
   }
-  12% {
-    opacity: 1;
-  }
+  12% { opacity: 1; }
   100% {
     background-position: 0 110%, 40px 120%, 80px 105%, 120px 130%;
     opacity: 0;
@@ -338,13 +380,13 @@ body {
 }
 
 .rhs-burst {
-  background: linear-gradient(135deg, #ff6b57, #2b9ed9 55%, #3ecf8e);
+  background: linear-gradient(135deg, #ff5c39, #2b9ed9 55%, #3ecf8e);
   animation: rhs-burst-in 3.8s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 .rhs-confetti {
   background-image:
-    radial-gradient(circle, #ff6b57 2px, transparent 3px),
+    radial-gradient(circle, #ff5c39 2px, transparent 3px),
     radial-gradient(circle, #2b9ed9 2px, transparent 3px),
     radial-gradient(circle, #3ecf8e 2px, transparent 3px),
     radial-gradient(circle, #f5c542 2px, transparent 3px);
@@ -354,14 +396,12 @@ body {
 
 .rhs-special-wash {
   background:
-    radial-gradient(280px 120px at 0% 0%, rgba(255, 107, 87, 0.22), transparent 60%),
-    radial-gradient(260px 110px at 100% 100%, rgba(43, 158, 217, 0.2), transparent 55%);
+    radial-gradient(280px 120px at 0% 0%, rgba(255, 92, 57, 0.18), transparent 60%),
+    radial-gradient(260px 110px at 100% 100%, rgba(43, 158, 217, 0.14), transparent 55%);
 }
 
 .rhs-plan-glow {
   box-shadow:
-    0 0 0 1px rgba(255, 107, 87, 0.28),
-    10px 10px 22px var(--neu-dark),
-    -10px -10px 22px var(--neu-light);
+    0 0 0 1px rgba(255, 92, 57, 0.22),
+    0 18px 40px rgba(40, 24, 12, 0.08);
 }
-

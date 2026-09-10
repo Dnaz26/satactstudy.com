@@ -27,6 +27,7 @@ import {
   writePracticeSnapshot,
   type PracticeSnapshot,
 } from '@/lib/practice/persist'
+import { HighlightNoteChrome, useHighlightNotes } from '@/components/practice/highlight-notes'
 
 function answersMatch(selected: string, correct: string): boolean {
   const a = selected.trim().toLowerCase()
@@ -95,6 +96,8 @@ function SessionContent() {
   const [sheetTestType, setSheetTestType] = React.useState(testType)
   const startedAt = React.useRef<Record<string, number>>({})
   const finished = React.useRef(false)
+  const bookletRef = React.useRef<HTMLDivElement>(null)
+  const highlight = useHighlightNotes(bookletRef)
 
   function snapshotFromState(overrides?: Partial<PracticeSnapshot>): PracticeSnapshot {
     return {
@@ -386,27 +389,42 @@ function SessionContent() {
         onHint={() => askTutor('hint', 'Give me a small hint only. Do not give the answer. If this is math, say what to type in Desmos.')}
       />
 
-      <div className={cn(
-        'grid gap-3',
-        desmos.open
-          ? 'grid-cols-1 lg:grid-cols-[minmax(0,0.7fr)_minmax(620px,1.3fr)]'
-          : 'grid-cols-[minmax(0,1fr)_min(220px,34vw)]'
-      )}>
-        <TestBooklet
-          testType={sheetTestType}
-          sectionLabel={sectionFromQuestions(questions, sectionName)}
-          questions={questions}
-          answers={answers}
-          marks={marks}
-          focusedId={focusedId}
-          onFocus={focusQuestion}
-          onAnswer={(id, value) => {
-            if (marks[id]) return
-            setAnswers((prev) => ({ ...prev, [id]: value }))
-            setFocusedId(id)
-          }}
-          onCheck={(id) => void checkQuestion(id)}
-        />
+      <div
+        ref={bookletRef}
+        onMouseUp={highlight.onMouseUp}
+        className={cn(
+          'relative grid gap-3',
+          desmos.open
+            ? 'grid-cols-1 lg:grid-cols-[minmax(0,0.7fr)_minmax(620px,1.3fr)]'
+            : 'grid-cols-[minmax(0,1fr)_min(220px,34vw)]'
+        )}
+      >
+        <div className="relative min-w-0">
+          <TestBooklet
+            testType={sheetTestType}
+            sectionLabel={sectionFromQuestions(questions, sectionName)}
+            questions={questions}
+            answers={answers}
+            marks={marks}
+            focusedId={focusedId}
+            onFocus={focusQuestion}
+            onAnswer={(id, value) => {
+              if (marks[id]) return
+              setAnswers((prev) => ({ ...prev, [id]: value }))
+              setFocusedId(id)
+            }}
+            onCheck={(id) => void checkQuestion(id)}
+          />
+          <HighlightNoteChrome
+            pending={highlight.pending}
+            draft={highlight.draft}
+            setDraft={highlight.setDraft}
+            onHighlight={highlight.highlightOnly}
+            onSave={highlight.saveNote}
+            onClose={highlight.clearPending}
+            notes={highlight.notes}
+          />
+        </div>
         {desmos.open ? (
           <div className="sticky top-2 self-start">
             <DesmosPanel embedded />

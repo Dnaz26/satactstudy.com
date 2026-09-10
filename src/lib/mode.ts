@@ -29,11 +29,11 @@ export const MODE_STYLES: Record<
   },
   in_progress: {
     label: 'LIVE',
-    signal: '#FF6B57',
-    signalRgb: '255, 107, 87',
+    signal: '#FF5C39',
+    signalRgb: '255, 92, 57',
     face: 'focus',
-    button: 'neu-raised text-white hover:bg-signal-hot',
-    iconBg: 'neu-sm text-signal',
+    button: 'bg-signal text-white rounded-full shadow-[0_14px_30px_rgba(255,92,57,0.28)] hover:bg-signal-hot',
+    iconBg: 'bg-panel-2 text-signal border border-[var(--line)]',
     ring: 'ring-signal/50',
   },
   success: {
