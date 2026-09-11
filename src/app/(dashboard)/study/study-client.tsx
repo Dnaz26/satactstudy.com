@@ -58,13 +58,13 @@ export function StudyClient() {
   const preview = previewIndex != null ? getLevel(track, previewIndex) : null
 
   return (
-    <div className="relative mx-auto min-h-[80vh] w-full max-w-5xl overflow-hidden rounded-[2.5rem] border border-black/10 bg-[linear-gradient(180deg,#ffffff_0%,#f4fffc_40%,#e8fff2_100%)] pb-24 pt-4 shadow-[0_28px_0_rgba(0,0,0,0.06),0_40px_80px_rgba(0,0,0,0.1)]">
+    <div className="relative mx-auto min-h-[80vh] w-full max-w-5xl overflow-hidden rounded-[2.5rem] border border-black/10 bg-[linear-gradient(180deg,#ffffff_0%,#fffaf7_40%,#fff5f0_100%)] pb-24 pt-4 shadow-[0_28px_0_rgba(0,0,0,0.06),0_40px_80px_rgba(0,0,0,0.1)]">
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 opacity-40"
         style={{
           backgroundImage:
-            'radial-gradient(circle at 15% 8%, rgba(46,196,182,0.22), transparent 42%), radial-gradient(circle at 85% 5%, rgba(184,242,200,0.45), transparent 38%), radial-gradient(circle at 50% 100%, rgba(46,196,182,0.12), transparent 45%)',
+            'radial-gradient(circle at 15% 8%, rgba(255,92,57,0.22), transparent 42%), radial-gradient(circle at 85% 5%, rgba(255,212,200,0.45), transparent 38%), radial-gradient(circle at 50% 100%, rgba(255,92,57,0.12), transparent 45%)',
         }}
       />
 
@@ -84,7 +84,7 @@ export function StudyClient() {
               className={cn(
                 'flex-1 rounded-[1.35rem] py-4 text-base font-extrabold uppercase tracking-wide transition-transform active:translate-y-1',
                 track === value
-                  ? 'bg-[#2ec4b6] text-white shadow-[0_10px_0_#0f766e]'
+                  ? 'bg-[#ff5c39] text-white shadow-[0_10px_0_#c94424]'
                   : 'bg-[#efefef] text-[#777] shadow-[0_8px_0_#cfcfcf]',
               )}
             >
@@ -94,7 +94,7 @@ export function StudyClient() {
         </div>
         <div className="mt-4 h-3.5 overflow-hidden rounded-full bg-black/[0.06] shadow-[inset_0_2px_4px_rgba(0,0,0,0.08)]">
           <div
-            className="h-full rounded-full bg-[#7ed99a] shadow-[inset_0_-3px_0_rgba(0,0,0,0.12)]"
+            className="h-full rounded-full bg-[#ff8a6b] shadow-[inset_0_-3px_0_rgba(0,0,0,0.12)]"
             style={{ width: `${pct}%` }}
           />
         </div>
@@ -106,7 +106,7 @@ export function StudyClient() {
       <div className="relative mx-auto flex w-full max-w-xl flex-col items-center gap-11 px-4 py-8 sm:max-w-2xl sm:gap-12">
         <div
           aria-hidden
-          className="absolute bottom-8 top-12 w-5 rounded-full bg-[linear-gradient(180deg,#2ec4b6,#2ec4b6,#7ed99a)] opacity-35 shadow-[0_0_24px_rgba(46,196,182,0.25)]"
+          className="absolute bottom-8 top-12 w-5 rounded-full bg-[linear-gradient(180deg,#ff5c39,#ff5c39,#ff8a6b)] opacity-35 shadow-[0_0_24px_rgba(255,92,57,0.25)]"
           style={{ left: '50%', transform: 'translateX(-50%)' }}
         />
 
@@ -128,10 +128,10 @@ export function StudyClient() {
                   aria-hidden
                 >
                   <svg width="80" height="68" viewBox="0 0 56 48" fill="none">
-                    <rect x="6" y="18" width="44" height="26" rx="6" fill={unlocked ? '#2ec4b6' : '#d9d9d9'} />
-                    <rect x="6" y="18" width="44" height="10" fill={unlocked ? '#0f766e' : '#cfcfcf'} />
-                    <rect x="18" y="8" width="20" height="12" rx="3" fill={unlocked ? '#7ed99a' : '#d0d0d0'} />
-                    <circle cx="28" cy="30" r="4.5" fill={unlocked ? '#134e4a' : '#bdbdbd'} />
+                    <rect x="6" y="18" width="44" height="26" rx="6" fill={unlocked ? '#ff5c39' : '#d9d9d9'} />
+                    <rect x="6" y="18" width="44" height="10" fill={unlocked ? '#c94424' : '#cfcfcf'} />
+                    <rect x="18" y="8" width="20" height="12" rx="3" fill={unlocked ? '#ff8a6b' : '#d0d0d0'} />
+                    <circle cx="28" cy="30" r="4.5" fill={unlocked ? '#1a1412' : '#bdbdbd'} />
                   </svg>
                 </div>
               </div>
@@ -151,9 +151,9 @@ export function StudyClient() {
                   className={cn(
                     'flex h-[108px] w-[108px] items-center justify-center rounded-[2rem] border-[7px] border-white transition-transform active:translate-y-1 sm:h-[120px] sm:w-[120px]',
                     allDone
-                      ? 'bg-[#7ed99a] text-white shadow-[0_14px_0_#5fc480]'
+                      ? 'bg-[#ff8a6b] text-white shadow-[0_14px_0_#e14a2a]'
                       : firstOpen
-                        ? 'bg-[#2ec4b6] text-white shadow-[0_14px_0_#0f766e]'
+                        ? 'bg-[#ff5c39] text-white shadow-[0_14px_0_#c94424]'
                         : 'bg-[#ececec] text-[#b0b0b0] shadow-[0_14px_0_#d0d0d0]',
                   )}
                   aria-label={`${node.category} practice`}
@@ -176,18 +176,18 @@ export function StudyClient() {
             <div className="relative z-10" style={{ transform: `translateX(${offset}px)` }}>
               {isCurrent && (
                 <div className="absolute -top-12 left-1/2 z-10 -translate-x-1/2">
-                  <div className="relative rounded-2xl bg-[#2ec4b6] px-4 py-1.5 text-xs font-extrabold uppercase tracking-wide text-white shadow-[0_6px_0_#0f766e]">
+                  <div className="relative rounded-2xl bg-[#ff5c39] px-4 py-1.5 text-xs font-extrabold uppercase tracking-wide text-white shadow-[0_6px_0_#c94424]">
                     Now
-                    <span className="absolute left-1/2 top-full -mt-px -translate-x-1/2 border-x-8 border-t-[9px] border-x-transparent border-t-[#2ec4b6]" />
+                    <span className="absolute left-1/2 top-full -mt-px -translate-x-1/2 border-x-8 border-t-[9px] border-x-transparent border-t-[#ff5c39]" />
                   </div>
                 </div>
               )}
               <div
                 className={cn(
                   'flex h-[108px] w-[108px] items-center justify-center rounded-full border-[7px] border-white transition-transform sm:h-[120px] sm:w-[120px]',
-                  isCurrent && 'bg-[#2ec4b6] text-white shadow-[0_14px_0_#0f766e] ring-[10px] ring-[rgba(46,196,182,0.25)]',
-                  done && !isCurrent && 'bg-[#7ed99a] text-white shadow-[0_14px_0_#5fc480]',
-                  open && !done && !isCurrent && 'bg-[#3dd4c6] text-white shadow-[0_14px_0_#0f766e]',
+                  isCurrent && 'bg-[#ff5c39] text-white shadow-[0_14px_0_#c94424] ring-[10px] ring-[rgba(255,92,57,0.25)]',
+                  done && !isCurrent && 'bg-[#ff8a6b] text-white shadow-[0_14px_0_#e14a2a]',
+                  open && !done && !isCurrent && 'bg-[#ff734f] text-white shadow-[0_14px_0_#c94424]',
                   locked && 'bg-[#e8e8e8] text-[#9a9a9a] shadow-[0_14px_0_#c8c8c8]',
                 )}
               >
@@ -241,7 +241,7 @@ export function StudyClient() {
               <div>
                 <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-[#9a9a9a]">Locked preview</p>
                 <h2 className="mt-1 font-display text-3xl text-paper">{preview.title}</h2>
-                <p className="mt-1 text-sm font-bold text-[#2ec4b6]">{preview.category}</p>
+                <p className="mt-1 text-sm font-bold text-[#ff5c39]">{preview.category}</p>
               </div>
               <button
                 type="button"
@@ -262,7 +262,7 @@ export function StudyClient() {
             <button
               type="button"
               onClick={() => setPreviewIndex(null)}
-              className="mt-5 w-full rounded-[1.35rem] bg-[#2ec4b6] py-4 text-sm font-extrabold uppercase tracking-wide text-white shadow-[0_8px_0_#0f766e] active:translate-y-1"
+              className="mt-5 w-full rounded-[1.35rem] bg-[#ff5c39] py-4 text-sm font-extrabold uppercase tracking-wide text-white shadow-[0_8px_0_#c94424] active:translate-y-1"
             >
               Got it
             </button>

@@ -220,8 +220,8 @@ function SimulatorInner({ testType }: { testType: 'SAT' | 'ACT' }) {
                     className={cn(
                       'flex min-h-[52px] items-center gap-3 py-3 text-left transition',
                       selected && !mark && 'bg-panel-2',
-                      right && 'bg-[rgba(184,242,200,0.4)]',
-                      wrong && 'bg-[rgba(46,196,182,0.12)]',
+                      right && 'bg-[rgba(255,212,200,0.4)]',
+                      wrong && 'bg-[rgba(255,92,57,0.12)]',
                     )}
                   >
                     <span className={cn(

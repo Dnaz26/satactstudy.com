@@ -195,8 +195,8 @@ export function StudyPlanClient({ plan, tasks, profile, dayLogs = [] }: StudyPla
                 className={cn(
                   'min-h-[88px] bg-white p-2 text-left transition sm:min-h-[100px] sm:p-2.5',
                   isSelected && 'bg-signal text-white',
-                  !isSelected && done && 'bg-[rgba(184,242,200,0.45)]',
-                  !isSelected && missed && 'bg-[rgba(46,196,182,0.12)]',
+                  !isSelected && done && 'bg-[rgba(255,212,200,0.45)]',
+                  !isSelected && missed && 'bg-[rgba(255,92,57,0.12)]',
                   !inMonth && 'opacity-40',
                 )}
               >

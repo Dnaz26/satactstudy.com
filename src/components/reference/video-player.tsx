@@ -17,17 +17,17 @@ function GraphSketch({ lines }: { lines: string[] }) {
     <svg viewBox="0 0 220 120" className="h-full w-full" aria-hidden>
       <defs>
         <linearGradient id="gbg" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="#0f766e" />
-          <stop offset="100%" stopColor="#134e4a" />
+          <stop offset="0%" stopColor="#c94424" />
+          <stop offset="100%" stopColor="#1a1412" />
         </linearGradient>
       </defs>
       <rect width="220" height="120" fill="url(#gbg)" />
-      <path d="M20 60 H200 M110 12 V108" stroke="rgba(184,242,200,0.35)" strokeWidth="1" />
-      {lines[0] && <path d="M28 96 L190 28" stroke="#b8f2c8" strokeWidth="2.6" fill="none" />}
-      {lines[1] && <path d="M28 24 L190 92" stroke="#2ec4b6" strokeWidth="2.6" fill="none" />}
-      {crossing && <circle cx="110" cy="60" r="6" fill="#ffffff" stroke="#b8f2c8" strokeWidth="2" />}
+      <path d="M20 60 H200 M110 12 V108" stroke="rgba(255,212,200,0.35)" strokeWidth="1" />
+      {lines[0] && <path d="M28 96 L190 28" stroke="#ffd4c8" strokeWidth="2.6" fill="none" />}
+      {lines[1] && <path d="M28 24 L190 92" stroke="#ff5c39" strokeWidth="2.6" fill="none" />}
+      {crossing && <circle cx="110" cy="60" r="6" fill="#ffffff" stroke="#ffd4c8" strokeWidth="2" />}
       {lines.slice(0, 2).map((line, index) => (
-        <text key={`${index}-${line}`} x="26" y={18 + index * 14} fill={index === 0 ? '#b8f2c8' : '#9ee0d8'} fontSize="9">
+        <text key={`${index}-${line}`} x="26" y={18 + index * 14} fill={index === 0 ? '#ffd4c8' : '#ffb39f'} fontSize="9">
           {line}
         </text>
       ))}
@@ -37,7 +37,7 @@ function GraphSketch({ lines }: { lines: string[] }) {
 
 function Stage({ video, beat, typed, step, total }: { video: ReferenceVideo; beat: VideoBeat; typed: string; step: number; total: number }) {
   return (
-    <div className="relative flex h-full flex-col overflow-hidden bg-[radial-gradient(circle_at_20%_0%,rgba(46,196,182,0.35),transparent_45%),linear-gradient(160deg,#0f766e_0%,#134e4a_55%,#0a3d3a_100%)]">
+    <div className="relative flex h-full flex-col overflow-hidden bg-[radial-gradient(circle_at_20%_0%,rgba(255,92,57,0.35),transparent_45%),linear-gradient(160deg,#c94424_0%,#1a1412_55%,#7a2a18_100%)]">
       <div className="flex items-center justify-between px-4 pt-3 text-[10px] uppercase tracking-[0.18em] text-white/55">
         <span>{video.kind} lesson</span>
         <span>
@@ -47,11 +47,11 @@ function Stage({ video, beat, typed, step, total }: { video: ReferenceVideo; bea
 
       {video.kind === 'desmos' ? (
         <div className="grid min-h-0 flex-1 grid-cols-1 gap-2 p-3 sm:grid-cols-2">
-          <div className="overflow-hidden rounded-2xl border border-white/15 bg-black/25 p-3 font-mono text-[12px] leading-5 text-[#e8fff8]">
-            <p className="mb-2 text-[10px] uppercase tracking-[0.16em] text-[#b8f2c8]/80">Type in Desmos</p>
+          <div className="overflow-hidden rounded-2xl border border-white/15 bg-black/25 p-3 font-mono text-[12px] leading-5 text-[#fff5f0]">
+            <p className="mb-2 text-[10px] uppercase tracking-[0.16em] text-[#ffd4c8]/80">Type in Desmos</p>
             {(beat.lines.length ? beat.lines : [' ']).map((line, index) => (
               <p key={`${line}-${index}`} className={cn('truncate py-0.5', index === beat.lines.length - 1 && 'text-white')}>
-                <span className="mr-2 text-[#7ed99a]">{index + 1}</span>
+                <span className="mr-2 text-[#ff8a6b]">{index + 1}</span>
                 {index === beat.lines.length - 1 ? typed || line : line}
               </p>
             ))}
@@ -70,7 +70,7 @@ function Stage({ video, beat, typed, step, total }: { video: ReferenceVideo; bea
             {beat.parts.map((part) => (
               <div key={part.text} className="min-w-[5rem] rounded-2xl border border-white/15 bg-white/10 px-3 py-2 text-center backdrop-blur">
                 <p className="font-mono text-lg text-white">{part.text}</p>
-                <p className="text-[11px] text-[#b8f2c8]">{part.meaning}</p>
+                <p className="text-[11px] text-[#ffd4c8]">{part.meaning}</p>
               </div>
             ))}
           </div>
@@ -78,13 +78,13 @@ function Stage({ video, beat, typed, step, total }: { video: ReferenceVideo; bea
         </div>
       ) : video.kind === 'formula' ? (
         <div className="flex min-h-0 flex-1 flex-col items-center justify-center gap-4 px-6 text-center">
-          <p className="text-xs uppercase tracking-[0.2em] text-[#b8f2c8]/80">{video.rule}</p>
+          <p className="text-xs uppercase tracking-[0.2em] text-[#ffd4c8]/80">{video.rule}</p>
           <p className="font-mono text-3xl text-white sm:text-4xl">{beat.lines[0] || typed || video.title}</p>
           {beat.lines[1] && <p className="max-w-md text-sm leading-relaxed text-white/80">{beat.lines[1]}</p>}
         </div>
       ) : (
         <div className="flex min-h-0 flex-1 flex-col justify-center gap-4 px-6 py-4">
-          <p className="text-xs uppercase tracking-[0.2em] text-[#b8f2c8]/80">{beat.headline}</p>
+          <p className="text-xs uppercase tracking-[0.2em] text-[#ffd4c8]/80">{beat.headline}</p>
           <ol className="space-y-2.5">
             {beat.lines.map((line, index) => (
               <li
@@ -94,7 +94,7 @@ function Stage({ video, beat, typed, step, total }: { video: ReferenceVideo; bea
                   index === beat.lines.length - 1 ? 'bg-white/15 text-white' : 'text-white/65',
                 )}
               >
-                <span className="mr-2 font-mono text-[11px] text-[#b8f2c8]">{String(index + 1).padStart(2, '0')}</span>
+                <span className="mr-2 font-mono text-[11px] text-[#ffd4c8]">{String(index + 1).padStart(2, '0')}</span>
                 {index === beat.lines.length - 1 ? typed || line : line}
               </li>
             ))}
@@ -115,7 +115,7 @@ export function VideoThumbnail({
   return (
     <button type="button" onClick={() => onPlay(video)} className="group w-full text-left">
       <div className="relative overflow-hidden rounded-2xl border border-line">
-        <div className="aspect-[4/3] overflow-hidden bg-[#0f766e] transition duration-200 group-hover:opacity-95">
+        <div className="aspect-[4/3] overflow-hidden bg-[#c94424] transition duration-200 group-hover:opacity-95">
           <PreviewPhoto video={video} />
         </div>
         <span className="absolute bottom-2 left-2 rounded-md bg-white/90 px-2 py-0.5 font-mono text-[10px] text-paper">
@@ -173,8 +173,8 @@ export function VideoPlayerModal({
   if (!beat) return null
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#134e4a]/55 p-3 backdrop-blur-sm sm:p-4">
-      <div className="flex max-h-[94vh] w-full max-w-4xl flex-col overflow-hidden rounded-[1.75rem] border border-line bg-white shadow-[0_30px_80px_rgba(15,118,110,0.25)]">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#1a1412]/55 p-3 backdrop-blur-sm sm:p-4">
+      <div className="flex max-h-[94vh] w-full max-w-4xl flex-col overflow-hidden rounded-[1.75rem] border border-line bg-white shadow-[0_30px_80px_rgba(201,68,36,0.25)]">
         <div className="flex items-start justify-between gap-3 border-b border-line px-4 py-3 sm:px-5">
           <div>
             <p className="text-[10px] uppercase tracking-[0.16em] text-fog">{video.kind} · guided lesson</p>

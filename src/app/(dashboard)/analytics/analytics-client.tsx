@@ -74,16 +74,16 @@ interface AnalyticsClientProps {
   recentAttempts: Attempt[]
 }
 
-const AQUA = '#2ec4b6'
-const GREEN = '#7ed99a'
-const MUTED = '#5a8a86'
-const GRID = 'rgba(15,118,110,0.12)'
+const ORANGE = '#ff5c39'
+const ORANGE_SOFT = '#ff8a6b'
+const MUTED = '#8a7168'
+const GRID = 'rgba(201,68,36,0.12)'
 
 const TOOLTIP_STYLE = {
   backgroundColor: '#ffffff',
   border: `1px solid ${GRID}`,
   borderRadius: '8px',
-  color: '#134e4a',
+  color: '#1a1412',
   fontSize: 12,
 }
 
@@ -251,8 +251,8 @@ export function AnalyticsClient({ snapshots, topicMastery, latestPrediction, pro
                   <XAxis dataKey="date" stroke={MUTED} tick={{ fontSize: 11 }} />
                   <YAxis stroke={MUTED} tick={{ fontSize: 11 }} />
                   <Tooltip contentStyle={TOOLTIP_STYLE} />
-                  <Line type="monotone" dataKey="score" stroke={AQUA} strokeWidth={2} dot={false} name="Predicted" />
-                  <Line type="monotone" dataKey="ovr" stroke={GREEN} strokeWidth={2} dot={false} name="Ready" />
+                  <Line type="monotone" dataKey="score" stroke={ORANGE} strokeWidth={2} dot={false} name="Predicted" />
+                  <Line type="monotone" dataKey="ovr" stroke={ORANGE_SOFT} strokeWidth={2} dot={false} name="Ready" />
                 </LineChart>
               </ResponsiveContainer>
             )}
@@ -268,8 +268,8 @@ export function AnalyticsClient({ snapshots, topicMastery, latestPrediction, pro
                   <XAxis dataKey="date" stroke={MUTED} tick={{ fontSize: 11 }} />
                   <YAxis stroke={MUTED} tick={{ fontSize: 11 }} />
                   <Tooltip contentStyle={TOOLTIP_STYLE} />
-                  <Area type="monotone" dataKey="minutes" stroke={AQUA} fill={AQUA} fillOpacity={0.2} name="Minutes" />
-                  <Area type="monotone" dataKey="questions" stroke={GREEN} fill={GREEN} fillOpacity={0.15} name="Questions" />
+                  <Area type="monotone" dataKey="minutes" stroke={ORANGE} fill={ORANGE} fillOpacity={0.2} name="Minutes" />
+                  <Area type="monotone" dataKey="questions" stroke={ORANGE_SOFT} fill={ORANGE_SOFT} fillOpacity={0.15} name="Questions" />
                 </AreaChart>
               </ResponsiveContainer>
             )}
@@ -297,7 +297,7 @@ export function AnalyticsClient({ snapshots, topicMastery, latestPrediction, pro
                 <XAxis dataKey="difficulty" stroke={MUTED} tick={{ fontSize: 11 }} />
                 <YAxis stroke={MUTED} tick={{ fontSize: 11 }} domain={[0, 100]} />
                 <Tooltip contentStyle={TOOLTIP_STYLE} />
-                <Bar dataKey="accuracy" fill={AQUA} radius={[2, 2, 0, 0]} name="Accuracy %" />
+                <Bar dataKey="accuracy" fill={ORANGE} radius={[2, 2, 0, 0]} name="Accuracy %" />
               </BarChart>
             </ResponsiveContainer>
           </Section>

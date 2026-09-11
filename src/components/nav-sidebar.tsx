@@ -91,7 +91,7 @@ export function NavSidebar({ isAdmin = false }: { isAdmin?: boolean }) {
         <button
           type="button"
           onClick={toggle}
-          className="fixed bottom-4 left-3 z-50 flex h-11 w-11 items-center justify-center rounded-full bg-signal text-white shadow-[0_14px_30px_rgba(46,196,182,0.28)]"
+          className="fixed bottom-4 left-3 z-50 flex h-11 w-11 items-center justify-center rounded-full bg-signal text-white shadow-[0_14px_30px_rgba(255,92,57,0.28)]"
           aria-label="Open side panel"
           title="Open menu"
         >
