@@ -46,7 +46,14 @@ export function PracticeExamsClient() {
           setLoading(false)
           return
         }
-        setExams(data.exams ?? [])
+        const list = data.exams ?? []
+        const inProgress = list.find((exam) => exam.status === 'in_progress' && exam.unlocked)
+        if (inProgress) {
+          setStarting(inProgress.id)
+          router.replace(`/practice/session?examId=${inProgress.id}&mode=exam&timed=1`)
+          return
+        }
+        setExams(list)
         setLoading(false)
       } catch {
         if (!cancelled) {
@@ -151,7 +158,7 @@ export function PracticeExamsClient() {
       <p className="text-center text-xs text-fog">
         Prefer a short topic drill?{' '}
         <Link href="/study" className="font-semibold text-signal underline-offset-2 hover:underline">
-          Open Study
+          Open Tutoring
         </Link>
       </p>
     </div>

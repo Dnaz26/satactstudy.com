@@ -6,8 +6,6 @@ import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { formatTimeOfDay } from '@/lib/utils'
 import { cn } from '@/lib/utils'
-import { RefreshCw, ChevronLeft, ChevronRight } from 'lucide-react'
-import { Companion } from '@/components/ui/companion'
 import {
   addMonths,
   eachDayOfInterval,
@@ -138,46 +136,47 @@ export function StudyPlanClient({ plan, tasks, profile, dayLogs = [] }: StudyPla
   }, [tasks.length, profile])
 
   return (
-    <div className="mx-auto w-full max-w-5xl space-y-5 pt-2 pb-10">
-      <div>
-        <div className="mb-2 flex items-center justify-between">
-          <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-fog">Plan progress</span>
-          <span className="font-mono text-[10px] text-fog">{doneCount}/{tasks.length} · {progress}%</span>
-        </div>
-        <div className="h-3 overflow-hidden neu-inset">
-          <div className="h-full rounded-full bg-signal transition-all" style={{ width: `${progress}%` }} />
-        </div>
-      </div>
-
-      <Companion
-        mode={progress >= 70 ? 'success' : tasks.length ? 'studying' : 'idle'}
-        message={tasks.length ? `${progress}% of this plan is done.` : 'Tap refresh and I will build your calendar.'}
-      />
-
-      <div className="flex items-center justify-between">
+    <div className="mx-auto w-full max-w-4xl space-y-10 pb-16 pt-4">
+      <header className="flex flex-wrap items-end justify-between gap-4 border-b border-line pb-6">
         <div>
-          <h1 className="font-display text-2xl">Plan</h1>
-          <p className="mt-1 text-sm text-fog">{window} · {daily} min every day</p>
+          <h1 className="font-display text-4xl tracking-tight text-paper">Schedule</h1>
+          <p className="mt-2 text-sm text-fog">
+            {window} · {daily} min · {doneCount}/{tasks.length} done · {progress}%
+          </p>
         </div>
-        <Button variant="ghost" size="sm" onClick={() => void regenerate()} loading={generating}>
-          <RefreshCw className="h-4 w-4" />
+        <Button variant="ghost" size="sm" onClick={() => void regenerate()} loading={generating} className="text-signal">
+          Rebuild
         </Button>
-      </div>
+      </header>
 
-      <div className="neu p-6">
-        <div className="mb-3 flex items-center justify-between">
-          <button type="button" className="neu-sm flex h-8 w-8 items-center justify-center" onClick={() => setMonth(addMonths(month, -1))} aria-label="Previous month">
-            <ChevronLeft className="h-4 w-4" />
+      <div>
+        <div className="mb-4 flex items-center justify-between">
+          <button
+            type="button"
+            className="text-sm text-fog hover:text-paper"
+            onClick={() => setMonth(addMonths(month, -1))}
+            aria-label="Previous month"
+          >
+            ← Prev
           </button>
-          <p className="font-display text-xl">{format(month, 'MMMM yyyy')}</p>
-          <button type="button" className="neu-sm flex h-8 w-8 items-center justify-center" onClick={() => setMonth(addMonths(month, 1))} aria-label="Next month">
-            <ChevronRight className="h-4 w-4" />
+          <p className="font-display text-xl text-paper">{format(month, 'MMMM yyyy')}</p>
+          <button
+            type="button"
+            className="text-sm text-fog hover:text-paper"
+            onClick={() => setMonth(addMonths(month, 1))}
+            aria-label="Next month"
+          >
+            Next →
           </button>
         </div>
-        <div className="grid grid-cols-7 gap-2 text-center font-mono text-xs uppercase tracking-[0.12em] text-fog">
-          {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((d) => <div key={d} className="py-2">{d}</div>)}
+
+        <div className="grid grid-cols-7 gap-px border border-line bg-line text-center text-[11px] uppercase tracking-[0.12em] text-fog">
+          {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((d) => (
+            <div key={d} className="bg-panel-2 py-2">{d}</div>
+          ))}
         </div>
-        <div className="mt-2 grid grid-cols-7 gap-2">
+
+        <div className="grid grid-cols-7 gap-px border border-t-0 border-line bg-line">
           {days.map((day) => {
             const key = format(day, 'yyyy-MM-dd')
             const dayTasks = byDate.get(key) ?? []
@@ -187,25 +186,28 @@ export function StudyPlanClient({ plan, tasks, profile, dayLogs = [] }: StudyPla
             const missed = logged === 'missed' || (key < today && dayTasks.length > 0 && !allDone)
             const isSelected = key === selected
             const inMonth = isSameMonth(day, month)
+            const isToday = isSameDay(day, new Date())
             return (
               <button
                 key={key}
                 type="button"
                 onClick={() => setSelected(key)}
                 className={cn(
-                  'min-h-[96px] rounded-[1.15rem] p-3 text-left',
-                  isSelected && 'neu-raised text-white',
-                  !isSelected && done && 'bg-ok text-white',
-                  !isSelected && missed && 'bg-bad text-white',
-                  !isSelected && !done && !missed && 'neu-sm',
-                  !inMonth && 'opacity-40'
+                  'min-h-[88px] bg-white p-2 text-left transition sm:min-h-[100px] sm:p-2.5',
+                  isSelected && 'bg-signal text-white',
+                  !isSelected && done && 'bg-[rgba(184,242,200,0.45)]',
+                  !isSelected && missed && 'bg-[rgba(46,196,182,0.12)]',
+                  !inMonth && 'opacity-40',
                 )}
               >
-                <p className={cn('font-display text-lg leading-none', isSameDay(day, new Date()) && !isSelected && 'text-signal')}>
+                <p className={cn(
+                  'text-sm font-medium',
+                  isToday && !isSelected && 'text-signal',
+                )}>
                   {format(day, 'd')}
                 </p>
                 {dayTasks[0] && (
-                  <p className="mt-2 line-clamp-3 text-xs leading-snug">
+                  <p className={cn('mt-1 line-clamp-3 text-[11px] leading-snug', isSelected ? 'text-white/90' : 'text-fog')}>
                     {done ? 'Done' : dayTasks[0].topic_name}
                   </p>
                 )}
@@ -215,40 +217,53 @@ export function StudyPlanClient({ plan, tasks, profile, dayLogs = [] }: StudyPla
         </div>
       </div>
 
-      <div className="space-y-2">
-        <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-fog">
-          {selected === today ? 'Today' : format(new Date(`${selected}T12:00:00`), 'EEE MMM d')} · {window}
-        </p>
+      <section>
+        <h2 className="mb-3 font-display text-2xl text-paper">
+          {selected === today ? 'Today' : format(new Date(`${selected}T12:00:00`), 'EEE MMM d')}
+        </h2>
         {selectedTasks.length === 0 ? (
-          <p className="text-sm text-fog">{generating ? 'Building your calendar…' : 'No tasks on this day yet. Tap refresh.'}</p>
+          <p className="border-y border-line py-6 text-sm text-fog">
+            {generating ? 'Building schedule…' : 'No tasks on this day. Tap Rebuild if needed.'}
+          </p>
         ) : (
-          selectedTasks.map((task) => (
-            <div
-              key={task.id}
-              className={cn('flex items-center justify-between rounded-2xl px-4 py-3', task.completed ? 'opacity-50' : 'neu-sm')}
-            >
-              <div>
-                <p className="text-sm text-paper">{task.topic_name}</p>
-                <p className="font-mono text-[10px] text-fog">
-                  {task.duration_minutes}m{task.question_count != null ? ` · ${task.question_count} Q` : ''} · {task.task_type.replaceAll('_', ' ')}
-                </p>
-              </div>
-              {!task.completed && (
-                <div className="flex gap-2">
-                  <Button asChild size="sm">
-                    <Link href={taskHref(task, profile?.target_test === 'ACT' ? 'ACT' : plan.test_type === 'ACT' ? 'ACT' : 'SAT')}>
-                      Go
-                    </Link>
-                  </Button>
-                  <Button size="sm" variant="ghost" onClick={() => void markComplete(task.id)} loading={completingId === task.id}>
-                    Done
-                  </Button>
+          <ul className="divide-y divide-line border-y border-line">
+            {selectedTasks.map((task) => (
+              <li key={task.id} className="flex items-center justify-between gap-4 py-4">
+                <div>
+                  <p className={cn('text-sm text-paper', task.completed && 'text-fog line-through')}>
+                    {task.topic_name}
+                  </p>
+                  <p className="mt-1 text-xs text-fog">
+                    {task.duration_minutes}m
+                    {task.question_count != null ? ` · ${task.question_count} Q` : ''}
+                    {' · '}
+                    {task.task_type.replaceAll('_', ' ')}
+                  </p>
                 </div>
-              )}
-            </div>
-          ))
+                {!task.completed && (
+                  <div className="flex shrink-0 gap-3">
+                    <Link
+                      href={taskHref(task, profile?.target_test === 'ACT' ? 'ACT' : plan.test_type === 'ACT' ? 'ACT' : 'SAT')}
+                      className="text-sm font-medium text-signal"
+                    >
+                      Start
+                    </Link>
+                    <button
+                      type="button"
+                      onClick={() => void markComplete(task.id)}
+                      disabled={completingId === task.id}
+                      className="text-sm text-fog hover:text-paper"
+                    >
+                      Done
+                    </button>
+                  </div>
+                )}
+              </li>
+            ))}
+          </ul>
         )}
-      </div>
+      </section>
+
       {plan.ai_explanation && <p className="text-sm text-fog">{plan.ai_explanation}</p>}
     </div>
   )

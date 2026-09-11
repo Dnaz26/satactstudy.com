@@ -31,7 +31,7 @@ const PRIMARY: NavItem[] = [
   { label: 'Home', href: '/dashboard', icon: LayoutDashboard },
   { label: 'Practice', href: '/practice', icon: BookOpen },
   { label: 'Plan', href: '/study-plan', icon: Calendar },
-  { label: 'Study', href: '/study', icon: GraduationCap },
+  { label: 'Tutoring', href: '/study', icon: GraduationCap },
   { label: 'Reference', href: '/reference', icon: Bookmark },
   { label: 'Rapid fire', href: '/simulator', icon: Zap },
   { label: 'Analytics', href: '/analytics', icon: BarChart2 },
@@ -56,9 +56,9 @@ function NavLink({ item, pathname }: { item: NavItem; pathname: string }) {
     <Link
       href={item.href}
       className={cn(
-        'flex items-center gap-3 rounded-full px-3 py-2.5 text-sm transition-all',
+        'flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors',
         active
-          ? 'bg-signal text-white shadow-[0_10px_24px_rgba(255,92,57,0.25)] font-semibold'
+          ? 'bg-signal/15 font-semibold text-paper'
           : 'text-fog hover:bg-white/70 hover:text-paper'
       )}
     >
@@ -91,7 +91,7 @@ export function NavSidebar({ isAdmin = false }: { isAdmin?: boolean }) {
         <button
           type="button"
           onClick={toggle}
-          className="fixed bottom-4 left-3 z-50 flex h-11 w-11 items-center justify-center rounded-full bg-signal text-white shadow-[0_14px_30px_rgba(255,92,57,0.28)]"
+          className="fixed bottom-4 left-3 z-50 flex h-11 w-11 items-center justify-center rounded-full bg-signal text-white shadow-[0_14px_30px_rgba(46,196,182,0.28)]"
           aria-label="Open side panel"
           title="Open menu"
         >

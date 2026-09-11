@@ -3,231 +3,287 @@
 import * as React from 'react'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
-import { Companion } from '@/components/ui/companion'
-import {
-  BookOpen,
-  CalendarClock,
-  Check,
-  ChevronRight,
-  ClipboardList,
-  Clock3,
-  Flame,
-  GraduationCap,
-  Library,
-  Play,
-  RotateCcw,
-  Timer,
-  type LucideIcon,
-} from 'lucide-react'
-import { cn, formatTimeOfDay } from '@/lib/utils'
+import { StudyTimer } from '@/components/ui/study-timer'
+import { cn } from '@/lib/utils'
+import { msUntil, splitCountdown } from '@/lib/dashboard/pacing'
 
-export type HomeTask = {
-  id: string
-  title: string
-  minutes: number
-  topicId: string | null
-  done: boolean
-  kind: string
+type GrowthPoint = { at: string; correct: boolean; difficulty: string }
+type Snapshot = { date: string; ovr: number | null; predicted: number | null; correct: number | null; total: number | null }
+
+type Pacing = {
+  sessionsLeft: number
+  practiceTotal: number
+  practiceRemaining: number
+  practiceToday: number
+  lessonsTotal: number
+  lessonsRemaining: number
+  lessonsToday: number
+  studyMinutesPerDay: number
+  studyDaysPerWeek: number
 }
 
-function useNow() {
-  const [now, setNow] = React.useState<Date | null>(null)
-  React.useEffect(() => {
-    setNow(new Date())
-    const id = window.setInterval(() => setNow(new Date()), 1000)
-    return () => window.clearInterval(id)
-  }, [])
-  return now
+function accuracyInRange(points: GrowthPoint[], startMs: number, endMs: number) {
+  const slice = points.filter((p) => {
+    const t = Date.parse(p.at)
+    return Number.isFinite(t) && t >= startMs && t < endMs
+  })
+  if (!slice.length) return null
+  const correct = slice.filter((p) => p.correct).length
+  return correct / slice.length
 }
 
-function pad(value: number) {
-  return String(Math.max(0, value)).padStart(2, '0')
-}
-
-function nextStudyAt(start: string, minutes: number, now: Date) {
-  const [h, m] = start.split(':').map(Number)
-  const begin = new Date(now)
-  begin.setHours(h || 19, m || 0, 0, 0)
-  const end = new Date(begin.getTime() + minutes * 60_000)
-  if (now > end) begin.setDate(begin.getDate() + 1)
-  return { begin, end, live: now >= begin && now <= end }
-}
-
-function taskIcon(kind: string, title: string): LucideIcon {
-  const text = `${kind} ${title}`.toLowerCase()
-  if (text.includes('vocab')) return Library
-  if (text.includes('mistake') || text.includes('review') || text.includes('miss')) return RotateCcw
-  if (text.includes('practice_test') || text.includes('timed') || text.includes('practice test')) return BookOpen
-  return GraduationCap
-}
-
-function taskHref(task: HomeTask, testType: string, practiceHref: string) {
-  if (task.kind === 'vocabulary' || /vocab/i.test(task.title)) return '/vocabulary'
-  if (task.kind === 'mistake_review' || /miss|review/i.test(task.title)) return '/mistakes'
-  if (task.kind === 'practice_test' || task.kind === 'timed_practice') return practiceHref
-  if (task.topicId) {
-    return `/practice/session?testType=${testType}&topicId=${task.topicId}&count=25&taskId=${task.id}`
-  }
-  return practiceHref
-}
-
-function StatCard({
-  icon: Icon,
-  label,
-  value,
-  hint,
-  accent,
-  children,
-}: {
-  icon: LucideIcon
-  label: string
-  value: string
-  hint: string
-  accent?: boolean
-  children?: React.ReactNode
-}) {
-  return (
-    <div className="neu flex items-start gap-4 p-5">
-      <div className={cn('flex h-11 w-11 shrink-0 items-center justify-center rounded-full', accent ? 'bg-signal text-white shadow-[0_10px_22px_rgba(255,92,57,0.25)]' : 'bg-panel-2 text-signal border border-[var(--line)]')}>
-        <Icon className="h-5 w-5" />
-      </div>
-      <div className="min-w-0 flex-1">
-        <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-fog">{label}</p>
-        <p className="mt-1 font-display text-4xl leading-none">{value}</p>
-        <p className="mt-1 text-xs text-fog">{hint}</p>
-        {children}
-      </div>
-    </div>
-  )
+function growthLabel(delta: number | null, unit: 'acc' | 'score') {
+  if (delta == null) return '—'
+  const rounded = Math.round(delta * 10) / 10
+  const prefix = rounded > 0 ? '+' : ''
+  return unit === 'acc' ? `${prefix}${rounded}%` : `${prefix}${rounded}`
 }
 
 export function DashboardHome({
-  greeting,
-  companionMode,
   firstName,
   testType,
   studyStart,
   dailyMinutes,
   todayMinutes,
-  todayTasks,
   streak,
+  testDate,
+  targetScore,
+  readyRate,
+  expectedScore,
+  scoreLow,
+  scoreHigh,
+  pacing,
+  todayPracticeDone,
+  todayLessonsDone,
+  lessonsDone,
+  lessonsTotal,
+  growthPoints,
+  snapshots,
 }: {
-  greeting: string
-  companionMode: 'warning' | 'success' | 'idle'
   firstName: string
   testType: string
   studyStart: string
   dailyMinutes: number
   todayMinutes: number
-  todayTasks: HomeTask[]
   streak: number
+  testDate: string | null
+  targetScore: number | null
+  readyRate: number | null
+  expectedScore: number | null
+  scoreLow: number | null
+  scoreHigh: number | null
+  pacing: Pacing
+  todayPracticeDone: number
+  todayLessonsDone: number
+  lessonsDone: number
+  lessonsTotal: number
+  growthPoints: GrowthPoint[]
+  snapshots: Snapshot[]
 }) {
-  const mountedNow = useNow()
-  const live = mountedNow != null
-  const now = mountedNow ?? new Date(0)
-  const session = nextStudyAt(studyStart, dailyMinutes, live ? now : new Date(0))
-  const untilStudy = live ? Math.max(0, session.begin.getTime() - now.getTime()) : 0
-  const until = {
-    h: Math.floor(untilStudy / 3_600_000),
-    m: Math.floor((untilStudy % 3_600_000) / 60_000),
-    s: Math.floor((untilStudy % 60_000) / 1000),
-  }
-  const next = todayTasks.find((task) => !task.done)
-  const practiceHref = '/practice'
-  const goHref = next ? taskHref(next, testType, practiceHref) : practiceHref
-  const remaining = Math.max(0, dailyMinutes - todayMinutes)
-  const fill = Math.min(100, (todayMinutes / Math.max(1, dailyMinutes)) * 100)
-  const NextIcon = next ? taskIcon(next.kind, next.title) : BookOpen
+  const [now, setNow] = React.useState(() => Date.now())
+  const [timing, setTiming] = React.useState(false)
+  const [intervalDays, setIntervalDays] = React.useState(7)
+  const [customDays, setCustomDays] = React.useState('7')
+
+  React.useEffect(() => {
+    const id = window.setInterval(() => setNow(Date.now()), 1000)
+    return () => window.clearInterval(id)
+  }, [])
+
+  const left = msUntil(testDate, now)
+  const parts = splitCountdown(left)
+  const examProgress = (() => {
+    if (!testDate) return 0
+    const end = new Date(`${testDate}T23:59:59`).getTime()
+    const start = end - 120 * 86400_000
+    if (now <= start) return 0
+    if (now >= end) return 100
+    return Math.round(((now - start) / (end - start)) * 100)
+  })()
+
+  const endMs = now
+  const startMs = now - intervalDays * 86400_000
+  const prevStart = startMs - intervalDays * 86400_000
+  const recentAcc = accuracyInRange(growthPoints, startMs, endMs)
+  const priorAcc = accuracyInRange(growthPoints, prevStart, startMs)
+  const growth = recentAcc != null && priorAcc != null ? (recentAcc - priorAcc) * 100 : null
+
+  const snapGrowth = (() => {
+    if (snapshots.length < 2) return null
+    const cutoff = new Date(now - intervalDays * 86400_000).toISOString().slice(0, 10)
+    const recent = snapshots.filter((s) => s.date >= cutoff)
+    const older = snapshots.filter((s) => s.date < cutoff)
+    if (!recent.length || !older.length) return null
+    const a = recent[0]?.ovr
+    const b = older[0]?.ovr
+    if (a == null || b == null) return null
+    return a - b
+  })()
+
+  const growthFromAccuracy = growth != null
+  const growthDisplay = growth ?? snapGrowth
+  const practiceGoal = pacing.practiceToday
+  const lessonGoal = pacing.lessonsToday
+  const practicePct = Math.min(100, Math.round((todayPracticeDone / Math.max(1, practiceGoal)) * 100))
+  const lessonPct = Math.min(100, Math.round((todayLessonsDone / Math.max(1, lessonGoal)) * 100))
 
   return (
-    <div className="mx-auto flex w-full max-w-4xl flex-col gap-5 pt-2 pb-10">
-      <Companion mode={companionMode} message={greeting} />
+    <div className="mx-auto w-full max-w-3xl space-y-12 pb-16 pt-4">
+      <header className="space-y-2">
+        <p className="text-sm text-fog">
+          {testType}
+          {targetScore != null ? ` · target ${targetScore}` : ''}
+          {streak > 0 ? ` · ${streak}-day streak` : ''}
+        </p>
+        <h1 className="font-display text-4xl tracking-tight text-paper sm:text-5xl">{firstName}</h1>
+        <p className="text-sm text-fog">
+          Study window {studyStart} · {dailyMinutes} min · {pacing.studyDaysPerWeek} days / week
+        </p>
+      </header>
 
-      <div className="grid gap-4 sm:grid-cols-2">
-        <StatCard icon={Timer} label="Need today" value={`${dailyMinutes}m`} hint={`${remaining}m still open`}>
-          <div className="mt-3 h-2 overflow-hidden rounded-full neu-inset">
-            <div className="h-full rounded-full bg-ok transition-all" style={{ width: `${fill}%` }} />
-          </div>
-        </StatCard>
-        <StatCard icon={Clock3} label="Spent so far" value={`${todayMinutes}m`} hint={`today, ${firstName}`} />
-        <StatCard
-          icon={CalendarClock}
-          label="Begin"
-          value={formatTimeOfDay(studyStart)}
-          hint={session.live ? 'Block is live' : live ? `in ${pad(until.h)}:${pad(until.m)}:${pad(until.s)}` : '—'}
-        />
-        <StatCard icon={Flame} label="Streak" value={String(streak)} hint={streak === 1 ? 'day in a row' : 'days in a row'} accent />
-      </div>
-
-      <div className="neu p-6 sm:p-7">
-        <div className="mb-5 flex flex-wrap items-center justify-between gap-4">
-          <div className="flex items-center gap-4">
-            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-[var(--line)] bg-panel-2 text-signal">
-              <ClipboardList className="h-5 w-5" />
-            </div>
+      <section className="grid gap-10 border-y border-line py-8 sm:grid-cols-2">
+        <div>
+          <p className="text-xs font-medium uppercase tracking-[0.14em] text-fog">Study time</p>
+          <div className="mt-3 flex items-end justify-between gap-4">
             <div>
-              <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-fog">To do today</p>
-              <p className="mt-1 font-display text-2xl leading-tight">{next ? next.title : `Take a ${testType} practice test`}</p>
+              {timing ? (
+                <StudyTimer running label="Session" className="!shadow-none !border-0 !bg-transparent !px-0" />
+              ) : (
+                <p className="font-mono text-4xl tabular-nums text-paper">
+                  {String(Math.floor(todayMinutes / 60)).padStart(2, '0')}:{String(todayMinutes % 60).padStart(2, '0')}
+                </p>
+              )}
+              <p className="mt-2 text-sm text-fog">{todayMinutes} min logged today</p>
             </div>
+            {!timing ? (
+              <Button type="button" onClick={() => setTiming(true)} className="rounded-full px-5">
+                Begin
+              </Button>
+            ) : (
+              <button type="button" onClick={() => setTiming(false)} className="text-sm text-fog underline-offset-4 hover:underline">
+                Stop
+              </button>
+            )}
           </div>
-          <Button asChild size="lg">
-            <Link href={goHref}>
-              <Play className="mr-2 h-4 w-4" />
-              Go
-            </Link>
-          </Button>
         </div>
 
-        <div className="space-y-3">
-          <Link
-            href={practiceHref}
-            className="flex items-center gap-4 rounded-2xl border border-[var(--line)] bg-panel-2 px-4 py-4 transition-transform hover:-translate-y-0.5"
-          >
-            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-signal text-white shadow-[0_10px_22px_rgba(255,92,57,0.25)]">
-              <BookOpen className="h-5 w-5" />
-            </div>
-            <div className="min-w-0 flex-1">
-              <p className="text-base font-semibold text-paper">{testType} practice test</p>
-              <p className="text-xs text-fog">Full mixed sheet · 60 questions</p>
-            </div>
-            <span className="font-mono text-xs text-fog">60 Q</span>
-            <ChevronRight className="h-4 w-4 text-fog" />
-          </Link>
-
-          {todayTasks.map((task) => {
-            const Icon = task.done ? Check : taskIcon(task.kind, task.title)
-            return (
-              <Link
-                key={task.id}
-                href={taskHref(task, testType, practiceHref)}
-                className={cn(
-                  'flex items-center gap-4 rounded-2xl px-4 py-4 transition-transform',
-                  task.done ? 'neu-inset text-fog' : 'border border-[var(--line)] bg-white hover:-translate-y-0.5'
-                )}
-              >
-                <div className={cn('flex h-11 w-11 shrink-0 items-center justify-center rounded-full', task.done ? 'bg-ok/15 text-ok' : 'bg-panel-2 text-signal border border-[var(--line)]')}>
-                  <Icon className="h-5 w-5" />
-                </div>
-                <div className="min-w-0 flex-1">
-                  <p className={cn('text-base font-semibold', task.done && 'line-through')}>{task.title}</p>
-                  <p className="text-xs text-fog">{task.minutes} minutes</p>
-                </div>
-                <span className="font-mono text-xs">{task.minutes}m</span>
-                <ChevronRight className="h-4 w-4 text-fog" />
-              </Link>
-            )
-          })}
-
-          {todayTasks.length === 0 && (
-            <div className="flex items-center gap-4 rounded-2xl px-4 py-4 neu-inset">
-              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl neu-sm text-signal">
-                <NextIcon className="h-5 w-5" />
+        <div>
+          <p className="text-xs font-medium uppercase tracking-[0.14em] text-fog">Exam</p>
+          {testDate ? (
+            <>
+              <p className="mt-3 font-display text-3xl text-paper">{testDate}</p>
+              <p className="mt-2 font-mono text-base tabular-nums text-fog">
+                {parts.days}d {String(parts.hours).padStart(2, '0')}h {String(parts.minutes).padStart(2, '0')}m {String(parts.seconds).padStart(2, '0')}s
+              </p>
+              <div className="mt-4 h-px w-full bg-line">
+                <div className="h-0.5 bg-signal" style={{ width: `${examProgress}%` }} />
               </div>
-              <p className="text-sm text-fog">No extra tasks yet. The 60-question sheet is ready.</p>
-            </div>
+              <p className="mt-3 text-sm text-fog">
+                {pacing.sessionsLeft} sessions left · {pacing.practiceRemaining} practice Q left
+              </p>
+            </>
+          ) : (
+            <Link href="/customize" className="mt-3 inline-block text-sm font-medium text-signal">
+              Set exam date →
+            </Link>
           )}
         </div>
-      </div>
+      </section>
+
+      <section>
+        <div className="mb-4 flex items-baseline justify-between gap-3">
+          <h2 className="font-display text-2xl text-paper">Today</h2>
+          <p className="text-xs text-fog">
+            {pacing.practiceTotal} Q + {pacing.lessonsTotal} lessons before exam
+          </p>
+        </div>
+        <ol className="divide-y divide-line border-y border-line">
+          <li>
+            <Link href="/practice" className="flex items-center justify-between gap-4 py-5 transition hover:bg-panel-2/60">
+              <div>
+                <p className="text-base font-medium text-paper">1. Practice questions</p>
+                <p className="mt-1 text-sm text-fog">
+                  {todayPracticeDone} of {practiceGoal} today
+                </p>
+                <div className="mt-3 h-px w-48 max-w-full bg-line">
+                  <div className="h-0.5 bg-signal" style={{ width: `${practicePct}%` }} />
+                </div>
+              </div>
+              <span className="text-sm text-signal">Open</span>
+            </Link>
+          </li>
+          <li>
+            <Link href="/study" className="flex items-center justify-between gap-4 py-5 transition hover:bg-panel-2/60">
+              <div>
+                <p className="text-base font-medium text-paper">2. Tutoring</p>
+                <p className="mt-1 text-sm text-fog">
+                  {lessonsDone}/{lessonsTotal} lessons · {todayLessonsDone}/{lessonGoal} today
+                </p>
+                <div className="mt-3 h-px w-48 max-w-full bg-line">
+                  <div className="h-0.5 bg-ok" style={{ width: `${lessonPct}%` }} />
+                </div>
+              </div>
+              <span className="text-sm text-signal">Open</span>
+            </Link>
+          </li>
+        </ol>
+      </section>
+
+      <section className="space-y-6">
+        <h2 className="font-display text-2xl text-paper">Standing</h2>
+        <dl className="grid gap-x-8 gap-y-6 sm:grid-cols-3">
+          <div>
+            <dt className="text-xs uppercase tracking-[0.14em] text-fog">Ready rate</dt>
+            <dd className="mt-2 font-display text-4xl tabular-nums text-paper">
+              {readyRate != null ? `${Math.round(readyRate)}%` : '—'}
+            </dd>
+          </div>
+          <div>
+            <dt className="text-xs uppercase tracking-[0.14em] text-fog">Expected score</dt>
+            <dd className="mt-2 font-display text-4xl tabular-nums text-paper">
+              {expectedScore != null ? expectedScore : '—'}
+            </dd>
+            {scoreLow != null && scoreHigh != null && (
+              <p className="mt-1 text-sm text-fog">{scoreLow}–{scoreHigh}</p>
+            )}
+          </div>
+          <div>
+            <dt className="text-xs uppercase tracking-[0.14em] text-fog">Growth</dt>
+            <dd className={cn('mt-2 font-display text-4xl tabular-nums', (growthDisplay ?? 0) >= 0 ? 'text-ok' : 'text-signal')}>
+              {growthLabel(growthDisplay, growthFromAccuracy ? 'acc' : 'score')}
+            </dd>
+            <div className="mt-3 flex flex-wrap items-center gap-2">
+              {[7, 14, 30, 60].map((d) => (
+                <button
+                  key={d}
+                  type="button"
+                  onClick={() => {
+                    setIntervalDays(d)
+                    setCustomDays(String(d))
+                  }}
+                  className={cn(
+                    'text-xs',
+                    intervalDays === d ? 'font-semibold text-signal' : 'text-fog hover:text-paper',
+                  )}
+                >
+                  {d === 7 ? '1w' : d === 14 ? '2w' : d === 30 ? '1m' : '2m'}
+                </button>
+              ))}
+              <input
+                value={customDays}
+                onChange={(e) => setCustomDays(e.target.value.replace(/[^\d]/g, ''))}
+                onBlur={() => {
+                  const n = Math.max(1, Math.min(180, Number(customDays) || 7))
+                  setCustomDays(String(n))
+                  setIntervalDays(n)
+                }}
+                className="h-7 w-12 border-b border-line bg-transparent font-mono text-xs outline-none"
+                aria-label="Custom interval days"
+              />
+            </div>
+          </div>
+        </dl>
+      </section>
     </div>
   )
 }
