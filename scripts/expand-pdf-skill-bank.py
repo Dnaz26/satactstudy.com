@@ -283,7 +283,7 @@ def gen_linear(tidn: int, act5: bool = False) -> None:
         b = 11 + 3 * i
         c = a * x + b
         dname, score = labeled_diff(i)
-        mc(tidn, dname, score, f"Skill set {300 + i}. What value of $x$ satisfies ${a}x + {b} = {c}$?",
+        mc(tidn, dname, score, f"What value of $x$ satisfies ${a}x + {b} = {c}$?",
            fmt(x), [fmt(x + 2), fmt(x - 3), fmt(c - b), fmt(a + b)],
            f"Subtract {b} to get ${a}x={c-b}$, then divide by {a}.", "algebraic manipulation", False, False, "manual_first", act5=act5)
         if i % 3 == 0 and TOPICS[tidn][0] == "SAT":
@@ -299,7 +299,7 @@ def gen_ineq(tidn: int, act5: bool = False) -> None:
         xbound = 15 + i
         rhs = a * xbound + b
         dname, score = labeled_diff(i)
-        mc(tidn, dname, score, f"Skill set {340 + i}. Which inequality is equivalent to ${a}x + {b} < {rhs}$?",
+        mc(tidn, dname, score, f"Which inequality is equivalent to ${a}x + {b} < {rhs}$?",
            f"$x < {xbound}$", [f"$x > {xbound}$", f"$x < {rhs}$", f"$x > {a}$", f"$x \\le {xbound}$"],
            f"Subtract {b} and divide by {a}. The inequality direction stays the same.", "algebraic manipulation", False, False, "manual_first", act5=act5)
 
@@ -310,7 +310,7 @@ def gen_systems(tidn: int, act5: bool = False) -> None:
         c1 = x + y
         c2 = 2 * x - y
         dname, score = labeled_diff(i)
-        mc(tidn, dname, score, f"Skill set {380 + i}. What is the solution of $x + y = {c1}$ and $2x - y = {c2}$?",
+        mc(tidn, dname, score, f"What is the solution of $x + y = {c1}$ and $2x - y = {c2}$?",
            f"$({x}, {y})$", [f"$({y}, {x})$", f"$({x + 1}, {y})$", f"$({x}, {y + 1})$", f"$({c1}, {c2})$"],
            f"Add the equations to eliminate $y$ and read $({x},{y})$.", "algebraic manipulation", True, True, "desmos_first", extra=5 if tidn == 3 else None, act5=act5)
 
@@ -321,7 +321,7 @@ def gen_sys_ineq(tidn: int) -> None:
         y = 2 * x + 1 + (i % 3)
         cap = x + y + 4
         dname, score = labeled_diff(i)
-        mc(tidn, dname, score, f"Skill set {420 + i}. Which point satisfies both $y \\ge 2x$ and $x + y \\le {cap}$?",
+        mc(tidn, dname, score, f"Which point satisfies both $y \\ge 2x$ and $x + y \\le {cap}$?",
            f"$({x}, {y})$", ["$(20, 1)$", "$(18, 1)$", "$(0, 40)$", "$(19, 19)"],
            f"$({x},{y})$ meets $y\\ge 2x$ and the sum bound {cap}.", "interpretation", True, True, "desmos_first")
 
@@ -330,7 +330,7 @@ def gen_linear_fn(tidn: int, act5: bool = False) -> None:
     for i in range(PER_DIFF * 3):
         m, b, x = 3 + (i % 7), 8 + i, 6 + (i % 9)
         dname, score = labeled_diff(i)
-        mc(tidn, dname, score, f"Skill set {460 + i}. If $f(x) = {m}x + {b}$, what is $f({x})$?",
+        mc(tidn, dname, score, f"If $f(x) = {m}x + {b}$, what is $f({x})$?",
            fmt(m * x + b), [fmt(m * x), fmt(m + b), fmt(m * x - b), fmt(x + b)],
            f"Substitute: ${m}({x})+{b}={m * x + b}$.", "computation", False, True, "hybrid", act5=act5)
 
@@ -343,7 +343,7 @@ def gen_slope(tidn: int) -> None:
         x2, y2 = x1 + run, y1 + rise
         slope = rise / run
         dname, score = labeled_diff(i)
-        mc(tidn, dname, score, f"Skill set {500 + i}. A line passes through $({x1}, {y1})$ and $({x2}, {y2})$. What is its slope?",
+        mc(tidn, dname, score, f"A line passes through $({x1}, {y1})$ and $({x2}, {y2})$. What is its slope?",
            fmt(slope), [fmt(-slope), fmt(y2 - y1), fmt(x2 - x1), fmt(slope + 1)],
            f"Slope is $({y2}-{y1})/({x2}-{x1})={fmt(slope)}$.", "computation", False, False, "manual_first")
 
@@ -352,7 +352,7 @@ def gen_quad(tidn: int, act5: bool = False) -> None:
     for i in range(PER_DIFF * 3):
         r1, r2 = 2 + (i % 5), 6 + (i % 4)
         dname, score = labeled_diff(i)
-        mc(tidn, dname, score, f"Skill set {540 + i}. What are the solutions of $x^2 - {r1 + r2}x + {r1 * r2} = 0$?",
+        mc(tidn, dname, score, f"What are the solutions of $x^2 - {r1 + r2}x + {r1 * r2} = 0$?",
            f"$x={r1}$ and $x={r2}$", [f"$x=-{r1}$ and $x=-{r2}$", f"$x={r1 + r2}$ and $x={r1 * r2}$", f"$x={r1}$ only", f"$x={r2}$ only"],
            f"Factor as $(x-{r1})(x-{r2})=0$.", "algebraic manipulation", True, True, "desmos_first", act5=act5)
         if i % 4 == 0 and TOPICS[tidn][0] == "SAT":
@@ -367,7 +367,7 @@ def gen_poly(tidn: int) -> None:
     for i in range(PER_DIFF * 3):
         a = 3 + i % 6
         dname, score = labeled_diff(i)
-        mc(tidn, dname, score, f"Skill set {580 + i}. If $(x-{a})$ is a factor of $p(x)$ and $p({a})=0$, which statement must be true?",
+        mc(tidn, dname, score, f"If $(x-{a})$ is a factor of $p(x)$ and $p({a})=0$, which statement must be true?",
            f"$x={a}$ is a root of $p(x)$", [f"$x=-{a}$ is the only root", "The polynomial has no real roots", f"The leading coefficient is {a}", "The constant term is 0"],
            "The factor theorem says $p(a)=0$ when $(x-a)$ is a factor.", "algebraic manipulation", True, False, "manual_first")
 
@@ -385,9 +385,9 @@ def gen_exp(tidn: int) -> None:
     for i, (base, pwr, ans) in enumerate(cubes[: PER_DIFF * 3]):
         dname, score = labeled_diff(i)
         if pwr == 1:
-            stem = f"Skill set {620 + i}. Which is equivalent to $\\sqrt[3]{{{base}}}$?" if base in (8, 27, 64, 125, 216, 343, 512, 1000) else f"Skill set {620 + i}. Which is equivalent to $\\sqrt{{{base}}}$?"
+            stem = f"Which is equivalent to $\\sqrt[3]{{{base}}}$?" if base in (8, 27, 64, 125, 216, 343, 512, 1000) else f"Which is equivalent to $\\sqrt{{{base}}}$?"
         else:
-            stem = f"Skill set {620 + i}. Which is equivalent to ${base}^{{{pwr}/3}}$?" if base in (8, 27, 64, 125, 216, 343) else f"Skill set {620 + i}. Which is equivalent to ${base}^{{{pwr}/2}}$?"
+            stem = f"Which is equivalent to ${base}^{{{pwr}/3}}$?" if base in (8, 27, 64, 125, 216, 343) else f"Which is equivalent to ${base}^{{{pwr}/2}}$?"
         mc(tidn, dname, score, stem, fmt(ans), [fmt(base), fmt(pwr), fmt(max(1, base // 2)), fmt(ans + 1)],
            "Take the root first, then raise to the remaining power.", "computation", False, False, "manual_first")
 
@@ -396,7 +396,7 @@ def gen_rational(tidn: int) -> None:
     for i in range(PER_DIFF * 3):
         a = 4 + i % 7
         dname, score = labeled_diff(i)
-        mc(tidn, dname, score, f"Skill set {660 + i}. For $x \\ne {a}$, which expression equals $\\frac{{x^2-{a * a}}}{{x-{a}}}$?",
+        mc(tidn, dname, score, f"For $x \\ne {a}$, which expression equals $\\frac{{x^2-{a * a}}}{{x-{a}}}$?",
            f"$x+{a}$", [f"$x-{a}$", f"$x^2-{a}$", f"${2 * a}$", f"$x-{a * a}$"],
            f"Factor as $(x-{a})(x+{a})$ and cancel $x-{a}$.", "algebraic manipulation", True, True, "hybrid")
 
@@ -405,7 +405,7 @@ def gen_functions(tidn: int, act5: bool = False) -> None:
     for i in range(PER_DIFF * 3):
         a, x = 3 + i % 6, 4 + i % 8
         dname, score = labeled_diff(i)
-        mc(tidn, dname, score, f"Skill set {700 + i}. If $g(x)=x^2+{a}x$, what is $g({x})$?",
+        mc(tidn, dname, score, f"If $g(x)=x^2+{a}x$, what is $g({x})$?",
            fmt(x * x + a * x), [fmt(x * x), fmt(a * x), fmt(x + a), fmt(x * x + a)],
            f"${x}^2+{a}({x})={x * x + a * x}$.", "computation", True, True, "desmos_first", act5=act5)
 
@@ -415,11 +415,11 @@ def gen_nonlinear(tidn: int) -> None:
         r = 3 + i % 8
         dname, score = labeled_diff(i)
         if i % 2 == 0:
-            mc(tidn, dname, score, f"Skill set {740 + i}. How many real solutions does $x^2 + {r} = 0$ have?",
+            mc(tidn, dname, score, f"How many real solutions does $x^2 + {r} = 0$ have?",
                "0", ["1", "2", "3", "infinitely many"],
                f"$x^2=-{r}$ has no real $x$ because a square cannot be negative.", "interpretation", True, True, "desmos_first")
         else:
-            mc(tidn, dname, score, f"Skill set {740 + i}. How many real solutions does $x^2 - {r * r} = 0$ have?",
+            mc(tidn, dname, score, f"How many real solutions does $x^2 - {r * r} = 0$ have?",
                "2", ["0", "1", "3", "4"],
                f"$x=\\pm {r}$. The graph crosses the axis twice.", "algebraic manipulation", True, True, "desmos_first")
 
@@ -430,7 +430,7 @@ def gen_ratio(tidn: int) -> None:
         c = a * (7 + i)
         x = b * c // a
         dname, score = labeled_diff(i)
-        mc(tidn, dname, score, f"Skill set {780 + i}. If $\\frac{{{a}}}{{{b}}}=\\frac{{{c}}}{{x}}$, what is $x$?",
+        mc(tidn, dname, score, f"If $\\frac{{{a}}}{{{b}}}=\\frac{{{c}}}{{x}}$, what is $x$?",
            fmt(x), [fmt(a * c), fmt(b * c), fmt(c // a), fmt(x + a)],
            f"Cross-multiply: ${a}x={b * c}$, so $x={x}$.", "algebraic manipulation", False, False, "manual_first")
 
@@ -440,7 +440,7 @@ def gen_percent(tidn: int) -> None:
         p, base = 15 + 5 * (i % 9), 120 + 15 * (i % 6)
         part = base * p // 100
         dname, score = labeled_diff(i)
-        mc(tidn, dname, score, f"Skill set {820 + i}. What is ${p}\\%$ of ${base}$?",
+        mc(tidn, dname, score, f"What is ${p}\\%$ of ${base}$?",
            fmt(part), [fmt(p), fmt(base - part), fmt(base * p // 10), fmt(part + 12)],
            f"${p}/100 \\times {base} = {part}$.", "computation", True, False, "manual_first")
 
@@ -450,12 +450,12 @@ def gen_units(tidn: int) -> None:
         hours = 3 + i % 8
         dname, score = labeled_diff(i)
         if i % 2 == 0:
-            mc(tidn, dname, score, f"Skill set {860 + i}. A machine runs {hours} hours. How many minutes is that?",
+            mc(tidn, dname, score, f"A machine runs {hours} hours. How many minutes is that?",
                fmt(hours * 60), [fmt(hours * 100), fmt(hours * 24), fmt(hours * 10), fmt(60)],
                "Multiply hours by 60.", "computation", False, False, "manual_first")
         else:
             km = 4 + i
-            mc(tidn, dname, score, f"Skill set {860 + i}. A trail is {km} kilometers. How many meters is that?",
+            mc(tidn, dname, score, f"A trail is {km} kilometers. How many meters is that?",
                fmt(km * 1000), [fmt(km * 100), fmt(km * 10), fmt(km * 1600), fmt(km)],
                "1 km = 1000 m.", "computation", False, False, "manual_first")
 
@@ -466,11 +466,11 @@ def gen_stats(tidn: int, act5: bool = False) -> None:
         mean = sum(data) / len(data)
         dname, score = labeled_diff(i)
         if i % 2 == 0:
-            mc(tidn, dname, score, f"Skill set {900 + i}. What is the mean of {', '.join(str(v) for v in data)}?",
+            mc(tidn, dname, score, f"What is the mean of {', '.join(str(v) for v in data)}?",
                fmt(mean), [fmt(data[2]), fmt(data[-1]), fmt(sum(data)), fmt(mean + 3)],
                f"Sum is {sum(data)}; divide by {len(data)}.", "computation", True, False, "manual_first", act5=act5)
         else:
-            mc(tidn, dname, score, f"Skill set {900 + i}. What is the median of {', '.join(str(v) for v in data)}?",
+            mc(tidn, dname, score, f"What is the median of {', '.join(str(v) for v in data)}?",
                fmt(data[2]), [fmt(mean), fmt(data[0]), fmt(data[-1]), fmt(data[1])],
                "Ordered middle value.", "interpretation", False, False, "manual_first", act5=act5)
 
@@ -480,7 +480,7 @@ def gen_prob(tidn: int, act5: bool = False) -> None:
         red, blue = 4 + i % 6, 7 + i % 5
         total = red + blue
         dname, score = labeled_diff(i)
-        mc(tidn, dname, score, f"Skill set {940 + i}. A bag has {red} red and {blue} blue marbles. One marble is drawn at random. What is $P(\\text{{red}})$?",
+        mc(tidn, dname, score, f"A bag has {red} red and {blue} blue marbles. One marble is drawn at random. What is $P(\\text{{red}})$?",
            f"{red}/{total}", [f"{blue}/{total}", f"{red}/{blue}", f"{red}/{red + blue + 1}", "1/2"],
            f"Favorable over total: {red}/{total}.", "computation", False, False, "manual_first", act5=act5)
 
@@ -489,7 +489,7 @@ def gen_data(tidn: int) -> None:
     for i in range(PER_DIFF * 3):
         a, b, c = 21 + i, 34 + i, 16 + i
         dname, score = labeled_diff(i)
-        mc(tidn, dname, score, f"Skill set {980 + i}. A table lists club members: chess {a}, robotics {b}, choir {c}. How many more robotics members are there than choir members?",
+        mc(tidn, dname, score, f"A table lists club members: chess {a}, robotics {b}, choir {c}. How many more robotics members are there than choir members?",
            fmt(b - c), [fmt(a - c), fmt(b - a), fmt(a + b + c), fmt(b)],
            f"{b}-{c}={b - c}. Read the two cells and subtract.", "interpretation", False, False, "manual_first")
 
@@ -498,7 +498,7 @@ def gen_angles(tidn: int) -> None:
     for i in range(PER_DIFF * 3):
         ang = 22 + 4 * i
         dname, score = labeled_diff(i)
-        mc(tidn, dname, score, f"Skill set {1020 + i}. Two adjacent angles on a straight line measure ${ang}^\\circ$ and $x^\\circ$. What is $x$?",
+        mc(tidn, dname, score, f"Two adjacent angles on a straight line measure ${ang}^\\circ$ and $x^\\circ$. What is $x$?",
            fmt(180 - ang), [fmt(90 if 90 != 180 - ang else 70), fmt(ang), fmt(360 - ang), fmt(180 + ang)],
            "Adjacent angles on a line sum to 180.", "computation", False, False, "manual_first")
 
@@ -508,7 +508,7 @@ def gen_tri(tidn: int) -> None:
         a, b = 32 + i, 51 + i
         c = 180 - a - b
         dname, score = labeled_diff(i)
-        mc(tidn, dname, score, f"Skill set {1060 + i}. A triangle has angles ${a}^\\circ$ and ${b}^\\circ$. What is the third angle?",
+        mc(tidn, dname, score, f"A triangle has angles ${a}^\\circ$ and ${b}^\\circ$. What is the third angle?",
            fmt(c), [fmt(a + b), fmt(90), fmt(180 - a), fmt(c + 8)],
            "Triangle angles sum to 180.", "computation", False, False, "manual_first")
 
@@ -518,11 +518,11 @@ def gen_circles(tidn: int) -> None:
         r = 5 + i % 11
         dname, score = labeled_diff(i)
         if i % 2 == 0:
-            mc(tidn, dname, score, f"Skill set {1100 + i}. A circle has radius {r}. What is its area?",
+            mc(tidn, dname, score, f"A circle has radius {r}. What is its area?",
                f"${r * r}\\pi$", [f"${2 * r}\\pi$", f"${r}\\pi$", f"{r * r}", f"{2 * r}"],
                "Area is $\\pi r^2$.", "computation", True, False, "manual_first")
         else:
-            mc(tidn, dname, score, f"Skill set {1100 + i}. A circle has radius {r}. What is its circumference?",
+            mc(tidn, dname, score, f"A circle has radius {r}. What is its circumference?",
                f"${2 * r}\\pi$", [f"${r * r}\\pi$", f"${r}\\pi$", f"{2 * r}", f"{r * r}"],
                "Circumference is $2\\pi r$.", "computation", True, False, "manual_first")
 
@@ -532,11 +532,11 @@ def gen_area_vol(tidn: int, act5: bool = False) -> None:
         l, w, h = 6 + i % 7, 4 + i % 5, 3 + i % 4
         dname, score = labeled_diff(i)
         if i % 2 == 0:
-            mc(tidn, dname, score, f"Skill set {1140 + i}. A rectangular prism has edges {l}, {w}, and {h}. What is its volume?",
+            mc(tidn, dname, score, f"A rectangular prism has edges {l}, {w}, and {h}. What is its volume?",
                fmt(l * w * h), [fmt(l * w), fmt(2 * (l * w + l * h + w * h)), fmt(l + w + h), fmt(l * w * h + 2)],
                "Volume is length × width × height.", "computation", False, False, "manual_first", act5=act5)
         else:
-            mc(tidn, dname, score, f"Skill set {1140 + i}. A rectangle is {l} by {w}. What is its area?",
+            mc(tidn, dname, score, f"A rectangle is {l} by {w}. What is its area?",
                fmt(l * w), [fmt(2 * (l + w)), fmt(l + w), fmt(l * w * 2), fmt(abs(l - w))],
                "Area is length × width.", "computation", False, False, "manual_first", act5=act5)
 
@@ -546,7 +546,7 @@ def gen_coord(tidn: int) -> None:
         x1, y1, x2, y2 = 3, 4 + i, 9, 12 + i
         mx, my = (x1 + x2) / 2, (y1 + y2) / 2
         dname, score = labeled_diff(i)
-        mc(tidn, dname, score, f"Skill set {1180 + i}. What is the midpoint of $({x1}, {y1})$ and $({x2}, {y2})$?",
+        mc(tidn, dname, score, f"What is the midpoint of $({x1}, {y1})$ and $({x2}, {y2})$?",
            f"$({fmt(mx)}, {fmt(my)})$", [f"$({x1}, {y2})$", f"$({x2}, {y1})$", f"$({x2 - x1}, {y2 - y1})$", f"$({fmt(mx)}, {y1})$"],
            "Average the coordinates.", "computation", False, False, "manual_first")
 
@@ -558,7 +558,7 @@ def gen_trig(tidn: int, act5: bool = False) -> None:
         scale = 1 + (i // len(triples))
         a, b, c = a * scale, b * scale, c * scale
         dname, score = labeled_diff(i)
-        mc(tidn, dname, score, f"Skill set {1220 + i}. In a right triangle, the legs are {a} and {b} and the hypotenuse is {c}. What is $\\sin$ of the angle opposite the side of length {a}?",
+        mc(tidn, dname, score, f"In a right triangle, the legs are {a} and {b} and the hypotenuse is {c}. What is $\\sin$ of the angle opposite the side of length {a}?",
            f"{a}/{c}", [f"{b}/{c}", f"{a}/{b}", f"{c}/{a}", f"{b}/{a}"],
            "Sine is opposite over hypotenuse.", "computation", True, False, "manual_first", act5=act5)
 
@@ -569,12 +569,12 @@ def gen_integers(tidn: int) -> None:
         if i % 2 == 0:
             b = 6 + i % 5
             lcm = 4 * b // math.gcd(4, b)
-            mc(tidn, dname, score, f"Skill set {1260 + i}. What is the least common multiple of 4 and {b}?",
+            mc(tidn, dname, score, f"What is the least common multiple of 4 and {b}?",
                fmt(lcm), [fmt(4), fmt(b), fmt(2), fmt(4 * b)],
                "LCM uses the highest powers of the prime factors.", "computation", False, False, "manual_first")
         else:
             k = 3 * (8 + i)
-            mc(tidn, dname, score, f"Skill set {1260 + i}. Which number is a multiple of 3?",
+            mc(tidn, dname, score, f"Which number is a multiple of 3?",
                fmt(k), [fmt(k + 1), fmt(k + 2), fmt(14 + i), fmt(25 + i)],
                f"{k} = 3×{8 + i}.", "computation", False, False, "manual_first")
 
@@ -584,7 +584,7 @@ def gen_rationals(tidn: int) -> None:
         a, b = Fraction(1, 2 + i % 5), Fraction(1, 3 + i % 4)
         s = a + b
         dname, score = labeled_diff(i)
-        mc(tidn, dname, score, f"Skill set {1300 + i}. What is $\\frac{{{a.numerator}}}{{{a.denominator}}} + \\frac{{{b.numerator}}}{{{b.denominator}}}$?",
+        mc(tidn, dname, score, f"What is $\\frac{{{a.numerator}}}{{{a.denominator}}} + \\frac{{{b.numerator}}}{{{b.denominator}}}$?",
            f"$\\frac{{{s.numerator}}}{{{s.denominator}}}$",
            [f"$\\frac{{{a.numerator + b.numerator}}}{{{a.denominator + b.denominator}}}$", f"$\\frac{{{a.numerator}}}{{{b.denominator}}}$", "1", f"$\\frac{{{s.denominator}}}{{{s.numerator}}}$"],
            "Common denominator, then add numerators.", "computation", False, False, "manual_first")

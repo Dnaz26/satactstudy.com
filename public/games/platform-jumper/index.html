@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Platform Jumper</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Space+Grotesk:wght@400;600&display=swap');
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; height: 100%; overflow: hidden;
+    background:
+      radial-gradient(ellipse 70% 50% at 50% 0%, rgba(255,92,57,.2), transparent 55%),
+      radial-gradient(ellipse 50% 40% at 80% 80%, rgba(99,102,241,.2), transparent 50%),
+      #070b16;
+    color: #e8f1ff;
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+  }
+  body { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; padding: 12px; }
+  h1 {
+    margin: 0; font-family: Orbitron, sans-serif; font-size: clamp(1rem, 2.4vh, 1.3rem);
+    letter-spacing: .14em; text-transform: uppercase;
+    background: linear-gradient(90deg, #ff5c39, #a78bfa);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .hud { color: #8ba3c7; font-size: .85rem; }
+  .hud b { color: #fff; font-family: Orbitron, sans-serif; }
+  canvas {
+    width: min(92vw, 420px) !important;
+    height: auto !important;
+    max-height: min(78vh, 78dvh);
+    border-radius: 18px;
+    border: 1px solid rgba(255,92,57,.3);
+    box-shadow: 0 25px 80px rgba(0,0,0,.55), 0 0 50px rgba(167,139,250,.16);
+    outline: none;
+    background: #050814;
+  }
+  .hint { margin: 0; color: #6d86ab; font-size: .78rem; text-align: center; }
+</style>
+</head>
+<body>
+<h1>Platform Jumper</h1>
+<div class="hud">Altitude <b id="score">0</b></div>
+<canvas id="c" width="400" height="620" tabindex="0"></canvas>
+<p class="hint">A D / ← → move · W / ↑ boost bounce · Click to focus</p>
+<script>
+(function () {
+  const canvas = document.getElementById('c');
+  const ctx = canvas.getContext('2d');
+  const W = 400, H = 620;
+  const keys = new Set();
+  let player, plats, score, alive, cam, particles;
+
+  function reset() {
+    player = { x: W / 2, y: H - 120, vx: 0, vy: 0, r: 14 };
+    plats = [{ x: W / 2 - 60, y: H - 40, w: 120, glow: '#67e8f9' }];
+    for (let i = 1; i < 9; i++) {
+      plats.push({
+        x: 30 + Math.random() * (W - 140),
+        y: H - 40 - i * 72,
+        w: 70 + Math.random() * 50,
+        glow: ['#67e8f9', '#a78bfa', '#ff5c39', '#4ade80'][i % 4],
+      });
+    }
+    score = 0; alive = true; cam = 0; particles = [];
+    document.getElementById('score').textContent = 0;
+  }
+
+  function drawBackground() {
+    const g = ctx.createLinearGradient(0, 0, 0, H);
+    g.addColorStop(0, '#1e1b4b');
+    g.addColorStop(0.45, '#0f172a');
+    g.addColorStop(1, '#020617');
+    ctx.fillStyle = g;
+    ctx.fillRect(0, 0, W, H);
+
+    // parallax city silhouettes
+    ctx.fillStyle = 'rgba(15,23,42,0.85)';
+    for (let i = 0; i < 10; i++) {
+      const bx = (i * 55 + (cam * 0.02) % 55) % (W + 40) - 20;
+      const bh = 40 + ((i * 37) % 90);
+      ctx.fillRect(bx, H - bh, 36, bh);
+    }
+
+    // neon horizon
+    const hz = ctx.createLinearGradient(0, H * 0.55, 0, H);
+    hz.addColorStop(0, 'rgba(255,92,57,0)');
+    hz.addColorStop(0.5, 'rgba(255,92,57,0.12)');
+    hz.addColorStop(1, 'rgba(56,189,248,0.08)');
+    ctx.fillStyle = hz;
+    ctx.fillRect(0, H * 0.5, W, H * 0.5);
+  }
+
+  function drawPlatform(p) {
+    ctx.save();
+    ctx.shadowColor = p.glow;
+    ctx.shadowBlur = 18;
+    // slab top
+    const g = ctx.createLinearGradient(p.x, p.y, p.x, p.y + 14);
+    g.addColorStop(0, '#ffffff');
+    g.addColorStop(0.25, p.glow);
+    g.addColorStop(1, '#0b1220');
+    ctx.fillStyle = g;
+    roundRect(p.x, p.y, p.w, 12, 6);
+    ctx.fill();
+    // 3D underside
+    ctx.fillStyle = 'rgba(0,0,0,0.35)';
+    ctx.beginPath();
+    ctx.moveTo(p.x + 4, p.y + 12);
+    ctx.lineTo(p.x + p.w - 4, p.y + 12);
+    ctx.lineTo(p.x + p.w - 10, p.y + 20);
+    ctx.lineTo(p.x + 10, p.y + 20);
+    ctx.closePath();
+    ctx.fill();
+    ctx.restore();
+  }
+
+  function roundRect(x, y, w, h, r) {
+    ctx.beginPath();
+    ctx.moveTo(x + r, y);
+    ctx.arcTo(x + w, y, x + w, y + h, r);
+    ctx.arcTo(x + w, y + h, x, y + h, r);
+    ctx.arcTo(x, y + h, x, y, r);
+    ctx.arcTo(x, y, x + w, y, r);
+    ctx.closePath();
+  }
+
+  function drawPlayer() {
+    ctx.save();
+    ctx.translate(player.x, player.y);
+    ctx.shadowColor = '#ff5c39';
+    ctx.shadowBlur = 22;
+    const g = ctx.createRadialGradient(-4, -5, 2, 0, 0, player.r + 2);
+    g.addColorStop(0, '#fff7ed');
+    g.addColorStop(0.4, '#ff5c39');
+    g.addColorStop(1, '#7c2d12');
+    ctx.fillStyle = g;
+    ctx.beginPath();
+    ctx.arc(0, 0, player.r, 0, Math.PI * 2);
+    ctx.fill();
+    // visor
+    ctx.fillStyle = 'rgba(103,232,249,0.85)';
+    ctx.beginPath();
+    ctx.ellipse(0, -2, 7, 4, 0, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+  }
+
+  function frame() {
+    if (alive) {
+      const left = keys.has('ArrowLeft') || keys.has('a') || keys.has('A');
+      const right = keys.has('ArrowRight') || keys.has('d') || keys.has('D');
+      if (left) player.vx = -4.2;
+      else if (right) player.vx = 4.2;
+      else player.vx *= 0.86;
+
+      player.vy += 0.28;
+      player.x += player.vx;
+      player.y += player.vy;
+      if (player.x < 0) player.x = W;
+      if (player.x > W) player.x = 0;
+
+      plats.forEach((p) => {
+        if (
+          player.vy > 0
+          && player.y + player.r > p.y
+          && player.y + player.r < p.y + 16
+          && player.x > p.x - 4
+          && player.x < p.x + p.w + 4
+        ) {
+          const boost = (keys.has('ArrowUp') || keys.has('w') || keys.has('W')) ? -11.5 : -9.2;
+          player.vy = boost;
+          for (let i = 0; i < 8; i++) {
+            particles.push({
+              x: player.x, y: p.y, vx: (Math.random() - 0.5) * 3, vy: -Math.random() * 2,
+              life: 20, color: p.glow,
+            });
+          }
+        }
+      });
+
+      if (player.y < H * 0.38) {
+        const dy = H * 0.38 - player.y;
+        player.y = H * 0.38;
+        cam += dy;
+        plats.forEach((p) => { p.y += dy; });
+        score += dy | 0;
+        document.getElementById('score').textContent = score;
+        plats = plats.filter((p) => p.y < H + 20);
+        while (plats.length < 9) {
+          const top = Math.min(...plats.map((p) => p.y));
+          plats.push({
+            x: 24 + Math.random() * (W - 130),
+            y: top - 68 - Math.random() * 24,
+            w: 65 + Math.random() * 55,
+            glow: ['#67e8f9', '#a78bfa', '#ff5c39', '#4ade80'][(Math.random() * 4) | 0],
+          });
+        }
+      }
+
+      if (player.y > H + 30) {
+        alive = false;
+        window.shrimpyLose && window.shrimpyLose();
+      }
+    }
+
+    particles = particles.filter((p) => {
+      p.x += p.vx; p.y += p.vy; p.life--;
+      return p.life > 0;
+    });
+
+    drawBackground();
+    plats.forEach(drawPlatform);
+    particles.forEach((p) => {
+      ctx.globalAlpha = p.life / 20;
+      ctx.fillStyle = p.color;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, 2.5, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.globalAlpha = 1;
+    });
+    drawPlayer();
+
+    if (!alive) {
+      ctx.fillStyle = 'rgba(5,8,20,0.68)';
+      ctx.fillRect(0, 0, W, H);
+      ctx.fillStyle = '#fff';
+      ctx.font = '700 28px Orbitron, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText('FREE FALL', W / 2, H / 2);
+      ctx.font = '14px Space Grotesk, sans-serif';
+      ctx.fillStyle = '#8ba3c7';
+      ctx.fillText('Click to climb again', W / 2, H / 2 + 28);
+    }
+    requestAnimationFrame(frame);
+  }
+
+  function onKey(e, down) {
+    const k = e.key;
+    if (['ArrowLeft','ArrowRight','ArrowUp','a','A','d','D','w','W'].includes(k)) {
+      e.preventDefault();
+      if (down) keys.add(k); else keys.delete(k);
+    }
+  }
+  addEventListener('keydown', (e) => onKey(e, true));
+  addEventListener('keyup', (e) => onKey(e, false));
+  canvas.addEventListener('click', () => {
+    canvas.focus();
+    if (!alive && !window.__shrLost) reset();
+  });
+  canvas.focus();
+  reset();
+  frame();
+})();
+</script>
+<script>
+(function(){
+  window.__shrLost=false;
+  window.shrimpyLose=function(){
+    if(window.__shrLost) return;
+    window.__shrLost=true;
+    try{ parent.postMessage({type:'shrimpy-lose', game: location.pathname}, '*'); }catch(e){}
+  };
+  window.shrimpyReady=function(){
+    window.__shrLost=false;
+    try{ parent.postMessage({type:'shrimpy-ready', game: location.pathname}, '*'); }catch(e){}
+  };
+  window.addEventListener('message', function(e){
+    if(!e.data || e.data.type!=='shrimpy-unlock') return;
+    window.__shrLost=false;
+    location.reload();
+  });
+  window.shrimpyReady();
+})();
+</script>
+</body>
+</html>

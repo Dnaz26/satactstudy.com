@@ -11,6 +11,7 @@ import { QuestionPrompt } from '@/components/practice/question-prompt'
 import { MathDiagram } from '@/components/practice/math-diagram'
 import { PassagePanel } from '@/components/practice/passage-panel'
 import { cn } from '@/lib/utils'
+import { cleanQuestionText } from '@/lib/questions/clean-text'
 import { isStudentProduced } from '@/lib/questions/render'
 import type { TutorTrigger } from '@/lib/tutor/types'
 import type { BookletQuestion } from '@/components/practice/test-booklet'
@@ -40,6 +41,7 @@ function SimulatorInner({ testType }: { testType: 'SAT' | 'ACT' }) {
   const [hits, setHits] = React.useState(0)
   const [streak, setStreak] = React.useState(0)
   const started = React.useRef(Date.now())
+  const advanceTimer = React.useRef<number | null>(null)
 
   const fill = React.useCallback(async () => {
     const res = await fetch(`/api/practice/questions?testType=${testType}&count=8&difficulty=mixed`)
@@ -66,10 +68,15 @@ function SimulatorInner({ testType }: { testType: 'SAT' | 'ACT' }) {
     })
     return () => {
       cancelled = true
+      if (advanceTimer.current != null) window.clearTimeout(advanceTimer.current)
     }
   }, [fill])
 
   async function nextQuestion() {
+    if (advanceTimer.current != null) {
+      window.clearTimeout(advanceTimer.current)
+      advanceTimer.current = null
+    }
     setChoice('')
     setMark(null)
     setTick((n) => n + 1)
@@ -89,13 +96,19 @@ function SimulatorInner({ testType }: { testType: 'SAT' | 'ACT' }) {
     setQueue(extra.slice(1))
   }
 
-  function submit(auto = false) {
-    if (!current || mark) {
-      if (auto && current && mark) void nextQuestion()
-      return
-    }
-    const picked = choice || (auto ? '' : '')
+  function scheduleNext() {
+    if (advanceTimer.current != null) window.clearTimeout(advanceTimer.current)
+    advanceTimer.current = window.setTimeout(() => {
+      advanceTimer.current = null
+      void nextQuestion()
+    }, 450)
+  }
+
+  function submit(auto = false, pickedOverride?: string) {
+    if (!current || mark) return
+    const picked = pickedOverride ?? choice
     if (!picked && !auto) return
+    if (pickedOverride) setChoice(pickedOverride)
     const correct = picked ? answersMatch(picked, current.correct_answer) : false
     setMark({ correct })
     if (correct) {
@@ -119,7 +132,14 @@ function SimulatorInner({ testType }: { testType: 'SAT' | 'ACT' }) {
         desmosUsed: desmos.open,
       }),
     }).catch(() => undefined)
+    scheduleNext()
   }
+
+  React.useEffect(() => {
+    if (!desmos.open) return
+    const id = window.requestAnimationFrame(() => desmos.resize())
+    return () => window.cancelAnimationFrame(id)
+  }, [desmos.open, desmos.resize])
 
   if (loading) {
     return (
@@ -135,6 +155,7 @@ function SimulatorInner({ testType }: { testType: 'SAT' | 'ACT' }) {
 
   const spr = isStudentProduced(current.question_type, current.choices)
   const choices = current.choices ?? []
+  const promptText = cleanQuestionText(current.question_text)
 
   return (
     <div className="-mx-5 flex h-[calc(100svh-3.5rem)] min-h-0 flex-col overflow-hidden">
@@ -149,12 +170,9 @@ function SimulatorInner({ testType }: { testType: 'SAT' | 'ACT' }) {
           <QuestionTimer
             key={tick}
             mode="countdown"
-            initialSeconds={60}
+            initialSeconds={30}
             running={!mark}
-            onTimeUp={() => {
-              submit(true)
-              window.setTimeout(() => void nextQuestion(), 900)
-            }}
+            onTimeUp={() => submit(true)}
           />
         </div>
         <PracticeTools
@@ -169,102 +187,100 @@ function SimulatorInner({ testType }: { testType: 'SAT' | 'ACT' }) {
         />
       </div>
 
-      <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-5 pb-10 pt-5">
-        <div className="mx-auto flex w-full max-w-xl flex-col gap-5">
-          <p className={cn(
-            'text-sm',
-            mark == null && 'text-fog',
-            mark?.correct && 'text-ok',
-            mark && !mark.correct && 'text-signal',
-          )}>
-            {mark == null
-              ? '60 seconds. Pick an answer.'
-              : mark.correct
-                ? streak > 1 ? `Correct · ${streak} in a row` : 'Correct'
-                : `Incorrect · ${officialChoiceLabel(current.correct_answer, testType, round)}`}
-          </p>
+      <div className="flex min-h-0 flex-1 flex-col lg:flex-row">
+        <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-5 pb-10 pt-5">
+          <div className="mx-auto flex w-full max-w-xl flex-col gap-5 lg:mx-0 lg:max-w-none lg:pr-2">
+            <p className={cn(
+              'text-sm',
+              mark == null && 'text-fog',
+              mark?.correct && 'text-ok',
+              mark && !mark.correct && 'text-signal',
+            )}>
+              {mark == null
+                ? '30 seconds. Pick an answer.'
+                : mark.correct
+                  ? streak > 1 ? `Correct · ${streak} in a row` : 'Correct'
+                  : `Incorrect · ${officialChoiceLabel(current.correct_answer, testType, round)}`}
+            </p>
 
-          {current.passage_content ? (
-            <PassagePanel title={current.passage_title} content={current.passage_content} />
-          ) : null}
+            {current.passage_content ? (
+              <PassagePanel title={current.passage_title} content={current.passage_content} />
+            ) : null}
 
-          <div className="space-y-2 border-y border-line py-5">
-            <p className="text-xs uppercase tracking-[0.14em] text-fog">Question {round}</p>
-            <QuestionPrompt text={current.question_text} className="mb-0 text-base leading-6" />
-            <MathDiagram text={current.question_text} imageUrl={current.image_url} />
-          </div>
+            <div className="space-y-2 border-y border-line py-5">
+              <p className="text-xs uppercase tracking-[0.14em] text-fog">Question {round}</p>
+              <QuestionPrompt text={promptText} className="mb-0 text-base leading-6" />
+              <MathDiagram text={promptText} imageUrl={current.image_url} />
+            </div>
 
-          {spr ? (
-            <label className="block space-y-2">
-              <span className="text-xs uppercase tracking-[0.14em] text-fog">Your answer</span>
-              <input
-                value={choice}
-                onChange={(event) => setChoice(event.target.value)}
-                disabled={Boolean(mark)}
-                placeholder="Type the answer"
-                className="h-11 w-full border-b border-line bg-transparent px-0 text-sm text-paper outline-none"
-              />
-            </label>
-          ) : (
-            <div className="flex flex-col divide-y divide-line border-y border-line">
-              {choices.map((item) => {
-                const selected = choice === item.key
-                const right = Boolean(mark) && item.key === current.correct_answer
-                const wrong = Boolean(mark) && selected && item.key !== current.correct_answer
-                return (
-                  <button
-                    key={item.key}
-                    type="button"
+            {spr ? (
+              <div className="space-y-4">
+                <label className="block space-y-2">
+                  <span className="text-xs uppercase tracking-[0.14em] text-fog">Your answer</span>
+                  <input
+                    value={choice}
+                    onChange={(event) => setChoice(event.target.value)}
                     disabled={Boolean(mark)}
-                    onClick={() => setChoice(item.key)}
-                    className={cn(
-                      'flex min-h-[52px] items-center gap-3 py-3 text-left transition',
-                      selected && !mark && 'bg-panel-2',
-                      right && 'bg-[rgba(255,212,200,0.4)]',
-                      wrong && 'bg-[rgba(255,92,57,0.12)]',
-                    )}
+                    onKeyDown={(event) => {
+                      if (event.key === 'Enter' && choice && !mark) submit(false)
+                    }}
+                    placeholder="Type the answer"
+                    className="h-11 w-full border-b border-line bg-transparent px-0 text-sm text-paper outline-none"
+                  />
+                </label>
+                {!mark ? (
+                  <button
+                    type="button"
+                    onClick={() => submit(false)}
+                    className="w-full rounded-full bg-signal py-3 text-sm font-semibold text-white disabled:opacity-40"
+                    disabled={!choice}
                   >
-                    <span className={cn(
-                      'flex h-8 w-8 shrink-0 items-center justify-center font-mono text-xs font-semibold',
-                      selected || right || wrong ? 'text-signal' : 'text-fog',
-                    )}>
-                      {officialChoiceLabel(item.key, testType, round)}
-                    </span>
-                    <QuestionPrompt text={item.text} className="mb-0 flex-1 text-sm leading-5" />
+                    Lock in
                   </button>
-                )
-              })}
-            </div>
-          )}
-
-          {!mark ? (
-            <button
-              type="button"
-              onClick={() => submit(false)}
-              className="w-full rounded-full bg-signal py-3 text-sm font-semibold text-white disabled:opacity-40"
-              disabled={!choice}
-            >
-              Lock in
-            </button>
-          ) : (
-            <button
-              type="button"
-              onClick={() => void nextQuestion()}
-              className="w-full rounded-full bg-ok py-3 text-sm font-semibold text-white"
-            >
-              Next question
-            </button>
-          )}
-
-          {desmos.open ? (
-            <div className="min-h-[420px] overflow-hidden border border-line">
-              <DesmosPanel embedded />
-            </div>
-          ) : null}
+                ) : null}
+              </div>
+            ) : (
+              <div className="flex flex-col divide-y divide-line border-y border-line">
+                {choices.map((item) => {
+                  const selected = choice === item.key
+                  const right = Boolean(mark) && item.key === current.correct_answer
+                  const wrong = Boolean(mark) && selected && item.key !== current.correct_answer
+                  return (
+                    <button
+                      key={item.key}
+                      type="button"
+                      disabled={Boolean(mark)}
+                      onClick={() => submit(false, item.key)}
+                      className={cn(
+                        'flex min-h-[52px] items-center gap-3 py-3 text-left transition',
+                        selected && !mark && 'bg-panel-2',
+                        right && 'bg-[rgba(255,212,200,0.4)]',
+                        wrong && 'bg-[rgba(255,92,57,0.12)]',
+                      )}
+                    >
+                      <span className={cn(
+                        'flex h-8 w-8 shrink-0 items-center justify-center font-mono text-xs font-semibold',
+                        selected || right || wrong ? 'text-signal' : 'text-fog',
+                      )}>
+                        {officialChoiceLabel(item.key, testType, round)}
+                      </span>
+                      <QuestionPrompt text={item.text} className="mb-0 flex-1 text-sm leading-5" />
+                    </button>
+                  )
+                })}
+              </div>
+            )}
+          </div>
         </div>
-      </div>
 
-      {!desmos.open && <DesmosPanel embedded={false} />}
+        {desmos.open ? (
+          <div className="flex min-h-[360px] shrink-0 flex-col overflow-hidden border-t border-line bg-panel lg:h-auto lg:min-h-0 lg:w-[min(48%,640px)] lg:border-l lg:border-t-0">
+            <DesmosPanel embedded />
+          </div>
+        ) : (
+          <DesmosPanel embedded={false} />
+        )}
+      </div>
 
       <AiTutorPanel
         open={aiOpen}
@@ -272,7 +288,7 @@ function SimulatorInner({ testType }: { testType: 'SAT' | 'ACT' }) {
         pendingTrigger={pending}
         context={{
           questionId: current.id,
-          questionText: current.question_text,
+          questionText: promptText,
           topicId: current.topic_id,
           topicName: current.topic_name ?? 'General',
           sectionName: current.section_name ?? undefined,
@@ -290,7 +306,7 @@ function SimulatorInner({ testType }: { testType: 'SAT' | 'ACT' }) {
 
 export function SimulatorClient({ testType }: { testType: 'SAT' | 'ACT' }) {
   return (
-    <DesmosProvider enabled>
+    <DesmosProvider enabled defaultOpen>
       <SimulatorInner testType={testType} />
     </DesmosProvider>
   )

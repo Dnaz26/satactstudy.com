@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Simon Says</title>
+<style>
+  :root { --bg:#fffaf7; --panel:#ffffff; --ink:#1a1412; --muted:#8a7168; --accent:#ff5c39; --ok:#22a06b; --line:rgba(201,68,36,0.12); }
+  * { box-sizing:border-box; }
+  html,body { margin:0; height:100%; background: transparent; color:var(--ink); font-family: ui-sans-serif, system-ui, sans-serif; }
+  body { display:flex; flex-direction:column; align-items:center; padding:12px; gap:10px; }
+  h1 { margin:0; font-size:1.15rem; }
+  .hud { display:flex; gap:14px; flex-wrap:wrap; justify-content:center; color:var(--muted); font-size:.9rem; }
+  .hud b { color:var(--ink); }
+  canvas, .board { background:var(--panel); border:1px solid #243149; border-radius:14px; box-shadow:0 10px 40px rgba(0,0,0,.35); touch-action:none; }
+  button { appearance:none; border:0; border-radius:999px; padding:10px 16px; background:var(--accent); color:#fff; font-weight:700; cursor:pointer; }
+  button.secondary { background:#243149; color:var(--ink); }
+  .row { display:flex; gap:8px; flex-wrap:wrap; justify-content:center; }
+  .hint { color:var(--muted); font-size:.8rem; text-align:center; max-width:520px; }
+  .cell { display:flex; align-items:center; justify-content:center; border-radius:10px; background:#1a2438; cursor:pointer; user-select:none; font-weight:800; font-size:2rem; }
+  .pad { width:72px; height:72px; border-radius:16px; border:0; cursor:pointer; }
+
+  html, body { width:100%; height:100%; margin:0; overflow:hidden; }
+  body { min-height:100vh; min-height:100dvh; justify-content:center; padding: clamp(8px, 2vh, 16px); gap:8px; }
+  h1 { font-size: clamp(1rem, 2.4vh, 1.25rem); }
+  canvas { width: min(96vw, 920px) !important; height: auto !important; max-height: min(78vh, 78dvh); }
+  .board { max-width: min(96vw, 920px); }
+
+
+  body { display:flex; flex-direction:column; align-items:center; justify-content:center; }
+  canvas {
+    width: min(96vw, 1100px) !important;
+    height: auto !important;
+    max-height: min(82vh, 82dvh);
+  }
+  .board { width: min(96vw, 720px); }
+  .row, .hud, h1, .hint { flex-shrink: 0; }
+
+
+  html, body {
+    background:
+      radial-gradient(900px 520px at 50% -8%, #ffffff 0%, transparent 58%),
+      radial-gradient(720px 420px at 8% 40%, rgba(255, 92, 57, 0.10), transparent 55%),
+      radial-gradient(640px 380px at 92% 30%, rgba(255, 212, 200, 0.45), transparent 50%),
+      #fffaf7 !important;
+  }
+  canvas, .board {
+    background: #ffffff !important;
+    border: 1px solid rgba(201,68,36,0.12) !important;
+    box-shadow: 0 18px 50px rgba(40,24,12,0.08) !important;
+  }
+  h1 { color: #1a1412 !important; }
+  .hud { color: #8a7168 !important; }
+  .hud b { color: #1a1412 !important; }
+  .hint { color: #8a7168 !important; }
+  button { background: #ff5c39 !important; }
+  button.secondary { background: #fff5f0 !important; color: #1a1412 !important; border: 1px solid rgba(201,68,36,0.12); }
+  .cell { background: #fff5f0 !important; color: #1a1412; border: 1px solid rgba(201,68,36,0.08); }
+  /* body-bg-cream */
+</style>
+</head>
+<body>
+
+<h1>Simon Says</h1>
+<div class="hud"><span>Level <b id="level">1</b></span></div>
+<div class="row board" style="padding:16px;display:grid;grid-template-columns:1fr 1fr;gap:10px;width:220px;">
+  <button class="pad" id="b0" style="background:#22c55e;"></button>
+  <button class="pad" id="b1" style="background:#ef4444;"></button>
+  <button class="pad" id="b2" style="background:#eab308;"></button>
+  <button class="pad" id="b3" style="background:#3b82f6;"></button>
+</div>
+<div class="row"><button id="start">Start</button></div>
+<p class="hint" id="hint">Watch the sequence, then repeat it.</p>
+
+<script>
+
+let seq=[], input=[], playing=false, accept=false;
+const pads=[0,1,2,3].map(i=>document.getElementById('b'+i));
+function sleep(ms){return new Promise(r=>setTimeout(r,ms));}
+async function flash(i){pads[i].style.filter='brightness(1.8)'; pads[i].style.transform='scale(0.96)'; await sleep(280); pads[i].style.filter=''; pads[i].style.transform=''; await sleep(120);}
+async function playSeq(){accept=false; document.getElementById('hint').textContent='Watch…'; for(const i of seq){await flash(i);} accept=true; input=[]; document.getElementById('hint').textContent='Your turn';}
+async function next(){seq.push((Math.random()*4)|0); document.getElementById('level').textContent=seq.length; await sleep(400); await playSeq();}
+pads.forEach((p,i)=>p.onclick=async()=>{if(!accept)return; await flash(i); input.push(i); const n=input.length-1; if(input[n]!==seq[n]){accept=false; document.getElementById('hint').textContent='Wrong — answer questions to continue'; playing=false; window.shrimpyLose&&window.shrimpyLose(); return;}
+  if(input.length===seq.length){accept=false; document.getElementById('hint').textContent='Nice!'; await sleep(500); next();}});
+document.getElementById('start').onclick=()=>{if(window.__shrLost)return; seq=[]; playing=true; document.getElementById('level').textContent='1'; next();};
+
+</script>
+
+<script>
+(function(){
+  window.__shrLost=false;
+  window.shrimpyLose=function(){
+    if(window.__shrLost) return;
+    window.__shrLost=true;
+    try{ parent.postMessage({type:'shrimpy-lose', game: location.pathname}, '*'); }catch(e){}
+  };
+  window.shrimpyReady=function(){
+    window.__shrLost=false;
+    try{ parent.postMessage({type:'shrimpy-ready', game: location.pathname}, '*'); }catch(e){}
+  };
+  window.addEventListener('message', function(e){
+    if(!e.data || e.data.type!=='shrimpy-unlock') return;
+    window.__shrLost=false;
+    location.reload();
+  });
+  document.addEventListener('DOMContentLoaded', function(){ window.shrimpyReady && window.shrimpyReady(); });
+  window.shrimpyReady();
+})();
+</script>
+
+</body>
+</html>

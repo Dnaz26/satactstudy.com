@@ -1,6 +1,6 @@
 'use client'
 
-import { Calculator, Lightbulb, MessageCircle } from 'lucide-react'
+import { Calculator, Lightbulb, Pencil } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 export function PracticeTools({
@@ -24,7 +24,7 @@ export function PracticeTools({
         className={cn('flex h-12 w-12 items-center justify-center rounded-2xl', chatOpen ? 'neu-raised text-white' : 'neu-sm text-paper')}
         aria-label="Chat with Nova"
       >
-        <MessageCircle className="h-5 w-5" />
+        <Pencil className="h-5 w-5" />
       </button>
       <button
         type="button"

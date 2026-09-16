@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Duck Hunt</title>
+<style>
+  :root { --bg:#fffaf7; --panel:#ffffff; --ink:#1a1412; --muted:#8a7168; --accent:#ff5c39; --ok:#22a06b; --line:rgba(201,68,36,0.12); }
+  * { box-sizing:border-box; }
+  html,body { margin:0; height:100%; background: transparent; color:var(--ink); font-family: ui-sans-serif, system-ui, sans-serif; }
+  body { display:flex; flex-direction:column; align-items:center; padding:12px; gap:10px; }
+  h1 { margin:0; font-size:1.15rem; }
+  .hud { display:flex; gap:14px; flex-wrap:wrap; justify-content:center; color:var(--muted); font-size:.9rem; }
+  .hud b { color:var(--ink); }
+  canvas, .board { background:var(--panel); border:1px solid #243149; border-radius:14px; box-shadow:0 10px 40px rgba(0,0,0,.35); touch-action:none; }
+  button { appearance:none; border:0; border-radius:999px; padding:10px 16px; background:var(--accent); color:#fff; font-weight:700; cursor:pointer; }
+  button.secondary { background:#243149; color:var(--ink); }
+  .row { display:flex; gap:8px; flex-wrap:wrap; justify-content:center; }
+  .hint { color:var(--muted); font-size:.8rem; text-align:center; max-width:520px; }
+  .cell { display:flex; align-items:center; justify-content:center; border-radius:10px; background:#1a2438; cursor:pointer; user-select:none; font-weight:800; font-size:2rem; }
+  .pad { width:72px; height:72px; border-radius:16px; border:0; cursor:pointer; }
+
+  html, body { width:100%; height:100%; margin:0; overflow:hidden; }
+  body { min-height:100vh; min-height:100dvh; justify-content:center; padding: clamp(8px, 2vh, 16px); gap:8px; }
+  h1 { font-size: clamp(1rem, 2.4vh, 1.25rem); }
+  canvas { width: min(96vw, 920px) !important; height: auto !important; max-height: min(78vh, 78dvh); }
+  .board { max-width: min(96vw, 920px); }
+
+
+  body { display:flex; flex-direction:column; align-items:center; justify-content:center; }
+  canvas {
+    width: min(96vw, 1100px) !important;
+    height: auto !important;
+    max-height: min(82vh, 82dvh);
+  }
+  .board { width: min(96vw, 720px); }
+  .row, .hud, h1, .hint { flex-shrink: 0; }
+
+
+  html, body {
+    background:
+      radial-gradient(900px 520px at 50% -8%, #ffffff 0%, transparent 58%),
+      radial-gradient(720px 420px at 8% 40%, rgba(255, 92, 57, 0.10), transparent 55%),
+      radial-gradient(640px 380px at 92% 30%, rgba(255, 212, 200, 0.45), transparent 50%),
+      #fffaf7 !important;
+  }
+  canvas, .board {
+    background: #ffffff !important;
+    border: 1px solid rgba(201,68,36,0.12) !important;
+    box-shadow: 0 18px 50px rgba(40,24,12,0.08) !important;
+  }
+  h1 { color: #1a1412 !important; }
+  .hud { color: #8a7168 !important; }
+  .hud b { color: #1a1412 !important; }
+  .hint { color: #8a7168 !important; }
+  button { background: #ff5c39 !important; }
+  button.secondary { background: #fff5f0 !important; color: #1a1412 !important; border: 1px solid rgba(201,68,36,0.12); }
+  .cell { background: #fff5f0 !important; color: #1a1412; border: 1px solid rgba(201,68,36,0.08); }
+  /* body-bg-cream */
+</style>
+</head>
+<body>
+
+<h1>Duck Hunt</h1>
+<div class="hud"><span>Score <b id="score">0</b></span><span>Misses <b id="miss">0</b>/5</span></div>
+<canvas id="c" width="520" height="360"></canvas>
+<p class="hint">Click the ducks before they escape.</p>
+
+<script>
+
+const canvas=document.getElementById('c'),ctx=canvas.getContext('2d');
+let ducks,score,miss,alive,spawnT;
+function reset(){ducks=[]; score=0; miss=0; alive=true; spawnT=0; document.getElementById('score').textContent=0; document.getElementById('miss').textContent='0';}
+function frame(){if(alive){spawnT++; if(spawnT%55===0)ducks.push({x:Math.random()*460+20,y:300,vx:(Math.random()*2-1)*2.5,vy:-2-Math.random()*2,r:16,alive:true});
+  ducks.forEach(d=>{d.x+=d.vx; d.y+=d.vy; if(d.y<-20||d.x<-30||d.x>550){if(d.alive){miss++; document.getElementById('miss').textContent=miss; d.alive=false; if(miss>=5){alive=false;window.shrimpyLose&&window.shrimpyLose();}}}});
+  ducks=ducks.filter(d=>d.alive);}
+  const g=ctx.createLinearGradient(0,0,0,360); g.addColorStop(0,'#38bdf8'); g.addColorStop(1,'#166534'); ctx.fillStyle=g; ctx.fillRect(0,0,520,360);
+  ctx.fillStyle='#14532d';ctx.fillRect(0,300,520,60);
+  ducks.forEach(d=>{ctx.fillStyle='#f8fafc'; ctx.beginPath(); ctx.ellipse(d.x,d.y,d.r,d.r*0.7,0,0,Math.PI*2); ctx.fill(); ctx.fillStyle='#f97316'; ctx.beginPath(); ctx.moveTo(d.x+d.r,d.y); ctx.lineTo(d.x+d.r+10,d.y+3); ctx.lineTo(d.x+d.r,d.y+6); ctx.fill();});
+  if(!alive){ctx.fillStyle='rgba(0,0,0,.45)';ctx.fillRect(0,0,520,360);ctx.fillStyle='#fff';ctx.font='bold 24px sans-serif';ctx.textAlign='center';ctx.fillText('Round over',260,180);ctx.font='14px sans-serif';ctx.fillText('Click to restart',260,210);}
+  requestAnimationFrame(frame);}
+canvas.onclick=e=>{if(!alive){if(!window.__shrLost)reset();return;} const r=canvas.getBoundingClientRect(); const x=e.clientX-r.left,y=e.clientY-r.top;
+  let hit=false; ducks.forEach(d=>{if(d.alive&&Math.hypot(d.x-x,d.y-y)<d.r+6){d.alive=false; hit=true; score+=10; document.getElementById('score').textContent=score;}});};
+reset(); frame();
+
+</script>
+
+<script>
+(function(){
+  window.__shrLost=false;
+  window.shrimpyLose=function(){
+    if(window.__shrLost) return;
+    window.__shrLost=true;
+    try{ parent.postMessage({type:'shrimpy-lose', game: location.pathname}, '*'); }catch(e){}
+  };
+  window.shrimpyReady=function(){
+    window.__shrLost=false;
+    try{ parent.postMessage({type:'shrimpy-ready', game: location.pathname}, '*'); }catch(e){}
+  };
+  window.addEventListener('message', function(e){
+    if(!e.data || e.data.type!=='shrimpy-unlock') return;
+    window.__shrLost=false;
+    location.reload();
+  });
+  document.addEventListener('DOMContentLoaded', function(){ window.shrimpyReady && window.shrimpyReady(); });
+  window.shrimpyReady();
+})();
+</script>
+
+</body>
+</html>

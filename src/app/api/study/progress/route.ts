@@ -3,6 +3,7 @@ import { createClient } from '@/lib/supabase/server'
 import { denyIfUnpaid } from '@/lib/entitlements'
 import { z } from 'zod'
 import { firstIndexInEachCategory, getLevel, levelsFor, nextInCategory, type StudyTrack } from '@/lib/study/levels'
+import { awardCoins } from '@/lib/economy/wallet'
 
 const bodySchema = z.object({
   track: z.enum(['math', 'english']),
@@ -11,6 +12,14 @@ const bodySchema = z.object({
 })
 
 type SB = Awaited<ReturnType<typeof createClient>>
+
+type ProgressRow = {
+  track: string
+  level_index: number
+  status: string
+  completed_at: string | null
+  extra_problems?: number
+}
 
 async function ensureStart(supabase: SB, userId: string, track: StudyTrack) {
   const { data } = await supabase
@@ -32,9 +41,44 @@ async function ensureStart(supabase: SB, userId: string, track: StudyTrack) {
       status: 'available',
       extra_problems: 0,
       updated_at: now,
+      completed_at: null,
     })),
     { onConflict: 'user_id,track,level_index' },
   )
+}
+
+async function upsertProgress(
+  supabase: SB,
+  input: {
+    userId: string
+    track: StudyTrack
+    level: number
+    status: 'available' | 'completed'
+  },
+): Promise<{ row: ProgressRow | null; error: string | null }> {
+  const completedAt = input.status === 'completed' ? new Date().toISOString() : null
+  const { data, error } = await supabase
+    .from('study_level_progress')
+    .upsert(
+      {
+        user_id: input.userId,
+        track: input.track,
+        level_index: input.level,
+        status: input.status,
+        completed_at: completedAt,
+        extra_problems: 0,
+        updated_at: new Date().toISOString(),
+      },
+      { onConflict: 'user_id,track,level_index' },
+    )
+    .select('track, level_index, status, completed_at, extra_problems')
+    .single()
+
+  if (error) {
+    return { row: null, error: error.message }
+  }
+
+  return { row: data as ProgressRow, error: null }
 }
 
 export async function GET() {
@@ -50,10 +94,14 @@ export async function GET() {
     ensureStart(supabase, user.id, 'english'),
   ])
 
-  const { data } = await supabase
+  const { data, error } = await supabase
     .from('study_level_progress')
     .select('track, level_index, status, extra_problems, completed_at')
     .eq('user_id', user.id)
+
+  if (error) {
+    return Response.json({ error: 'Could not load progress', rows: [] }, { status: 500 })
+  }
 
   return Response.json({
     rows: data ?? [],
@@ -78,40 +126,66 @@ export async function POST(request: NextRequest) {
   const { track, level, status } = parsed.data
   if (!getLevel(track, level)) return Response.json({ error: 'Unknown level' }, { status: 400 })
 
-  const completedAt = status === 'completed' ? new Date().toISOString() : null
-  const { error } = await supabase.from('study_level_progress').upsert({
-    user_id: user.id,
-    track,
-    level_index: level,
-    status,
-    completed_at: completedAt,
-    extra_problems: 0,
-    updated_at: new Date().toISOString(),
-  }, { onConflict: 'user_id,track,level_index' })
+  await ensureStart(supabase, user.id, track)
 
-  if (error) {
-    return Response.json({ error: 'Could not save level' }, { status: 500 })
-  }
-
-  const next = status === 'completed' ? nextInCategory(track, level) : null
-  if (next) {
-    await supabase.from('study_level_progress').upsert({
-      user_id: user.id,
-      track,
-      level_index: next.index,
-      status: 'available',
-      extra_problems: 0,
-      updated_at: new Date().toISOString(),
-    }, { onConflict: 'user_id,track,level_index' })
-  }
-
-  const { data: saved } = await supabase
+  const { data: prior } = await supabase
     .from('study_level_progress')
-    .select('track, level_index, status, completed_at')
+    .select('status')
     .eq('user_id', user.id)
     .eq('track', track)
     .eq('level_index', level)
     .maybeSingle()
 
-  return Response.json({ success: true, row: saved })
+  const saved = await upsertProgress(supabase, {
+    userId: user.id,
+    track,
+    level,
+    status,
+  })
+
+  if (saved.error || !saved.row) {
+    console.error('study_level_progress upsert failed', saved.error)
+    return Response.json({ error: 'Could not save level', detail: saved.error }, { status: 500 })
+  }
+
+  let coinsAwarded = 0
+  if (status === 'completed' && prior?.status !== 'completed') {
+    try {
+      const coin = await awardCoins(supabase, user.id, 'tutoring_level', { track, level })
+      coinsAwarded = coin.awarded
+    } catch (err) {
+      console.error('tutoring coin award failed', err)
+    }
+  }
+
+  if (status === 'completed') {
+    const next = nextInCategory(track, level)
+    if (next) {
+      const unlocked = await upsertProgress(supabase, {
+        userId: user.id,
+        track,
+        level: next.index,
+        status: 'available',
+      })
+      if (unlocked.error) {
+        console.error('could not unlock next tutoring level', unlocked.error)
+      }
+    }
+  }
+
+  // Re-read to confirm persistence for the client.
+  const { data: confirmed } = await supabase
+    .from('study_level_progress')
+    .select('track, level_index, status, completed_at, extra_problems')
+    .eq('user_id', user.id)
+    .eq('track', track)
+    .eq('level_index', level)
+    .maybeSingle()
+
+  const row = (confirmed as ProgressRow | null) ?? saved.row
+  if (status === 'completed' && row.status !== 'completed') {
+    return Response.json({ error: 'Progress did not persist', row }, { status: 500 })
+  }
+
+  return Response.json({ success: true, row, coinsAwarded })
 }

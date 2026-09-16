@@ -24,6 +24,7 @@ const APP_PREFIXES = [
   '/desmos',
   '/pay',
   '/simulator',
+  '/game',
   '/reference',
 ]
 const OPEN_WITHOUT_PLAN = ['/pricing', '/pay', '/onboarding']

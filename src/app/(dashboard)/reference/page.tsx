@@ -1,5 +1,5 @@
-import { ReferenceClient } from './reference-client'
+import { redirect } from 'next/navigation'
 
-export default function ReferencePage() {
-  return <ReferenceClient />
+export default function ReferenceRedirectPage() {
+  redirect('/study')
 }

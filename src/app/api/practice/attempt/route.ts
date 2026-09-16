@@ -3,6 +3,7 @@ import { createClient } from '@/lib/supabase/server'
 import { recordQuestionAnswered, denyIfUnpaid } from '@/lib/entitlements'
 import { calculateTopicMastery, type AttemptData } from '@/lib/mastery'
 import { asDifficulty, dbId } from '@/lib/schema'
+import { awardCoins } from '@/lib/economy/wallet'
 import { z } from 'zod'
 
     const bodySchema = z.object({
@@ -111,6 +112,25 @@ export async function POST(request: NextRequest) {
         previousMastery?.overall_mastery ?? undefined
       )
 
+      const prevOverall = previousMastery?.overall_mastery ?? 0
+      if (masteryResult.overall_mastery > prevOverall + 2) {
+        const since = new Date(Date.now() - 10 * 60_000).toISOString()
+        const { data: recentImprove } = await supabase
+          .from('coin_ledger')
+          .select('id')
+          .eq('user_id', user.id)
+          .eq('reason', 'improvement')
+          .gte('created_at', since)
+          .limit(1)
+        if (!recentImprove?.length) {
+          await awardCoins(supabase, user.id, 'improvement', {
+            topicId: resolvedTopicId,
+            from: prevOverall,
+            to: masteryResult.overall_mastery,
+          })
+        }
+      }
+
       await supabase.from('topic_mastery').upsert({
         user_id: user.id,
         topic_id: resolvedTopicId,
@@ -167,7 +187,18 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    return Response.json({ success: true, isCorrect: actuallyCorrect, correctAnswer: actuallyCorrect ? undefined : question?.correct_answer })
+    let coinsAwarded = 0
+    if (actuallyCorrect) {
+      const coin = await awardCoins(supabase, user.id, 'correct_answer', { questionId })
+      coinsAwarded = coin.awarded
+    }
+
+    return Response.json({
+      success: true,
+      isCorrect: actuallyCorrect,
+      correctAnswer: actuallyCorrect ? undefined : question?.correct_answer,
+      coinsAwarded,
+    })
   } catch (err) {
     console.error(err)
     return Response.json({ error: 'Internal server error' }, { status: 500 })

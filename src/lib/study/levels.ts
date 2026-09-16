@@ -1,11 +1,16 @@
-import { ENGLISH_LEVELS } from './english-levels'
-import { MATH_LEVELS } from './math-levels'
+import { ENGLISH_LEVELS as ENGLISH_CORE } from './english-levels'
+import { MATH_LEVELS as MATH_CORE } from './math-levels'
+import { buildEnglishStrategyLevels, buildMathStrategyLevels } from './strategy-levels'
 import type { StudyLevel, StudyTrack } from './types'
 
 export type { StudyLevel, StudyProblem, StudyRank, StudyTrack } from './types'
 export { STUDY_RANKS, tagDifficulties, makeLevel, makeProblem } from './types'
-export { MATH_LEVELS } from './math-levels'
-export { ENGLISH_LEVELS } from './english-levels'
+
+const mathStart = Math.max(...MATH_CORE.map((level) => level.index)) + 1
+const englishStart = Math.max(...ENGLISH_CORE.map((level) => level.index)) + 1
+
+export const MATH_LEVELS: StudyLevel[] = [...MATH_CORE, ...buildMathStrategyLevels(mathStart)]
+export const ENGLISH_LEVELS: StudyLevel[] = [...ENGLISH_CORE, ...buildEnglishStrategyLevels(englishStart)]
 
 export function levelsFor(track: StudyTrack): StudyLevel[] {
   return track === 'math' ? MATH_LEVELS : ENGLISH_LEVELS

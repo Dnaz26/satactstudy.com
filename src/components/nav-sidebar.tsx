@@ -14,16 +14,14 @@ import {
   Settings,
   Shield,
   Sparkles,
-  Bookmark,
   Zap,
-  DoorClosed,
-  DoorOpen,
+  Gamepad2,
 } from 'lucide-react'
 
-interface NavItem {
+type NavItem = {
   label: string
   href: string
-  icon: React.ElementType
+  icon: React.ComponentType<{ className?: string }>
   adminOnly?: boolean
 }
 
@@ -32,8 +30,8 @@ const PRIMARY: NavItem[] = [
   { label: 'Practice', href: '/practice', icon: BookOpen },
   { label: 'Plan', href: '/study-plan', icon: Calendar },
   { label: 'Tutoring', href: '/study', icon: GraduationCap },
-  { label: 'Reference', href: '/reference', icon: Bookmark },
   { label: 'Rapid fire', href: '/simulator', icon: Zap },
+  { label: 'Game', href: '/game', icon: Gamepad2 },
   { label: 'Analytics', href: '/analytics', icon: BarChart2 },
   { label: 'Customize', href: '/customize', icon: Sparkles },
   { label: 'Settings', href: '/settings', icon: Settings },
@@ -43,90 +41,87 @@ const ADMIN: NavItem[] = [
   { label: 'Admin', href: '/admin', icon: Shield, adminOnly: true },
 ]
 
-const NAV_KEY = 'satact-nav-open'
-
 function isActivePath(pathname: string, href: string) {
   return pathname === href || pathname.startsWith(`${href}/`)
 }
 
-function NavLink({ item, pathname }: { item: NavItem; pathname: string }) {
-  const Icon = item.icon
-  const active = isActivePath(pathname, item.href) || (item.href === '/study' && pathname.startsWith('/desmos'))
-  return (
-    <Link
-      href={item.href}
-      className={cn(
-        'flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors',
-        active
-          ? 'bg-signal/15 font-semibold text-paper'
-          : 'text-fog hover:bg-white/70 hover:text-paper'
-      )}
-    >
-      <Icon className="h-4 w-4 shrink-0" />
-      <span>{item.label}</span>
-    </Link>
-  )
-}
-
 export function NavSidebar({ isAdmin = false }: { isAdmin?: boolean }) {
   const pathname = usePathname()
-  const [open, setOpen] = React.useState(true)
+  const [open, setOpen] = React.useState(false)
+  const closeTimer = React.useRef<number | null>(null)
+
+  function openPanel() {
+    if (closeTimer.current) {
+      window.clearTimeout(closeTimer.current)
+      closeTimer.current = null
+    }
+    setOpen(true)
+  }
+
+  function scheduleClose() {
+    if (closeTimer.current) window.clearTimeout(closeTimer.current)
+    closeTimer.current = window.setTimeout(() => setOpen(false), 180)
+  }
 
   React.useEffect(() => {
-    const saved = window.localStorage.getItem(NAV_KEY)
-    if (saved === '0') setOpen(false)
+    return () => {
+      if (closeTimer.current) window.clearTimeout(closeTimer.current)
+    }
   }, [])
 
-  function toggle() {
-    setOpen((prev) => {
-      const next = !prev
-      window.localStorage.setItem(NAV_KEY, next ? '1' : '0')
-      return next
-    })
-  }
-
-  if (!open) {
-    return (
-      <div className="w-0 shrink-0 overflow-visible">
-        <button
-          type="button"
-          onClick={toggle}
-          className="fixed bottom-4 left-3 z-50 flex h-11 w-11 items-center justify-center rounded-full bg-signal text-white shadow-[0_14px_30px_rgba(255,92,57,0.28)]"
-          aria-label="Open side panel"
-          title="Open menu"
-        >
-          <DoorOpen className="h-5 w-5" />
-        </button>
-      </div>
-    )
-  }
+  const items = [...PRIMARY, ...ADMIN.filter((item) => isAdmin)]
 
   return (
-    <aside className="app-sidebar flex h-full w-56 flex-col p-3">
-      <div className="flex items-center p-3">
-        <BrandMark href="/dashboard" />
-      </div>
+    <>
+      {/* Left-edge hover target — move cursor here to reveal panel */}
+      <div
+        className="fixed inset-y-0 left-0 z-[60] w-3"
+        onMouseEnter={openPanel}
+        aria-hidden
+      />
 
-      <nav className="flex-1 space-y-1 overflow-y-auto p-1">
-        {PRIMARY.map((item) => (
-          <NavLink key={item.href} item={item} pathname={pathname} />
-        ))}
-      </nav>
+      <aside
+        className={cn(
+          'app-sidebar fixed inset-y-0 left-0 z-[61] flex w-56 flex-col p-3 shadow-[12px_0_40px_rgba(0,0,0,0.08)] transition-transform duration-300 ease-out',
+          open ? 'translate-x-0' : '-translate-x-full pointer-events-none'
+        )}
+        onMouseEnter={openPanel}
+        onMouseLeave={scheduleClose}
+        aria-hidden={!open}
+      >
+        <div className="flex items-center p-3">
+          <BrandMark href="/dashboard" />
+        </div>
 
-      <div className="space-y-1 p-1">
-        {ADMIN.filter((item) => isAdmin).map((item) => (
-          <NavLink key={item.href} item={item} pathname={pathname} />
-        ))}
-        <button
-          type="button"
-          onClick={toggle}
-          className="flex w-full items-center gap-3 rounded-full px-3 py-2.5 text-sm text-fog hover:bg-white/70 hover:text-paper"
-          aria-label="Close side panel"
-        >
-          <DoorClosed className="h-4 w-4 shrink-0" />
-          <span>Close</span>
-        </button>
-      </div>
-    </aside>
+        <nav className="flex-1 space-y-1 overflow-y-auto p-1" aria-label="Main">
+          {items.map((item) => {
+            const Icon = item.icon
+            const active =
+              isActivePath(pathname, item.href) ||
+              (item.href === '/study' && pathname.startsWith('/desmos'))
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                onClick={() => setOpen(false)}
+                className={cn(
+                  'flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors',
+                  active
+                    ? 'bg-signal/15 font-semibold text-paper'
+                    : 'text-fog hover:bg-white/70 hover:text-paper'
+                )}
+              >
+                <Icon className="h-4 w-4 shrink-0" />
+                <span>{item.label}</span>
+              </Link>
+            )
+          })}
+        </nav>
+
+        <p className="px-3 pb-2 font-mono text-[9px] uppercase tracking-[0.14em] text-fog/70">
+          Hover left edge to open
+        </p>
+      </aside>
+    </>
   )
 }

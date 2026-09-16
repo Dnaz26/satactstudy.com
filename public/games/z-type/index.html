@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Z-Type</title>
+<style>
+  :root { --bg:#fffaf7; --panel:#ffffff; --ink:#1a1412; --muted:#8a7168; --accent:#ff5c39; --ok:#22a06b; --line:rgba(201,68,36,0.12); }
+  * { box-sizing:border-box; }
+  html,body { margin:0; height:100%; background: transparent; color:var(--ink); font-family: ui-sans-serif, system-ui, sans-serif; }
+  body { display:flex; flex-direction:column; align-items:center; padding:12px; gap:10px; }
+  h1 { margin:0; font-size:1.15rem; }
+  .hud { display:flex; gap:14px; flex-wrap:wrap; justify-content:center; color:var(--muted); font-size:.9rem; }
+  .hud b { color:var(--ink); }
+  canvas, .board { background:var(--panel); border:1px solid #243149; border-radius:14px; box-shadow:0 10px 40px rgba(0,0,0,.35); touch-action:none; }
+  button { appearance:none; border:0; border-radius:999px; padding:10px 16px; background:var(--accent); color:#fff; font-weight:700; cursor:pointer; }
+  button.secondary { background:#243149; color:var(--ink); }
+  .row { display:flex; gap:8px; flex-wrap:wrap; justify-content:center; }
+  .hint { color:var(--muted); font-size:.8rem; text-align:center; max-width:520px; }
+  .cell { display:flex; align-items:center; justify-content:center; border-radius:10px; background:#1a2438; cursor:pointer; user-select:none; font-weight:800; font-size:2rem; }
+  .pad { width:72px; height:72px; border-radius:16px; border:0; cursor:pointer; }
+
+  html, body { width:100%; height:100%; margin:0; overflow:hidden; }
+  body { min-height:100vh; min-height:100dvh; justify-content:center; padding: clamp(8px, 2vh, 16px); gap:8px; }
+  h1 { font-size: clamp(1rem, 2.4vh, 1.25rem); }
+  canvas { width: min(96vw, 920px) !important; height: auto !important; max-height: min(78vh, 78dvh); }
+  .board { max-width: min(96vw, 920px); }
+
+
+  body { display:flex; flex-direction:column; align-items:center; justify-content:center; }
+  canvas {
+    width: min(96vw, 1100px) !important;
+    height: auto !important;
+    max-height: min(82vh, 82dvh);
+  }
+  .board { width: min(96vw, 720px); }
+  .row, .hud, h1, .hint { flex-shrink: 0; }
+
+
+  html, body {
+    background:
+      radial-gradient(900px 520px at 50% -8%, #ffffff 0%, transparent 58%),
+      radial-gradient(720px 420px at 8% 40%, rgba(255, 92, 57, 0.10), transparent 55%),
+      radial-gradient(640px 380px at 92% 30%, rgba(255, 212, 200, 0.45), transparent 50%),
+      #fffaf7 !important;
+  }
+  canvas, .board {
+    background: #ffffff !important;
+    border: 1px solid rgba(201,68,36,0.12) !important;
+    box-shadow: 0 18px 50px rgba(40,24,12,0.08) !important;
+  }
+  h1 { color: #1a1412 !important; }
+  .hud { color: #8a7168 !important; }
+  .hud b { color: #1a1412 !important; }
+  .hint { color: #8a7168 !important; }
+  button { background: #ff5c39 !important; }
+  button.secondary { background: #fff5f0 !important; color: #1a1412 !important; border: 1px solid rgba(201,68,36,0.12); }
+  .cell { background: #fff5f0 !important; color: #1a1412; border: 1px solid rgba(201,68,36,0.08); }
+  /* body-bg-cream */
+</style>
+</head>
+<body>
+
+<h1>Z-Type</h1>
+<div class="hud"><span>Score <b id="score">0</b></span><span>Target <b id="target">—</b></span></div>
+<canvas id="c" width="480" height="420"></canvas>
+<p class="hint">Type the word on a ship to destroy it.</p>
+
+<script>
+
+const WORDS=['orbit','nova','pixel','quark','laser','comet','nebula','vector','signal','plasma','binary','quantum','asteroid','galaxy','thrust'];
+const canvas=document.getElementById('c'),ctx=canvas.getContext('2d');
+let ships,score,focus,alive;
+function spawn(){const w=WORDS[(Math.random()*WORDS.length)|0]; ships.push({x:40+Math.random()*400,y:-20,word:w,typed:0,speed:0.35+Math.random()*0.35});}
+function reset(){ships=[]; score=0; focus=null; alive=true; document.getElementById('score').textContent=0; document.getElementById('target').textContent='—'; for(let i=0;i<3;i++)spawn();}
+function frame(){if(alive){if(Math.random()<0.012)spawn(); ships.forEach(s=>s.y+=s.speed); if(ships.some(s=>s.y>390)){alive=false;window.shrimpyLose&&window.shrimpyLose();}}
+  ctx.fillStyle='#fffaf7';ctx.fillRect(0,0,480,420); ctx.fillStyle='#22d3ee'; ctx.fillRect(220,390,40,12);
+  ships.forEach(s=>{ctx.fillStyle='#334155';ctx.fillRect(s.x-30,s.y-12,60,24); ctx.fillStyle='#e2e8f0'; ctx.font='bold 14px monospace'; ctx.textAlign='center';
+    const done=s.word.slice(0,s.typed), rest=s.word.slice(s.typed); ctx.fillStyle='#22c55e'; ctx.fillText(done,s.x-ctx.measureText(rest).width/2,s.y+5); ctx.fillStyle='#e2e8f0'; ctx.fillText(rest,s.x+ctx.measureText(done).width/2,s.y+5);});
+  if(!alive){ctx.fillStyle='rgba(0,0,0,.5)';ctx.fillRect(0,0,480,420);ctx.fillStyle='#fff';ctx.font='bold 24px sans-serif';ctx.textAlign='center';ctx.fillText('Hull breached',240,210);ctx.font='14px sans-serif';ctx.fillText('Click to restart',240,240);}
+  requestAnimationFrame(frame);}
+addEventListener('keydown',e=>{if(!alive)return; if(e.key.length!==1)return; const ch=e.key.toLowerCase();
+  if(!focus){focus=ships.find(s=>s.word[s.typed]===ch)||null; document.getElementById('target').textContent=focus?focus.word:'—';}
+  if(focus&&focus.word[focus.typed]===ch){focus.typed++; if(focus.typed>=focus.word.length){ships=ships.filter(s=>s!==focus); score+=focus.word.length*10; document.getElementById('score').textContent=score; focus=null; document.getElementById('target').textContent='—';}}
+  else if(focus){/* miss - keep focus */}});
+canvas.onclick=()=>{if(!alive&&!window.__shrLost)reset();}; reset(); frame();
+
+</script>
+
+<script>
+(function(){
+  window.__shrLost=false;
+  window.shrimpyLose=function(){
+    if(window.__shrLost) return;
+    window.__shrLost=true;
+    try{ parent.postMessage({type:'shrimpy-lose', game: location.pathname}, '*'); }catch(e){}
+  };
+  window.shrimpyReady=function(){
+    window.__shrLost=false;
+    try{ parent.postMessage({type:'shrimpy-ready', game: location.pathname}, '*'); }catch(e){}
+  };
+  window.addEventListener('message', function(e){
+    if(!e.data || e.data.type!=='shrimpy-unlock') return;
+    window.__shrLost=false;
+    location.reload();
+  });
+  document.addEventListener('DOMContentLoaded', function(){ window.shrimpyReady && window.shrimpyReady(); });
+  window.shrimpyReady();
+})();
+</script>
+
+</body>
+</html>

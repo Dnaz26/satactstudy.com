@@ -4,6 +4,7 @@ import * as React from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
+import { PlanCalendar, type CalendarDayCell } from '@/components/schedule/plan-calendar'
 import { formatTimeOfDay } from '@/lib/utils'
 import { cn } from '@/lib/utils'
 import {
@@ -17,6 +18,7 @@ import {
   startOfMonth,
   startOfWeek,
 } from 'date-fns'
+import { motion, AnimatePresence } from 'framer-motion'
 
 interface StudyPlan {
   id: string
@@ -91,10 +93,32 @@ export function StudyPlanClient({ plan, tasks, profile, dayLogs = [] }: StudyPla
   const start = startOfWeek(startOfMonth(month), { weekStartsOn: 0 })
   const end = endOfWeek(endOfMonth(month), { weekStartsOn: 0 })
   const days = eachDayOfInterval({ start, end })
-  const window = formatTimeOfDay(profile?.study_start_time ?? '19:00')
+  const studyWindow = formatTimeOfDay(profile?.study_start_time ?? '19:00')
   const daily = profile?.daily_study_minutes ?? 30
   const doneCount = tasks.filter((t) => t.completed).length
   const progress = tasks.length > 0 ? Math.round((doneCount / tasks.length) * 100) : 0
+
+  const cells: CalendarDayCell[] = days.map((day) => {
+    const key = format(day, 'yyyy-MM-dd')
+    const dayTasks = byDate.get(key) ?? []
+    const allDone = dayTasks.length > 0 && dayTasks.every((t) => t.completed)
+    const logged = logByDate.get(key)
+    const done = logged === 'done' || allDone
+    const missed = logged === 'missed' || (key < today && dayTasks.length > 0 && !allDone)
+    return {
+      date: day,
+      key,
+      inMonth: isSameMonth(day, month),
+      isToday: isSameDay(day, new Date()),
+      isSelected: key === selected,
+      done,
+      missed,
+      hasTasks: dayTasks.length > 0,
+      label: dayTasks[0]?.topic_name ?? '',
+      taskCount: dayTasks.length,
+      weekday: format(day, 'EEE'),
+    }
+  })
 
   async function markComplete(taskId: string) {
     setCompletingId(taskId)
@@ -136,132 +160,101 @@ export function StudyPlanClient({ plan, tasks, profile, dayLogs = [] }: StudyPla
   }, [tasks.length, profile])
 
   return (
-    <div className="mx-auto w-full max-w-4xl space-y-10 pb-16 pt-4">
-      <header className="flex flex-wrap items-end justify-between gap-4 border-b border-line pb-6">
+    <div className="mx-auto w-full max-w-4xl space-y-8 pb-16 pt-4">
+      <header className="flex flex-wrap items-end justify-between gap-4">
         <div>
+          <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-fog">Study plan</p>
           <h1 className="font-display text-4xl tracking-tight text-paper">Schedule</h1>
           <p className="mt-2 text-sm text-fog">
-            {window} · {daily} min · {doneCount}/{tasks.length} done · {progress}%
+            {studyWindow} · {daily} min · {doneCount}/{tasks.length} done · {progress}%
           </p>
         </div>
-        <Button variant="ghost" size="sm" onClick={() => void regenerate()} loading={generating} className="text-signal">
-          Rebuild
-        </Button>
+        <div className="flex items-center gap-3">
+          <div className="hidden h-2 w-28 overflow-hidden rounded-full bg-black/5 sm:block">
+            <motion.div
+              className="h-full rounded-full bg-signal"
+              initial={{ width: 0 }}
+              animate={{ width: `${progress}%` }}
+              transition={{ type: 'spring', stiffness: 120, damping: 18 }}
+            />
+          </div>
+          <Button variant="ghost" size="sm" onClick={() => void regenerate()} loading={generating} className="text-signal">
+            Rebuild
+          </Button>
+        </div>
       </header>
 
-      <div>
-        <div className="mb-4 flex items-center justify-between">
-          <button
-            type="button"
-            className="text-sm text-fog hover:text-paper"
-            onClick={() => setMonth(addMonths(month, -1))}
-            aria-label="Previous month"
-          >
-            ← Prev
-          </button>
-          <p className="font-display text-xl text-paper">{format(month, 'MMMM yyyy')}</p>
-          <button
-            type="button"
-            className="text-sm text-fog hover:text-paper"
-            onClick={() => setMonth(addMonths(month, 1))}
-            aria-label="Next month"
-          >
-            Next →
-          </button>
-        </div>
-
-        <div className="grid grid-cols-7 gap-px border border-line bg-line text-center text-[11px] uppercase tracking-[0.12em] text-fog">
-          {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((d) => (
-            <div key={d} className="bg-panel-2 py-2">{d}</div>
-          ))}
-        </div>
-
-        <div className="grid grid-cols-7 gap-px border border-t-0 border-line bg-line">
-          {days.map((day) => {
-            const key = format(day, 'yyyy-MM-dd')
-            const dayTasks = byDate.get(key) ?? []
-            const allDone = dayTasks.length > 0 && dayTasks.every((t) => t.completed)
-            const logged = logByDate.get(key)
-            const done = logged === 'done' || allDone
-            const missed = logged === 'missed' || (key < today && dayTasks.length > 0 && !allDone)
-            const isSelected = key === selected
-            const inMonth = isSameMonth(day, month)
-            const isToday = isSameDay(day, new Date())
-            return (
-              <button
-                key={key}
-                type="button"
-                onClick={() => setSelected(key)}
-                className={cn(
-                  'min-h-[88px] bg-white p-2 text-left transition sm:min-h-[100px] sm:p-2.5',
-                  isSelected && 'bg-signal text-white',
-                  !isSelected && done && 'bg-[rgba(255,212,200,0.45)]',
-                  !isSelected && missed && 'bg-[rgba(255,92,57,0.12)]',
-                  !inMonth && 'opacity-40',
-                )}
-              >
-                <p className={cn(
-                  'text-sm font-medium',
-                  isToday && !isSelected && 'text-signal',
-                )}>
-                  {format(day, 'd')}
-                </p>
-                {dayTasks[0] && (
-                  <p className={cn('mt-1 line-clamp-3 text-[11px] leading-snug', isSelected ? 'text-white/90' : 'text-fog')}>
-                    {done ? 'Done' : dayTasks[0].topic_name}
-                  </p>
-                )}
-              </button>
-            )
-          })}
-        </div>
-      </div>
+      <PlanCalendar
+        cells={cells}
+        monthLabel={format(month, 'MMMM yyyy')}
+        onSelect={setSelected}
+        onPrev={() => setMonth(addMonths(month, -1))}
+        onNext={() => setMonth(addMonths(month, 1))}
+      />
 
       <section>
-        <h2 className="mb-3 font-display text-2xl text-paper">
-          {selected === today ? 'Today' : format(new Date(`${selected}T12:00:00`), 'EEE MMM d')}
-        </h2>
-        {selectedTasks.length === 0 ? (
-          <p className="border-y border-line py-6 text-sm text-fog">
-            {generating ? 'Building schedule…' : 'No tasks on this day. Tap Rebuild if needed.'}
-          </p>
-        ) : (
-          <ul className="divide-y divide-line border-y border-line">
-            {selectedTasks.map((task) => (
-              <li key={task.id} className="flex items-center justify-between gap-4 py-4">
-                <div>
-                  <p className={cn('text-sm text-paper', task.completed && 'text-fog line-through')}>
-                    {task.topic_name}
-                  </p>
-                  <p className="mt-1 text-xs text-fog">
-                    {task.duration_minutes}m
-                    {task.question_count != null ? ` · ${task.question_count} Q` : ''}
-                    {' · '}
-                    {task.task_type.replaceAll('_', ' ')}
-                  </p>
-                </div>
-                {!task.completed && (
-                  <div className="flex shrink-0 gap-3">
-                    <Link
-                      href={taskHref(task, profile?.target_test === 'ACT' ? 'ACT' : plan.test_type === 'ACT' ? 'ACT' : 'SAT')}
-                      className="text-sm font-medium text-signal"
-                    >
-                      Start
-                    </Link>
-                    <button
-                      type="button"
-                      onClick={() => void markComplete(task.id)}
-                      disabled={completingId === task.id}
-                      className="text-sm text-fog hover:text-paper"
-                    >
-                      Done
-                    </button>
-                  </div>
-                )}
-              </li>
-            ))}
-          </ul>
-        )}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={selected}
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.22 }}
+          >
+            <h2 className="mb-3 font-display text-2xl text-paper">
+              {selected === today
+                ? `Today · ${format(new Date(`${selected}T12:00:00`), 'EEEE, MMM d')}`
+                : format(new Date(`${selected}T12:00:00`), 'EEEE, MMM d')}
+            </h2>
+            {selectedTasks.length === 0 ? (
+              <p className="border-y border-line py-6 text-sm text-fog">
+                {generating ? 'Building schedule…' : 'No tasks on this day. Tap Rebuild if needed.'}
+              </p>
+            ) : (
+              <ul className="divide-y divide-line border-y border-line">
+                {selectedTasks.map((task, i) => (
+                  <motion.li
+                    key={task.id}
+                    initial={{ opacity: 0, x: -8 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: i * 0.04 }}
+                    className="flex items-center justify-between gap-4 py-4"
+                  >
+                    <div>
+                      <p className={cn('text-sm text-paper', task.completed && 'text-fog line-through')}>
+                        {task.topic_name}
+                      </p>
+                      <p className="mt-1 text-xs text-fog">
+                        {task.duration_minutes}m
+                        {task.question_count != null ? ` · ${task.question_count} Q` : ''}
+                        {' · '}
+                        {task.task_type.replaceAll('_', ' ')}
+                      </p>
+                    </div>
+                    {!task.completed && (
+                      <div className="flex shrink-0 gap-3">
+                        <Link
+                          href={taskHref(task, profile?.target_test === 'ACT' ? 'ACT' : plan.test_type === 'ACT' ? 'ACT' : 'SAT')}
+                          className="text-sm font-medium text-signal"
+                        >
+                          Start
+                        </Link>
+                        <button
+                          type="button"
+                          onClick={() => void markComplete(task.id)}
+                          disabled={completingId === task.id}
+                          className="text-sm text-fog hover:text-paper"
+                        >
+                          Done
+                        </button>
+                      </div>
+                    )}
+                  </motion.li>
+                ))}
+              </ul>
+            )}
+          </motion.div>
+        </AnimatePresence>
       </section>
 
       {plan.ai_explanation && <p className="text-sm text-fog">{plan.ai_explanation}</p>}

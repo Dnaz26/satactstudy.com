@@ -287,12 +287,15 @@ export type Database = {
           confidence?: number | null
           correct?: boolean | null
           created_at?: string | null
+          desmos_used?: boolean
+          hint_used?: boolean
           id?: string
           mistake_type?: string | null
           question_id?: string
           selected_answer?: string | null
           session_id?: string | null
           time_spent_seconds?: number | null
+          tutor_used?: boolean
           user_id?: string
         }
         Relationships: [
@@ -348,6 +351,293 @@ export type Database = {
           },
         ]
       }
+      coin_ledger: {
+        Row: {
+          amount: number
+          created_at: string
+          id: string
+          meta: Json
+          reason: string
+          user_id: string
+        }
+        Insert: {
+          amount: number
+          created_at?: string
+          id?: string
+          meta?: Json
+          reason: string
+          user_id: string
+        }
+        Update: {
+          amount?: number
+          created_at?: string
+          id?: string
+          meta?: Json
+          reason?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "coin_ledger_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      desmos_strategies: {
+        Row: {
+          act_applicable: boolean
+          active: boolean
+          agent_actions: Json
+          approved: boolean
+          category: string
+          common_mistakes: string[]
+          created_at: string
+          description: string
+          desmos_capability: string
+          desmos_first_recommended: boolean
+          desmos_input_template: string[]
+          desmos_only_possible: boolean
+          difficulty: string
+          estimated_time_savings: string | null
+          example_desmos_input: string[]
+          example_problem: string
+          example_result: string
+          explanation: string
+          hybrid_recommended: boolean
+          id: string
+          keywords: string[]
+          mode: string
+          recognition_rule: string
+          sat_applicable: boolean
+          slug: string
+          source_reference: string[]
+          student_steps: string[]
+          title: string
+          try_it_prompt: string | null
+          updated_at: string
+          what_to_look_for: string
+          when_not_to_use: string
+          when_to_use: string
+          why_it_works: string
+        }
+        Insert: {
+          act_applicable?: boolean
+          active?: boolean
+          agent_actions?: Json
+          approved?: boolean
+          category: string
+          common_mistakes?: string[]
+          created_at?: string
+          description: string
+          desmos_capability: string
+          desmos_first_recommended?: boolean
+          desmos_input_template?: string[]
+          desmos_only_possible?: boolean
+          difficulty?: string
+          estimated_time_savings?: string | null
+          example_desmos_input?: string[]
+          example_problem: string
+          example_result: string
+          explanation: string
+          hybrid_recommended?: boolean
+          id?: string
+          keywords?: string[]
+          mode: string
+          recognition_rule: string
+          sat_applicable?: boolean
+          slug: string
+          source_reference?: string[]
+          student_steps?: string[]
+          title: string
+          try_it_prompt?: string | null
+          updated_at?: string
+          what_to_look_for: string
+          when_not_to_use: string
+          when_to_use: string
+          why_it_works: string
+        }
+        Update: {
+          act_applicable?: boolean
+          active?: boolean
+          agent_actions?: Json
+          approved?: boolean
+          category?: string
+          common_mistakes?: string[]
+          created_at?: string
+          description?: string
+          desmos_capability?: string
+          desmos_first_recommended?: boolean
+          desmos_input_template?: string[]
+          desmos_only_possible?: boolean
+          difficulty?: string
+          estimated_time_savings?: string | null
+          example_desmos_input?: string[]
+          example_problem?: string
+          example_result?: string
+          explanation?: string
+          hybrid_recommended?: boolean
+          id?: string
+          keywords?: string[]
+          mode?: string
+          recognition_rule?: string
+          sat_applicable?: boolean
+          slug?: string
+          source_reference?: string[]
+          student_steps?: string[]
+          title?: string
+          try_it_prompt?: string | null
+          updated_at?: string
+          what_to_look_for?: string
+          when_not_to_use?: string
+          when_to_use?: string
+          why_it_works?: string
+        }
+        Relationships: []
+      }
+      desmos_strategy_mastery: {
+        Row: {
+          failed_uses: number
+          independent_uses: number
+          last_used_at: string | null
+          mastery_score: number
+          needs_review: boolean
+          strategy_id: string
+          successful_uses: number
+          times_shown: number
+          times_used: number
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          failed_uses?: number
+          independent_uses?: number
+          last_used_at?: string | null
+          mastery_score?: number
+          needs_review?: boolean
+          strategy_id: string
+          successful_uses?: number
+          times_shown?: number
+          times_used?: number
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          failed_uses?: number
+          independent_uses?: number
+          last_used_at?: string | null
+          mastery_score?: number
+          needs_review?: boolean
+          strategy_id?: string
+          successful_uses?: number
+          times_shown?: number
+          times_used?: number
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "desmos_strategy_mastery_strategy_id_fkey"
+            columns: ["strategy_id"]
+            isOneToOne: false
+            referencedRelation: "desmos_strategies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "desmos_strategy_mastery_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      desmos_strategy_topics: {
+        Row: {
+          strategy_id: string
+          topic_id: string
+        }
+        Insert: {
+          strategy_id: string
+          topic_id: string
+        }
+        Update: {
+          strategy_id?: string
+          topic_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "desmos_strategy_topics_strategy_id_fkey"
+            columns: ["strategy_id"]
+            isOneToOne: false
+            referencedRelation: "desmos_strategies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "desmos_strategy_topics_topic_id_fkey"
+            columns: ["topic_id"]
+            isOneToOne: false
+            referencedRelation: "topics"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      english_strategies: {
+        Row: {
+          act_applicable: boolean
+          active: boolean
+          approved: boolean
+          category: string
+          created_at: string
+          description: string
+          example: string | null
+          id: string
+          recognition_rule: string
+          sat_applicable: boolean
+          slug: string
+          student_steps: string[]
+          title: string
+          when_to_use: string
+          why_it_works: string
+        }
+        Insert: {
+          act_applicable?: boolean
+          active?: boolean
+          approved?: boolean
+          category: string
+          created_at?: string
+          description: string
+          example?: string | null
+          id?: string
+          recognition_rule: string
+          sat_applicable?: boolean
+          slug: string
+          student_steps?: string[]
+          title: string
+          when_to_use: string
+          why_it_works: string
+        }
+        Update: {
+          act_applicable?: boolean
+          active?: boolean
+          approved?: boolean
+          category?: string
+          created_at?: string
+          description?: string
+          example?: string | null
+          id?: string
+          recognition_rule?: string
+          sat_applicable?: boolean
+          slug?: string
+          student_steps?: string[]
+          title?: string
+          when_to_use?: string
+          why_it_works?: string
+        }
+        Relationships: []
+      }
       mistake_tags: {
         Row: {
           attempt_id: string
@@ -370,6 +660,76 @@ export type Database = {
             columns: ["attempt_id"]
             isOneToOne: false
             referencedRelation: "attempts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      passages: {
+        Row: {
+          active: boolean
+          author: string | null
+          content: string
+          created_at: string
+          id: string
+          image_url: string | null
+          section_id: string | null
+          source_document_id: string | null
+          source_rights_status: string
+          source_type: string
+          test_id: string | null
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          active?: boolean
+          author?: string | null
+          content: string
+          created_at?: string
+          id?: string
+          image_url?: string | null
+          section_id?: string | null
+          source_document_id?: string | null
+          source_rights_status?: string
+          source_type?: string
+          test_id?: string | null
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          active?: boolean
+          author?: string | null
+          content?: string
+          created_at?: string
+          id?: string
+          image_url?: string | null
+          section_id?: string | null
+          source_document_id?: string | null
+          source_rights_status?: string
+          source_type?: string
+          test_id?: string | null
+          title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "passages_section_id_fkey"
+            columns: ["section_id"]
+            isOneToOne: false
+            referencedRelation: "sections"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "passages_source_document_id_fkey"
+            columns: ["source_document_id"]
+            isOneToOne: false
+            referencedRelation: "source_documents"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "passages_test_id_fkey"
+            columns: ["test_id"]
+            isOneToOne: false
+            referencedRelation: "tests"
             referencedColumns: ["id"]
           },
         ]
@@ -591,27 +951,27 @@ export type Database = {
           full_name: string | null
           grade_level: string | null
           id: string
-          prior_prep: string | null
-          school_name: string | null
-          test_goal: string | null
-          weakest_areas: string[] | null
           onboarding_completed: boolean | null
+          prior_prep: string | null
           role: string | null
+          school_name: string | null
           stripe_customer_id: string | null
           stripe_subscription_id: string | null
           study_days: string[] | null
           study_minutes_per_day: number | null
-          study_start_time: string | null
+          study_start_time: string
           subscription_plan: string | null
           subscription_status: string | null
           target_score: number | null
           test_date: string | null
+          test_goal: string | null
           test_preference: string | null
-          trial_ai_chats_used: number | null
+          trial_ai_chats_used: number
           trial_ends_at: string | null
-          trial_questions_used: number | null
+          trial_questions_used: number
           trial_started_at: string | null
           updated_at: string | null
+          weakest_areas: string[] | null
         }
         Insert: {
           access_code_used?: string | null
@@ -624,27 +984,27 @@ export type Database = {
           full_name?: string | null
           grade_level?: string | null
           id: string
-          prior_prep?: string | null
-          school_name?: string | null
-          test_goal?: string | null
-          weakest_areas?: string[] | null
           onboarding_completed?: boolean | null
+          prior_prep?: string | null
           role?: string | null
+          school_name?: string | null
           stripe_customer_id?: string | null
           stripe_subscription_id?: string | null
           study_days?: string[] | null
           study_minutes_per_day?: number | null
-          study_start_time?: string | null
+          study_start_time?: string
           subscription_plan?: string | null
           subscription_status?: string | null
           target_score?: number | null
           test_date?: string | null
+          test_goal?: string | null
           test_preference?: string | null
-          trial_ai_chats_used?: number | null
+          trial_ai_chats_used?: number
           trial_ends_at?: string | null
-          trial_questions_used?: number | null
+          trial_questions_used?: number
           trial_started_at?: string | null
           updated_at?: string | null
+          weakest_areas?: string[] | null
         }
         Update: {
           access_code_used?: string | null
@@ -657,35 +1017,236 @@ export type Database = {
           full_name?: string | null
           grade_level?: string | null
           id?: string
-          prior_prep?: string | null
-          school_name?: string | null
-          test_goal?: string | null
-          weakest_areas?: string[] | null
           onboarding_completed?: boolean | null
+          prior_prep?: string | null
           role?: string | null
+          school_name?: string | null
           stripe_customer_id?: string | null
           stripe_subscription_id?: string | null
           study_days?: string[] | null
           study_minutes_per_day?: number | null
-          study_start_time?: string | null
+          study_start_time?: string
           subscription_plan?: string | null
           subscription_status?: string | null
           target_score?: number | null
           test_date?: string | null
+          test_goal?: string | null
           test_preference?: string | null
-          trial_ai_chats_used?: number | null
+          trial_ai_chats_used?: number
           trial_ends_at?: string | null
-          trial_questions_used?: number | null
+          trial_questions_used?: number
           trial_started_at?: string | null
           updated_at?: string | null
+          weakest_areas?: string[] | null
         }
         Relationships: []
+      }
+      question_choices: {
+        Row: {
+          content: string
+          created_at: string
+          id: string
+          image_url: string | null
+          is_correct: boolean
+          label: string
+          position: number
+          question_id: string
+        }
+        Insert: {
+          content: string
+          created_at?: string
+          id?: string
+          image_url?: string | null
+          is_correct?: boolean
+          label: string
+          position: number
+          question_id: string
+        }
+        Update: {
+          content?: string
+          created_at?: string
+          id?: string
+          image_url?: string | null
+          is_correct?: boolean
+          label?: string
+          position?: number
+          question_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "question_choices_question_id_fkey"
+            columns: ["question_id"]
+            isOneToOne: false
+            referencedRelation: "questions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      question_import_staging: {
+        Row: {
+          answer_verification_status: string
+          choices: Json | null
+          confidence: number | null
+          created_at: string
+          duplicate_of: string | null
+          exam_type: string | null
+          id: string
+          metadata: Json
+          module_label: string | null
+          proposed_correct_answer: string | null
+          question_text: string | null
+          raw_fingerprint: string | null
+          review_status: string
+          section_name: string | null
+          source_document_id: string | null
+          source_page: number | null
+          source_question_number: number | null
+          source_rights_status: string
+          verification_notes: string | null
+        }
+        Insert: {
+          answer_verification_status?: string
+          choices?: Json | null
+          confidence?: number | null
+          created_at?: string
+          duplicate_of?: string | null
+          exam_type?: string | null
+          id?: string
+          metadata?: Json
+          module_label?: string | null
+          proposed_correct_answer?: string | null
+          question_text?: string | null
+          raw_fingerprint?: string | null
+          review_status?: string
+          section_name?: string | null
+          source_document_id?: string | null
+          source_page?: number | null
+          source_question_number?: number | null
+          source_rights_status?: string
+          verification_notes?: string | null
+        }
+        Update: {
+          answer_verification_status?: string
+          choices?: Json | null
+          confidence?: number | null
+          created_at?: string
+          duplicate_of?: string | null
+          exam_type?: string | null
+          id?: string
+          metadata?: Json
+          module_label?: string | null
+          proposed_correct_answer?: string | null
+          question_text?: string | null
+          raw_fingerprint?: string | null
+          review_status?: string
+          section_name?: string | null
+          source_document_id?: string | null
+          source_page?: number | null
+          source_question_number?: number | null
+          source_rights_status?: string
+          verification_notes?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "question_import_staging_source_document_id_fkey"
+            columns: ["source_document_id"]
+            isOneToOne: false
+            referencedRelation: "source_documents"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      question_strategy_mappings: {
+        Row: {
+          desmos_strategy_id: string | null
+          english_strategy_id: string | null
+          id: string
+          question_id: string
+          strategy_kind: string
+        }
+        Insert: {
+          desmos_strategy_id?: string | null
+          english_strategy_id?: string | null
+          id?: string
+          question_id: string
+          strategy_kind: string
+        }
+        Update: {
+          desmos_strategy_id?: string | null
+          english_strategy_id?: string | null
+          id?: string
+          question_id?: string
+          strategy_kind?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "question_strategy_mappings_desmos_strategy_id_fkey"
+            columns: ["desmos_strategy_id"]
+            isOneToOne: false
+            referencedRelation: "desmos_strategies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "question_strategy_mappings_english_strategy_id_fkey"
+            columns: ["english_strategy_id"]
+            isOneToOne: false
+            referencedRelation: "english_strategies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "question_strategy_mappings_question_id_fkey"
+            columns: ["question_id"]
+            isOneToOne: false
+            referencedRelation: "questions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      question_topic_mappings: {
+        Row: {
+          confidence: number
+          question_id: string
+          relationship: string
+          topic_id: string
+          weight: number
+        }
+        Insert: {
+          confidence?: number
+          question_id: string
+          relationship?: string
+          topic_id: string
+          weight?: number
+        }
+        Update: {
+          confidence?: number
+          question_id?: string
+          relationship?: string
+          topic_id?: string
+          weight?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "question_topic_mappings_question_id_fkey"
+            columns: ["question_id"]
+            isOneToOne: false
+            referencedRelation: "questions"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "question_topic_mappings_topic_id_fkey"
+            columns: ["topic_id"]
+            isOneToOne: false
+            referencedRelation: "topics"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       questions: {
         Row: {
           active: boolean | null
           ai_explanation: string | null
           ai_explanation_simple: string | null
+          answer_verification_status: string | null
           approved: boolean | null
           calculator_allowed: boolean | null
           calculator_config: Json | null
@@ -697,11 +1258,11 @@ export type Database = {
           choice_e: string | null
           correct_answer: string
           created_at: string | null
-          difficulty: string | null
-          difficulty_score: number | null
           desmos_mode: string | null
           desmos_strategy_id: string | null
           desmos_useful: boolean | null
+          difficulty: string | null
+          difficulty_score: number | null
           exam_name: string | null
           fingerprint: string | null
           id: string
@@ -725,13 +1286,14 @@ export type Database = {
           topic_id: string | null
           topic_name: string | null
           updated_at: string | null
-          answer_verification_status: string | null
         }
         Insert: {
           active?: boolean | null
           ai_explanation?: string | null
           ai_explanation_simple?: string | null
+          answer_verification_status?: string | null
           approved?: boolean | null
+          calculator_allowed?: boolean | null
           calculator_config?: Json | null
           category_name?: string | null
           choice_a?: string | null
@@ -741,37 +1303,42 @@ export type Database = {
           choice_e?: string | null
           correct_answer: string
           created_at?: string | null
+          desmos_mode?: string | null
+          desmos_strategy_id?: string | null
+          desmos_useful?: boolean | null
           difficulty?: string | null
+          difficulty_score?: number | null
           exam_name?: string | null
+          fingerprint?: string | null
           id?: string
           image_url?: string | null
+          module_label?: string | null
           official_explanation?: string | null
+          passage_id?: string | null
           question_text: string
+          question_type?: string | null
+          reasoning_type?: string | null
+          review_status?: string | null
           section_name?: string | null
           source?: string | null
+          source_document_id?: string | null
+          source_page?: number | null
+          source_question_number?: number | null
+          source_rights_status?: string | null
           source_type?: string | null
           subtopic_name?: string | null
           test_type: string
           topic_id?: string | null
           topic_name?: string | null
           updated_at?: string | null
-          calculator_allowed?: boolean | null
-          desmos_useful?: boolean | null
-          desmos_mode?: string | null
-          question_type?: string | null
-          passage_id?: string | null
-          source_rights_status?: string | null
-          fingerprint?: string | null
-          difficulty_score?: number | null
-          reasoning_type?: string | null
-          answer_verification_status?: string | null
-          review_status?: string | null
         }
         Update: {
           active?: boolean | null
           ai_explanation?: string | null
           ai_explanation_simple?: string | null
+          answer_verification_status?: string | null
           approved?: boolean | null
+          calculator_allowed?: boolean | null
           calculator_config?: Json | null
           category_name?: string | null
           choice_a?: string | null
@@ -781,15 +1348,28 @@ export type Database = {
           choice_e?: string | null
           correct_answer?: string
           created_at?: string | null
+          desmos_mode?: string | null
+          desmos_strategy_id?: string | null
+          desmos_useful?: boolean | null
           difficulty?: string | null
+          difficulty_score?: number | null
           exam_name?: string | null
+          fingerprint?: string | null
           id?: string
           image_url?: string | null
+          module_label?: string | null
           official_explanation?: string | null
+          passage_id?: string | null
           question_text?: string
+          question_type?: string | null
+          reasoning_type?: string | null
           review_status?: string | null
           section_name?: string | null
           source?: string | null
+          source_document_id?: string | null
+          source_page?: number | null
+          source_question_number?: number | null
+          source_rights_status?: string | null
           source_type?: string | null
           subtopic_name?: string | null
           test_type?: string
@@ -799,10 +1379,10 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: "questions_topic_id_fkey"
-            columns: ["topic_id"]
+            foreignKeyName: "questions_desmos_strategy_id_fkey"
+            columns: ["desmos_strategy_id"]
             isOneToOne: false
-            referencedRelation: "topics"
+            referencedRelation: "desmos_strategies"
             referencedColumns: ["id"]
           },
           {
@@ -812,124 +1392,21 @@ export type Database = {
             referencedRelation: "passages"
             referencedColumns: ["id"]
           },
+          {
+            foreignKeyName: "questions_source_document_id_fkey"
+            columns: ["source_document_id"]
+            isOneToOne: false
+            referencedRelation: "source_documents"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "questions_topic_id_fkey"
+            columns: ["topic_id"]
+            isOneToOne: false
+            referencedRelation: "topics"
+            referencedColumns: ["id"]
+          },
         ]
-      }
-      passages: {
-        Row: {
-          active: boolean
-          author: string | null
-          content: string
-          created_at: string
-          id: string
-          image_url: string | null
-          section_id: string | null
-          source_document_id: string | null
-          source_rights_status: string
-          source_type: string
-          test_id: string | null
-          title: string
-          updated_at: string
-        }
-        Insert: {
-          active?: boolean
-          author?: string | null
-          content: string
-          id?: string
-          title: string
-        }
-        Update: {
-          active?: boolean
-          content?: string
-          title?: string
-        }
-        Relationships: []
-      }
-      question_topic_mappings: {
-        Row: {
-          confidence: number
-          question_id: string
-          relationship: string
-          topic_id: string
-          weight: number
-        }
-        Insert: {
-          confidence?: number
-          question_id: string
-          relationship?: string
-          topic_id: string
-          weight?: number
-        }
-        Update: {
-          relationship?: string
-          weight?: number
-        }
-        Relationships: []
-      }
-      source_documents: {
-        Row: {
-          checksum: string
-          contains_answer_key: boolean
-          created_at: string
-          exam_name: string
-          exam_number: number | null
-          exam_type: string
-          exam_year: string | null
-          filename: string
-          folder: string | null
-          id: string
-          metadata: Json
-          notes: string | null
-          page_count: number
-          processing_status: string
-          question_count_detected: number
-          question_count_imported: number
-          question_count_needing_review: number
-          section: string | null
-          source_rights_status: string
-          source_type: string
-          updated_at: string
-        }
-        Insert: {
-          checksum: string
-          exam_name: string
-          exam_type: string
-          filename: string
-        }
-        Update: {
-          processing_status?: string
-        }
-        Relationships: []
-      }
-      english_strategies: {
-        Row: {
-          act_applicable: boolean
-          active: boolean
-          approved: boolean
-          category: string
-          created_at: string
-          description: string
-          example: string | null
-          id: string
-          recognition_rule: string
-          sat_applicable: boolean
-          slug: string
-          student_steps: string[]
-          title: string
-          when_to_use: string
-          why_it_works: string
-        }
-        Insert: {
-          description: string
-          recognition_rule: string
-          slug: string
-          title: string
-          when_to_use: string
-          why_it_works: string
-        }
-        Update: {
-          approved?: boolean
-        }
-        Relationships: []
       }
       score_predictions: {
         Row: {
@@ -1037,6 +1514,78 @@ export type Database = {
           },
         ]
       }
+      source_documents: {
+        Row: {
+          checksum: string
+          contains_answer_key: boolean
+          created_at: string
+          exam_name: string
+          exam_number: number | null
+          exam_type: string
+          exam_year: string | null
+          filename: string
+          folder: string | null
+          id: string
+          metadata: Json
+          notes: string | null
+          page_count: number
+          processing_status: string
+          question_count_detected: number
+          question_count_imported: number
+          question_count_needing_review: number
+          section: string | null
+          source_rights_status: string
+          source_type: string
+          updated_at: string
+        }
+        Insert: {
+          checksum: string
+          contains_answer_key?: boolean
+          created_at?: string
+          exam_name: string
+          exam_number?: number | null
+          exam_type: string
+          exam_year?: string | null
+          filename: string
+          folder?: string | null
+          id?: string
+          metadata?: Json
+          notes?: string | null
+          page_count?: number
+          processing_status?: string
+          question_count_detected?: number
+          question_count_imported?: number
+          question_count_needing_review?: number
+          section?: string | null
+          source_rights_status?: string
+          source_type?: string
+          updated_at?: string
+        }
+        Update: {
+          checksum?: string
+          contains_answer_key?: boolean
+          created_at?: string
+          exam_name?: string
+          exam_number?: number | null
+          exam_type?: string
+          exam_year?: string | null
+          filename?: string
+          folder?: string | null
+          id?: string
+          metadata?: Json
+          notes?: string | null
+          page_count?: number
+          processing_status?: string
+          question_count_detected?: number
+          question_count_imported?: number
+          question_count_needing_review?: number
+          section?: string | null
+          source_rights_status?: string
+          source_type?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       study_day_logs: {
         Row: {
           minutes_done: number
@@ -1100,6 +1649,71 @@ export type Database = {
         Relationships: [
           {
             foreignKeyName: "study_level_progress_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      study_student_questions: {
+        Row: {
+          id: string
+          user_id: string
+          track: string
+          level_index: number
+          topic_title: string
+          question_text: string
+          choice_a: string | null
+          choice_b: string | null
+          choice_c: string | null
+          choice_d: string | null
+          correct_answer: string
+          explanation: string | null
+          score: number
+          promoted_to_questions: boolean
+          question_id: string | null
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          user_id: string
+          track: string
+          level_index: number
+          topic_title: string
+          question_text: string
+          choice_a?: string | null
+          choice_b?: string | null
+          choice_c?: string | null
+          choice_d?: string | null
+          correct_answer: string
+          explanation?: string | null
+          score: number
+          promoted_to_questions?: boolean
+          question_id?: string | null
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          user_id?: string
+          track?: string
+          level_index?: number
+          topic_title?: string
+          question_text?: string
+          choice_a?: string | null
+          choice_b?: string | null
+          choice_c?: string | null
+          choice_d?: string | null
+          correct_answer?: string
+          explanation?: string | null
+          score?: number
+          promoted_to_questions?: boolean
+          question_id?: string | null
+          created_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "study_student_questions_user_id_fkey"
             columns: ["user_id"]
             isOneToOne: false
             referencedRelation: "profiles"
@@ -1499,40 +2113,96 @@ export type Database = {
           },
         ]
       }
-      user_usage_daily: {
+      tutor_interactions: {
         Row: {
-          ai_chats_used: number | null
-          created_at: string | null
+          confidence: number | null
+          created_at: string
+          hints_given: number
           id: string
-          questions_answered: number | null
-          study_minutes: number | null
-          updated_at: string | null
-          usage_date: string
+          latency_ms: number | null
+          misconception: string | null
+          question_id: string | null
+          strategy: string | null
+          topic_id: string | null
+          trigger: string | null
+          used_desmos: boolean
+          used_simplified_example: boolean
           user_id: string
         }
         Insert: {
-          ai_chats_used?: number | null
-          created_at?: string | null
+          confidence?: number | null
+          created_at?: string
+          hints_given?: number
           id?: string
-          questions_answered?: number | null
-          study_minutes?: number | null
-          updated_at?: string | null
-          usage_date: string
+          latency_ms?: number | null
+          misconception?: string | null
+          question_id?: string | null
+          strategy?: string | null
+          topic_id?: string | null
+          trigger?: string | null
+          used_desmos?: boolean
+          used_simplified_example?: boolean
           user_id: string
         }
         Update: {
-          ai_chats_used?: number | null
-          created_at?: string | null
+          confidence?: number | null
+          created_at?: string
+          hints_given?: number
           id?: string
-          questions_answered?: number | null
-          study_minutes?: number | null
-          updated_at?: string | null
-          usage_date?: string
+          latency_ms?: number | null
+          misconception?: string | null
+          question_id?: string | null
+          strategy?: string | null
+          topic_id?: string | null
+          trigger?: string | null
+          used_desmos?: boolean
+          used_simplified_example?: boolean
           user_id?: string
         }
         Relationships: [
           {
-            foreignKeyName: "user_usage_daily_user_id_fkey"
+            foreignKeyName: "tutor_interactions_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      tutor_misconceptions: {
+        Row: {
+          category: string
+          created_at: string
+          id: string
+          last_seen_at: string
+          note: string | null
+          occurrences: number
+          topic_id: string | null
+          user_id: string
+        }
+        Insert: {
+          category: string
+          created_at?: string
+          id?: string
+          last_seen_at?: string
+          note?: string | null
+          occurrences?: number
+          topic_id?: string | null
+          user_id: string
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          id?: string
+          last_seen_at?: string
+          note?: string | null
+          occurrences?: number
+          topic_id?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "tutor_misconceptions_user_id_fkey"
             columns: ["user_id"]
             isOneToOne: false
             referencedRelation: "profiles"
@@ -1589,219 +2259,47 @@ export type Database = {
           updated_at?: string
           user_id?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "tutor_preferences_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: true
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
       }
-      tutor_misconceptions: {
+      user_inventory: {
         Row: {
-          category: string
-          created_at: string
-          id: string
-          last_seen_at: string
-          note: string | null
-          occurrences: number
-          topic_id: string | null
+          equipped: boolean
+          item_id: string
+          purchased_at: string
+          qty: number
           user_id: string
         }
         Insert: {
-          category: string
-          created_at?: string
-          id?: string
-          last_seen_at?: string
-          note?: string | null
-          occurrences?: number
-          topic_id?: string | null
+          equipped?: boolean
+          item_id: string
+          purchased_at?: string
+          qty?: number
           user_id: string
         }
         Update: {
-          category?: string
-          created_at?: string
-          id?: string
-          last_seen_at?: string
-          note?: string | null
-          occurrences?: number
-          topic_id?: string | null
+          equipped?: boolean
+          item_id?: string
+          purchased_at?: string
+          qty?: number
           user_id?: string
         }
-        Relationships: []
-      }
-      tutor_interactions: {
-        Row: {
-          confidence: number | null
-          created_at: string
-          hints_given: number
-          id: string
-          latency_ms: number | null
-          misconception: string | null
-          question_id: string | null
-          strategy: string | null
-          topic_id: string | null
-          trigger: string | null
-          used_desmos: boolean
-          used_simplified_example: boolean
-          user_id: string
-        }
-        Insert: {
-          confidence?: number | null
-          created_at?: string
-          hints_given?: number
-          id?: string
-          latency_ms?: number | null
-          misconception?: string | null
-          question_id?: string | null
-          strategy?: string | null
-          topic_id?: string | null
-          trigger?: string | null
-          used_desmos?: boolean
-          used_simplified_example?: boolean
-          user_id: string
-        }
-        Update: {
-          confidence?: number | null
-          created_at?: string
-          hints_given?: number
-          id?: string
-          latency_ms?: number | null
-          misconception?: string | null
-          question_id?: string | null
-          strategy?: string | null
-          topic_id?: string | null
-          trigger?: string | null
-          used_desmos?: boolean
-          used_simplified_example?: boolean
-          user_id?: string
-        }
-        Relationships: []
-      }
-      desmos_strategies: {
-        Row: {
-          active: boolean
-          act_applicable: boolean
-          agent_actions: Json
-          approved: boolean
-          category: string
-          common_mistakes: string[]
-          created_at: string
-          description: string
-          desmos_capability: string
-          desmos_first_recommended: boolean
-          desmos_input_template: string[]
-          desmos_only_possible: boolean
-          difficulty: string
-          estimated_time_savings: string | null
-          example_desmos_input: string[]
-          example_problem: string
-          example_result: string
-          explanation: string
-          hybrid_recommended: boolean
-          id: string
-          keywords: string[]
-          mode: string
-          recognition_rule: string
-          sat_applicable: boolean
-          slug: string
-          source_reference: string[]
-          student_steps: string[]
-          title: string
-          try_it_prompt: string | null
-          updated_at: string
-          what_to_look_for: string
-          when_not_to_use: string
-          when_to_use: string
-          why_it_works: string
-        }
-        Insert: {
-          active?: boolean
-          act_applicable?: boolean
-          agent_actions?: Json
-          approved?: boolean
-          category: string
-          common_mistakes?: string[]
-          created_at?: string
-          description: string
-          desmos_capability: string
-          desmos_first_recommended?: boolean
-          desmos_input_template?: string[]
-          desmos_only_possible?: boolean
-          difficulty?: string
-          estimated_time_savings?: string | null
-          example_desmos_input?: string[]
-          example_problem: string
-          example_result: string
-          explanation: string
-          hybrid_recommended?: boolean
-          id?: string
-          keywords?: string[]
-          mode: string
-          recognition_rule: string
-          sat_applicable?: boolean
-          slug: string
-          source_reference?: string[]
-          student_steps?: string[]
-          title: string
-          try_it_prompt?: string | null
-          updated_at?: string
-          what_to_look_for: string
-          when_not_to_use: string
-          when_to_use: string
-          why_it_works: string
-        }
-        Update: {
-          active?: boolean
-          approved?: boolean
-          slug?: string
-          title?: string
-        }
-        Relationships: []
-      }
-      desmos_strategy_topics: {
-        Row: {
-          strategy_id: string
-          topic_id: string
-        }
-        Insert: {
-          strategy_id: string
-          topic_id: string
-        }
-        Update: {
-          strategy_id?: string
-          topic_id?: string
-        }
-        Relationships: []
-      }
-      desmos_strategy_mastery: {
-        Row: {
-          failed_uses: number
-          independent_uses: number
-          last_used_at: string | null
-          mastery_score: number
-          needs_review: boolean
-          strategy_id: string
-          successful_uses: number
-          times_shown: number
-          times_used: number
-          updated_at: string
-          user_id: string
-        }
-        Insert: {
-          failed_uses?: number
-          independent_uses?: number
-          last_used_at?: string | null
-          mastery_score?: number
-          needs_review?: boolean
-          strategy_id: string
-          successful_uses?: number
-          times_shown?: number
-          times_used?: number
-          updated_at?: string
-          user_id: string
-        }
-        Update: {
-          mastery_score?: number
-          needs_review?: boolean
-          times_shown?: number
-          times_used?: number
-        }
-        Relationships: [        ]
+        Relationships: [
+          {
+            foreignKeyName: "user_inventory_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       user_practice_exams: {
         Row: {
@@ -1883,6 +2381,76 @@ export type Database = {
             foreignKeyName: "user_practice_exams_user_id_fkey"
             columns: ["user_id"]
             isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      user_usage_daily: {
+        Row: {
+          ai_chats_used: number | null
+          created_at: string | null
+          id: string
+          questions_answered: number | null
+          study_minutes: number | null
+          updated_at: string | null
+          usage_date: string
+          user_id: string
+        }
+        Insert: {
+          ai_chats_used?: number | null
+          created_at?: string | null
+          id?: string
+          questions_answered?: number | null
+          study_minutes?: number | null
+          updated_at?: string | null
+          usage_date: string
+          user_id: string
+        }
+        Update: {
+          ai_chats_used?: number | null
+          created_at?: string | null
+          id?: string
+          questions_answered?: number | null
+          study_minutes?: number | null
+          updated_at?: string | null
+          usage_date?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_usage_daily_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      user_wallets: {
+        Row: {
+          balance: number
+          lifetime_earned: number
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          balance?: number
+          lifetime_earned?: number
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          balance?: number
+          lifetime_earned?: number
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_wallets_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: true
             referencedRelation: "profiles"
             referencedColumns: ["id"]
           },
@@ -1987,6 +2555,13 @@ export type Database = {
     }
     Functions: {
       is_admin: { Args: { uid: string }; Returns: boolean }
+      question_exam_bucket: {
+        Args: { category_name: string; section_name: string }
+        Returns: string
+      }
+      rebuild_practice_exams: { Args: never; Returns: number }
+      seed_expanded_bank: { Args: { payload: Json }; Returns: number }
+      seed_original_questions: { Args: { payload: Json }; Returns: number }
     }
     Enums: {
       [_ in never]: never
@@ -2005,12 +2580,12 @@ export type Tables<
   DefaultSchemaTableNameOrOptions extends
     | keyof (DefaultSchema["Tables"] & DefaultSchema["Views"])
     | { schema: keyof DatabaseWithoutInternals },
-  TableName extends DefaultSchemaTableNameOrOptions extends {
+  TableName extends (DefaultSchemaTableNameOrOptions extends {
     schema: keyof DatabaseWithoutInternals
   }
     ? keyof (DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"] &
         DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Views"])
-    : never = never,
+    : never) = never,
 > = DefaultSchemaTableNameOrOptions extends {
   schema: keyof DatabaseWithoutInternals
 }
@@ -2034,11 +2609,11 @@ export type TablesInsert<
   DefaultSchemaTableNameOrOptions extends
     | keyof DefaultSchema["Tables"]
     | { schema: keyof DatabaseWithoutInternals },
-  TableName extends DefaultSchemaTableNameOrOptions extends {
+  TableName extends (DefaultSchemaTableNameOrOptions extends {
     schema: keyof DatabaseWithoutInternals
   }
     ? keyof DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"]
-    : never = never,
+    : never) = never,
 > = DefaultSchemaTableNameOrOptions extends {
   schema: keyof DatabaseWithoutInternals
 }
@@ -2059,11 +2634,11 @@ export type TablesUpdate<
   DefaultSchemaTableNameOrOptions extends
     | keyof DefaultSchema["Tables"]
     | { schema: keyof DatabaseWithoutInternals },
-  TableName extends DefaultSchemaTableNameOrOptions extends {
+  TableName extends (DefaultSchemaTableNameOrOptions extends {
     schema: keyof DatabaseWithoutInternals
   }
     ? keyof DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"]
-    : never = never,
+    : never) = never,
 > = DefaultSchemaTableNameOrOptions extends {
   schema: keyof DatabaseWithoutInternals
 }
@@ -2084,11 +2659,11 @@ export type Enums<
   DefaultSchemaEnumNameOrOptions extends
     | keyof DefaultSchema["Enums"]
     | { schema: keyof DatabaseWithoutInternals },
-  EnumName extends DefaultSchemaEnumNameOrOptions extends {
+  EnumName extends (DefaultSchemaEnumNameOrOptions extends {
     schema: keyof DatabaseWithoutInternals
   }
     ? keyof DatabaseWithoutInternals[DefaultSchemaEnumNameOrOptions["schema"]]["Enums"]
-    : never = never,
+    : never) = never,
 > = DefaultSchemaEnumNameOrOptions extends {
   schema: keyof DatabaseWithoutInternals
 }
@@ -2101,11 +2676,11 @@ export type CompositeTypes<
   PublicCompositeTypeNameOrOptions extends
     | keyof DefaultSchema["CompositeTypes"]
     | { schema: keyof DatabaseWithoutInternals },
-  CompositeTypeName extends PublicCompositeTypeNameOrOptions extends {
+  CompositeTypeName extends (PublicCompositeTypeNameOrOptions extends {
     schema: keyof DatabaseWithoutInternals
   }
     ? keyof DatabaseWithoutInternals[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"]
-    : never = never,
+    : never) = never,
 > = PublicCompositeTypeNameOrOptions extends {
   schema: keyof DatabaseWithoutInternals
 }
@@ -2119,20 +2694,3 @@ export const Constants = {
     Enums: {},
   },
 } as const
-
-
-export type Profile = Database['public']['Tables']['profiles']['Row']
-export type Question = Database['public']['Tables']['questions']['Row']
-export type Attempt = Database['public']['Tables']['attempts']['Row']
-export type TopicMastery = Database['public']['Tables']['topic_mastery']['Row']
-export type PracticeSession = Database['public']['Tables']['practice_sessions']['Row']
-export type StudyPlan = Database['public']['Tables']['study_plans']['Row']
-export type StudyPlanTask = Database['public']['Tables']['study_plan_tasks']['Row']
-export type VocabularyWord = Database['public']['Tables']['vocabulary_words']['Row']
-export type ScorePrediction = Database['public']['Tables']['score_predictions']['Row']
-export type Topic = Database['public']['Tables']['topics']['Row']
-export type Category = Database['public']['Tables']['categories']['Row']
-export type Section = Database['public']['Tables']['sections']['Row']
-export type Test = Database['public']['Tables']['tests']['Row']
-export type UserUsageDaily = Database['public']['Tables']['user_usage_daily']['Row']
-export type Subscription = Database['public']['Tables']['subscriptions']['Row']

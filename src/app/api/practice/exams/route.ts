@@ -3,6 +3,7 @@ import { createClient } from '@/lib/supabase/server'
 import { denyIfUnpaid } from '@/lib/entitlements'
 import { asDifficulty, questionChoices } from '@/lib/schema'
 import { getUsedQuestionIds } from '@/lib/practice/used-questions'
+import { cleanQuestionText } from '@/lib/questions/clean-text'
 
 const QUESTION_FIELDS =
   'id, question_text, choice_a, choice_b, choice_c, choice_d, choice_e, correct_answer, difficulty, difficulty_score, topic_id, topic_name, section_name, category_name, test_type, official_explanation, ai_explanation, calculator_config, calculator_allowed, desmos_useful, desmos_mode, question_type, reasoning_type, image_url, passage_id, source_rights_status, source_type, passages(title, content)'
@@ -212,6 +213,7 @@ export async function POST(request: NextRequest) {
         const passage = Array.isArray(passageRel) ? passageRel[0] : passageRel
         return {
           ...row,
+          question_text: cleanQuestionText(row.question_text),
           passages: undefined,
           passage_title: passage?.title ?? null,
           passage_content: passage?.content ?? null,

@@ -1,6 +1,7 @@
 import { NextRequest } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
 import { denyIfUnpaid } from '@/lib/entitlements'
+import { awardCoins } from '@/lib/economy/wallet'
 import { dbId } from '@/lib/schema'
 import { z } from 'zod'
 
@@ -84,6 +85,13 @@ export async function POST(request: NextRequest) {
 
     const { examId, correctCount, completedQuestions, timeSpentSeconds, sessionId } = parsed.data
 
+    const { data: priorExam } = await supabase
+      .from('user_practice_exams')
+      .select('status')
+      .eq('user_id', user.id)
+      .eq('exam_id', examId)
+      .maybeSingle()
+
     // Score only — clear in-progress question state
     const { error } = await supabase
       .from('user_practice_exams')
@@ -123,7 +131,19 @@ export async function POST(request: NextRequest) {
         .eq('user_id', user.id)
     }
 
-    return Response.json({ success: true })
+    let coinsAwarded = 0
+    let balance = 0
+    if (priorExam?.status !== 'completed') {
+      const coin = await awardCoins(supabase, user.id, 'practice_test', {
+        examId,
+        correctCount,
+        completedQuestions,
+      })
+      coinsAwarded = coin.awarded
+      balance = coin.balance
+    }
+
+    return Response.json({ success: true, coinsAwarded, balance })
   } catch (err) {
     console.error(err)
     return Response.json({ error: 'Internal server error' }, { status: 500 })

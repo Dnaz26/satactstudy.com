@@ -4,6 +4,7 @@ import { denyIfUnpaid } from '@/lib/entitlements'
 import { z } from 'zod'
 import { dbId } from '@/lib/schema'
 import { markDayFromTasks } from '@/lib/schedule-days'
+import { awardCoins } from '@/lib/economy/wallet'
 
 const bodySchema = z.object({
   taskId: dbId(),
@@ -24,7 +25,7 @@ export async function POST(request: NextRequest) {
 
     const { data: task } = await supabase
       .from('study_plan_tasks')
-      .select('id, plan_id, target_minutes, study_plans(user_id)')
+      .select('id, plan_id, target_minutes, status, study_plans(user_id)')
       .eq('id', parsed.data.taskId)
       .single()
 
@@ -32,6 +33,8 @@ export async function POST(request: NextRequest) {
     if (!task || plan?.user_id !== user.id) {
       return Response.json({ error: 'Not found' }, { status: 404 })
     }
+
+    const wasDone = task.status === 'completed'
 
     await supabase
       .from('study_plan_tasks')
@@ -43,7 +46,15 @@ export async function POST(request: NextRequest) {
 
     await markDayFromTasks(supabase, user.id, task.plan_id)
 
-    return Response.json({ success: true })
+    let coinsAwarded = 0
+    let balance = 0
+    if (!wasDone) {
+      const coin = await awardCoins(supabase, user.id, 'daily_task', { taskId: parsed.data.taskId })
+      coinsAwarded = coin.awarded
+      balance = coin.balance
+    }
+
+    return Response.json({ success: true, coinsAwarded, balance })
   } catch (err) {
     console.error(err)
     return Response.json({ error: 'Failed' }, { status: 500 })

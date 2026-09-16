@@ -1,5 +1,5 @@
 import { createClient } from '@/lib/supabase/server'
-import { normalizePreferences } from './preferences'
+import { normalizePreferences, packMethodScores } from './preferences'
 import type { TutorOutput, TutorPreferences, TutorTrigger } from './types'
 
 export { normalizePreferences } from './preferences'
@@ -33,7 +33,7 @@ export async function saveTutorPreferences(userId: string, input: Partial<TutorP
     prefers_manual_algebra: next.prefers_manual_algebra,
     graph_comfort: next.graph_comfort,
     desmos_guidance: next.desmos_guidance,
-    method_scores: next.method_scores,
+    method_scores: packMethodScores(next.method_scores, next.agent) as never,
     updated_at: new Date().toISOString(),
   })
 

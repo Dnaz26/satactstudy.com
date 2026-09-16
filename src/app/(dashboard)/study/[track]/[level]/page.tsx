@@ -29,5 +29,18 @@ export default async function StudyLessonPage({
   const statuses = new Map((rows ?? []).map((row) => [row.level_index as number, row.status as string]))
   if (!isLevelOpen(parsedTrack as StudyTrack, index, statuses)) redirect('/study')
 
+  // Ensure this level is tracked in Supabase before the student starts.
+  if (statuses.get(index) !== 'completed') {
+    await supabase.from('study_level_progress').upsert({
+      user_id: user.id,
+      track: parsedTrack,
+      level_index: index,
+      status: 'available',
+      extra_problems: 0,
+      updated_at: new Date().toISOString(),
+      completed_at: null,
+    }, { onConflict: 'user_id,track,level_index' })
+  }
+
   return <StudyLesson track={parsedTrack as StudyTrack} level={catalog} />
 }

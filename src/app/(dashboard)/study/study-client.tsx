@@ -6,8 +6,9 @@ import { useRouter } from 'next/navigation'
 import { cn } from '@/lib/utils'
 import { BookOpen, Check, Dumbbell, Lock, Star, X } from 'lucide-react'
 import { ENGLISH_LEVELS, MATH_LEVELS, getLevel, isLevelOpen, type StudyTrack } from '@/lib/study/levels'
+import { buildGuidedLesson } from '@/lib/study/lesson-flow'
 
-type Row = { track: string; level_index: number; status: string }
+type Row = { track: string; level_index: number; status: string; completed_at?: string | null }
 
 type PathNode =
   | { kind: 'lesson'; levelIndex: number; title: string; category: string }
@@ -33,18 +34,35 @@ function buildPath(track: StudyTrack) {
 
 const ZIG = [0, 96, 0, -96, 0, 96, 0, -96] as const
 
-export function StudyClient() {
+export function StudyClient({ initialRows = [] }: { initialRows?: Row[] }) {
   const router = useRouter()
   const [track, setTrack] = React.useState<StudyTrack>('math')
-  const [rows, setRows] = React.useState<Row[]>([])
+  const [rows, setRows] = React.useState<Row[]>(initialRows)
   const [previewIndex, setPreviewIndex] = React.useState<number | null>(null)
 
-  React.useEffect(() => {
-    void fetch('/api/study/progress')
-      .then((res) => res.json() as Promise<{ rows?: Row[] }>)
-      .then((data) => setRows(data.rows ?? []))
-      .catch(() => undefined)
+  const loadProgress = React.useCallback(async () => {
+    const res = await fetch('/api/study/progress', { cache: 'no-store' })
+    const data = await res.json() as { rows?: Row[] }
+    if (res.ok) setRows(data.rows ?? [])
   }, [])
+
+  React.useEffect(() => {
+    setRows(initialRows)
+  }, [initialRows])
+
+  React.useEffect(() => {
+    void loadProgress()
+    const onFocus = () => { void loadProgress() }
+    const onVisible = () => {
+      if (document.visibilityState === 'visible') void loadProgress()
+    }
+    window.addEventListener('focus', onFocus)
+    document.addEventListener('visibilitychange', onVisible)
+    return () => {
+      window.removeEventListener('focus', onFocus)
+      document.removeEventListener('visibilitychange', onVisible)
+    }
+  }, [loadProgress])
 
   const { levels, nodes } = React.useMemo(() => buildPath(track), [track])
   const byIndex = new Map(rows.filter((row) => row.track === track).map((row) => [row.level_index, row.status]))
@@ -56,6 +74,7 @@ export function StudyClient() {
     ?? null
 
   const preview = previewIndex != null ? getLevel(track, previewIndex) : null
+  const previewGuided = preview ? buildGuidedLesson(preview) : null
 
   return (
     <div className="relative mx-auto min-h-[80vh] w-full max-w-5xl overflow-hidden rounded-[2.5rem] border border-black/10 bg-[linear-gradient(180deg,#ffffff_0%,#fffaf7_40%,#fff5f0_100%)] pb-24 pt-4 shadow-[0_28px_0_rgba(0,0,0,0.06),0_40px_80px_rgba(0,0,0,0.1)]">
@@ -94,7 +113,7 @@ export function StudyClient() {
         </div>
         <div className="mt-4 h-3.5 overflow-hidden rounded-full bg-black/[0.06] shadow-[inset_0_2px_4px_rgba(0,0,0,0.08)]">
           <div
-            className="h-full rounded-full bg-[#ff8a6b] shadow-[inset_0_-3px_0_rgba(0,0,0,0.12)]"
+            className="h-full rounded-full bg-signal shadow-[inset_0_-3px_0_rgba(0,0,0,0.08)]"
             style={{ width: `${pct}%` }}
           />
         </div>
@@ -106,7 +125,7 @@ export function StudyClient() {
       <div className="relative mx-auto flex w-full max-w-xl flex-col items-center gap-11 px-4 py-8 sm:max-w-2xl sm:gap-12">
         <div
           aria-hidden
-          className="absolute bottom-8 top-12 w-5 rounded-full bg-[linear-gradient(180deg,#ff5c39,#ff5c39,#ff8a6b)] opacity-35 shadow-[0_0_24px_rgba(255,92,57,0.25)]"
+          className="absolute bottom-8 top-12 w-5 rounded-full bg-[#e5e5e5] opacity-80"
           style={{ left: '50%', transform: 'translateX(-50%)' }}
         />
 
@@ -128,10 +147,10 @@ export function StudyClient() {
                   aria-hidden
                 >
                   <svg width="80" height="68" viewBox="0 0 56 48" fill="none">
-                    <rect x="6" y="18" width="44" height="26" rx="6" fill={unlocked ? '#ff5c39' : '#d9d9d9'} />
-                    <rect x="6" y="18" width="44" height="10" fill={unlocked ? '#c94424' : '#cfcfcf'} />
-                    <rect x="18" y="8" width="20" height="12" rx="3" fill={unlocked ? '#ff8a6b' : '#d0d0d0'} />
-                    <circle cx="28" cy="30" r="4.5" fill={unlocked ? '#1a1412' : '#bdbdbd'} />
+                    <rect x="6" y="18" width="44" height="26" rx="6" fill={unlocked ? '#d0d0d0' : '#e8e8e8'} />
+                    <rect x="6" y="18" width="44" height="10" fill={unlocked ? '#bdbdbd' : '#d9d9d9'} />
+                    <rect x="18" y="8" width="20" height="12" rx="3" fill={unlocked ? '#b0b0b0' : '#d0d0d0'} />
+                    <circle cx="28" cy="30" r="4.5" fill={unlocked ? '#8a8a8a' : '#cfcfcf'} />
                   </svg>
                 </div>
               </div>
@@ -140,7 +159,6 @@ export function StudyClient() {
 
           if (node.kind === 'practice') {
             const group = levels.filter((level) => level.category === node.category)
-            const allDone = group.every((level) => byIndex.get(level.index) === 'completed')
             const firstOpen = group.find((level) => isLevelOpen(track, level.index, byIndex))
             return (
               <div key={node.id} className="relative z-10" style={{ transform: `translateX(${offset}px)` }}>
@@ -150,11 +168,8 @@ export function StudyClient() {
                   onClick={() => firstOpen && router.push(`/study/${track}/${firstOpen.index}`)}
                   className={cn(
                     'flex h-[108px] w-[108px] items-center justify-center rounded-[2rem] border-[7px] border-white transition-transform active:translate-y-1 sm:h-[120px] sm:w-[120px]',
-                    allDone
-                      ? 'bg-[#ff8a6b] text-white shadow-[0_14px_0_#e14a2a]'
-                      : firstOpen
-                        ? 'bg-[#ff5c39] text-white shadow-[0_14px_0_#c94424]'
-                        : 'bg-[#ececec] text-[#b0b0b0] shadow-[0_14px_0_#d0d0d0]',
+                    'bg-[#ececec] text-[#9a9a9a] shadow-[0_14px_0_#d0d0d0]',
+                    !firstOpen && 'opacity-50',
                   )}
                   aria-label={`${node.category} practice`}
                 >
@@ -185,10 +200,9 @@ export function StudyClient() {
               <div
                 className={cn(
                   'flex h-[108px] w-[108px] items-center justify-center rounded-full border-[7px] border-white transition-transform sm:h-[120px] sm:w-[120px]',
-                  isCurrent && 'bg-[#ff5c39] text-white shadow-[0_14px_0_#c94424] ring-[10px] ring-[rgba(255,92,57,0.25)]',
-                  done && !isCurrent && 'bg-[#ff8a6b] text-white shadow-[0_14px_0_#e14a2a]',
-                  open && !done && !isCurrent && 'bg-[#ff734f] text-white shadow-[0_14px_0_#c94424]',
-                  locked && 'bg-[#e8e8e8] text-[#9a9a9a] shadow-[0_14px_0_#c8c8c8]',
+                  isCurrent
+                    ? 'bg-[#ff5c39] text-white shadow-[0_14px_0_#c94424] ring-[10px] ring-[rgba(255,92,57,0.25)]'
+                    : 'bg-[#ececec] text-[#9a9a9a] shadow-[0_14px_0_#d0d0d0]',
                 )}
               >
                 {isCurrent ? (
@@ -252,10 +266,10 @@ export function StudyClient() {
                 <X className="h-5 w-5" />
               </button>
             </div>
-            <p className="text-base leading-relaxed text-fog">{preview.example}</p>
-            {preview.teach[0] && (
+            <p className="text-base leading-relaxed text-fog">{previewGuided?.whatItIs ?? preview.example}</p>
+            {previewGuided?.breakdown && (
               <p className="mt-4 rounded-2xl bg-black/[0.03] px-4 py-3 text-base text-paper">
-                {preview.teach[0]}
+                {previewGuided.breakdown}
               </p>
             )}
             <p className="mt-4 text-sm text-fog">Finish earlier levels to unlock this lesson.</p>

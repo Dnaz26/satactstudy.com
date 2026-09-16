@@ -49,9 +49,11 @@ export function useDesmosOptional(): DesmosContextValue | null {
 export function DesmosProvider({
   children,
   enabled,
+  defaultOpen = false,
 }: {
   children: React.ReactNode
   enabled: boolean
+  defaultOpen?: boolean
 }) {
   const hostRef = React.useRef<HTMLDivElement | null>(null)
   const [hostNode, setHostNode] = React.useState<HTMLDivElement | null>(null)
@@ -65,7 +67,7 @@ export function DesmosProvider({
   const sessionStates = React.useRef(new Map<string, SessionCalcState>())
   const [status, setStatus] = React.useState<DesmosStatus>('idle')
   const [error, setError] = React.useState('')
-  const [open, setOpen] = React.useState(false)
+  const [open, setOpen] = React.useState(defaultOpen)
   const [expanded, setExpanded] = React.useState(false)
   const [panelWidth, setPanelWidth] = React.useState(760)
   const [tool, setTool] = React.useState<DesmosMathTool | null>(null)

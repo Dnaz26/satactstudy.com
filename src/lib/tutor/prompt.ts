@@ -11,10 +11,12 @@ function styleLine(preferences: TutorPreferences, easy: boolean): string {
   const methods = preferences.methods.join(', ')
   const analogies = preferences.analogy_topics.join(', ')
   const interest = preferences.custom_interest ? ` Custom interest: ${preferences.custom_interest}.` : ''
+  const agent = preferences.agent
+  const agentLine = ` Agent name=${agent.name}; tone=${agent.tone}; encouragement=${agent.encouragement}; when stuck=${agent.stuck_style}; check-ins=${agent.check_ins}; humor=${agent.humor ? 'light' : 'off'}; format=${agent.response_shape}; focus=${agent.focus_areas.join('/')}.`
   if (easy) {
-    return `Student needs easy words. Methods=${methods}. Analogies=${analogies}.${interest}`
+    return `Student needs easy words. Methods=${methods}. Analogies=${analogies}.${interest}${agentLine}`
   }
-  return `Student style: methods=${methods}; analogies=${analogies}; level=${preferences.explanation_level}; pace=${preferences.pacing}; graphs=${preferences.graph_comfort}; desmos=${preferences.desmos_guidance}.${interest}`
+  return `Student style: methods=${methods}; analogies=${analogies}; level=${preferences.explanation_level}; pace=${preferences.pacing}; graphs=${preferences.graph_comfort}; desmos=${preferences.desmos_guidance}.${interest}${agentLine}`
 }
 
 export function buildTutorSystemPrompt(options: {
@@ -28,14 +30,36 @@ export function buildTutorSystemPrompt(options: {
 }): string {
   const missed = options.trigger === 'wrong_answer' || options.isCorrect === false
   const lines = [
-    `You are ${NOVA_ROLE.name}, the lead SAT/ACT tutoring agent (spec ${NOVA_SPEC_VERSION}).`,
+    `You are ${options.preferences.agent.name || NOVA_ROLE.name}, the lead SAT/ACT tutoring agent (spec ${NOVA_SPEC_VERSION}).`,
     NOVA_ROLE.summary,
     NOVA_ROLE.goal,
     novaMasterDecisionLine(),
     'Behave like a great tutor sitting next to the student.',
+    `Match the student's chosen vibe: ${options.preferences.agent.tone}. Encouragement level: ${options.preferences.agent.encouragement}.`,
+    options.preferences.agent.humor ? 'A tiny bit of light humor is OK if it helps learning.' : 'Keep humor off unless the student jokes first.',
+    options.preferences.agent.response_shape === 'bullets'
+      ? 'Prefer short bullet points over long paragraphs.'
+      : options.preferences.agent.response_shape === 'short_paragraphs'
+        ? 'Prefer short paragraphs over long numbered lists when possible.'
+        : 'Prefer clear numbered steps.',
+    options.preferences.agent.stuck_style === 'show_example'
+      ? 'When they are stuck, lead with one tiny worked example.'
+      : options.preferences.agent.stuck_style === 'ask_question'
+        ? 'When they are stuck, ask one guiding question before explaining.'
+        : 'When they are stuck, give the smallest hint first.',
+    options.preferences.agent.check_ins === 'often'
+      ? 'Ask short check questions often.'
+      : options.preferences.agent.check_ins === 'rare'
+        ? 'Ask check questions sparingly — only at key moments.'
+        : 'Ask a check question at natural pauses.',
+    `Lean into focus areas: ${options.preferences.agent.focus_areas.join(', ')}.`,
     'Write like you are talking to a 13-year-old. Short words. Short sentences.',
     'Never dump algebra in one blob. Never use LaTeX, dollar signs, or jargon like "canonical" or "consecutive interior."',
     'Write math in plain text, like 2(9) - 6 = 12.',
+    'Never repeat yourself. Do not restate a prior sentence, tip, or step. Every line must add new information.',
+    'If the student asks again, give a fresh angle — never copy an earlier reply.',
+    'While teaching, ask the student a short check question often. Wait for their answer before dumping more explanation.',
+    'Never reuse the same example, hint wording, or numbered step from earlier in the chat.',
     'Customize difficulty, examples, pace, and strategy to this student. Prefer mastery over memorization.',
     'Never guarantee a 1600 or 36. Maximize their chance of hitting their own goal.',
     'Never invent official SAT/ACT rules. Never claim generated practice is an official exam question.',
@@ -62,8 +86,9 @@ export function buildTutorSystemPrompt(options: {
           'Reply as 3 short numbered steps, each starting with a verb.',
           '1. Do this ...',
           '2. Then ...',
-          '3. Check ...',
+          '3. Ask the student one check question (not the official answer).',
           'Give the smallest explanation needed. Simple → example → student tries.',
+          'Do not repeat any sentence you already used in this chat.',
         ].join('\n'),
     styleLine(options.preferences, missed),
     missed

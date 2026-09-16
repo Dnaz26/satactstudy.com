@@ -122,7 +122,7 @@ export function DesmosPanel({
       aria-hidden={!open}
       className={cn(
         'z-40 flex min-h-0 flex-col overflow-hidden',
-        embedded ? 'relative h-[380px] w-full' : 'rounded-t-3xl border border-transparent neu md:rounded-2xl',
+        embedded ? 'relative h-full min-h-[280px] w-full' : 'rounded-t-3xl border border-transparent neu md:rounded-2xl',
         !embedded && open && 'fixed inset-x-0 bottom-0 h-[62vh] md:relative md:inset-auto md:h-[min(62vh,520px)]',
         !embedded && !open && 'pointer-events-none invisible fixed left-[-2400px] top-0 h-[720px] w-[640px]'
       )}
@@ -131,7 +131,7 @@ export function DesmosPanel({
       <div
         className={cn(
           'relative flex h-full min-h-0 flex-col',
-          embedded ? 'w-full' : open ? 'w-full md:w-[var(--desmos-width)]' : 'w-[640px]'
+          embedded ? 'h-full w-full' : open ? 'w-full md:w-[var(--desmos-width)]' : 'w-[640px]'
         )}
       >
         {open && !embedded && (

@@ -43,16 +43,14 @@ export function QuestionPrompt({
     <Tag className={className ?? 'mb-6 whitespace-pre-wrap text-base leading-relaxed text-paper'}>
       {segments.map((segment, index) =>
         segment.math ? (
-          <span key={index} className="whitespace-nowrap text-paper">
+          <span key={index} className="whitespace-nowrap font-medium text-inherit">
             <MathNodes parts={segment.parts} />
           </span>
         ) : (
-          <span key={index}>
-            {segment.value.includes('/')
-              ? <MathNodes parts={splitNumericFractions(applyLatexSymbols(segment.value))} />
-              : applyLatexSymbols(segment.value)}
+          <span key={index} className="text-inherit">
+            <MathNodes parts={splitNumericFractions(applyLatexSymbols(segment.value))} />
           </span>
-        )
+        ),
       )}
     </Tag>
   )

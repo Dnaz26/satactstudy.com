@@ -14,6 +14,11 @@ const METHOD_LABELS: Record<TeachingMethod, string> = {
   step_by_step: 'Step-by-step',
   direct: 'Direct explanations',
   socratic: 'Questions / hints',
+  teach_back: 'Teach it back',
+  practice_first: 'Practice first',
+  mistake_focus: 'Mistake focus',
+  compare_contrast: 'Compare choices',
+  story: 'Story mode',
 }
 
 const ANALOGY_LABELS: Record<AnalogyTopic, string> = {
@@ -26,6 +31,13 @@ const ANALOGY_LABELS: Record<AnalogyTopic, string> = {
   everyday: 'Everyday life',
   food: 'Food',
   school: 'School',
+  music: 'Music',
+  movies: 'Movies',
+  science: 'Science',
+  nature: 'Nature',
+  art: 'Art',
+  travel: 'Travel',
+  fashion: 'Fashion',
   custom: 'Custom',
 }
 
@@ -105,7 +117,7 @@ export function TutorPreferencesCard({ initial, openAll = false }: { initial: Tu
       <div>
         <p className="mb-2 text-sm text-fog">Level</p>
         <div className="flex flex-wrap gap-2">
-          {(['very_simple', 'simple', 'normal', 'advanced'] as const).map((level) => (
+          {(['very_simple', 'simple', 'normal', 'advanced', 'expert'] as const).map((level) => (
             <button
               key={level}
               type="button"
@@ -155,7 +167,7 @@ export function TutorPreferencesCard({ initial, openAll = false }: { initial: Tu
           <div>
             <p className="mb-2 text-sm text-fog">Pace</p>
             <div className="flex flex-wrap gap-2">
-              {(['quick', 'balanced', 'detailed'] as const).map((pace) => (
+              {(['ultra_short', 'quick', 'balanced', 'detailed', 'deep_dive'] as const).map((pace) => (
                 <button
                   key={pace}
                   type="button"

@@ -13,21 +13,85 @@ const SYMBOLS: Array<[RegExp, string]> = [
   [/\\times/g, '×'],
   [/\\div/g, '÷'],
   [/\\cdot/g, '·'],
+  [/\\leqslant/g, '≤'],
+  [/\\leqq/g, '≤'],
+  [/\\geqslant/g, '≥'],
+  [/\\geqq/g, '≥'],
   [/\\leq/g, '≤'],
   [/\\geq/g, '≥'],
+  // Word-boundary style: \le must not eat \left / \leq; \ge must not eat \geq
+  [/\\le(?![a-zA-Z])/g, '≤'],
+  [/\\ge(?![a-zA-Z])/g, '≥'],
+  [/\\lt(?![a-zA-Z])/g, '<'],
+  [/\\gt(?![a-zA-Z])/g, '>'],
   [/\\neq/g, '≠'],
-  [/\\ne/g, '≠'],
+  [/\\ne(?![a-zA-Z])/g, '≠'],
   [/\\pm/g, '±'],
   [/\\infty/g, '∞'],
-  [/\\pi/g, 'π'],
+  [/\\pi(?![a-zA-Z])/g, 'π'],
   [/\\sqrt/g, '√'],
   [/\\circ/g, '°'],
   [/\\degree/g, '°'],
   [/\\%/g, '%'],
 ]
 
+/** Decode HTML / numeric entities that often appear in imported inequality text. */
+function decodeInequalityEntities(value: string): string {
+  return value
+    .replace(/&le(?:q)?;/gi, '≤')
+    .replace(/&ge(?:q)?;/gi, '≥')
+    .replace(/&lt;/gi, '<')
+    .replace(/&gt;/gi, '>')
+    .replace(/&#0*8804;/g, '≤')
+    .replace(/&#0*8805;/g, '≥')
+    .replace(/&#x0*2264;/gi, '≤')
+    .replace(/&#x0*2265;/gi, '≥')
+    .replace(/&#0*60;/g, '<')
+    .replace(/&#0*62;/g, '>')
+    .replace(/&#x0*3c;/gi, '<')
+    .replace(/&#x0*3e;/gi, '>')
+}
+
+/**
+ * Collapse accidental double-escaping (\\le → \le) before latex symbol swaps.
+ * Only touches known inequality / comparison command names.
+ */
+function normalizeLatexBackslashes(value: string): string {
+  return value.replace(
+    /\\{2,}(?=(?:leqslant|geqslant|leqq|geqq|leq|geq|le|ge|lt|gt|neq|ne)(?![a-zA-Z]))/g,
+    '\\',
+  )
+}
+
+const INEQUALITY_COMMANDS: Array<[RegExp, string]> = [
+  [/\\leqslant/g, '≤'],
+  [/\\leqq/g, '≤'],
+  [/\\geqslant/g, '≥'],
+  [/\\geqq/g, '≥'],
+  [/\\leq/g, '≤'],
+  [/\\geq/g, '≥'],
+  [/\\le(?![a-zA-Z])/g, '≤'],
+  [/\\ge(?![a-zA-Z])/g, '≥'],
+  [/\\lt(?![a-zA-Z])/g, '<'],
+  [/\\gt(?![a-zA-Z])/g, '>'],
+]
+
+/**
+ * Normalize inequality / comparison symbols to clear Unicode glyphs.
+ * Does not strip braces — safe for question cleanup outside math rendering.
+ */
+export function normalizeInequalitySymbols(value: string): string {
+  const prepared = normalizeLatexBackslashes(decodeInequalityEntities(value))
+  return INEQUALITY_COMMANDS.reduce((text, [pattern, next]) => text.replace(pattern, next), prepared)
+    .replace(/<=/g, '≤')
+    .replace(/>=/g, '≥')
+    .replace(/≦/g, '≤')
+    .replace(/≧/g, '≥')
+}
+
 export function applyLatexSymbols(value: string): string {
-  return SYMBOLS.reduce((text, [pattern, next]) => text.replace(pattern, next), value)
+  const withInequalities = normalizeInequalitySymbols(value)
+  return SYMBOLS.reduce((text, [pattern, next]) => text.replace(pattern, next), withInequalities)
     .replace(/\^\s*°/g, '°')
     .replace(/\s+°/g, '°')
     .replace(/[{}]/g, '')

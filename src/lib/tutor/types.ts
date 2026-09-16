@@ -37,6 +37,13 @@ export const ANALOGY_TOPICS = [
   'everyday',
   'food',
   'school',
+  'music',
+  'movies',
+  'science',
+  'nature',
+  'art',
+  'travel',
+  'fashion',
   'custom',
 ] as const
 
@@ -49,17 +56,64 @@ export const TEACHING_METHODS = [
   'step_by_step',
   'direct',
   'socratic',
+  'teach_back',
+  'practice_first',
+  'mistake_focus',
+  'compare_contrast',
+  'story',
 ] as const
 
 export type TeachingMethod = (typeof TEACHING_METHODS)[number]
+
+export const AGENT_TONES = ['warm', 'coach', 'chill', 'strict', 'funny'] as const
+export type AgentTone = (typeof AGENT_TONES)[number]
+
+export const ENCOURAGEMENT_LEVELS = ['high', 'normal', 'minimal'] as const
+export type EncouragementLevel = (typeof ENCOURAGEMENT_LEVELS)[number]
+
+export const STUCK_STYLES = ['hint_first', 'show_example', 'ask_question'] as const
+export type StuckStyle = (typeof STUCK_STYLES)[number]
+
+export const CHECK_IN_FREQS = ['often', 'sometimes', 'rare'] as const
+export type CheckInFreq = (typeof CHECK_IN_FREQS)[number]
+
+export const RESPONSE_SHAPES = ['numbered', 'bullets', 'short_paragraphs'] as const
+export type ResponseShape = (typeof RESPONSE_SHAPES)[number]
+
+export const FOCUS_AREAS = ['math', 'reading', 'writing', 'science', 'mixed'] as const
+export type FocusArea = (typeof FOCUS_AREAS)[number]
+
+export const AGENT_PROFILE_KEY = '__agent'
+
+export type AgentProfile = {
+  name: string
+  tone: AgentTone
+  encouragement: EncouragementLevel
+  stuck_style: StuckStyle
+  check_ins: CheckInFreq
+  humor: boolean
+  response_shape: ResponseShape
+  focus_areas: FocusArea[]
+}
+
+export const DEFAULT_AGENT_PROFILE: AgentProfile = {
+  name: 'Nova',
+  tone: 'warm',
+  encouragement: 'normal',
+  stuck_style: 'hint_first',
+  check_ins: 'often',
+  humor: false,
+  response_shape: 'numbered',
+  focus_areas: ['mixed'],
+}
 
 export interface TutorPreferences {
   user_id: string
   methods: TeachingMethod[]
   analogy_topics: AnalogyTopic[]
   custom_interest: string | null
-  explanation_level: 'very_simple' | 'simple' | 'normal' | 'advanced'
-  pacing: 'quick' | 'balanced' | 'detailed'
+  explanation_level: 'very_simple' | 'simple' | 'normal' | 'advanced' | 'expert'
+  pacing: 'ultra_short' | 'quick' | 'balanced' | 'detailed' | 'deep_dive'
   prefers_visual: boolean
   prefers_socratic: boolean
   prefers_desmos: boolean
@@ -67,6 +121,7 @@ export interface TutorPreferences {
   graph_comfort: 'struggles' | 'ok' | 'strong'
   desmos_guidance: 'step_by_step' | 'guided' | 'independent'
   method_scores: Record<string, number>
+  agent: AgentProfile
 }
 
 export const DEFAULT_TUTOR_PREFERENCES: Omit<TutorPreferences, 'user_id'> = {
@@ -82,6 +137,7 @@ export const DEFAULT_TUTOR_PREFERENCES: Omit<TutorPreferences, 'user_id'> = {
   graph_comfort: 'ok',
   desmos_guidance: 'guided',
   method_scores: {},
+  agent: { ...DEFAULT_AGENT_PROFILE },
 }
 
 export interface TutorOutput {

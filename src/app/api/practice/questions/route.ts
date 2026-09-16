@@ -6,6 +6,7 @@ import { asDifficulty, questionChoices, toDbDifficulty } from '@/lib/schema'
 import { MIN_TOPIC_QUESTIONS } from '@/lib/constants'
 import { ensureTopicQuestionCount } from '@/lib/questions/expand-topic'
 import { getUsedQuestionIds } from '@/lib/practice/used-questions'
+import { cleanQuestionText } from '@/lib/questions/clean-text'
 import { z } from 'zod'
 
 const querySchema = z.object({
@@ -98,6 +99,7 @@ export async function GET(request: NextRequest) {
         const passage = Array.isArray(passageRel) ? passageRel[0] : passageRel
         return {
           ...q,
+          question_text: cleanQuestionText(q.question_text),
           passages: undefined,
           passage_title: passage?.title ?? null,
           passage_content: passage?.content ?? null,

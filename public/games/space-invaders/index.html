@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Space Invaders</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Space+Grotesk:wght@400;600&display=swap');
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; height: 100%; overflow: hidden;
+    background:
+      radial-gradient(ellipse 60% 40% at 50% 100%, rgba(34,197,94,.18), transparent 55%),
+      radial-gradient(ellipse 50% 40% at 10% 20%, rgba(56,189,248,.16), transparent 50%),
+      #050814;
+    color: #e8f1ff;
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+  }
+  body { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; padding: 12px; }
+  h1 {
+    margin: 0; font-family: Orbitron, sans-serif; font-size: clamp(1rem, 2.4vh, 1.35rem);
+    letter-spacing: .16em; text-transform: uppercase;
+    background: linear-gradient(90deg, #4ade80, #38bdf8);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .hud { display: flex; gap: 18px; color: #8ba3c7; font-size: .85rem; }
+  .hud b { color: #fff; font-family: Orbitron, sans-serif; }
+  canvas {
+    width: min(96vw, 720px) !important;
+    height: auto !important;
+    max-height: min(78vh, 78dvh);
+    border-radius: 18px;
+    border: 1px solid rgba(74,222,128,.3);
+    box-shadow: 0 25px 80px rgba(0,0,0,.55), 0 0 50px rgba(56,189,248,.14);
+    outline: none;
+    background: #030712;
+  }
+  .hint { margin: 0; color: #6d86ab; font-size: .78rem; text-align: center; }
+</style>
+</head>
+<body>
+<h1>Space Invaders</h1>
+<div class="hud"><span>Score <b id="score">0</b></span><span>Lives <b id="lives">3</b></span></div>
+<canvas id="c" width="560" height="480" tabindex="0"></canvas>
+<p class="hint">A D / ← → move · W / Space shoot · Click arena to focus</p>
+<script>
+(function () {
+  const canvas = document.getElementById('c');
+  const ctx = canvas.getContext('2d');
+  const W = 560, H = 480;
+  const keys = new Set();
+  let ship, aliens, bullets, eb, score, lives, dir, tick, alive, stars, cool = 0;
+
+  function reset() {
+    ship = { x: W / 2 - 22, y: H - 48 };
+    aliens = [];
+    for (let r = 0; r < 5; r++) for (let c = 0; c < 9; c++) {
+      aliens.push({ x: 48 + c * 52, y: 48 + r * 38, alive: true, hue: r });
+    }
+    bullets = []; eb = []; score = 0; lives = 3; dir = 1; tick = 0; alive = true; cool = 0;
+    stars = Array.from({ length: 60 }, () => ({
+      x: Math.random() * W, y: Math.random() * H, z: 0.3 + Math.random() * 1.4,
+    }));
+    document.getElementById('score').textContent = 0;
+    document.getElementById('lives').textContent = 3;
+  }
+
+  function shoot() {
+    if (!alive || cool > 0 || bullets.length >= 5) return;
+    bullets.push({ x: ship.x + 22, y: ship.y - 4 });
+    cool = 10;
+  }
+
+  function drawShip() {
+    ctx.save();
+    ctx.translate(ship.x + 22, ship.y + 8);
+    ctx.shadowColor = '#38bdf8';
+    ctx.shadowBlur = 18;
+    ctx.beginPath();
+    ctx.moveTo(0, -16);
+    ctx.lineTo(22, 14);
+    ctx.lineTo(8, 10);
+    ctx.lineTo(-8, 10);
+    ctx.lineTo(-22, 14);
+    ctx.closePath();
+    const g = ctx.createLinearGradient(0, -16, 0, 14);
+    g.addColorStop(0, '#e0f2fe');
+    g.addColorStop(0.5, '#38bdf8');
+    g.addColorStop(1, '#0369a1');
+    ctx.fillStyle = g;
+    ctx.fill();
+    ctx.fillStyle = 'rgba(255,255,255,0.5)';
+    ctx.fillRect(-4, -4, 8, 8);
+    ctx.restore();
+  }
+
+  function drawAlien(a) {
+    const colors = ['#4ade80', '#a3e635', '#22d3ee', '#c084fc', '#fb7185'];
+    const col = colors[a.hue % colors.length];
+    ctx.save();
+    ctx.translate(a.x + 16, a.y + 12);
+    ctx.shadowColor = col;
+    ctx.shadowBlur = 14;
+    const g = ctx.createRadialGradient(-4, -4, 2, 0, 0, 18);
+    g.addColorStop(0, '#fff');
+    g.addColorStop(0.35, col);
+    g.addColorStop(1, '#052e16');
+    ctx.fillStyle = g;
+    // 3D dome body
+    ctx.beginPath();
+    ctx.ellipse(0, 0, 16, 12, 0, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.fillStyle = '#041016';
+    ctx.beginPath(); ctx.arc(-6, -2, 3, 0, Math.PI * 2); ctx.fill();
+    ctx.beginPath(); ctx.arc(6, -2, 3, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = col;
+    ctx.fillRect(-12, 10, 6, 5);
+    ctx.fillRect(6, 10, 6, 5);
+    ctx.restore();
+  }
+
+  function frame() {
+    if (cool > 0) cool--;
+    if (alive) {
+      const speed = 5.5;
+      if (keys.has('ArrowLeft') || keys.has('a') || keys.has('A')) ship.x -= speed;
+      if (keys.has('ArrowRight') || keys.has('d') || keys.has('D')) ship.x += speed;
+      ship.x = Math.max(8, Math.min(W - 52, ship.x));
+      if (keys.has(' ') || keys.has('w') || keys.has('W') || keys.has('ArrowUp')) shoot();
+
+      tick++;
+      if (tick % 36 === 0) {
+        let hitEdge = false;
+        aliens.forEach((a) => {
+          if (!a.alive) return;
+          a.x += dir * 12;
+          if (a.x < 16 || a.x > W - 48) hitEdge = true;
+        });
+        if (hitEdge) {
+          dir *= -1;
+          aliens.forEach((a) => { a.y += 18; a.x += dir * 12; });
+        }
+      }
+      if (tick % 45 === 0) {
+        const live = aliens.filter((a) => a.alive);
+        if (live.length) {
+          const a = live[(Math.random() * live.length) | 0];
+          eb.push({ x: a.x + 16, y: a.y + 22 });
+        }
+      }
+
+      bullets.forEach((b) => { b.y -= 9; });
+      eb.forEach((b) => { b.y += 5.5; });
+      bullets = bullets.filter((b) => b.y > -10);
+      eb = eb.filter((b) => b.y < H + 10);
+
+      bullets.forEach((b) => aliens.forEach((a) => {
+        if (a.alive && b.x > a.x && b.x < a.x + 32 && b.y > a.y && b.y < a.y + 24) {
+          a.alive = false; b.y = -99; score += 25;
+          document.getElementById('score').textContent = score;
+        }
+      }));
+      eb.forEach((b) => {
+        if (b.x > ship.x && b.x < ship.x + 44 && b.y > ship.y && b.y < ship.y + 22) {
+          b.y = 999; lives--; document.getElementById('lives').textContent = lives;
+          if (lives <= 0) { alive = false; window.shrimpyLose && window.shrimpyLose(); }
+        }
+      });
+      if (aliens.some((a) => a.alive && a.y > H - 90)) {
+        alive = false; window.shrimpyLose && window.shrimpyLose();
+      } else if (aliens.every((a) => !a.alive)) {
+        alive = false;
+      }
+    }
+
+    // space trench
+    const sky = ctx.createLinearGradient(0, 0, 0, H);
+    sky.addColorStop(0, '#020617');
+    sky.addColorStop(0.55, '#0b1b33');
+    sky.addColorStop(1, '#052e1a');
+    ctx.fillStyle = sky;
+    ctx.fillRect(0, 0, W, H);
+
+    stars.forEach((s) => {
+      s.y += s.z;
+      if (s.y > H) { s.y = 0; s.x = Math.random() * W; }
+      ctx.fillStyle = `rgba(255,255,255,${0.25 + s.z * 0.35})`;
+      ctx.fillRect(s.x, s.y, s.z, s.z);
+    });
+
+    // perspective rails
+    ctx.strokeStyle = 'rgba(56,189,248,0.12)';
+    for (let i = 0; i < 8; i++) {
+      const y = H * 0.4 + i * i * 6;
+      ctx.beginPath(); ctx.moveTo(40 - i * 4, y); ctx.lineTo(W - 40 + i * 4, y); ctx.stroke();
+    }
+
+    aliens.forEach((a) => { if (a.alive) drawAlien(a); });
+    drawShip();
+
+    bullets.forEach((b) => {
+      ctx.save();
+      ctx.shadowColor = '#67e8f9'; ctx.shadowBlur = 12;
+      ctx.fillStyle = '#67e8f9';
+      ctx.fillRect(b.x - 2, b.y, 4, 14);
+      ctx.restore();
+    });
+    eb.forEach((b) => {
+      ctx.save();
+      ctx.shadowColor = '#fb7185'; ctx.shadowBlur = 10;
+      ctx.fillStyle = '#fb7185';
+      ctx.fillRect(b.x - 2, b.y, 4, 12);
+      ctx.restore();
+    });
+
+    if (!alive) {
+      ctx.fillStyle = 'rgba(3,7,18,0.68)';
+      ctx.fillRect(0, 0, W, H);
+      ctx.fillStyle = '#fff';
+      ctx.font = '700 30px Orbitron, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText(aliens.every((a) => !a.alive) ? 'SECTOR CLEAR' : 'OVERRUN', W / 2, H / 2);
+      ctx.font = '14px Space Grotesk, sans-serif';
+      ctx.fillStyle = '#8ba3c7';
+      ctx.fillText('Click to relaunch', W / 2, H / 2 + 30);
+    }
+    requestAnimationFrame(frame);
+  }
+
+  function onKey(e, down) {
+    const k = e.key;
+    if (['ArrowLeft','ArrowRight','ArrowUp',' ','a','A','d','D','w','W'].includes(k)) {
+      e.preventDefault();
+      if (down) keys.add(k); else keys.delete(k);
+    }
+  }
+  addEventListener('keydown', (e) => onKey(e, true));
+  addEventListener('keyup', (e) => onKey(e, false));
+  canvas.addEventListener('click', () => {
+    canvas.focus();
+    if (!alive && !window.__shrLost) reset();
+  });
+  canvas.focus();
+  reset();
+  frame();
+})();
+</script>
+<script>
+(function(){
+  window.__shrLost=false;
+  window.shrimpyLose=function(){
+    if(window.__shrLost) return;
+    window.__shrLost=true;
+    try{ parent.postMessage({type:'shrimpy-lose', game: location.pathname}, '*'); }catch(e){}
+  };
+  window.shrimpyReady=function(){
+    window.__shrLost=false;
+    try{ parent.postMessage({type:'shrimpy-ready', game: location.pathname}, '*'); }catch(e){}
+  };
+  window.addEventListener('message', function(e){
+    if(!e.data || e.data.type!=='shrimpy-unlock') return;
+    window.__shrLost=false;
+    location.reload();
+  });
+  window.shrimpyReady();
+})();
+</script>
+</body>
+</html>

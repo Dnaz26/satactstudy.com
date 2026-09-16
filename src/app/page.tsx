@@ -4,8 +4,8 @@ import { redirect } from 'next/navigation'
 import { ArrowRight, Check, Menu } from 'lucide-react'
 import { createClient } from '@/lib/supabase/server'
 import { BrandMark, BRAND_NAME } from '@/components/brand'
-import { DataProof } from '@/components/landing/data-proof'
 import { ProductShowcase } from '@/components/landing/product-showcase'
+import { ResearchShowcase } from '@/components/landing/research-showcase'
 import { PLANS } from '@/lib/stripe'
 
 export const metadata: Metadata = {
@@ -25,11 +25,11 @@ export default async function LandingPage() {
         <div className="cast-nav cast-pill flex items-center justify-between gap-3 px-3 py-2.5 sm:px-4">
           <BrandMark href="/" />
           <div className="flex items-center gap-2">
-            <Link href="#proof" className="hidden px-3 text-sm text-fog hover:text-paper md:inline">
-              Data
+            <Link href="#features" className="hidden px-3 text-sm text-fog hover:text-paper md:inline">
+              Features
             </Link>
-            <Link href="#product" className="hidden px-3 text-sm text-fog hover:text-paper md:inline">
-              Product
+            <Link href="#research" className="hidden px-3 text-sm text-fog hover:text-paper md:inline">
+              Research
             </Link>
             <Link href="/pricing" className="hidden px-3 text-sm text-fog hover:text-paper md:inline">
               Pricing
@@ -63,7 +63,7 @@ export default async function LandingPage() {
             Turn practice into a <span className="cast-accent">score jump.</span>
           </h1>
           <p className="mx-auto mt-5 max-w-lg text-[17px] leading-relaxed text-fog">
-            Charts that show why it works. A reel that shows Nova tutoring, planning, and rewarding real progress.
+            Tutoring, practice tests, Rapid Fire, a custom agent, and games that unlock with real questions.
           </p>
 
           <div className="mx-auto mt-9 flex max-w-xl flex-col gap-2 rounded-full border border-[var(--line)] bg-white p-1.5 shadow-[0_24px_50px_rgba(40,24,12,0.1)] sm:flex-row sm:items-center">
@@ -80,32 +80,32 @@ export default async function LandingPage() {
         </div>
       </main>
 
-      <section id="proof" className="relative z-10 mx-auto max-w-6xl px-4 py-20 sm:px-6">
+      <section id="features" className="relative z-10 mx-auto max-w-6xl px-4 py-20 sm:px-6">
         <div className="mb-10 max-w-2xl">
-          <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-signal">1 · The data</p>
-          <h2 className="mt-2 font-display text-3xl tracking-tight sm:text-4xl">Why Prep SAT ACT works</h2>
+          <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-signal">Features</p>
+          <h2 className="mt-2 font-display text-4xl tracking-tight text-paper sm:text-5xl">Four systems. Live on screen.</h2>
           <p className="mt-3 text-[15px] leading-relaxed text-fog">
-            Year growth, monthly lift, customization, method pie, and the checklist of what we ship.
-          </p>
-        </div>
-        <DataProof />
-      </section>
-
-      <section id="product" className="relative z-10 mx-auto max-w-6xl px-4 py-20 sm:px-6">
-        <div className="mb-10 max-w-2xl">
-          <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-signal">2 · The product</p>
-          <h2 className="mt-2 font-display text-3xl tracking-tight sm:text-4xl">Watch Nova work</h2>
-          <p className="mt-3 text-[15px] leading-relaxed text-fog">
-            A product reel — hard math with Desmos, hard English, rewards, practice tests, tonight&apos;s plan, 5,000 questions, levels.
+            Nova Tutoring, Rapid Fire, Game Mode, and Practice Tests — hover for a closer look, then open a working demo.
           </p>
         </div>
         <ProductShowcase />
       </section>
 
+      <section id="research" className="relative z-10 mx-auto max-w-6xl px-4 py-20 sm:px-6">
+        <div className="mb-10 max-w-2xl">
+          <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-signal">Learning science</p>
+          <h2 className="mt-2 font-display text-4xl tracking-tight text-paper sm:text-5xl">Our Research</h2>
+          <p className="mt-3 text-[15px] leading-relaxed text-fog">
+            A transparent look at the learning principles and modeled outcomes that shape the platform.
+          </p>
+        </div>
+        <ResearchShowcase />
+      </section>
+
       <section className="relative z-10 mx-auto max-w-6xl px-4 py-16 sm:px-6">
         <div className="mb-10 max-w-2xl">
           <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-signal">Pricing</p>
-          <h2 className="mt-2 font-display text-3xl tracking-tight sm:text-4xl">Pick a plan</h2>
+          <h2 className="mt-2 font-display text-4xl tracking-tight text-paper sm:text-5xl">Pick a plan</h2>
           <p className="mt-3 text-[15px] text-fog">
             Clear limits. Eight inclusions each. Start on Core or go Plus for the higher daily ceiling.
           </p>

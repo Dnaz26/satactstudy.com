@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Neon Tetris</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Space+Grotesk:wght@400;600&display=swap');
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; height: 100%; overflow: hidden;
+    background:
+      radial-gradient(ellipse 70% 50% at 30% 0%, rgba(167,139,250,.2), transparent 55%),
+      radial-gradient(ellipse 50% 40% at 90% 90%, rgba(34,211,238,.15), transparent 50%),
+      #070b16;
+    color: #e8f1ff;
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+  }
+  body { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; padding: 12px; }
+  h1 {
+    margin: 0; font-family: Orbitron, sans-serif; font-size: clamp(1rem, 2.4vh, 1.35rem);
+    letter-spacing: .18em; text-transform: uppercase;
+    background: linear-gradient(90deg, #a78bfa, #22d3ee);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .hud { display: flex; gap: 18px; color: #8ba3c7; font-size: .85rem; }
+  .hud b { color: #fff; font-family: Orbitron, sans-serif; }
+  .wrap { display: flex; gap: 14px; align-items: flex-start; }
+  canvas {
+    border-radius: 16px;
+    border: 1px solid rgba(167,139,250,.35);
+    box-shadow: 0 25px 80px rgba(0,0,0,.55), 0 0 50px rgba(167,139,250,.18);
+    outline: none;
+    background: #050814;
+    max-height: min(78vh, 78dvh);
+    width: auto !important;
+    height: min(78vh, 640px) !important;
+  }
+  .hint { margin: 0; color: #6d86ab; font-size: .78rem; text-align: center; }
+  button {
+    appearance: none; border: 0; border-radius: 999px; padding: 10px 18px;
+    background: linear-gradient(135deg, #a78bfa, #6366f1); color: #fff; font-weight: 700; cursor: pointer;
+    font-family: Orbitron, sans-serif; font-size: .7rem; letter-spacing: .08em;
+  }
+</style>
+</head>
+<body>
+<h1>Neon Tetris</h1>
+<div class="hud"><span>Score <b id="score">0</b></span><span>Lines <b id="lines">0</b></span></div>
+<canvas id="c" width="300" height="600" tabindex="0"></canvas>
+<div><button id="restart">RESTART</button></div>
+<p class="hint">A D / ← → move · W / ↑ rotate · S / ↓ soft · Space hard drop</p>
+<script>
+(function () {
+  const canvas = document.getElementById('c');
+  const ctx = canvas.getContext('2d');
+  const COLS = 10, ROWS = 20, SIZE = 30;
+  const SHAPES = {
+    I: [[1,1,1,1]],
+    O: [[1,1],[1,1]],
+    T: [[0,1,0],[1,1,1]],
+    S: [[0,1,1],[1,1,0]],
+    Z: [[1,1,0],[0,1,1]],
+    J: [[1,0,0],[1,1,1]],
+    L: [[0,0,1],[1,1,1]],
+  };
+  const COLORS = {
+    I: ['#67e8f9', '#0891b2'],
+    O: ['#fde047', '#ca8a04'],
+    T: ['#c4b5fd', '#7c3aed'],
+    S: ['#86efac', '#16a34a'],
+    Z: ['#fda4af', '#e11d48'],
+    J: ['#93c5fd', '#2563eb'],
+    L: ['#fdba74', '#ea580c'],
+  };
+  let board, piece, score, lines, alive, dropMs, last, keys = new Set(), moveAcc = 0;
+
+  function empty() { return Array.from({ length: ROWS }, () => Array(COLS).fill(null)); }
+  function spawn() {
+    const keysList = Object.keys(SHAPES);
+    const t = keysList[(Math.random() * keysList.length) | 0];
+    piece = { t, m: SHAPES[t].map((r) => r.slice()), x: 3, y: 0 };
+    if (collide(piece.x, piece.y, piece.m)) {
+      alive = false;
+      window.shrimpyLose && window.shrimpyLose();
+    }
+  }
+  function collide(x, y, m) {
+    for (let r = 0; r < m.length; r++) for (let c = 0; c < m[r].length; c++) {
+      if (!m[r][c]) continue;
+      const X = x + c, Y = y + r;
+      if (X < 0 || X >= COLS || Y >= ROWS || (Y >= 0 && board[Y][X])) return true;
+    }
+    return false;
+  }
+  function merge() {
+    piece.m.forEach((row, r) => row.forEach((v, c) => {
+      if (v && piece.y + r >= 0) board[piece.y + r][piece.x + c] = piece.t;
+    }));
+  }
+  function clearLines() {
+    let n = 0;
+    board = board.filter((row) => {
+      if (row.every(Boolean)) { n++; return false; }
+      return true;
+    });
+    while (board.length < ROWS) board.unshift(Array(COLS).fill(null));
+    if (n) {
+      lines += n;
+      score += [0, 100, 300, 500, 800][n];
+      dropMs = Math.max(120, 700 - lines * 12);
+      document.getElementById('score').textContent = score;
+      document.getElementById('lines').textContent = lines;
+    }
+  }
+  function rotate() {
+    const m = piece.m[0].map((_, i) => piece.m.map((r) => r[i]).reverse());
+    if (!collide(piece.x, piece.y, m)) piece.m = m;
+    else if (!collide(piece.x - 1, piece.y, m)) { piece.x--; piece.m = m; }
+    else if (!collide(piece.x + 1, piece.y, m)) { piece.x++; piece.m = m; }
+  }
+  function hard() {
+    while (!collide(piece.x, piece.y + 1, piece.m)) piece.y++;
+    lock();
+  }
+  function lock() { merge(); clearLines(); spawn(); }
+
+  function drawBlock(x, y, type, ghost) {
+    const [hi, lo] = COLORS[type];
+    const px = x * SIZE, py = y * SIZE;
+    ctx.save();
+    if (!ghost) {
+      ctx.shadowColor = hi;
+      ctx.shadowBlur = 14;
+    }
+    const g = ctx.createLinearGradient(px, py, px + SIZE, py + SIZE);
+    g.addColorStop(0, ghost ? hi + '55' : '#ffffff');
+    g.addColorStop(0.25, ghost ? hi + '66' : hi);
+    g.addColorStop(1, ghost ? lo + '33' : lo);
+    ctx.fillStyle = g;
+    roundRect(px + 2, py + 2, SIZE - 4, SIZE - 4, 6);
+    ctx.fill();
+    if (!ghost) {
+      ctx.fillStyle = 'rgba(255,255,255,0.35)';
+      roundRect(px + 5, py + 5, SIZE - 14, 6, 3);
+      ctx.fill();
+    }
+    ctx.restore();
+  }
+  function roundRect(x, y, w, h, r) {
+    ctx.beginPath();
+    ctx.moveTo(x + r, y);
+    ctx.arcTo(x + w, y, x + w, y + h, r);
+    ctx.arcTo(x + w, y + h, x, y + h, r);
+    ctx.arcTo(x, y + h, x, y, r);
+    ctx.arcTo(x, y, x + w, y, r);
+    ctx.closePath();
+  }
+
+  function draw() {
+    const bg = ctx.createLinearGradient(0, 0, 0, canvas.height);
+    bg.addColorStop(0, '#0b1224');
+    bg.addColorStop(1, '#060914');
+    ctx.fillStyle = bg;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    // well depth
+    for (let y = 0; y < ROWS; y++) for (let x = 0; x < COLS; x++) {
+      const shade = ((x + y) % 2) ? 'rgba(255,255,255,0.025)' : 'rgba(0,0,0,0.15)';
+      ctx.fillStyle = shade;
+      ctx.fillRect(x * SIZE, y * SIZE, SIZE, SIZE);
+      ctx.strokeStyle = 'rgba(103,232,249,0.06)';
+      ctx.strokeRect(x * SIZE + 0.5, y * SIZE + 0.5, SIZE - 1, SIZE - 1);
+    }
+
+    for (let y = 0; y < ROWS; y++) for (let x = 0; x < COLS; x++) {
+      if (board[y][x]) drawBlock(x, y, board[y][x], false);
+    }
+
+    // ghost
+    let gy = piece.y;
+    while (!collide(piece.x, gy + 1, piece.m)) gy++;
+    piece.m.forEach((row, r) => row.forEach((v, c) => {
+      if (v) drawBlock(piece.x + c, gy + r, piece.t, true);
+    }));
+    piece.m.forEach((row, r) => row.forEach((v, c) => {
+      if (v) drawBlock(piece.x + c, piece.y + r, piece.t, false);
+    }));
+
+    // neon frame
+    ctx.strokeStyle = 'rgba(167,139,250,0.45)';
+    ctx.lineWidth = 3;
+    ctx.strokeRect(1.5, 1.5, canvas.width - 3, canvas.height - 3);
+
+    if (!alive) {
+      ctx.fillStyle = 'rgba(5,8,20,0.7)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = '#fff';
+      ctx.font = '700 28px Orbitron, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText('STACKED', canvas.width / 2, canvas.height / 2);
+    }
+  }
+
+  function reset() {
+    board = empty(); score = 0; lines = 0; alive = true; dropMs = 700;
+    document.getElementById('score').textContent = 0;
+    document.getElementById('lines').textContent = 0;
+    spawn(); last = performance.now();
+  }
+
+  function held(name) {
+    if (name === 'left') return keys.has('ArrowLeft') || keys.has('a') || keys.has('A');
+    if (name === 'right') return keys.has('ArrowRight') || keys.has('d') || keys.has('D');
+    if (name === 'down') return keys.has('ArrowDown') || keys.has('s') || keys.has('S');
+    return false;
+  }
+
+  function loop(t) {
+    if (alive) {
+      moveAcc += 16;
+      if (moveAcc > 90) {
+        moveAcc = 0;
+        if (held('left') && !collide(piece.x - 1, piece.y, piece.m)) piece.x--;
+        if (held('right') && !collide(piece.x + 1, piece.y, piece.m)) piece.x++;
+        if (held('down') && !collide(piece.x, piece.y + 1, piece.m)) {
+          piece.y++; score++; document.getElementById('score').textContent = score;
+        }
+      }
+      if (t - last > dropMs) {
+        last = t;
+        if (!collide(piece.x, piece.y + 1, piece.m)) piece.y++;
+        else lock();
+      }
+    }
+    draw();
+    requestAnimationFrame(loop);
+  }
+
+  addEventListener('keydown', (e) => {
+    const k = e.key;
+    if (['ArrowLeft','ArrowRight','ArrowDown','ArrowUp',' ','a','A','d','D','w','W','s','S'].includes(k)) e.preventDefault();
+    keys.add(k);
+    if (!alive) return;
+    if (k === 'ArrowUp' || k === 'w' || k === 'W') rotate();
+    if (k === ' ') hard();
+  });
+  addEventListener('keyup', (e) => keys.delete(e.key));
+  document.getElementById('restart').onclick = () => { if (!window.__shrLost) reset(); };
+  canvas.addEventListener('click', () => canvas.focus());
+  canvas.focus();
+  reset();
+  requestAnimationFrame(loop);
+})();
+</script>
+<script>
+(function(){
+  window.__shrLost=false;
+  window.shrimpyLose=function(){
+    if(window.__shrLost) return;
+    window.__shrLost=true;
+    try{ parent.postMessage({type:'shrimpy-lose', game: location.pathname}, '*'); }catch(e){}
+  };
+  window.shrimpyReady=function(){
+    window.__shrLost=false;
+    try{ parent.postMessage({type:'shrimpy-ready', game: location.pathname}, '*'); }catch(e){}
+  };
+  window.addEventListener('message', function(e){
+    if(!e.data || e.data.type!=='shrimpy-unlock') return;
+    window.__shrLost=false;
+    location.reload();
+  });
+  window.shrimpyReady();
+})();
+</script>
+</body>
+</html>

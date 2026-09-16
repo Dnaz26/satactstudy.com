@@ -3,7 +3,7 @@
 import * as React from 'react'
 import { cn } from '@/lib/utils'
 import { Button } from './button'
-import { X, Send, Sparkles, ImagePlus, Loader2 } from 'lucide-react'
+import { X, Send, Pencil, ImagePlus, Loader2, ChevronRight } from 'lucide-react'
 import type { TutorTrigger } from '@/lib/tutor/types'
 import { TutorRichText } from '@/components/practice/question-prompt'
 import { formatTutorSteps } from '@/lib/tutor/output'
@@ -89,7 +89,94 @@ function graphActionsFromText(text: string): DesmosAgentAction[] {
   }))
 }
 
+function dedupeSteps(steps: string[]): string[] {
+  const seen = new Set<string>()
+  const out: string[] = []
+  for (const step of steps) {
+    const key = step.trim().toLowerCase().replace(/\s+/g, ' ')
+    if (!key || seen.has(key)) continue
+    seen.add(key)
+    out.push(step.trim())
+  }
+  return out
+}
+
+function stripRepeatedContent(next: string, priorAssistant: string[]): string {
+  if (!priorAssistant.length) return next
+
+  const normalize = (value: string) => value
+    .toLowerCase()
+    .replace(/[^\p{L}\p{N}\s]/gu, ' ')
+    .replace(/\s+/g, ' ')
+    .trim()
+
+  const priorKeys = new Set<string>()
+  const priorTokens: string[][] = []
+  for (const block of priorAssistant) {
+    for (const piece of block.split(/(?<=[.!?])\s+|\n+/)) {
+      const key = normalize(piece)
+      if (key.length >= 10) priorKeys.add(key)
+      const tokens = key.split(' ').filter((w) => w.length > 2)
+      if (tokens.length >= 4) priorTokens.push(tokens)
+    }
+  }
+
+  function overlapsPrior(sentence: string): boolean {
+    const key = normalize(sentence)
+    if (!key) return true
+    if (key.length >= 10 && priorKeys.has(key)) return true
+    for (const prior of priorKeys) {
+      if (key.includes(prior) || prior.includes(key)) return true
+    }
+    const tokens = key.split(' ').filter((w) => w.length > 2)
+    if (tokens.length < 4) return false
+    for (const prior of priorTokens) {
+      let hit = 0
+      const set = new Set(prior)
+      for (const w of tokens) if (set.has(w)) hit += 1
+      const jaccard = hit / (tokens.length + prior.length - hit)
+      if (jaccard >= 0.65) return true
+    }
+    return false
+  }
+
+  const kept = next
+    .split(/(?<=[.!?])\s+|\n+/)
+    .map((piece) => piece.trim())
+    .filter((piece) => piece && !overlapsPrior(piece))
+
+  const uniqueKept: string[] = []
+  for (const piece of kept) {
+    const key = normalize(piece)
+    if (uniqueKept.some((prev) => normalize(prev) === key)) continue
+    if (uniqueKept.some((prev) => {
+      const a = normalize(prev).split(' ').filter((w) => w.length > 2)
+      const b = key.split(' ').filter((w) => w.length > 2)
+      if (!a.length || !b.length) return false
+      let hit = 0
+      const set = new Set(a)
+      for (const w of b) if (set.has(w)) hit += 1
+      return hit / (a.length + b.length - hit) >= 0.72
+    })) continue
+    uniqueKept.push(piece)
+  }
+
+  return uniqueKept.join(' ').trim() || 'Here is a new angle — what is the first number you notice in the question?'
+}
+
 function TutorBubble({ content, streaming }: { content: string; streaming?: boolean }) {
+  const [stepIndex, setStepIndex] = React.useState(0)
+
+  const steps = React.useMemo(() => {
+    if (!content.trim() || streaming) return null
+    const parsed = formatTutorSteps(content)
+    return parsed ? dedupeSteps(parsed) : null
+  }, [content, streaming])
+
+  React.useEffect(() => {
+    setStepIndex(0)
+  }, [content])
+
   if (!content.trim()) {
     return (
       <span className="inline-flex items-center gap-2 text-fog">
@@ -98,18 +185,31 @@ function TutorBubble({ content, streaming }: { content: string; streaming?: bool
       </span>
     )
   }
-  const steps = formatTutorSteps(content)
-  if (!steps) {
+
+  if (streaming || !steps || steps.length <= 1) {
     return <TutorRichText text={content} className="text-[13px] leading-5" />
   }
+
+  const current = steps[Math.min(stepIndex, steps.length - 1)] ?? steps[0]!
+  const hasMore = stepIndex < steps.length - 1
+
   return (
-    <ol className="list-decimal space-y-2.5 pl-4">
-      {steps.map((step, index) => (
-        <li key={index} className="marker:font-semibold marker:text-signal">
-          <TutorRichText text={step} className="text-[13px] leading-5" />
-        </li>
-      ))}
-    </ol>
+    <div className="space-y-2.5">
+      <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-fog">
+        Tip {stepIndex + 1} of {steps.length}
+      </p>
+      <TutorRichText text={current} className="text-[13px] leading-5" />
+      {hasMore ? (
+        <button
+          type="button"
+          onClick={() => setStepIndex((n) => Math.min(n + 1, steps.length - 1))}
+          className="inline-flex items-center gap-1 rounded-full border border-black/5 bg-white px-2.5 py-1 text-[11px] font-semibold text-signal transition hover:border-signal/30"
+        >
+          Next tip
+          <ChevronRight className="h-3.5 w-3.5" />
+        </button>
+      ) : null}
+    </div>
   )
 }
 
@@ -212,20 +312,27 @@ export function AiTutorPanel({ open, onClose, pendingTrigger, context, className
         })
       }, controller.signal)
 
-      const graphs = graphActionsFromText(assembled)
+      const priorAssistant = messagesRef.current
+        .filter((m) => m.role === 'assistant' && m.content.trim())
+        .slice(0, -1)
+        .map((m) => m.content)
+      const cleaned = stripRepeatedContent(assembled, priorAssistant)
+
+      const graphs = graphActionsFromText(cleaned)
       if (graphs.length && desmos) {
         desmos.setOpen(true)
         void desmos.applyActions(graphs)
       }
 
       setMessages((prev) => {
-        const last = prev[prev.length - 1]
-        if (last?.role === 'assistant' && !last.content.trim()) {
-          const next = [...prev]
-          next[next.length - 1] = { role: 'assistant', content: 'Try that again — I am here.' }
-          return next
+        const next = [...prev]
+        const last = next[next.length - 1]
+        if (last?.role !== 'assistant') return prev
+        next[next.length - 1] = {
+          role: 'assistant',
+          content: cleaned.trim() || 'Try that again — I am here.',
         }
-        return prev
+        return next
       })
     } catch (err) {
       if (controller.signal.aborted) return
@@ -282,7 +389,7 @@ export function AiTutorPanel({ open, onClose, pendingTrigger, context, className
         <div className="relative flex items-start justify-between gap-3">
           <div className="flex items-center gap-3">
             <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-signal text-white shadow-[0_12px_28px_rgba(255,107,87,0.35)]">
-              <Sparkles className="h-5 w-5" />
+              <Pencil className="h-5 w-5" />
             </div>
             <div>
               <p className="font-display text-lg leading-none text-paper">Nova</p>
@@ -309,30 +416,38 @@ export function AiTutorPanel({ open, onClose, pendingTrigger, context, className
       </div>
 
       <div className="flex-1 space-y-3 overflow-y-auto px-4 pb-3">
-        {messages.map((msg, i) => (
-          <div
-            key={i}
-            className={cn('flex', msg.role === 'user' ? 'justify-end' : 'justify-start')}
-          >
+        {(() => {
+          const latestAssistant = [...messages].reverse().find((m) => m.role === 'assistant')
+          const latestUser = [...messages].reverse().find((m) => m.role === 'user')
+          const visible: Message[] = []
+          if (latestUser) visible.push(latestUser)
+          if (latestAssistant) visible.push(latestAssistant)
+          if (visible.length === 0 && messages[0]) visible.push(messages[0])
+          return visible.map((msg, i) => (
             <div
-              className={cn(
-                'max-w-[92%] rounded-[1.35rem] px-3.5 py-2.5 text-sm',
-                msg.role === 'user'
-                  ? 'rounded-br-md bg-signal text-white shadow-[0_10px_24px_rgba(255,107,87,0.28)]'
-                  : 'rounded-bl-md border border-white/80 bg-white/80 text-paper shadow-[0_8px_20px_rgba(40,24,16,0.06)]',
-              )}
+              key={`${msg.role}-${i}-${msg.content.slice(0, 24)}`}
+              className={cn('flex', msg.role === 'user' ? 'justify-end' : 'justify-start')}
             >
-              {msg.role === 'assistant' ? (
-                <TutorBubble
-                  content={msg.content}
-                  streaming={streaming && i === messages.length - 1}
-                />
-              ) : (
-                <span className="whitespace-pre-wrap text-[13px] leading-5">{msg.content}</span>
-              )}
+              <div
+                className={cn(
+                  'max-w-[92%] rounded-[1.35rem] px-3.5 py-2.5 text-sm',
+                  msg.role === 'user'
+                    ? 'rounded-br-md bg-signal text-white shadow-[0_10px_24px_rgba(255,107,87,0.28)]'
+                    : 'rounded-bl-md border border-white/80 bg-white/80 text-paper shadow-[0_8px_20px_rgba(40,24,16,0.06)]',
+                )}
+              >
+                {msg.role === 'assistant' ? (
+                  <TutorBubble
+                    content={msg.content}
+                    streaming={streaming && msg === messages[messages.length - 1]}
+                  />
+                ) : (
+                  <span className="whitespace-pre-wrap text-[13px] leading-5">{msg.content}</span>
+                )}
+              </div>
             </div>
-          </div>
-        ))}
+          ))
+        })()}
         <div ref={bottomRef} />
       </div>
 

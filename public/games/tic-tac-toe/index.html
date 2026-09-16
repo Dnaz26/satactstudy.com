@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Tic-Tac-Toe</title>
+<style>
+  :root { --bg:#fffaf7; --panel:#ffffff; --ink:#1a1412; --muted:#8a7168; --accent:#ff5c39; --ok:#22a06b; --line:rgba(201,68,36,0.12); }
+  * { box-sizing:border-box; }
+  html,body { margin:0; height:100%; background: transparent; color:var(--ink); font-family: ui-sans-serif, system-ui, sans-serif; }
+  body { display:flex; flex-direction:column; align-items:center; padding:12px; gap:10px; }
+  h1 { margin:0; font-size:1.15rem; }
+  .hud { display:flex; gap:14px; flex-wrap:wrap; justify-content:center; color:var(--muted); font-size:.9rem; }
+  .hud b { color:var(--ink); }
+  canvas, .board { background:var(--panel); border:1px solid #243149; border-radius:14px; box-shadow:0 10px 40px rgba(0,0,0,.35); touch-action:none; }
+  button { appearance:none; border:0; border-radius:999px; padding:10px 16px; background:var(--accent); color:#fff; font-weight:700; cursor:pointer; }
+  button.secondary { background:#243149; color:var(--ink); }
+  .row { display:flex; gap:8px; flex-wrap:wrap; justify-content:center; }
+  .hint { color:var(--muted); font-size:.8rem; text-align:center; max-width:520px; }
+  .cell { display:flex; align-items:center; justify-content:center; border-radius:10px; background:#1a2438; cursor:pointer; user-select:none; font-weight:800; font-size:2rem; }
+  .pad { width:72px; height:72px; border-radius:16px; border:0; cursor:pointer; }
+
+  html, body { width:100%; height:100%; margin:0; overflow:hidden; }
+  body { min-height:100vh; min-height:100dvh; justify-content:center; padding: clamp(8px, 2vh, 16px); gap:8px; }
+  h1 { font-size: clamp(1rem, 2.4vh, 1.25rem); }
+  canvas { width: min(96vw, 920px) !important; height: auto !important; max-height: min(78vh, 78dvh); }
+  .board { max-width: min(96vw, 920px); }
+
+
+  body { display:flex; flex-direction:column; align-items:center; justify-content:center; }
+  canvas {
+    width: min(96vw, 1100px) !important;
+    height: auto !important;
+    max-height: min(82vh, 82dvh);
+  }
+  .board { width: min(96vw, 720px); }
+  .row, .hud, h1, .hint { flex-shrink: 0; }
+
+
+  html, body {
+    background:
+      radial-gradient(900px 520px at 50% -8%, #ffffff 0%, transparent 58%),
+      radial-gradient(720px 420px at 8% 40%, rgba(255, 92, 57, 0.10), transparent 55%),
+      radial-gradient(640px 380px at 92% 30%, rgba(255, 212, 200, 0.45), transparent 50%),
+      #fffaf7 !important;
+  }
+  canvas, .board {
+    background: #ffffff !important;
+    border: 1px solid rgba(201,68,36,0.12) !important;
+    box-shadow: 0 18px 50px rgba(40,24,12,0.08) !important;
+  }
+  h1 { color: #1a1412 !important; }
+  .hud { color: #8a7168 !important; }
+  .hud b { color: #1a1412 !important; }
+  .hint { color: #8a7168 !important; }
+  button { background: #ff5c39 !important; }
+  button.secondary { background: #fff5f0 !important; color: #1a1412 !important; border: 1px solid rgba(201,68,36,0.12); }
+  .cell { background: #fff5f0 !important; color: #1a1412; border: 1px solid rgba(201,68,36,0.08); }
+  /* body-bg-cream */
+</style>
+</head>
+<body>
+
+<h1>Tic-Tac-Toe</h1>
+<div class="hud"><span id="status">Your turn (X)</span></div>
+<div id="board" class="board" style="display:grid;grid-template-columns:repeat(3,90px);grid-template-rows:repeat(3,90px);gap:8px;padding:12px;"></div>
+<div class="row"><button id="restart">New game</button></div>
+
+<script>
+
+let cells,turn,over; const board=document.getElementById('board');
+const wins=[[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+function winner(b){for(const [a,c,d] of wins){if(b[a]&&b[a]===b[c]&&b[a]===b[d])return b[a];} return b.every(Boolean)?'draw':null;}
+function aiMove(){ // perfect-ish: win, block, center, corner
+  const tryPlace=(p)=>{for(let i=0;i<9;i++){if(!cells[i]){const t=cells.slice(); t[i]=p; if(winner(t)===p)return i;}} return -1;};
+  let i=tryPlace('O'); if(i<0)i=tryPlace('X'); if(i<0&&!cells[4])i=4; if(i<0)i=[0,2,6,8,1,3,5,7].find(j=>!cells[j]); if(i!=null&&i>=0){cells[i]='O';}}
+function draw(){board.innerHTML=''; cells.forEach((v,i)=>{const d=document.createElement('div'); d.className='cell'; d.textContent=v||''; d.style.color=v==='X'?'#67e8f9':'#fb7185';
+  d.onclick=()=>{if(over||cells[i]||turn!=='X')return; cells[i]='X'; let w=winner(cells); if(!w){aiMove(); w=winner(cells);}
+    if(w){over=true; document.getElementById('status').textContent=w==='draw'?'Draw':w==='X'?'You win!':'AI wins'; if(w==='O') window.shrimpyLose&&window.shrimpyLose();} else document.getElementById('status').textContent='Your turn (X)'; draw();};
+  board.appendChild(d);});}
+function reset(){cells=Array(9).fill(''); turn='X'; over=false; document.getElementById('status').textContent='Your turn (X)'; draw();}
+document.getElementById('restart').onclick=()=>{if(!window.__shrLost)reset();}; reset();
+
+</script>
+
+<script>
+(function(){
+  window.__shrLost=false;
+  window.shrimpyLose=function(){
+    if(window.__shrLost) return;
+    window.__shrLost=true;
+    try{ parent.postMessage({type:'shrimpy-lose', game: location.pathname}, '*'); }catch(e){}
+  };
+  window.shrimpyReady=function(){
+    window.__shrLost=false;
+    try{ parent.postMessage({type:'shrimpy-ready', game: location.pathname}, '*'); }catch(e){}
+  };
+  window.addEventListener('message', function(e){
+    if(!e.data || e.data.type!=='shrimpy-unlock') return;
+    window.__shrLost=false;
+    location.reload();
+  });
+  document.addEventListener('DOMContentLoaded', function(){ window.shrimpyReady && window.shrimpyReady(); });
+  window.shrimpyReady();
+})();
+</script>
+
+</body>
+</html>
