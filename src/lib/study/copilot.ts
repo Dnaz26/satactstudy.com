@@ -91,6 +91,42 @@ export function gradeExplanationLocally(
   }
 }
 
+export function gradeBuildTranslationLocally(
+  answer: string,
+  lesson: GuidedLesson,
+): ExplanationGrade {
+  const targets = [
+    lesson.translateExample,
+    lesson.whatItIs,
+    lesson.breakdown,
+    lesson.irlExample,
+    lesson.title,
+  ]
+  const raw = overlapScore(answer, targets)
+  const lengthBonus = answer.trim().length >= 30 ? 10 : answer.trim().length >= 12 ? 5 : 0
+  const mentionsExample = tokenize(lesson.translateExample).some((w) => answer.toLowerCase().includes(w))
+  const score = Math.max(0, Math.min(100, raw + lengthBonus + (mentionsExample ? 8 : 0)))
+  const liveExample = lesson.translateExample
+
+  if (score >= 70) {
+    return {
+      score,
+      passed: true,
+      feedback: 'Nice translation — you named the parts and what to analyze.',
+      missed: [],
+      liveExample,
+    }
+  }
+
+  return {
+    score,
+    passed: false,
+    feedback: `Say what “${lesson.translateExample}” means in plain words, then name the first thing you would check.`,
+    missed: ['Name each part of the built example and what you would analyze first.'],
+    liveExample,
+  }
+}
+
 export function gradeCreatedQuestionLocally(input: {
   lesson: GuidedLesson
   prompt: string

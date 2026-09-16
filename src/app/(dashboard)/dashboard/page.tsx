@@ -157,6 +157,7 @@ export default async function DashboardPage({
       expectedScore={expectedScore}
       scoreLow={prediction?.score_low ?? null}
       scoreHigh={prediction?.score_high ?? null}
+      baselineScore={profile?.current_estimated_score ?? null}
       pacing={pacing}
       todayPracticeDone={todayPracticeDone}
       todayLessonsDone={todayLessonsDone}

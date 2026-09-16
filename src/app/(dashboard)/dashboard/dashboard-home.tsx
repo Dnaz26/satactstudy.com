@@ -4,6 +4,7 @@ import * as React from 'react'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { StudyTimer } from '@/components/ui/study-timer'
+import { growthRatePercent } from '@/lib/score-prediction'
 import { cn } from '@/lib/utils'
 import { msUntil, splitCountdown } from '@/lib/dashboard/pacing'
 
@@ -32,11 +33,12 @@ function accuracyInRange(points: GrowthPoint[], startMs: number, endMs: number) 
   return correct / slice.length
 }
 
-function growthLabel(delta: number | null, unit: 'acc' | 'score') {
+function growthLabel(delta: number | null, unit: 'acc' | 'score' | 'rate') {
   if (delta == null) return '—'
   const rounded = Math.round(delta * 10) / 10
   const prefix = rounded > 0 ? '+' : ''
-  return unit === 'acc' ? `${prefix}${rounded}%` : `${prefix}${rounded}`
+  if (unit === 'rate' || unit === 'acc') return `${prefix}${rounded}%`
+  return `${prefix}${rounded}`
 }
 
 export function DashboardHome({
@@ -52,6 +54,7 @@ export function DashboardHome({
   expectedScore,
   scoreLow,
   scoreHigh,
+  baselineScore,
   pacing,
   todayPracticeDone,
   todayLessonsDone,
@@ -72,6 +75,7 @@ export function DashboardHome({
   expectedScore: number | null
   scoreLow: number | null
   scoreHigh: number | null
+  baselineScore: number | null
   pacing: Pacing
   todayPracticeDone: number
   todayLessonsDone: number
@@ -106,22 +110,24 @@ export function DashboardHome({
   const prevStart = startMs - intervalDays * 86400_000
   const recentAcc = accuracyInRange(growthPoints, startMs, endMs)
   const priorAcc = accuracyInRange(growthPoints, prevStart, startMs)
-  const growth = recentAcc != null && priorAcc != null ? (recentAcc - priorAcc) * 100 : null
+  const accuracyDelta = recentAcc != null && priorAcc != null ? (recentAcc - priorAcc) * 100 : null
 
-  const snapGrowth = (() => {
+  const originalProjection = baselineScore
+    ?? ([...snapshots].reverse().find((s) => s.predicted != null)?.predicted ?? null)
+  const scoreGrowthRate = originalProjection != null && expectedScore != null
+    ? growthRatePercent(originalProjection, expectedScore)
+    : null
+
+  const snapGrowthRate = (() => {
     if (snapshots.length < 2) return null
-    const cutoff = new Date(now - intervalDays * 86400_000).toISOString().slice(0, 10)
-    const recent = snapshots.filter((s) => s.date >= cutoff)
-    const older = snapshots.filter((s) => s.date < cutoff)
-    if (!recent.length || !older.length) return null
-    const a = recent[0]?.ovr
-    const b = older[0]?.ovr
-    if (a == null || b == null) return null
-    return a - b
+    const newest = snapshots[0]?.predicted
+    const oldest = snapshots[snapshots.length - 1]?.predicted
+    if (newest == null || oldest == null || oldest === 0) return null
+    return growthRatePercent(oldest, newest)
   })()
 
-  const growthFromAccuracy = growth != null
-  const growthDisplay = growth ?? snapGrowth
+  const growthDisplay = scoreGrowthRate ?? snapGrowthRate ?? accuracyDelta
+  const growthUnit: 'rate' | 'acc' = scoreGrowthRate != null || snapGrowthRate != null ? 'rate' : 'acc'
   const practiceGoal = pacing.practiceToday
   const lessonGoal = pacing.lessonsToday
   const practicePct = Math.min(100, Math.round((todayPracticeDone / Math.max(1, practiceGoal)) * 100))
@@ -250,7 +256,7 @@ export function DashboardHome({
           <div>
             <dt className="text-xs uppercase tracking-[0.14em] text-fog">Growth</dt>
             <dd className={cn('mt-2 font-display text-4xl tabular-nums', (growthDisplay ?? 0) >= 0 ? 'text-ok' : 'text-signal')}>
-              {growthLabel(growthDisplay, growthFromAccuracy ? 'acc' : 'score')}
+              {growthLabel(growthDisplay, growthUnit)}
             </dd>
             <div className="mt-3 flex flex-wrap items-center gap-2">
               {[7, 14, 30, 60].map((d) => (

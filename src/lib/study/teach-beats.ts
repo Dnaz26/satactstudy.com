@@ -1,4 +1,5 @@
 import type { GuidedLesson, LessonStepId } from './lesson-flow'
+import { isNearDuplicate } from '@/lib/tutor/anti-repeat'
 
 export type TeachMood = 'idle' | 'talk' | 'point' | 'cheer' | 'think'
 
@@ -8,41 +9,72 @@ export type TeachBeat = {
   mood: TeachMood
   focusLabel?: string
   focusSide?: 'yes' | 'no' | 'equation'
+  /** Internal agent checklist label — never shown as a student checklist UI. */
+  checklistLabel?: string
 }
 
-function normalizeSay(text: string): string {
-  return text.trim().toLowerCase().replace(/\s+/g, ' ')
-}
+export { isNearDuplicate }
 
 export function dedupeTeachBeats(beats: TeachBeat[]): TeachBeat[] {
-  const seen = new Set<string>()
   const out: TeachBeat[] = []
   for (const beat of beats) {
-    const key = normalizeSay(beat.say)
-    if (!key || seen.has(key)) continue
-    seen.add(key)
+    const say = beat.say.trim()
+    if (!say) continue
+    if (out.some((prev) => isNearDuplicate(prev.say, say))) continue
     out.push(beat)
   }
   return out
 }
 
-/** Agent-only teaching beats. Student phases handle their own UI. */
+/** Agent teaching beats. Student phases handle their own UI. */
 export function buildTeachBeats(lesson: GuidedLesson, stepId: LessonStepId): TeachBeat[] {
   const yes = lesson.examples.yes
   const no = lesson.examples.no
   const title = lesson.title
 
-  if (stepId === 'what') {
+  if (stepId === 'definition') {
     return dedupeTeachBeats([
       {
         mood: 'talk',
         say: lesson.whatItIs,
+        checklistLabel: 'Definition',
       },
+    ])
+  }
+
+  if (stepId === 'irlExample') {
+    return dedupeTeachBeats([
+      {
+        mood: 'cheer',
+        say: lesson.irlExample,
+        checklistLabel: 'Real-world example',
+      },
+    ])
+  }
+
+  if (stepId === 'breakdown') {
+    return dedupeTeachBeats([
       {
         mood: 'point',
         say: lesson.breakdown,
+        checklistLabel: 'Breakdown',
+      },
+      {
+        mood: 'talk',
+        say: `When you see a new ${title} item, name each part, say what it controls, then check one tiny example before you answer.`,
+        checklistLabel: 'How to analyze it',
       },
     ])
+  }
+
+  if (stepId === 'build') {
+    return [{
+      mood: 'point',
+      say: `I built this ${title} example for you: ${lesson.translateExample}. Translate it — say what each part means and what you would analyze first.`,
+      checklistLabel: 'Build & translate',
+      focusSide: 'equation',
+      focusLabel: lesson.translateExample,
+    }]
   }
 
   if (stepId === 'yesExamples') {
@@ -51,10 +83,11 @@ export function buildTeachBeats(lesson: GuidedLesson, stepId: LessonStepId): Tea
     if (items[0]) {
       beats.push({
         mood: 'cheer',
-        say: `Here is ${title} used correctly. I will show each good example on the board while I explain why it works.`,
+        say: `Correct uses of ${title}. I will show each good example on the board while I explain why it works.`,
         focusSide: 'yes',
         focusLabel: items[0].label,
         highlight: items[0].label,
+        checklistLabel: 'Intro correct examples',
       })
     }
     for (const item of items) {
@@ -64,6 +97,7 @@ export function buildTeachBeats(lesson: GuidedLesson, stepId: LessonStepId): Tea
         focusSide: 'yes',
         focusLabel: item.label,
         highlight: item.label,
+        checklistLabel: `Correct: ${item.label.slice(0, 28)}`,
       })
     }
     return dedupeTeachBeats(beats)
@@ -79,6 +113,7 @@ export function buildTeachBeats(lesson: GuidedLesson, stepId: LessonStepId): Tea
         focusSide: 'no',
         focusLabel: items[0].label,
         highlight: items[0].label,
+        checklistLabel: 'Intro incorrect examples',
       })
     }
     for (const item of items) {
@@ -88,6 +123,7 @@ export function buildTeachBeats(lesson: GuidedLesson, stepId: LessonStepId): Tea
         focusSide: 'no',
         focusLabel: item.label,
         highlight: item.label,
+        checklistLabel: `Trap: ${item.label.slice(0, 28)}`,
       })
     }
     return dedupeTeachBeats(beats)
@@ -97,29 +133,23 @@ export function buildTeachBeats(lesson: GuidedLesson, stepId: LessonStepId): Tea
     return [{
       mood: 'point',
       say: `Your turn — explain ${title} in your own words. I will score it out of 100. You need 85+ to keep going.`,
+      checklistLabel: 'Explain in your words',
     }]
   }
 
   if (stepId === 'practice') {
     return [{
       mood: 'talk',
-      say: `Practice together: 5 SAT/ACT-style questions, one at a time, easy to hard. Miss one and I give you another at the same level.`,
+      say: `Practice together: 5 multiple-choice questions, one at a time, easy to hard. Miss one and I give you another at the same level.`,
+      checklistLabel: 'Practice five questions',
     }]
   }
 
   return [{
     mood: 'cheer',
-    say: `Copilot finale — write your own ${title} question like a real test item. Score 95+ and we save it as a bank example.`,
+    say: `Finale — write your own ${title} question, the correct answer, and a short analysis. Score 95+ and we save it as a bank example.`,
+    checklistLabel: 'Build your own question',
   }]
-}
-
-export function isNearDuplicate(a: string, b: string): boolean {
-  const na = normalizeSay(a)
-  const nb = normalizeSay(b)
-  if (!na || !nb) return false
-  if (na === nb) return true
-  if (na.includes(nb) || nb.includes(na)) return true
-  return false
 }
 
 /** Kept for older imports — copilot phases no longer use equation part prompts. */

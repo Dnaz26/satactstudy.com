@@ -23,7 +23,8 @@ export const researchUsers: ResearchUser[] = Array.from({ length: 243 }, (_, ind
   const rawChange = test === 'SAT' ? (110 + seeded(id, 3) * 110) * studyBoost : (3.5 + seeded(id, 3) * 3) * studyBoost
   const projectedScoreChange = test === 'SAT' ? rounded(rawChange, 10) : Math.max(1, Math.round(rawChange))
   const currentScore = Math.min(test === 'SAT' ? 1600 : 36, baselineScore + projectedScoreChange)
-  const averageGrowthRate = Number(((projectedScoreChange / baselineScore) * 100).toFixed(1))
+  // Growth rate = (new − original) / original × 100
+  const averageGrowthRate = Number((((currentScore - baselineScore) / baselineScore) * 100).toFixed(1))
   const rawModes = modes.map((_, modeIndex) => 12 + seeded(id, modeIndex + 8) * 38 + (modeIndex === index % 4 ? 20 : 0))
   const rawTotal = rawModes.reduce((sum, value) => sum + value, 0)
   const modeValues = rawModes.map((value) => Math.round((value / rawTotal) * 100))

@@ -3,6 +3,7 @@ import { buildEnrichedTutorContext, recentConversation } from './context'
 import { bumpMethodScore, getTutorPreferences, recordMisconception, recordTutorInteraction } from './memory'
 import { finishNovaTrace, novaUsageRequestType, startNovaTrace } from './observability'
 import { parseTutorOutput, studentSafeError } from './output'
+import { CHAT_CHECKLIST, inferChecklistProgress, normalizeTutorText } from './anti-repeat'
 import { buildTutorSystemPrompt } from './prompt'
 import { routeNovaModel } from './router'
 import { injectionGuardrailNote, sanitizeStudentText, scopeTutorRequest, suspicionScore } from './security'
@@ -58,6 +59,31 @@ async function tutorMessages(
       }
     : null
 
+  const alreadySaidLines = conversation
+    .filter((m) => m.role === 'assistant' && typeof m.content === 'string')
+    .flatMap((m) => String(m.content).split(/(?<=[.!?])\s+|\n+/))
+    .map((line) => line.trim())
+    .filter((line) => normalizeTutorText(line).length >= 12)
+    .slice(-16)
+
+  let checklistState: Record<(typeof CHAT_CHECKLIST)[number]['id'], boolean> = {
+    definition: false,
+    irlExample: false,
+    breakdown: false,
+    build: false,
+    yesExamples: false,
+    noExamples: false,
+    explainBack: false,
+    practice: false,
+    create: false,
+  }
+  for (const m of conversation) {
+    if (m.role !== 'assistant' || typeof m.content !== 'string') continue
+    checklistState = inferChecklistProgress(m.content, checklistState)
+  }
+  const checklistDone = CHAT_CHECKLIST.filter((item) => checklistState[item.id]).map((item) => item.label)
+  const checklistOpen = CHAT_CHECKLIST.filter((item) => !checklistState[item.id]).map((item) => item.label)
+
   const packed: Message[] = [
     {
       role: 'system',
@@ -69,6 +95,9 @@ async function tutorMessages(
         isCorrect: scoped.isCorrect,
         securityNote,
         studentMemoryLine: ctx.studentMemoryLine,
+        alreadySaidLines,
+        checklistDone,
+        checklistOpen,
       }),
     },
     {

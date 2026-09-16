@@ -4,8 +4,8 @@ const p = makeProblem
 const L = makeLevel
 
 export const MATH_LEVELS: StudyLevel[] = [
-  L(0, 'math', 'Foundations', 'Whole numbers', ['integer', 'number sense', 'operations'], 'What is 12 + 8?',
-    ['A whole number is a counting number: 0, 1, 2, 3, and up.', 'Add means put the two amounts together.', 'Subtract means take one amount away.'],
+  L(0, 'math', 'Foundations', 'Whole numbers', ['integer', 'number sense', 'operations'], 'Counting numbers can be used to count how many people are in the room.',
+    ['Whole numbers are numbers you count whole objects with. Whole numbers begin at 0 and are not negative numbers, decimals, or fractions.', 'Add means put two amounts together.', 'Subtract means take one amount away.'],
     ['Line the digits up by place value before you add.'],
     [p('What is 9 + 7?', 'B', ['14', '16', '15', '17'], '9 + 7 = 16.'), p('What is 27 + 18?', 'A', ['45', '35', '44', '47'], '7 + 8 = 15, write 5 carry 1. 2 + 1 + 1 = 4, so 45.'), p('What is 36 + 19 + 8?', 'C', ['53', '55', '63', '61'], '36 + 19 = 55, then 55 + 8 = 63.')]),
   L(1, 'math', 'Foundations', 'Fractions and percents', ['fraction', 'percent', 'ratio'], 'What is 1/2 of 10?',

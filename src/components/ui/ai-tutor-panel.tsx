@@ -7,6 +7,7 @@ import { X, Send, Pencil, ImagePlus, Loader2, ChevronRight } from 'lucide-react'
 import type { TutorTrigger } from '@/lib/tutor/types'
 import { TutorRichText } from '@/components/practice/question-prompt'
 import { formatTutorSteps } from '@/lib/tutor/output'
+import { dedupeAgainstHistory } from '@/lib/tutor/anti-repeat'
 import { useDesmosOptional } from '@/components/desmos/desmos-provider'
 import type { DesmosAgentAction } from '@/types/desmos'
 
@@ -102,66 +103,8 @@ function dedupeSteps(steps: string[]): string[] {
 }
 
 function stripRepeatedContent(next: string, priorAssistant: string[]): string {
-  if (!priorAssistant.length) return next
-
-  const normalize = (value: string) => value
-    .toLowerCase()
-    .replace(/[^\p{L}\p{N}\s]/gu, ' ')
-    .replace(/\s+/g, ' ')
-    .trim()
-
-  const priorKeys = new Set<string>()
-  const priorTokens: string[][] = []
-  for (const block of priorAssistant) {
-    for (const piece of block.split(/(?<=[.!?])\s+|\n+/)) {
-      const key = normalize(piece)
-      if (key.length >= 10) priorKeys.add(key)
-      const tokens = key.split(' ').filter((w) => w.length > 2)
-      if (tokens.length >= 4) priorTokens.push(tokens)
-    }
-  }
-
-  function overlapsPrior(sentence: string): boolean {
-    const key = normalize(sentence)
-    if (!key) return true
-    if (key.length >= 10 && priorKeys.has(key)) return true
-    for (const prior of priorKeys) {
-      if (key.includes(prior) || prior.includes(key)) return true
-    }
-    const tokens = key.split(' ').filter((w) => w.length > 2)
-    if (tokens.length < 4) return false
-    for (const prior of priorTokens) {
-      let hit = 0
-      const set = new Set(prior)
-      for (const w of tokens) if (set.has(w)) hit += 1
-      const jaccard = hit / (tokens.length + prior.length - hit)
-      if (jaccard >= 0.65) return true
-    }
-    return false
-  }
-
-  const kept = next
-    .split(/(?<=[.!?])\s+|\n+/)
-    .map((piece) => piece.trim())
-    .filter((piece) => piece && !overlapsPrior(piece))
-
-  const uniqueKept: string[] = []
-  for (const piece of kept) {
-    const key = normalize(piece)
-    if (uniqueKept.some((prev) => normalize(prev) === key)) continue
-    if (uniqueKept.some((prev) => {
-      const a = normalize(prev).split(' ').filter((w) => w.length > 2)
-      const b = key.split(' ').filter((w) => w.length > 2)
-      if (!a.length || !b.length) return false
-      let hit = 0
-      const set = new Set(a)
-      for (const w of b) if (set.has(w)) hit += 1
-      return hit / (a.length + b.length - hit) >= 0.72
-    })) continue
-    uniqueKept.push(piece)
-  }
-
-  return uniqueKept.join(' ').trim() || 'Here is a new angle — what is the first number you notice in the question?'
+  const cleaned = dedupeAgainstHistory(next, priorAssistant)
+  return cleaned.trim() || 'Here is a new angle — what is the first number you notice in the question?'
 }
 
 function TutorBubble({ content, streaming }: { content: string; streaming?: boolean }) {

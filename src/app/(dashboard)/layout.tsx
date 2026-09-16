@@ -2,8 +2,7 @@ import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { hasProductAccess } from '@/lib/access'
 import { asPlan } from '@/lib/schema'
-import { NavSidebar } from '@/components/nav-sidebar'
-import { BrandMark } from '@/components/brand'
+import { NavSidebar, SidebarBrandTrigger } from '@/components/nav-sidebar'
 import { LogOut } from 'lucide-react'
 import { getInitials } from '@/lib/utils'
 
@@ -37,7 +36,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
 
       <div className="flex min-w-0 flex-1 flex-col overflow-hidden">
         <header className="app-topbar flex h-14 shrink-0 items-center justify-between gap-2 px-5">
-          <BrandMark href="/dashboard" />
+          <SidebarBrandTrigger />
           <div className="flex items-center gap-2">
             <p className="hidden font-mono text-[10px] uppercase tracking-[0.14em] text-fog sm:block">
               Menu · hover left edge

@@ -8,9 +8,12 @@ import { Bar, BarChart, CartesianGrid, Cell, Line, LineChart, ResponsiveContaine
 import { ResearchDataSheet } from '@/components/landing/research-data-sheet'
 import { mean, quartiles, researchUsers, satEquivalent, studyModes } from '@/lib/research-data'
 
-const averageChange = mean(researchUsers.map((user) => user.test === 'SAT' ? user.projectedScoreChange : user.projectedScoreChange * (1600 / 36)))
-const averageStart = mean(researchUsers.map((user) => satEquivalent(user, user.baselineScore)))
-const growth = [0, .25, .5, .75, 1].map((progress, index) => ({ period: index ? `Month ${index}` : 'Start', percent: Number(((averageChange * progress / averageStart) * 100).toFixed(1)) }))
+const averageGrowthRate = mean(researchUsers.map((user) => user.averageGrowthRate))
+// Growth over time = (new − original) / original × 100, shown as progress toward the mean model growth.
+const growth = [0, .25, .5, .75, 1].map((progress, index) => ({
+  period: index ? `Month ${index}` : 'Start',
+  percent: Number((averageGrowthRate * progress).toFixed(1)),
+}))
 const techniques = studyModes.map((mode) => { const users = researchUsers.filter((user) => user.dominantMode === mode); return { name: mode, effectiveness: Number(mean(users.map((user) => user.averageGrowthRate)).toFixed(1)) } }).sort((a, b) => b.effectiveness - a.effectiveness)
 const prepScores = researchUsers.map((user) => satEquivalent(user))
 const tutorScores = prepScores.map((score, index) => Math.max(900, score - 70 - (index % 5) * 10))

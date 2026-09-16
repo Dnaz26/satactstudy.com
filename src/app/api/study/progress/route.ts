@@ -8,7 +8,9 @@ import { awardCoins } from '@/lib/economy/wallet'
 const bodySchema = z.object({
   track: z.enum(['math', 'english']),
   level: z.number().int().min(0).optional(),
-  status: z.enum(['available', 'completed']).optional(),
+  status: z.enum(['available', 'in_progress', 'completed']).optional(),
+  lesson_step: z.string().max(64).optional().nullable(),
+  lesson_beat: z.number().int().min(0).max(40).optional().nullable(),
 })
 
 type SB = Awaited<ReturnType<typeof createClient>>
@@ -19,6 +21,8 @@ type ProgressRow = {
   status: string
   completed_at: string | null
   extra_problems?: number
+  lesson_step?: string | null
+  lesson_beat?: number | null
 }
 
 async function ensureStart(supabase: SB, userId: string, track: StudyTrack) {
@@ -53,7 +57,9 @@ async function upsertProgress(
     userId: string
     track: StudyTrack
     level: number
-    status: 'available' | 'completed'
+    status: 'available' | 'in_progress' | 'completed'
+    lesson_step?: string | null
+    lesson_beat?: number | null
   },
 ): Promise<{ row: ProgressRow | null; error: string | null }> {
   const completedAt = input.status === 'completed' ? new Date().toISOString() : null
@@ -64,14 +70,24 @@ async function upsertProgress(
         user_id: input.userId,
         track: input.track,
         level_index: input.level,
-        status: input.status,
+        status: input.status === 'in_progress' ? 'available' : input.status,
         completed_at: completedAt,
         extra_problems: 0,
         updated_at: new Date().toISOString(),
+        lesson_step: input.lesson_step === undefined
+          ? undefined
+          : input.status === 'completed'
+            ? null
+            : input.lesson_step,
+        lesson_beat: input.lesson_beat === undefined
+          ? undefined
+          : input.status === 'completed'
+            ? 0
+            : input.lesson_beat,
       },
       { onConflict: 'user_id,track,level_index' },
     )
-    .select('track, level_index, status, completed_at, extra_problems')
+    .select('track, level_index, status, completed_at, extra_problems, lesson_step, lesson_beat')
     .single()
 
   if (error) {
@@ -96,7 +112,7 @@ export async function GET() {
 
   const { data, error } = await supabase
     .from('study_level_progress')
-    .select('track, level_index, status, extra_problems, completed_at')
+    .select('track, level_index, status, extra_problems, completed_at, lesson_step, lesson_beat')
     .eq('user_id', user.id)
 
   if (error) {
@@ -123,7 +139,7 @@ export async function POST(request: NextRequest) {
     return Response.json({ error: 'Invalid request' }, { status: 400 })
   }
 
-  const { track, level, status } = parsed.data
+  const { track, level, status, lesson_step, lesson_beat } = parsed.data
   if (!getLevel(track, level)) return Response.json({ error: 'Unknown level' }, { status: 400 })
 
   await ensureStart(supabase, user.id, track)
@@ -141,6 +157,8 @@ export async function POST(request: NextRequest) {
     track,
     level,
     status,
+    lesson_step: lesson_step ?? (status === 'completed' ? null : undefined),
+    lesson_beat: lesson_beat ?? (status === 'completed' ? 0 : undefined),
   })
 
   if (saved.error || !saved.row) {
@@ -166,6 +184,8 @@ export async function POST(request: NextRequest) {
         track,
         level: next.index,
         status: 'available',
+        lesson_step: null,
+        lesson_beat: 0,
       })
       if (unlocked.error) {
         console.error('could not unlock next tutoring level', unlocked.error)
@@ -176,7 +196,7 @@ export async function POST(request: NextRequest) {
   // Re-read to confirm persistence for the client.
   const { data: confirmed } = await supabase
     .from('study_level_progress')
-    .select('track, level_index, status, completed_at, extra_problems')
+    .select('track, level_index, status, completed_at, extra_problems, lesson_step, lesson_beat')
     .eq('user_id', user.id)
     .eq('track', track)
     .eq('level_index', level)

@@ -27,8 +27,17 @@ export function buildTutorSystemPrompt(options: {
   isCorrect?: boolean
   securityNote?: string | null
   studentMemoryLine?: string | null
+  alreadySaidLines?: string[]
+  checklistDone?: string[]
+  checklistOpen?: string[]
 }): string {
   const missed = options.trigger === 'wrong_answer' || options.isCorrect === false
+  const alreadySaid = (options.alreadySaidLines ?? [])
+    .map((line) => line.trim())
+    .filter(Boolean)
+    .slice(-12)
+  const checklistDone = (options.checklistDone ?? []).filter(Boolean)
+  const checklistOpen = (options.checklistOpen ?? []).filter(Boolean)
   const lines = [
     `You are ${options.preferences.agent.name || NOVA_ROLE.name}, the lead SAT/ACT tutoring agent (spec ${NOVA_SPEC_VERSION}).`,
     NOVA_ROLE.summary,
@@ -60,6 +69,23 @@ export function buildTutorSystemPrompt(options: {
     'If the student asks again, give a fresh angle — never copy an earlier reply.',
     'While teaching, ask the student a short check question often. Wait for their answer before dumping more explanation.',
     'Never reuse the same example, hint wording, or numbered step from earlier in the chat.',
+    'Follow this tutoring framework in order (internal checklist — do not print the list to the student):',
+    '1) Definition — 1–2 super-simple sentences a 6th grader understands. Say it ONCE. Never repeat the definition later.',
+    '2) Real-world example — ONE different everyday sentence. Do not restate the definition.',
+    '3) Breakdown — explain every part and how to analyze / understand it.',
+    '4) Build — create one example and ask them to translate / analyze it.',
+    '5) Correct examples — show good portrayals and why they work.',
+    '6) Incorrect examples — show traps and why they fail.',
+    '7) Student explains the idea in their own words.',
+    '8) Five multiple-choice practice questions, easy → hard.',
+    '9) Student creates their own question with answer and analysis.',
+    'Start teaching a new topic with ONLY steps 1 then 2 before anything else. Never say the definition more than once in the whole lesson.',
+    'Work the next unchecked checklist item only. Never re-teach a checked item.',
+    checklistDone.length ? `Checklist already done (do not repeat these): ${checklistDone.join('; ')}.` : '',
+    checklistOpen.length ? `Checklist still open (cover the next open item only): ${checklistOpen.join('; ')}.` : '',
+    alreadySaid.length
+      ? `Already said — forbidden to paraphrase or reuse:\n- ${alreadySaid.map((line) => line.slice(0, 160)).join('\n- ')}`
+      : '',
     'Customize difficulty, examples, pace, and strategy to this student. Prefer mastery over memorization.',
     'Never guarantee a 1600 or 36. Maximize their chance of hitting their own goal.',
     'Never invent official SAT/ACT rules. Never claim generated practice is an official exam question.',

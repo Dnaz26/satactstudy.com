@@ -9,6 +9,7 @@ import { TutorRichText } from '@/components/practice/question-prompt'
 import { cn } from '@/lib/utils'
 import {
   buildGuidedLesson,
+  BUILD_PASS_SCORE,
   CREATE_PASS_SCORE,
   CREATE_SAVE_SCORE,
   EXPLAIN_PASS_SCORE,
@@ -18,7 +19,7 @@ import {
   type LessonStepId,
 } from '@/lib/study/lesson-flow'
 import { buildTeachBeats, isNearDuplicate, type TeachMood } from '@/lib/study/teach-beats'
-import { pickPracticeQuestion } from '@/lib/study/copilot'
+import { gradeBuildTranslationLocally, pickPracticeQuestion } from '@/lib/study/copilot'
 import { type StudyLevel, type StudyProblem, type StudyRank, type StudyTrack } from '@/lib/study/levels'
 import { StudyTimer } from '@/components/ui/study-timer'
 import { NovaCharacter } from '@/components/study/nova-character'
@@ -51,21 +52,48 @@ function useTypewriter(text: string, speed = 36) {
   return { displayed, done }
 }
 
-const AGENT_STEPS: LessonStepId[] = ['what', 'yesExamples', 'noExamples']
+const AGENT_STEPS: LessonStepId[] = [
+  'definition',
+  'irlExample',
+  'breakdown',
+  'yesExamples',
+  'noExamples',
+]
 
-export function StudyLesson({ track, level }: { track: StudyTrack; level: StudyLevel }) {
+export function StudyLesson({
+  track,
+  level,
+  initialStep = 'definition',
+  initialBeat = 0,
+}: {
+  track: StudyTrack
+  level: StudyLevel
+  initialStep?: LessonStepId
+  initialBeat?: number
+}) {
   const router = useRouter()
   const [lesson, setLesson] = React.useState<GuidedLesson>(() => buildGuidedLesson(level))
-  const [stepId, setStepId] = React.useState<LessonStepId>('what')
+  const [stepId, setStepId] = React.useState<LessonStepId>(initialStep)
   const [loading, setLoading] = React.useState(true)
   const [saving, setSaving] = React.useState(false)
   const [saveError, setSaveError] = React.useState('')
   const [, setStudiedSeconds] = React.useState(0)
 
-  const [beatIndex, setBeatIndex] = React.useState(0)
+  const [beatIndex, setBeatIndex] = React.useState(initialBeat)
   const [teaching, setTeaching] = React.useState(true)
   const saidHistory = React.useRef<string[]>([])
+  const spokenSteps = React.useRef<Set<LessonStepId>>(new Set())
+  const completedSteps = React.useRef<Set<LessonStepId>>(new Set())
   const advanceTimer = React.useRef<number | null>(null)
+  const saveTimer = React.useRef<number | null>(null)
+
+  // Build / translate
+  const [buildText, setBuildText] = React.useState('')
+  const [buildResult, setBuildResult] = React.useState<{
+    score: number
+    passed: boolean
+    feedback: string
+  } | null>(null)
 
   // Explain-back
   const [explainText, setExplainText] = React.useState('')
@@ -106,31 +134,51 @@ export function StudyLesson({ track, level }: { track: StudyTrack; level: StudyL
     feedback: string
   } | null>(null)
 
-  const beats = React.useMemo(() => {
-    return buildTeachBeats(lesson, stepId).filter(
-      (beat) => !saidHistory.current.some((prev) => isNearDuplicate(prev, beat.say)),
-    )
-  }, [lesson, stepId])
+  const beats = React.useMemo(() => buildTeachBeats(lesson, stepId), [lesson, stepId])
   const beat = beats[Math.min(beatIndex, Math.max(0, beats.length - 1))]
   const isAgentStep = AGENT_STEPS.includes(stepId)
+  const lockedSay = React.useRef<Partial<Record<LessonStepId, string>>>({})
+  React.useEffect(() => {
+    if (!beat?.say) return
+    // Lock the first wording Nova speaks for this step so API refresh cannot replay a new definition.
+    if (!lockedSay.current[stepId]) lockedSay.current[stepId] = beat.say
+  }, [stepId, beat?.say])
+  const line = lockedSay.current[stepId] ?? beat?.say ?? `Let's learn ${lesson.title} together.`
   const mood: TeachMood = teaching
     ? (beat?.mood ?? 'talk')
-    : explainResult && !explainResult.passed
+    : buildResult && !buildResult.passed
+      ? 'think'
+      : explainResult && !explainResult.passed
       ? 'think'
       : checked && currentQ && choice !== currentQ.answer
         ? 'think'
         : createResult?.passed
           ? 'cheer'
-          : stepId === 'explainBack' || stepId === 'practice' || stepId === 'create'
+          : stepId === 'build' || stepId === 'explainBack' || stepId === 'practice' || stepId === 'create'
             ? 'point'
             : 'idle'
-  const line = beat?.say ?? `Let's learn ${lesson.title} together.`
   const { displayed, done: typed } = useTypewriter(line, teaching && isAgentStep ? 34 : 22)
 
   const stepMeta = LESSON_STEPS.find((s) => s.id === stepId) ?? LESSON_STEPS[0]
   const stepNumber = LESSON_STEPS.findIndex((s) => s.id === stepId) + 1
   const showExampleBoard = stepId === 'yesExamples' || stepId === 'noExamples'
   const ladderDifficulty: StudyRank = PRACTICE_DIFFICULTY_LADDER[Math.min(ladderIndex, PRACTICE_DIFFICULTY_LADDER.length - 1)] ?? 'easy'
+
+  // Agent-only progress tracking (never rendered as a student checklist).
+  React.useEffect(() => {
+    const idx = LESSON_STEPS.findIndex((s) => s.id === stepId)
+    for (let i = 0; i < idx; i++) {
+      const prior = LESSON_STEPS[i]
+      if (prior) completedSteps.current.add(prior.id)
+    }
+    if (isAgentStep && !teaching) completedSteps.current.add(stepId)
+    if (stepId === 'build' && buildResult?.passed) completedSteps.current.add('build')
+    if (stepId === 'explainBack' && explainResult?.passed) completedSteps.current.add('explainBack')
+    if (stepId === 'practice' && correctStreak >= PRACTICE_DIFFICULTY_LADDER.length) {
+      completedSteps.current.add('practice')
+    }
+    if (createResult?.passed) completedSteps.current.add('create')
+  }, [stepId, teaching, isAgentStep, buildResult?.passed, explainResult?.passed, correctStreak, createResult?.passed])
 
   React.useEffect(() => {
     let cancelled = false
@@ -142,17 +190,16 @@ export function StudyLesson({ track, level }: { track: StudyTrack; level: StudyL
       .then((res) => res.json() as Promise<Partial<GuidedLesson> & { problems?: StudyProblem[] }>)
       .then((data) => {
         if (cancelled) return
+        // Update content only — never restart the lesson or clear said-history.
+        // Restarting here was causing the definition to play 2–3 times.
         setLesson(buildGuidedLesson(level, {
           whatItIs: data.whatItIs,
+          irlExample: data.irlExample,
           breakdown: data.breakdown,
           translateExample: data.translateExample,
           examples: data.examples,
           problems: data.problems,
         }))
-        setStepId('what')
-        setBeatIndex(0)
-        setTeaching(true)
-        saidHistory.current = []
       })
       .catch(() => undefined)
       .finally(() => {
@@ -163,25 +210,85 @@ export function StudyLesson({ track, level }: { track: StudyTrack; level: StudyL
     }
   }, [track, level])
 
+  // Persist resume point whenever the student moves through the lesson.
   React.useEffect(() => {
+    if (loading) return
+    if (saveTimer.current) window.clearTimeout(saveTimer.current)
+    saveTimer.current = window.setTimeout(() => {
+      void fetch('/api/study/progress', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          track,
+          level: level.index,
+          status: 'in_progress',
+          lesson_step: stepId,
+          lesson_beat: beatIndex,
+        }),
+      }).catch(() => undefined)
+    }, 400)
+    return () => {
+      if (saveTimer.current) window.clearTimeout(saveTimer.current)
+    }
+  }, [track, level.index, stepId, beatIndex, loading])
+
+  const didInitStep = React.useRef(false)
+  React.useEffect(() => {
+    const startIdx = LESSON_STEPS.findIndex((s) => s.id === initialStep)
+    for (let i = 0; i < startIdx; i++) {
+      const prior = LESSON_STEPS[i]
+      if (prior) {
+        completedSteps.current.add(prior.id)
+        spokenSteps.current.add(prior.id)
+      }
+    }
+  }, [initialStep])
+
+  React.useEffect(() => {
+    if (!didInitStep.current) {
+      didInitStep.current = true
+      if (spokenSteps.current.has(stepId) || initialStep !== 'definition' && AGENT_STEPS.indexOf(stepId) < 0) {
+        // Resuming mid-lesson: don't re-play finished agent talk for prior steps.
+      }
+      if (spokenSteps.current.has(stepId)) {
+        setTeaching(false)
+      } else {
+        setTeaching(AGENT_STEPS.includes(stepId))
+      }
+      return
+    }
     setBeatIndex(0)
-    setTeaching(true)
     setExplainResult(null)
+    setBuildResult(null)
     setChoice('')
     setChecked(false)
-  }, [stepId])
+    if (spokenSteps.current.has(stepId)) {
+      setTeaching(false)
+      return
+    }
+    setTeaching(AGENT_STEPS.includes(stepId))
+  }, [stepId, initialStep])
 
   React.useEffect(() => {
     if (!typed || !line.trim()) return
     if (!saidHistory.current.some((prev) => isNearDuplicate(prev, line))) {
       saidHistory.current.push(line)
     }
-  }, [typed, line])
+    if (isAgentStep) spokenSteps.current.add(stepId)
+  }, [typed, line, isAgentStep, stepId])
+
+  // If content refresh would re-introduce a near-duplicate definition, skip teaching.
+  React.useEffect(() => {
+    if (!isAgentStep || !teaching || !line.trim()) return
+    if (saidHistory.current.some((prev) => isNearDuplicate(prev, line))) {
+      setTeaching(false)
+    }
+  }, [isAgentStep, teaching, line, lesson.whatItIs, lesson.irlExample])
 
   React.useEffect(() => {
     if (advanceTimer.current) window.clearTimeout(advanceTimer.current)
     if (!isAgentStep || !teaching || !typed) return
-    const hold = Math.max(2600, Math.min(5000, line.length * 38))
+    const hold = Math.max(2200, Math.min(4200, line.length * 34))
     advanceTimer.current = window.setTimeout(() => {
       setBeatIndex((i) => {
         let next = i + 1
@@ -189,6 +296,7 @@ export function StudyLesson({ track, level }: { track: StudyTrack; level: StudyL
           next += 1
         }
         if (next < beats.length) return next
+        spokenSteps.current.add(stepId)
         setTeaching(false)
         return i
       })
@@ -196,7 +304,7 @@ export function StudyLesson({ track, level }: { track: StudyTrack; level: StudyL
     return () => {
       if (advanceTimer.current) window.clearTimeout(advanceTimer.current)
     }
-  }, [teaching, typed, beatIndex, beats, line, isAgentStep])
+  }, [teaching, typed, beatIndex, beats, line, isAgentStep, stepId])
 
   function loadNextPracticeQuestion(pool: StudyProblem[], difficulty: StudyRank) {
     const next = pickPracticeQuestion(pool, difficulty, usedPrompts.current)
@@ -257,6 +365,7 @@ export function StudyLesson({ track, level }: { track: StudyTrack; level: StudyL
 
   function goNextStep() {
     if (isAgentStep && teaching) return
+    completedSteps.current.add(stepId)
     const at = LESSON_STEPS.findIndex((s) => s.id === stepId)
     const next = LESSON_STEPS[at + 1]
     if (!next) {
@@ -266,6 +375,22 @@ export function StudyLesson({ track, level }: { track: StudyTrack; level: StudyL
     setStepId(next.id)
     if (next.id === 'practice') {
       void ensurePracticePack()
+    }
+  }
+
+  function submitBuild() {
+    if (buildText.trim().length < 8 || buildResult?.passed) return
+    const graded = gradeBuildTranslationLocally(buildText.trim(), lesson)
+    setBuildResult({
+      score: graded.score,
+      passed: graded.passed,
+      feedback: graded.feedback,
+    })
+    if (graded.passed) {
+      completedSteps.current.add('build')
+      window.setTimeout(() => goNextStep(), 900)
+    } else {
+      setBuildText('')
     }
   }
 
@@ -398,6 +523,13 @@ export function StudyLesson({ track, level }: { track: StudyTrack; level: StudyL
   }
 
   function replayTeach() {
+    // Replay is explicit — allow hearing this section again once.
+    spokenSteps.current.delete(stepId)
+    delete lockedSay.current[stepId]
+    const sectionLines = buildTeachBeats(lesson, stepId).map((item) => item.say)
+    saidHistory.current = saidHistory.current.filter(
+      (prev) => !sectionLines.some((line) => isNearDuplicate(prev, line)),
+    )
     setBeatIndex(0)
     setTeaching(true)
   }
@@ -419,7 +551,8 @@ export function StudyLesson({ track, level }: { track: StudyTrack; level: StudyL
       <div className="flex gap-1.5">
         {LESSON_STEPS.map((step) => {
           const active = step.id === stepId
-          const done = LESSON_STEPS.findIndex((s) => s.id === step.id) < LESSON_STEPS.findIndex((s) => s.id === stepId)
+          const done = completedSteps.current.has(step.id)
+            || LESSON_STEPS.findIndex((s) => s.id === step.id) < LESSON_STEPS.findIndex((s) => s.id === stepId)
           return (
             <div
               key={step.id}
@@ -490,8 +623,49 @@ export function StudyLesson({ track, level }: { track: StudyTrack; level: StudyL
 
         {isAgentStep && (
           <Button className="h-14 w-full text-base" onClick={goNextStep} disabled={!canContinueAgent}>
-            {teaching ? 'Nova is explaining…' : 'Continue · your turn next'}
+            {teaching ? 'Nova is explaining…' : 'Continue'}
           </Button>
+        )}
+
+        {stepId === 'build' && (
+          <div className="space-y-4">
+            <p className="text-lg text-paper">
+              Nova built this example:{' '}
+              <span className="font-semibold text-signal">
+                <TutorRichText text={lesson.translateExample} className="text-inherit" />
+              </span>
+            </p>
+            <p className="text-base text-fog">
+              Translate it — what does each part mean, and what would you analyze first?
+              Need <span className="font-semibold text-paper">{BUILD_PASS_SCORE}+</span> / 100.
+            </p>
+            <textarea
+              value={buildText}
+              onChange={(e) => setBuildText(e.target.value)}
+              rows={4}
+              disabled={Boolean(buildResult?.passed)}
+              placeholder="Translate the example in your own words…"
+              className="w-full resize-none rounded-2xl border border-line bg-white px-4 py-4 text-lg leading-relaxed text-paper outline-none focus:border-signal"
+            />
+            {buildResult && (
+              <div className={cn(
+                'rounded-2xl border px-4 py-4',
+                buildResult.passed ? 'border-emerald-300 bg-emerald-50' : 'border-signal/30 bg-[rgba(255,92,57,0.08)]',
+              )}>
+                <p className="font-display text-2xl text-paper">{buildResult.score} / 100</p>
+                <p className="mt-2 text-base text-paper">{buildResult.feedback}</p>
+              </div>
+            )}
+            {!buildResult?.passed && (
+              <Button
+                className="h-14 w-full text-base"
+                onClick={submitBuild}
+                disabled={buildText.trim().length < 8}
+              >
+                Score my translation
+              </Button>
+            )}
+          </div>
         )}
 
         {stepId === 'explainBack' && (
@@ -593,6 +767,7 @@ export function StudyLesson({ track, level }: { track: StudyTrack; level: StudyL
           <div className="space-y-4">
             <p className="text-lg text-paper">
               Build one SAT/ACT-style question for <span className="font-semibold text-signal">{lesson.title}</span>.
+              Write the question, mark the answer, and add your analysis.
               Need {CREATE_PASS_SCORE}+ to finish. {CREATE_SAVE_SCORE}+ saves it to the topic bank.
             </p>
             <label className="block space-y-2">
@@ -631,12 +806,13 @@ export function StudyLesson({ track, level }: { track: StudyTrack; level: StudyL
               ))}
             </div>
             <label className="block space-y-2">
-              <span className="font-mono text-xs uppercase tracking-[0.14em] text-fog">Why is the answer right?</span>
+              <span className="font-mono text-xs uppercase tracking-[0.14em] text-fog">Your analysis — why the answer is right</span>
               <textarea
                 value={createExplain}
                 onChange={(e) => setCreateExplain(e.target.value)}
-                rows={2}
+                rows={3}
                 className="w-full resize-none rounded-2xl border border-line bg-white px-4 py-3 text-sm text-paper outline-none focus:border-signal"
+                placeholder="Explain the solution step by step…"
               />
             </label>
             {createResult && (

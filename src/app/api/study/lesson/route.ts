@@ -15,6 +15,7 @@ const bodySchema = z.object({
 
 type AiLessonPayload = Partial<{
   whatItIs: string
+  irlExample: string
   breakdown: string
   translateExample: string
   examples: Partial<LessonExampleSet>
@@ -86,17 +87,19 @@ export async function POST(request: NextRequest) {
         {
           role: 'system',
           content:
-            'You teach SAT/ACT topics for a copilot lesson. Reply JSON only with this shape: '
-            + '{"whatItIs":"1-2 short sentences defining the topic",'
-            + '"breakdown":"one short breakdown",'
-            + '"translateExample":"one short live correct example of the topic (NOT a question)",'
+            'You teach SAT/ACT topics for a 6th-grade reading level. Reply JSON only with this shape: '
+            + '{"whatItIs":"1-2 super-simple sentences defining the topic for a kid",'
+            + '"irlExample":"ONE short real-world sentence (like: Counting numbers can be used to count how many people are in the room.)",'
+            + '"breakdown":"short plain-English explanation of every part",'
+            + '"translateExample":"one short live correct example of the topic for the student to translate (NOT a question)",'
             + '"examples":{"yesTitle":"short","noTitle":"short",'
             + '"yes":[{"label":"short concrete correct example","why":"one sentence why correct"}],'
             + '"no":[{"label":"short concrete incorrect example","why":"one sentence why incorrect"}]},'
             + '"problems":[{"difficulty":"easy"|"medium"|"hard","prompt":"...","choices":[{"key":"A","text":"..."},{"key":"B","text":"..."},{"key":"C","text":"..."},{"key":"D","text":"..."}],"answer":"A","explain":"one sentence"}]}'
-            + ' Rules: Create examples from the topic the student is learning. Do NOT pull from a database. '
-            + 'examples.yes must have 4-5 CORRECT portrayals of the topic (numbers, equations, or short sentences). '
-            + 'examples.no must have 4-5 INCORRECT portrayals / traps. '
+            + ' Rules: Use words a 6th grader knows. No jargon. Create examples from the topic itself. Do NOT pull from a database. '
+            + 'whatItIs example style: "Whole numbers are numbers you count whole objects with. Whole numbers begin at 0 and are not negative numbers, decimals, or fractions." '
+            + 'irlExample must be ONE short real-life sentence and must NOT repeat the definition. '
+            + 'examples.yes must have 4-5 CORRECT portrayals. examples.no must have 4-5 traps. '
             + 'labels must be the example itself — never a quiz prompt like "Which is…?". '
             + 'Exactly 5 problems: easy, easy, medium, medium, hard. Easy words. No LaTeX.',
         },
@@ -115,6 +118,7 @@ export async function POST(request: NextRequest) {
     const examples = sanitizeExamples(parsedAi.examples)
     const guided = buildGuidedLesson(level, {
       whatItIs: parsedAi.whatItIs,
+      irlExample: parsedAi.irlExample,
       breakdown: parsedAi.breakdown,
       translateExample: parsedAi.translateExample,
       examples,

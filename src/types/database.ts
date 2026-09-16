@@ -1622,6 +1622,8 @@ export type Database = {
         Row: {
           completed_at: string | null
           extra_problems: number
+          lesson_beat: number | null
+          lesson_step: string | null
           level_index: number
           status: string
           track: string
@@ -1631,6 +1633,8 @@ export type Database = {
         Insert: {
           completed_at?: string | null
           extra_problems?: number
+          lesson_beat?: number | null
+          lesson_step?: string | null
           level_index: number
           status?: string
           track: string
@@ -1640,6 +1644,8 @@ export type Database = {
         Update: {
           completed_at?: string | null
           extra_problems?: number
+          lesson_beat?: number | null
+          lesson_step?: string | null
           level_index?: number
           status?: string
           track?: string

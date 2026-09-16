@@ -1,24 +1,25 @@
+import { CANONICAL_SITE_URL } from '@/lib/utils'
+
 /**
- * Canonical production origin for OAuth / email redirects.
- * Prefer the live browser host when it is not localhost; otherwise use the
- * configured public app URL (never leave users on localhost after Google).
+ * Canonical production origin for OAuth / email / share redirects.
+ * Never emit localhost in user-facing URLs — always prepsatact.com.
  */
 export function authAppOrigin(): string {
   const configured = (process.env.NEXT_PUBLIC_APP_URL ?? '').trim().replace(/\/$/, '')
-  const configuredIsLocal = !configured || /localhost|127\.0\.0\.1/i.test(configured)
+  if (configured && !/localhost|127\.0\.0\.1/i.test(configured)) return configured
 
   if (typeof window !== 'undefined') {
     const origin = window.location.origin.replace(/\/$/, '')
-    const onLocal = /localhost|127\.0\.0\.1/i.test(origin)
-    if (!onLocal) return origin
-    if (!configuredIsLocal) return configured
-    return origin
+    if (!/localhost|127\.0\.0\.1/i.test(origin)) return origin
   }
 
-  if (!configuredIsLocal) return configured
   const vercel = process.env.VERCEL_PROJECT_PRODUCTION_URL || process.env.VERCEL_URL
-  if (vercel) return `https://${vercel.replace(/^https?:\/\//, '').replace(/\/$/, '')}`
-  return configured || 'http://localhost:3000'
+  if (vercel) {
+    const host = vercel.replace(/^https?:\/\//, '').replace(/\/$/, '')
+    if (!/localhost|127\.0\.0\.1/i.test(host)) return `https://${host}`
+  }
+
+  return CANONICAL_SITE_URL
 }
 
 export function authCallbackUrl(next = '/onboarding'): string {
@@ -35,7 +36,10 @@ export function resolveRequestOrigin(requestUrl: string): string {
   if (configured && !/localhost|127\.0\.0\.1/i.test(configured)) return configured
 
   const vercel = process.env.VERCEL_PROJECT_PRODUCTION_URL || process.env.VERCEL_URL
-  if (vercel) return `https://${vercel.replace(/^https?:\/\//, '').replace(/\/$/, '')}`
+  if (vercel) {
+    const host = vercel.replace(/^https?:\/\//, '').replace(/\/$/, '')
+    if (!/localhost|127\.0\.0\.1/i.test(host)) return `https://${host}`
+  }
 
-  return origin.replace(/\/$/, '')
+  return CANONICAL_SITE_URL
 }

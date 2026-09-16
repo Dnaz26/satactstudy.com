@@ -4,7 +4,7 @@ import * as React from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { cn } from '@/lib/utils'
-import { BrandMark } from '@/components/brand'
+import { BrandMark, BRAND_NAME } from '@/components/brand'
 import {
   LayoutDashboard,
   BookOpen,
@@ -16,6 +16,7 @@ import {
   Sparkles,
   Zap,
   Gamepad2,
+  RotateCcw,
 } from 'lucide-react'
 
 type NavItem = {
@@ -30,6 +31,7 @@ const PRIMARY: NavItem[] = [
   { label: 'Practice', href: '/practice', icon: BookOpen },
   { label: 'Plan', href: '/study-plan', icon: Calendar },
   { label: 'Tutoring', href: '/study', icon: GraduationCap },
+  { label: 'Refresh', href: '/refresh', icon: RotateCcw },
   { label: 'Rapid fire', href: '/simulator', icon: Zap },
   { label: 'Game', href: '/game', icon: Gamepad2 },
   { label: 'Analytics', href: '/analytics', icon: BarChart2 },
@@ -64,7 +66,10 @@ export function NavSidebar({ isAdmin = false }: { isAdmin?: boolean }) {
   }
 
   React.useEffect(() => {
+    const handleBrandOpen = () => openPanel()
+    window.addEventListener('prep:open-sidebar', handleBrandOpen)
     return () => {
+      window.removeEventListener('prep:open-sidebar', handleBrandOpen)
       if (closeTimer.current) window.clearTimeout(closeTimer.current)
     }
   }, [])
@@ -123,5 +128,25 @@ export function NavSidebar({ isAdmin = false }: { isAdmin?: boolean }) {
         </p>
       </aside>
     </>
+  )
+}
+
+export function SidebarBrandTrigger() {
+  return (
+    <button
+      type="button"
+      onClick={() => window.dispatchEvent(new Event('prep:open-sidebar'))}
+      className="flex items-center gap-2.5 text-left focus-ring"
+      aria-label="Open Prep SAT ACT navigation"
+      aria-haspopup="true"
+    >
+      <span className="relative flex h-9 w-9 items-center justify-center rounded-full bg-signal text-white shadow-[0_10px_22px_rgba(255,92,57,0.28)]">
+        <span className="font-display text-base font-extrabold uppercase tracking-tight">P</span>
+      </span>
+      <span className="leading-none">
+        <span className="block font-display text-[15px] tracking-tight text-paper">{BRAND_NAME}</span>
+        <span className="mt-0.5 block font-mono text-[9px] uppercase tracking-[0.18em] text-fog">Study OS</span>
+      </span>
+    </button>
   )
 }
