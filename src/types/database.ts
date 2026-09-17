@@ -14,6 +14,12 @@ export type Database = {
   }
   public: {
     Tables: {
+      exam_item_events: {
+        Row: { id: string; event_key: string; user_id: string; session_id: string; question_id: string; event_type: string; elapsed_ms: number; selected_answer: string | null; client_sequence: number; recorded_at: string }
+        Insert: { id?: string; event_key: string; user_id: string; session_id: string; question_id: string; event_type: string; elapsed_ms: number; selected_answer?: string | null; client_sequence: number; recorded_at?: string }
+        Update: { selected_answer?: string | null }
+        Relationships: []
+      }
       access_code_redemptions: {
         Row: {
           code_hash: string
@@ -831,8 +837,23 @@ export type Database = {
           },
         ]
       }
+      sat_question_assignments: {
+        Row: { exam_id: string; question_id: string; module: number; path: string; question_number: number }
+        Insert: { exam_id: string; question_id: string; module: number; path: string; question_number: number }
+        Update: { exam_id?: string; question_id?: string; module?: number; path?: string; question_number?: number }
+        Relationships: [
+          { foreignKeyName: 'sat_question_assignments_exam_id_fkey'; columns: ['exam_id']; isOneToOne: false; referencedRelation: 'practice_exams'; referencedColumns: ['id'] },
+          { foreignKeyName: 'sat_question_assignments_question_id_fkey'; columns: ['question_id']; isOneToOne: false; referencedRelation: 'questions'; referencedColumns: ['id'] },
+        ]
+      }
       practice_exams: {
         Row: {
+          format_version: number
+          test_type: string
+          math_module1_ids: string[]
+          math_module2_easy_ids: string[]
+          math_module2_hard_ids: string[]
+
           created_at: string
           english_ids: string[]
           exam_number: number
@@ -844,6 +865,12 @@ export type Database = {
           total_questions: number
         }
         Insert: {
+          format_version?: number
+          test_type?: string
+          math_module1_ids?: string[]
+          math_module2_easy_ids?: string[]
+          math_module2_hard_ids?: string[]
+
           created_at?: string
           english_ids?: string[]
           exam_number: number
@@ -855,6 +882,12 @@ export type Database = {
           total_questions?: number
         }
         Update: {
+          format_version?: number
+          test_type?: string
+          math_module1_ids?: string[]
+          math_module2_easy_ids?: string[]
+          math_module2_hard_ids?: string[]
+
           created_at?: string
           english_ids?: string[]
           exam_number?: number
@@ -2309,6 +2342,19 @@ export type Database = {
       }
       user_practice_exams: {
         Row: {
+          usage: Json
+          format_version: number
+          assigned_question_ids: string[]
+          assigned_reading_ids: string[]
+          assigned_english_ids: string[]
+          math_path: string | null
+          break_until: string | null
+          math_module2_easy_snapshot: string[] | null
+          math_module2_hard_snapshot: string[] | null
+          total_questions: number | null
+          math_correct: number | null
+          rw_correct: number | null
+
           answers: Json
           completed_at: string | null
           completed_questions: number | null
@@ -2329,6 +2375,19 @@ export type Database = {
           user_id: string
         }
         Insert: {
+          usage?: Json
+          format_version?: number
+          assigned_question_ids?: string[]
+          assigned_reading_ids?: string[]
+          assigned_english_ids?: string[]
+          math_path?: string | null
+          break_until?: string | null
+          math_module2_easy_snapshot?: string[] | null
+          math_module2_hard_snapshot?: string[] | null
+          total_questions?: number | null
+          math_correct?: number | null
+          rw_correct?: number | null
+
           answers?: Json
           completed_at?: string | null
           completed_questions?: number | null
@@ -2349,6 +2408,19 @@ export type Database = {
           user_id: string
         }
         Update: {
+          usage?: Json
+          format_version?: number
+          assigned_question_ids?: string[]
+          assigned_reading_ids?: string[]
+          assigned_english_ids?: string[]
+          math_path?: string | null
+          break_until?: string | null
+          math_module2_easy_snapshot?: string[] | null
+          math_module2_hard_snapshot?: string[] | null
+          total_questions?: number | null
+          math_correct?: number | null
+          rw_correct?: number | null
+
           answers?: Json
           completed_at?: string | null
           completed_questions?: number | null
@@ -2560,6 +2632,10 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      begin_sat_exam: { Args: { p_exam_id: string }; Returns: Json }
+      transition_sat_exam: { Args: { p_exam_id: string; p_answers: Json; p_from: number }; Returns: Json }
+      complete_sat_exam: { Args: { p_exam_id: string; p_answers: Json; p_seconds: number; p_usage?: Json }; Returns: Json }
+
       is_admin: { Args: { uid: string }; Returns: boolean }
       question_exam_bucket: {
         Args: { category_name: string; section_name: string }

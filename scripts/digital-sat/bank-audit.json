@@ -1,0 +1,57 @@
+{
+  "items": 132,
+  "by_pool": {
+    "mixed": 44,
+    "easier": 44,
+    "harder": 44
+  },
+  "by_domain": {
+    "Algebra": 44,
+    "Advanced Math": 44,
+    "Problem-Solving and Data Analysis": 22,
+    "Geometry and Trigonometry": 22
+  },
+  "by_difficulty": {
+    "Easy": 36,
+    "Medium": 64,
+    "Hard": 32
+  },
+  "spr": 34,
+  "near_pairs": [
+    {
+      "ids": [
+        "f48c2f57-d0c6-56c2-badf-0595afca7b50",
+        "b8b35c78-8a2e-5732-b968-c433865e42f4"
+      ],
+      "similarity": 0.882
+    },
+    {
+      "ids": [
+        "8fb36121-a105-5889-9642-9160d2a59d32",
+        "f48c2f57-d0c6-56c2-badf-0595afca7b50"
+      ],
+      "similarity": 0.878
+    },
+    {
+      "ids": [
+        "9752cae1-597e-5e08-83b1-a802a6b5f55f",
+        "6066ab09-12c6-52ef-8753-978399354122"
+      ],
+      "similarity": 0.923
+    },
+    {
+      "ids": [
+        "0bc8f5ad-38f6-5b41-9be9-cc7ae379153a",
+        "6066ab09-12c6-52ef-8753-978399354122"
+      ],
+      "similarity": 0.857
+    },
+    {
+      "ids": [
+        "0bc8f5ad-38f6-5b41-9be9-cc7ae379153a",
+        "667167d1-e482-5430-b8e6-602c77e7c96c"
+      ],
+      "similarity": 0.878
+    }
+  ]
+}

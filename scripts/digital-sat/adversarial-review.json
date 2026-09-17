@@ -1,0 +1,454 @@
+{
+  "review_type": "independent_adversarial_initial_baseline",
+  "reviewed_at": "2026-09-16T23:09:16.209075+00:00",
+  "scope": "Read-only repo implementation/content review; no app or database mutations. Existing artifacts are evidence, not fresh production readback. RW defect sample retrieved from preserved initial backup;48of54exam1RW IDs recovered there. This is INITIAL, not a post-repair certification.",
+  "sources": [
+    "https://satsuite.collegeboard.org/sat/whats-on-the-test/structure",
+    "https://satsuite.collegeboard.org/sat/whats-on-the-test/math/overview",
+    "https://www.act.org/content/act/en/products-and-services/the-act/test-preparation/act-exam-sections-and-structure.html"
+  ],
+  "official_prompt_conflicts": [
+    {
+      "topic": "Math progression",
+      "finding": "Official College Board Math overview says questions across each module arranged easiest to hardest. User Part3 forbids simple ascending M1 progression; official-source override supports ascending Math while retaining meaningful easy/medium/hard mixture."
+    }
+  ],
+  "scoring_policy": {
+    "scale": "0\u2013100",
+    "weights": "equal for applicable variables unless future approved rubric supplies weights",
+    "null_policy": "Unmeasurable dimensions remain null; null is not zero or passing. Overall certified weighted score withheld if any applicable dimension unmeasured. Editorial estimates are not empirical calibration or official test-equivalence evidence.",
+    "scoring_equivalence": "No valid official equated SAT/ACT scoring model is established. Raw accuracy and linear analytics estimates must remain labeled as practice estimates.",
+    "copyright_check": "Authorship provenance and no official source copying are documented, but exhaustive similarity to all protected items cannot be proved without licensed corpus; do not assert universal originality verification."
+  },
+  "SAT": {
+    "similarity_score": null,
+    "certification_status": "fails_release_gate",
+    "provisional_observed_dimension_mean": 57.65,
+    "variables": [
+      {
+        "variable": 1,
+        "name": "Structure accuracy",
+        "score": 75,
+        "basis": "provisional_editorial_rubric",
+        "evidence": "Four equal SAT modules exist; no scheduled ten-minute inter-section break; only Math adapts.",
+        "passes_95": false
+      },
+      {
+        "variable": 2,
+        "name": "Timing accuracy",
+        "score": 85,
+        "basis": "provisional_editorial_rubric",
+        "evidence": "32/32/35/35 minute module limits correct. Ten-minute break absent; timeout requires manual submission rather than enforced boundary.",
+        "passes_95": false
+      },
+      {
+        "variable": 3,
+        "name": "Section/question-count accuracy",
+        "score": 100,
+        "basis": "measurable_blueprint",
+        "evidence": "36 saved blueprints and validation report contain 98 administered items, 54 RW and44 Math,27/27/22/22.",
+        "passes_95": true
+      },
+      {
+        "variable": 4,
+        "name": "Domain distribution",
+        "score": 90,
+        "basis": "provisional_editorial_rubric",
+        "evidence": "Math all paths15/15/7/7 satisfies official13\u201315/13\u201315/5\u20137/5\u20137 ranges. RW target14 Information/14 Craft/12 Expression/14 Conventions approximates distribution but Craft slightly underweighted; classification quality unverified.",
+        "passes_95": false
+      },
+      {
+        "variable": 5,
+        "name": "Skill distribution",
+        "score": 65,
+        "basis": "provisional_editorial_rubric",
+        "evidence": "Math covers19 official skills; frequency not independently calibrated against representative official design. RW taxonomy labels cannot remedy invalid/mismatched stimuli.",
+        "passes_95": false
+      },
+      {
+        "variable": 6,
+        "name": "Difficulty distribution",
+        "score": 65,
+        "basis": "provisional_editorial_rubric",
+        "evidence": "Math M1 6easy/12medium/4hard; easier M2 10/10/2; harder M2 2/10/10. RW lacks separate routes; labels editorial.",
+        "passes_95": false
+      },
+      {
+        "variable": 7,
+        "name": "Difficulty authenticity",
+        "score": null,
+        "basis": "unmeasured",
+        "evidence": "Empirical item difficulty/ability-stratified correctness/response-time evidence absent. No legitimate measured authenticity percentage.",
+        "passes_95": null
+      },
+      {
+        "variable": 8,
+        "name": "Question archetype authenticity",
+        "score": 55,
+        "basis": "provisional_editorial_rubric",
+        "evidence": "Math includes parameter reasoning and SPR. RW standalone grammar sentences and generic study-note prompts depart from authentic academic stimulus architecture.",
+        "passes_95": false
+      },
+      {
+        "variable": 9,
+        "name": "Passage authenticity",
+        "score": 25,
+        "basis": "provisional_editorial_rubric",
+        "evidence": "Recovered RW sample recycles ferry/library/clay/plant scenarios and repeated study notes; longer shared passages coexist with very short fragments.",
+        "passes_95": false
+      },
+      {
+        "variable": 10,
+        "name": "Vocabulary authenticity",
+        "score": 20,
+        "basis": "provisional_editorial_rubric",
+        "evidence": "Recovered sample tests lasted with implausible alternatives photographed/billed/banned; no demonstrated upper-range contextual vocabulary bank.",
+        "passes_95": false
+      },
+      {
+        "variable": 11,
+        "name": "Math reasoning authenticity",
+        "score": 85,
+        "basis": "provisional_editorial_rubric",
+        "evidence": "132 original Math items include identities, parameter systems, rational/radical constraints, nonlinear reasoning. Some declared hard tasks are standard discriminant/parallel-line computations. Empirical top-end discrimination unknown.",
+        "passes_95": false
+      },
+      {
+        "variable": 12,
+        "name": "Answer-choice authenticity",
+        "score": 60,
+        "basis": "provisional_editorial_rubric",
+        "evidence": "Math98MC/34SPR bank; every full path33MC/11SPR. Math answer letters30A/27B/17C/24D (98MC), not uniform but no demonstrated sequence pattern. RW all-wrong/truncated-key examples invalidate quality.",
+        "passes_95": false
+      },
+      {
+        "variable": 13,
+        "name": "Distractor quality",
+        "score": 35,
+        "basis": "provisional_editorial_rubric",
+        "evidence": "Numerical choices frequently reflect student errors, but no explicit per-choice rationale field. RW sample contains irrelevant/comically implausible choices and no defensible correct choice in identified case.",
+        "passes_95": false
+      },
+      {
+        "variable": 14,
+        "name": "Graph/data representation",
+        "score": 25,
+        "basis": "provisional_editorial_rubric",
+        "evidence": "Only5 explicitly authored SVG figures across132 Math items; some full paths have zero supplied figures. Quantitative RW stimulus quality not established.",
+        "passes_95": false
+      },
+      {
+        "variable": 15,
+        "name": "Contextual problem distribution",
+        "score": null,
+        "basis": "unmeasured",
+        "evidence": "No contextual-problem metadata or independent contextual-count classifier; approximately30% official Math target cannot be verified.",
+        "passes_95": null
+      },
+      {
+        "variable": 16,
+        "name": "Adaptive behavior \u2014 SAT",
+        "score": 50,
+        "basis": "provisional_editorial_rubric",
+        "evidence": "Math raw threshold15/22 routes easier/harder under authenticated RPC; no RW routing. Threshold is practice approximation, not calibrated official behavior.",
+        "passes_95": false
+      },
+      {
+        "variable": 17,
+        "name": "ACT pacing \u2014 ACT",
+        "score": null,
+        "basis": "not_applicable",
+        "evidence": "Not applicable to SAT.",
+        "passes_95": null
+      },
+      {
+        "variable": 18,
+        "name": "Calculator/tool realism",
+        "score": 55,
+        "basis": "provisional_editorial_rubric",
+        "evidence": "Desmos available, but tool UI also exposes AI chat/hints during full test; calculator expectations are not separated robustly by SAT RW vsMath and ACT.",
+        "passes_95": false
+      },
+      {
+        "variable": 19,
+        "name": "Content diversity",
+        "score": 35,
+        "basis": "provisional_editorial_rubric",
+        "evidence": "Math bank132 shared across36 exams with recurrence. RW examples repeatedly recycle a small subject/scenario set; no topic/name/archetype history gate.",
+        "passes_95": false
+      },
+      {
+        "variable": 20,
+        "name": "Overall test-taking experience",
+        "score": 55,
+        "basis": "provisional_editorial_rubric",
+        "evidence": "Authenticated flow/resume/server scoring validated. Missing break, available tutor assistance, no RW adaptivity and uncalibrated score estimates prevent high-fidelity full-test claim.",
+        "passes_95": false
+      }
+    ],
+    "below95": [
+      1,
+      2,
+      4,
+      5,
+      6,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      16,
+      18,
+      19,
+      20
+    ],
+    "unmeasured_applicable": [
+      7,
+      15
+    ]
+  },
+  "ACT": {
+    "similarity_score": null,
+    "certification_status": "no_validated_enhanced_ACT_exam",
+    "variables": [
+      {
+        "variable": 1,
+        "name": "Structure accuracy",
+        "score": 0,
+        "basis": "implementation_gap",
+        "evidence": "No separate enhanced ACT full-test blueprint/flow is implemented: fullTestCount discards testType and returns98; legacy modules use Reading35/English45/Math60minutes rather than English50/35,Math45/50,Reading36/40.",
+        "passes_95": false
+      },
+      {
+        "variable": 2,
+        "name": "Timing accuracy",
+        "score": 0,
+        "basis": "implementation_gap",
+        "evidence": "No separate enhanced ACT full-test blueprint/flow is implemented: fullTestCount discards testType and returns98; legacy modules use Reading35/English45/Math60minutes rather than English50/35,Math45/50,Reading36/40.",
+        "passes_95": false
+      },
+      {
+        "variable": 3,
+        "name": "Section/question-count accuracy",
+        "score": 0,
+        "basis": "implementation_gap",
+        "evidence": "No separate enhanced ACT full-test blueprint/flow is implemented: fullTestCount discards testType and returns98; legacy modules use Reading35/English45/Math60minutes rather than English50/35,Math45/50,Reading36/40.",
+        "passes_95": false
+      },
+      {
+        "variable": 4,
+        "name": "Domain distribution",
+        "score": null,
+        "basis": "unmeasured",
+        "evidence": "Historical backup contains549ACTMath/354ACTEnglish/397ACTReading but no independently validated enhanced ACT exam or separate assembly path. Optional Science absent in recovered catalog sample. Category cannot be responsibly scored from unassembled legacy questions.",
+        "passes_95": null
+      },
+      {
+        "variable": 5,
+        "name": "Skill distribution",
+        "score": null,
+        "basis": "unmeasured",
+        "evidence": "Historical backup contains549ACTMath/354ACTEnglish/397ACTReading but no independently validated enhanced ACT exam or separate assembly path. Optional Science absent in recovered catalog sample. Category cannot be responsibly scored from unassembled legacy questions.",
+        "passes_95": null
+      },
+      {
+        "variable": 6,
+        "name": "Difficulty distribution",
+        "score": null,
+        "basis": "unmeasured",
+        "evidence": "Historical backup contains549ACTMath/354ACTEnglish/397ACTReading but no independently validated enhanced ACT exam or separate assembly path. Optional Science absent in recovered catalog sample. Category cannot be responsibly scored from unassembled legacy questions.",
+        "passes_95": null
+      },
+      {
+        "variable": 7,
+        "name": "Difficulty authenticity",
+        "score": null,
+        "basis": "unmeasured",
+        "evidence": "Historical backup contains549ACTMath/354ACTEnglish/397ACTReading but no independently validated enhanced ACT exam or separate assembly path. Optional Science absent in recovered catalog sample. Category cannot be responsibly scored from unassembled legacy questions.",
+        "passes_95": null
+      },
+      {
+        "variable": 8,
+        "name": "Question archetype authenticity",
+        "score": null,
+        "basis": "unmeasured",
+        "evidence": "Historical backup contains549ACTMath/354ACTEnglish/397ACTReading but no independently validated enhanced ACT exam or separate assembly path. Optional Science absent in recovered catalog sample. Category cannot be responsibly scored from unassembled legacy questions.",
+        "passes_95": null
+      },
+      {
+        "variable": 9,
+        "name": "Passage authenticity",
+        "score": null,
+        "basis": "unmeasured",
+        "evidence": "Historical backup contains549ACTMath/354ACTEnglish/397ACTReading but no independently validated enhanced ACT exam or separate assembly path. Optional Science absent in recovered catalog sample. Category cannot be responsibly scored from unassembled legacy questions.",
+        "passes_95": null
+      },
+      {
+        "variable": 10,
+        "name": "Vocabulary authenticity",
+        "score": null,
+        "basis": "unmeasured",
+        "evidence": "Historical backup contains549ACTMath/354ACTEnglish/397ACTReading but no independently validated enhanced ACT exam or separate assembly path. Optional Science absent in recovered catalog sample. Category cannot be responsibly scored from unassembled legacy questions.",
+        "passes_95": null
+      },
+      {
+        "variable": 11,
+        "name": "Math reasoning authenticity",
+        "score": null,
+        "basis": "unmeasured",
+        "evidence": "Historical backup contains549ACTMath/354ACTEnglish/397ACTReading but no independently validated enhanced ACT exam or separate assembly path. Optional Science absent in recovered catalog sample. Category cannot be responsibly scored from unassembled legacy questions.",
+        "passes_95": null
+      },
+      {
+        "variable": 12,
+        "name": "Answer-choice authenticity",
+        "score": null,
+        "basis": "unmeasured",
+        "evidence": "Historical backup contains549ACTMath/354ACTEnglish/397ACTReading but no independently validated enhanced ACT exam or separate assembly path. Optional Science absent in recovered catalog sample. Category cannot be responsibly scored from unassembled legacy questions.",
+        "passes_95": null
+      },
+      {
+        "variable": 13,
+        "name": "Distractor quality",
+        "score": null,
+        "basis": "unmeasured",
+        "evidence": "Historical backup contains549ACTMath/354ACTEnglish/397ACTReading but no independently validated enhanced ACT exam or separate assembly path. Optional Science absent in recovered catalog sample. Category cannot be responsibly scored from unassembled legacy questions.",
+        "passes_95": null
+      },
+      {
+        "variable": 14,
+        "name": "Graph/data representation",
+        "score": null,
+        "basis": "unmeasured",
+        "evidence": "Historical backup contains549ACTMath/354ACTEnglish/397ACTReading but no independently validated enhanced ACT exam or separate assembly path. Optional Science absent in recovered catalog sample. Category cannot be responsibly scored from unassembled legacy questions.",
+        "passes_95": null
+      },
+      {
+        "variable": 15,
+        "name": "Contextual problem distribution",
+        "score": null,
+        "basis": "unmeasured",
+        "evidence": "Historical backup contains549ACTMath/354ACTEnglish/397ACTReading but no independently validated enhanced ACT exam or separate assembly path. Optional Science absent in recovered catalog sample. Category cannot be responsibly scored from unassembled legacy questions.",
+        "passes_95": null
+      },
+      {
+        "variable": 16,
+        "name": "Adaptive behavior \u2014 SAT",
+        "score": null,
+        "basis": "not_applicable",
+        "evidence": "SAT adaptive behavior not applicable to ACT.",
+        "passes_95": null
+      },
+      {
+        "variable": 17,
+        "name": "ACT pacing \u2014 ACT",
+        "score": 0,
+        "basis": "implementation_gap",
+        "evidence": "No separate enhanced ACT full-test blueprint/flow is implemented: fullTestCount discards testType and returns98; legacy modules use Reading35/English45/Math60minutes rather than English50/35,Math45/50,Reading36/40.",
+        "passes_95": false
+      },
+      {
+        "variable": 18,
+        "name": "Calculator/tool realism",
+        "score": null,
+        "basis": "unmeasured",
+        "evidence": "Historical backup contains549ACTMath/354ACTEnglish/397ACTReading but no independently validated enhanced ACT exam or separate assembly path. Optional Science absent in recovered catalog sample. Category cannot be responsibly scored from unassembled legacy questions.",
+        "passes_95": null
+      },
+      {
+        "variable": 19,
+        "name": "Content diversity",
+        "score": null,
+        "basis": "unmeasured",
+        "evidence": "Historical backup contains549ACTMath/354ACTEnglish/397ACTReading but no independently validated enhanced ACT exam or separate assembly path. Optional Science absent in recovered catalog sample. Category cannot be responsibly scored from unassembled legacy questions.",
+        "passes_95": null
+      },
+      {
+        "variable": 20,
+        "name": "Overall test-taking experience",
+        "score": null,
+        "basis": "unmeasured",
+        "evidence": "Historical backup contains549ACTMath/354ACTEnglish/397ACTReading but no independently validated enhanced ACT exam or separate assembly path. Optional Science absent in recovered catalog sample. Category cannot be responsibly scored from unassembled legacy questions.",
+        "passes_95": null
+      }
+    ],
+    "below95": [
+      1,
+      2,
+      3,
+      17
+    ]
+  },
+  "quantitative_observations": {
+    "math_items": 132,
+    "catalogs": 36,
+    "math_explicit_figures": 5,
+    "math_mc_key_counts": {
+      "B": 27,
+      "D": 24,
+      "A": 30,
+      "C": 17
+    },
+    "math_figures_per_path": {
+      "easy": {
+        "min": 0,
+        "max": 3
+      },
+      "hard": {
+        "min": 0,
+        "max": 4
+      }
+    }
+  },
+  "repair_priorities": [
+    {
+      "priority": "P0",
+      "issue": "Invalid RW key",
+      "id": "f3000000-0000-0000-0000-000000002635",
+      "evidence": "Bus-darkness/lamps passage keyedD describes comparing three treatments; A war,B timetable,C dictionary also wrong. Reject item; no correct choice."
+    },
+    {
+      "priority": "P0",
+      "issue": "Truncated RW key",
+      "id": "f3000000-0000-0000-0000-000000005315",
+      "evidence": "Keyed D choice is the incomplete fragment: After a dock repair, the 7 a. Reject the item; generated explanations cannot repair it."
+    },
+    {
+      "priority": "P0",
+      "issue": "Separate enhanced ACT architecture",
+      "repair": "Distinct section sizes, times, passage groups, optional Science, nonadaptive flow, and bank taxonomy; preserve legacy performance IDs."
+    },
+    {
+      "priority": "P1",
+      "issue": "Rebuild RW bank rather than reuse weak templates",
+      "repair": "Original diverse short academic stimuli, four plausible choices, independent best-answer review, proper quantitative evidence, and two Module 2 routes."
+    },
+    {
+      "priority": "P1",
+      "issue": "Simulation assistance and scheduled boundaries",
+      "repair": "Separate learning from strict simulation; disable tutor/hints in strict mode, restrict calculator by exam/section, add durable ten-minute SAT break and server-backed module deadlines."
+    },
+    {
+      "priority": "P1",
+      "issue": "Metadata/validation gates",
+      "repair": "Require per-choice rationales, estimated solve time, subskill/module eligibility, graphic-data consistency, independent blind solutions, and release-gate records before persistence."
+    },
+    {
+      "priority": "P1",
+      "issue": "Graphics and context assembly quotas",
+      "repair": "Track original graphic requirements per blueprint with independent data verification; measure contextual Math frequency rather than infer from labels."
+    },
+    {
+      "priority": "P2",
+      "issue": "Empirical calibration",
+      "repair": "Capture item time, skips, answer changes, distractor choices, and ability-stratified outcomes; label editorial difficulty provisional until sample is adequate. Do not invent scores of 95 or higher."
+    },
+    {
+      "priority": "P2",
+      "issue": "Repeated exposure",
+      "repair": "Larger diverse validated bank, exposure-aware blueprint selection, and near-duplicate semantic review."
+    }
+  ]
+}

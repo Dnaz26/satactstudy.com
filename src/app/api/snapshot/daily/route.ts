@@ -29,7 +29,7 @@ export async function POST() {
 
     const { data: exams } = await supabase
       .from('user_practice_exams')
-      .select('status, correct_count, completed_questions, completed_at')
+      .select('status, correct_count, completed_questions, total_questions, format_version, math_correct, rw_correct, completed_at')
       .eq('user_id', user.id)
       .eq('status', 'completed')
       .order('completed_at', { ascending: false })
@@ -75,12 +75,16 @@ export async function POST() {
 
     const practiceScores = (exams ?? [])
       .map((exam) => {
-        const total = exam.completed_questions ?? 0
+        const total = exam.total_questions ?? exam.completed_questions ?? 0
         const correct = exam.correct_count ?? 0
         if (total <= 0) return null
         const pref = profile?.test_preference ?? 'SAT'
         if (pref === 'ACT') return Math.round((correct / total) * 36)
-        return Math.round(((correct / total) * 1600) / 10) * 10
+        // This is a practice estimate, not College Board's calibrated IRT score.
+        if (exam.format_version === 2 && exam.math_correct != null && exam.rw_correct != null) {
+          return Math.round((400 + 600 * exam.math_correct / 44 + 600 * exam.rw_correct / 54) / 10) * 10
+        }
+        return Math.round((400 + (correct / total) * 1200) / 10) * 10
       })
       .filter((n): n is number => n != null)
 

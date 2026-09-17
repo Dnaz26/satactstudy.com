@@ -3,7 +3,7 @@
 import * as React from 'react'
 import { cn } from '@/lib/utils'
 import { Button } from './button'
-import { X, Send, Pencil, ImagePlus, Loader2, ChevronRight } from 'lucide-react'
+import { X, Send, Pencil, ImagePlus, Loader2, ChevronRight, CircleHelp, RefreshCw } from 'lucide-react'
 import type { TutorTrigger } from '@/lib/tutor/types'
 import { TutorRichText } from '@/components/practice/question-prompt'
 import { formatTutorSteps } from '@/lib/tutor/output'
@@ -107,7 +107,19 @@ function stripRepeatedContent(next: string, priorAssistant: string[]): string {
   return cleaned.trim() || 'Here is a new angle — what is the first number you notice in the question?'
 }
 
-function TutorBubble({ content, streaming }: { content: string; streaming?: boolean }) {
+function TutorBubble({
+  content,
+  streaming,
+  onAsk,
+  onSimplify,
+  disabled,
+}: {
+  content: string
+  streaming?: boolean
+  onAsk?: (tip: string) => void
+  onSimplify?: (tip: string) => void
+  disabled?: boolean
+}) {
   const [stepIndex, setStepIndex] = React.useState(0)
 
   const steps = React.useMemo(() => {
@@ -130,7 +142,35 @@ function TutorBubble({ content, streaming }: { content: string; streaming?: bool
   }
 
   if (streaming || !steps || steps.length <= 1) {
-    return <TutorRichText text={content} className="text-[13px] leading-5" />
+    return (
+      <div className="space-y-2">
+        <TutorRichText text={content} className="text-[13px] leading-5" />
+        {!streaming ? (
+          <div className="flex items-center gap-1.5">
+            <button
+              type="button"
+              disabled={disabled}
+              onClick={() => onAsk?.(content)}
+              aria-label="Ask about this tip"
+              title="Ask about this"
+              className="flex h-7 w-7 items-center justify-center rounded-full border border-black/5 bg-white text-fog transition hover:border-signal/30 hover:text-signal disabled:opacity-50"
+            >
+              <CircleHelp className="h-3.5 w-3.5" />
+            </button>
+            <button
+              type="button"
+              disabled={disabled}
+              onClick={() => onSimplify?.(content)}
+              aria-label="Explain this tip more simply"
+              title="Say it simpler"
+              className="flex h-7 w-7 items-center justify-center rounded-full border border-black/5 bg-white text-fog transition hover:border-signal/30 hover:text-signal disabled:opacity-50"
+            >
+              <RefreshCw className="h-3.5 w-3.5" />
+            </button>
+          </div>
+        ) : null}
+      </div>
+    )
   }
 
   const current = steps[Math.min(stepIndex, steps.length - 1)] ?? steps[0]!
@@ -142,16 +182,38 @@ function TutorBubble({ content, streaming }: { content: string; streaming?: bool
         Tip {stepIndex + 1} of {steps.length}
       </p>
       <TutorRichText text={current} className="text-[13px] leading-5" />
-      {hasMore ? (
+      <div className="flex flex-wrap items-center gap-1.5">
+        {hasMore ? (
+          <button
+            type="button"
+            onClick={() => setStepIndex((n) => Math.min(n + 1, steps.length - 1))}
+            className="inline-flex items-center gap-1 rounded-full border border-black/5 bg-white px-2.5 py-1 text-[11px] font-semibold text-signal transition hover:border-signal/30"
+          >
+            Next tip
+            <ChevronRight className="h-3.5 w-3.5" />
+          </button>
+        ) : null}
         <button
           type="button"
-          onClick={() => setStepIndex((n) => Math.min(n + 1, steps.length - 1))}
-          className="inline-flex items-center gap-1 rounded-full border border-black/5 bg-white px-2.5 py-1 text-[11px] font-semibold text-signal transition hover:border-signal/30"
+          disabled={disabled}
+          onClick={() => onAsk?.(current)}
+          aria-label="Ask about this tip"
+          title="Ask about this (?)"
+          className="flex h-7 w-7 items-center justify-center rounded-full border border-black/5 bg-white text-fog transition hover:border-signal/30 hover:text-signal disabled:opacity-50"
         >
-          Next tip
-          <ChevronRight className="h-3.5 w-3.5" />
+          <CircleHelp className="h-3.5 w-3.5" />
         </button>
-      ) : null}
+        <button
+          type="button"
+          disabled={disabled}
+          onClick={() => onSimplify?.(current)}
+          aria-label="Explain this tip more simply"
+          title="Refresh — say it simpler"
+          className="flex h-7 w-7 items-center justify-center rounded-full border border-black/5 bg-white text-fog transition hover:border-signal/30 hover:text-signal disabled:opacity-50"
+        >
+          <RefreshCw className="h-3.5 w-3.5" />
+        </button>
+      </div>
     </div>
   )
 }
@@ -160,6 +222,8 @@ const QUICK_PROMPTS = [
   { label: 'Hint', prompt: 'Give me a small hint only. Do not give the answer.', trigger: 'hint' as TutorTrigger },
   { label: 'Why?', prompt: 'Explain why the right answer works in short steps.', trigger: 'chat' as TutorTrigger },
   { label: 'Desmos', prompt: 'If Desmos helps, tell me exactly what to type.', trigger: 'chat' as TutorTrigger },
+  { label: '? Ask', prompt: 'I have a question about what you just said. Let me ask it next — first, pause and invite my question.', trigger: 'chat' as TutorTrigger },
+  { label: 'Simpler', prompt: 'Refresh mode: say what you just said again in easier, shorter words with a fresh tiny example. Do not move ahead.', trigger: 'help' as TutorTrigger },
 ]
 
 export function AiTutorPanel({ open, onClose, pendingTrigger, context, className }: AiTutorPanelProps) {
@@ -178,6 +242,7 @@ export function AiTutorPanel({ open, onClose, pendingTrigger, context, className
   const abortRef = React.useRef<AbortController | null>(null)
   const messagesRef = React.useRef(messages)
   const bottomRef = React.useRef<HTMLDivElement>(null)
+  const inputRef = React.useRef<HTMLTextAreaElement>(null)
   messagesRef.current = messages
 
   React.useEffect(() => {
@@ -307,6 +372,22 @@ export function AiTutorPanel({ open, onClose, pendingTrigger, context, className
     await send(text, 'chat')
   }
 
+  function handleAskAboutTip(tip: string) {
+    if (loading) return
+    const snippet = tip.replace(/\s+/g, ' ').trim().slice(0, 140)
+    setInput(`I have a question about this: "${snippet}" — `)
+    requestAnimationFrame(() => inputRef.current?.focus())
+  }
+
+  function handleSimplifyTip(tip: string) {
+    if (loading) return
+    const snippet = tip.replace(/\s+/g, ' ').trim().slice(0, 280)
+    void send(
+      `Refresh mode: say ONLY this last tip again in easier, shorter words with a fresh tiny example. Do not move ahead. Tip was: "${snippet}"`,
+      'help',
+    )
+  }
+
   function onPickImage(file: File | undefined) {
     if (!file || !file.type.startsWith('image/') || file.size > 1_800_000) return
     const reader = new FileReader()
@@ -383,6 +464,9 @@ export function AiTutorPanel({ open, onClose, pendingTrigger, context, className
                   <TutorBubble
                     content={msg.content}
                     streaming={streaming && msg === messages[messages.length - 1]}
+                    onAsk={handleAskAboutTip}
+                    onSimplify={handleSimplifyTip}
+                    disabled={loading}
                   />
                 ) : (
                   <span className="whitespace-pre-wrap text-[13px] leading-5">{msg.content}</span>
@@ -420,6 +504,7 @@ export function AiTutorPanel({ open, onClose, pendingTrigger, context, className
             />
           </label>
           <textarea
+            ref={inputRef}
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={(e) => {

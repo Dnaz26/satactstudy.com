@@ -38,9 +38,6 @@ export default async function DashboardLayout({ children }: { children: React.Re
         <header className="app-topbar flex h-14 shrink-0 items-center justify-between gap-2 px-5">
           <SidebarBrandTrigger />
           <div className="flex items-center gap-2">
-            <p className="hidden font-mono text-[10px] uppercase tracking-[0.14em] text-fog sm:block">
-              Menu · hover left edge
-            </p>
             <form action="/api/auth/signout" method="POST">
               <button
                 type="submit"

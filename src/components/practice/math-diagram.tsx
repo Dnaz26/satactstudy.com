@@ -152,8 +152,13 @@ export function MathDiagram({
   return (
     <div className={cn('ml-6 rounded-sm border bg-white/70 p-2', focus ? 'border-signal ring-2 ring-signal/40' : 'border-[#1c2740]/15')}>
       {imageUrl ? (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img src={imageUrl} alt="Question figure" className="mb-2 max-h-40 w-full object-contain" />
+        <div>
+          {imageUrl.startsWith('/digital-sat/reading-writing/') && <p className="mb-1 text-xs text-muted-foreground sm:hidden">Scroll horizontally to see the full figure.</p>}
+        <div className="overflow-x-auto" aria-label="Question figure; scroll horizontally if needed">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={imageUrl} alt="Question figure" className={cn("mb-2 w-full object-contain", imageUrl.startsWith("/digital-sat/") ? "max-h-80" : "max-h-40", imageUrl.startsWith('/digital-sat/reading-writing/') && 'min-w-[560px]')} />
+        </div>
+        </div>
       ) : null}
       {diagram ? <Figure diagram={diagram} focus={focus} /> : null}
     </div>

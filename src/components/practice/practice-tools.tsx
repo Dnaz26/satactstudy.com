@@ -9,39 +9,43 @@ export function PracticeTools({
   onChat,
   onCalculator,
   onHint,
+  assistance = true,
+  calculator = true,
 }: {
   chatOpen?: boolean
   calculatorOpen?: boolean
   onChat: () => void
   onCalculator: () => void
   onHint: () => void
+  assistance?: boolean
+  calculator?: boolean
 }) {
   return (
     <div className="flex items-center justify-center gap-3 py-1">
-      <button
+      {assistance && <button
         type="button"
         onClick={onChat}
         className={cn('flex h-12 w-12 items-center justify-center rounded-2xl', chatOpen ? 'neu-raised text-white' : 'neu-sm text-paper')}
         aria-label="Chat with Nova"
       >
         <Pencil className="h-5 w-5" />
-      </button>
-      <button
+      </button>}
+      {calculator && <button
         type="button"
         onClick={onCalculator}
         className={cn('flex h-12 w-12 items-center justify-center rounded-2xl', calculatorOpen ? 'neu-raised text-white' : 'neu-sm text-paper')}
         aria-label="Open calculator"
       >
         <Calculator className="h-5 w-5" />
-      </button>
-      <button
+      </button>}
+      {assistance && <button
         type="button"
         onClick={onHint}
         className="flex h-12 w-12 items-center justify-center rounded-2xl neu-sm text-paper"
         aria-label="Hint"
       >
         <Lightbulb className="h-5 w-5" />
-      </button>
+      </button>}
     </div>
   )
 }

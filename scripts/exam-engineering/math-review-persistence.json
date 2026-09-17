@@ -1,0 +1,17 @@
+{
+  "passed": true,
+  "independentlySolved": 132,
+  "persistedReviews": 132,
+  "validationStatus": "pending",
+  "unresolvedDistractors": 112,
+  "difficultyLevels": {
+    "1": 4,
+    "2": 43,
+    "3": 48,
+    "4": 27,
+    "5": 7,
+    "6": 3
+  },
+  "liveAssignmentsChanged": false,
+  "historicalAttemptsChanged": false
+}

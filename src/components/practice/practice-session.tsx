@@ -12,6 +12,8 @@ import { DesmosProvider, useDesmos } from '@/components/desmos/desmos-provider'
 import { DesmosPanel } from '@/components/desmos/desmos-panel'
 import { parseCalculatorConfig } from '@/lib/desmos/actions'
 import { cn } from '@/lib/utils'
+import { answersMatch } from '@/lib/practice/answers'
+import { useItemEvents } from '@/lib/practice/use-item-events'
 import type { TutorTrigger } from '@/lib/tutor/types'
 import { AlertCircle, ChevronRight } from 'lucide-react'
 import {
@@ -34,15 +36,6 @@ import {
   questionsForModule,
   type PracticeModule,
 } from '@/lib/practice/modules'
-
-function answersMatch(selected: string, correct: string): boolean {
-  const a = selected.trim().toLowerCase()
-  const b = correct.trim().toLowerCase()
-  if (a === b) return true
-  const na = Number(a.replace(/,/g, ''))
-  const nb = Number(b.replace(/,/g, ''))
-  return Number.isFinite(na) && Number.isFinite(nb) && na === nb
-}
 
 function instantWhy(question: BookletQuestion): string {
   if (question.ai_explanation) {
@@ -103,13 +96,21 @@ function SessionContent() {
   const [aiPanelOpen, setAiPanelOpen] = React.useState(false)
   const [pendingTrigger, setPendingTrigger] = React.useState<{ trigger: TutorTrigger; prompt: string } | null>(null)
   const [hintUsed, setHintUsed] = React.useState<Record<string, boolean>>({})
+  const [tutorUsed, setTutorUsed] = React.useState<Record<string, boolean>>({})
+  const [desmosUsed, setDesmosUsed] = React.useState<Record<string, boolean>>({})
   const [clockStart, setClockStart] = React.useState(0)
   const [sheetTestType, setSheetTestType] = React.useState(testType)
   const [moduleIndex, setModuleIndex] = React.useState(0)
   const [sectionExpired, setSectionExpired] = React.useState(false)
   const [activeScreen, setActiveScreen] = React.useState<'test' | 'desmos'>('test')
   const [examTitle, setExamTitle] = React.useState('')
-  const [examMeta, setExamMeta] = React.useState<{ readingIds: string[]; englishIds: string[]; mathIds: string[] } | null>(null)
+  const [examMeta, setExamMeta] = React.useState<{ readingIds: string[]; englishIds: string[]; mathIds: string[]; formatVersion?: number; mathPath?: string | null } | null>(null)
+  const [submitting, setSubmitting] = React.useState(false)
+  const [saveError, setSaveError] = React.useState('')
+  const [breakUntil, setBreakUntil] = React.useState<string | null>(null)
+  const [breakRemaining, setBreakRemaining] = React.useState(0)
+  const breakDeadline = React.useRef(0)
+  const digitalSat = examMode && examMeta?.formatVersion === 2
   const startedAt = React.useRef<Record<string, number>>({})
   const finished = React.useRef(false)
   const bookletRef = React.useRef<HTMLDivElement>(null)
@@ -130,6 +131,7 @@ function SessionContent() {
     [fullTest, questions, currentModule],
   )
   const isLastModule = fullTest && modules.length > 0 && moduleIndex >= modules.length - 1
+  const itemEvents=useItemEvents(sessionId,focusedId,digitalSat && timerRunning && !sectionExpired && !breakUntil)
 
   function snapshotFromState(overrides?: Partial<PracticeSnapshot>): PracticeSnapshot {
     return {
@@ -159,6 +161,7 @@ function SessionContent() {
   }
 
   function goToScreen(screen: 'test' | 'desmos') {
+    if (screen === 'desmos' && digitalSat && currentModule?.sectionHint !== 'Math') return
     setActiveScreen(screen)
     const track = screenTrackRef.current
     if (!track) return
@@ -192,7 +195,7 @@ function SessionContent() {
             body: JSON.stringify({ examId }),
           })
           const data = await res.json() as {
-            exam?: { id: string; title: string; readingIds: string[]; englishIds: string[]; mathIds: string[] }
+            exam?: { id: string; title: string; readingIds: string[]; englishIds: string[]; mathIds: string[]; formatVersion?: number; mathPath?: string | null }
             sessionId?: string | null
             questions?: BookletQuestion[]
             progress?: {
@@ -201,7 +204,10 @@ function SessionContent() {
               focusedId: string | null
               moduleIndex: number
               moduleSecondsLeft: number | null
+              breakUntil?: string | null
+              serverNow?: string
               elapsed: number
+              usage?: { tutorUsed?: Record<string, boolean>; desmosUsed?: Record<string, boolean> }
               hintUsed: Record<string, boolean>
             } | null
             error?: string
@@ -229,6 +235,8 @@ function SessionContent() {
             readingIds: data.exam?.readingIds ?? [],
             englishIds: data.exam?.englishIds ?? [],
             mathIds: data.exam?.mathIds ?? [],
+            formatVersion: data.exam?.formatVersion,
+            mathPath: data.exam?.mathPath,
           }
           const built = buildExamModules(loaded, meta)
           const progress = data.progress
@@ -243,10 +251,12 @@ function SessionContent() {
           setExamMeta(meta)
           setQuestions(loaded)
           setSessionId(data.sessionId ?? null)
-          setSheetTestType('Exam')
+          setSheetTestType(data.exam?.formatVersion === 2 ? 'SAT' : 'Exam')
           setAnswers(progress?.answers ?? {})
           setMarks(progress?.marks ?? {})
           setHintUsed(progress?.hintUsed ?? {})
+          setTutorUsed(progress?.usage?.tutorUsed ?? {})
+          setDesmosUsed(progress?.usage?.desmosUsed ?? {})
           setElapsed(progress?.elapsed ?? 0)
           setModuleIndex(restoredIndex)
           setModuleSecondsLeft(
@@ -254,10 +264,14 @@ function SessionContent() {
               ? progress.moduleSecondsLeft
               : firstModule?.seconds ?? 0,
           )
-          setSectionExpired(false)
+          setSectionExpired(progress?.moduleSecondsLeft === 0)
           setFocusedId(firstId)
           if (firstId) startedAt.current[firstId] = Date.now()
-          setTimerRunning(true)
+          const remaining=progress?.breakUntil?Math.max(0,(Date.parse(progress.breakUntil)-Date.parse(progress.serverNow??new Date().toISOString()))/1000):0
+          breakDeadline.current=performance.now()+remaining*1000
+          setBreakRemaining(Math.ceil(remaining))
+          setBreakUntil(progress?.breakUntil ?? null)
+          setTimerRunning(!progress?.breakUntil)
           setLoading(false)
           return
         } catch {
@@ -379,28 +393,40 @@ function SessionContent() {
     }
   }, [testType, topicId, difficulty, count, categoryName, sectionName, timed, pace, taskId, router, fullTest, modeParam, examMode, examId])
 
+  const savePayloadRef = React.useRef<Record<string, unknown>>({})
+  React.useEffect(() => {
+    savePayloadRef.current = { examId, answers, marks, focusedId, moduleIndex, moduleSecondsLeft, elapsed, hintUsed, usage: { tutorUsed, desmosUsed }, sessionId }
+  }, [examId, answers, marks, focusedId, moduleIndex, moduleSecondsLeft, elapsed, hintUsed, tutorUsed, desmosUsed, sessionId])
+
+  React.useEffect(() => {
+    if (!examMode || !examId || loading) return
+    let saving = false
+    const save = async () => {
+      if (saving || finished.current) return
+      saving = true
+      try {
+        const res = await fetch('/api/practice/exams/progress', {
+          method: 'PATCH', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(savePayloadRef.current), keepalive: true,
+        })
+        if (res.ok) setSaveError(prev => prev.startsWith('Progress could not save') ? '' : prev)
+        if (!res.ok && res.status !== 409) setSaveError('Progress could not save. Keep this page open and try again.')
+      } catch {
+        setSaveError('Progress could not save. Keep this page open and try again.')
+      } finally { saving = false }
+    }
+    const interval = window.setInterval(() => void save(), 1500)
+    const onHide = () => void save()
+    window.addEventListener('pagehide', onHide)
+    return () => {
+      window.clearInterval(interval)
+      window.removeEventListener('pagehide', onHide)
+    }
+  }, [examMode, examId, loading])
+
   React.useEffect(() => {
     if (loading || finished.current || questions.length === 0) return
-    if (examMode && examId) {
-      const handle = window.setTimeout(() => {
-        void fetch('/api/practice/exams/progress', {
-          method: 'PATCH',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            examId,
-            answers,
-            marks,
-            focusedId,
-            moduleIndex,
-            moduleSecondsLeft,
-            elapsed,
-            hintUsed,
-            sessionId,
-          }),
-        }).catch(() => undefined)
-      }, 700)
-      return () => window.clearTimeout(handle)
-    }
+    if (examMode && examId) return
     writePracticeSnapshot(snapshotFromState())
   }, [
     questions,
@@ -409,6 +435,8 @@ function SessionContent() {
     focusedId,
     sessionId,
     hintUsed,
+    tutorUsed,
+    desmosUsed,
     loading,
     topicId,
     taskId,
@@ -433,6 +461,32 @@ function SessionContent() {
     }, 1000)
     return () => window.clearInterval(id)
   }, [fullTest, timerRunning, sectionExpired])
+
+  React.useEffect(() => {
+    if (!breakUntil || !examId) return
+    let mounted=true,checking=false
+    const tick=async()=>{
+      const left=Math.max(0,Math.ceil((breakDeadline.current-performance.now())/1000))
+      setBreakRemaining(left)
+      if(left>0||checking)return
+      checking=true
+      try{
+        // Confirm release with server time. Local clock changes cannot release Math.
+        const response=await fetch('/api/practice/exams',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({examId}),signal:AbortSignal.timeout(5000)})
+        if(!response.ok)throw Error('Break confirmation unavailable')
+        const data=await response.json()
+        if(!mounted)return
+        const until=data.progress?.breakUntil
+        const remaining=until?Math.max(0,Date.parse(until)-Date.parse(data.progress.serverNow)):0
+        if(remaining>0){breakDeadline.current=performance.now()+remaining;setBreakRemaining(Math.ceil(remaining/1000))}
+        else{setBreakUntil(null);setTimerRunning(true)}
+      }catch{if(mounted){breakDeadline.current=performance.now()+5000;setSaveError('Checking break completion. Reconnecting to your saved exam.')}}
+      finally{checking=false}
+    }
+    void tick()
+    const id=window.setInterval(()=>{void tick()},1000)
+    return ()=>{mounted=false;window.clearInterval(id)}
+  }, [breakUntil,examId])
 
   React.useEffect(() => {
     if (!fullTest) return
@@ -477,6 +531,7 @@ function SessionContent() {
     const value = answers[id]?.trim()
     if (!question || !value || marks[id]) return
 
+    if (digitalSat) return
     const localCorrect = answersMatch(value, question.correct_answer)
     const why = localCorrect ? undefined : instantWhy(question)
     setMarks((prev) => ({ ...prev, [id]: { correct: localCorrect, why } }))
@@ -515,28 +570,72 @@ function SessionContent() {
   }
 
   async function scoreAll() {
+    if (digitalSat) return
     const pending = moduleQuestions.filter((q) => answers[q.id] && !marks[q.id])
     for (const question of pending) {
       await checkQuestion(question.id, false)
     }
   }
 
-  function advanceModule() {
+  async function advanceModule() {
     if (!fullTest || !modules.length || isLastModule) return
     const nextIndex = moduleIndex + 1
-    const next = modules[nextIndex]
-    if (!next) return
+    let next = modules[nextIndex]
+    if (!next || submitting) return
+    if (digitalSat) {
+      setSubmitting(true)
+      setSaveError('')
+      try {
+        await itemEvents.close()
+        const res = await fetch('/api/practice/exams/module', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ examId, fromModule: moduleIndex, answers }) })
+        const data = await res.json()
+        if (!res.ok) throw new Error(data.error ?? 'Could not submit module')
+        const updated = [...questions.slice(0,54), ...data.questions] as BookletQuestion[]
+        const meta = { ...examMeta!, mathIds: data.mathIds as string[], mathPath: data.mathPath as string | null }
+        setQuestions(updated)
+        setExamMeta(meta)
+        next = buildExamModules(updated, meta)[nextIndex]
+        const remaining=data.breakUntil?Math.max(0,Date.parse(data.breakUntil)-Date.parse(data.serverNow)):0
+        breakDeadline.current=performance.now()+remaining
+        setBreakRemaining(Math.ceil(remaining/1000))
+        setBreakUntil(data.breakUntil ?? null)
+      } catch (err) {
+        setSaveError(err instanceof Error ? err.message : 'Could not submit module')
+        setSubmitting(false)
+        return
+      }
+      setSubmitting(false)
+    }
     setModuleIndex(nextIndex)
     setModuleSecondsLeft(next.seconds)
     setSectionExpired(false)
-    setTimerRunning(true)
+    setTimerRunning(!(digitalSat && nextIndex === 2))
     const nextFocus = next.questionIds[0] ?? null
     setFocusedId(nextFocus)
     if (nextFocus) startedAt.current[nextFocus] = Date.now()
     goToScreen('test')
   }
 
-  function finish() {
+  async function finish() {
+    if (submitting || (digitalSat && !isLastModule)) return
+    if (digitalSat) {
+      setSubmitting(true)
+      setSaveError('')
+      try {
+        await itemEvents.close()
+        const res = await fetch('/api/practice/exams/progress', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ examId, answers, timeSpentSeconds: elapsed, sessionId, usage: { hintUsed, tutorUsed, desmosUsed } }) })
+        const score = await res.json()
+        if (!res.ok) throw new Error(score.error ?? 'Could not save score')
+        finished.current = true
+        clearPracticeSnapshot(topicId)
+        if (taskId) void fetch('/api/schedule/complete', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ taskId }) })
+        router.push(`/practice/results?correct=${score.correctCount}&total=${score.total}&math=${score.mathCorrect ?? ''}&rw=${score.rwCorrect ?? ''}&path=${score.mathPath ?? ''}&sessionId=${sessionId ?? ''}`)
+      } catch (err) {
+        setSaveError(err instanceof Error ? err.message : 'Could not save score')
+        setSubmitting(false)
+      }
+      return
+    }
     const correctCount = questions.filter((q) => marks[q.id]?.correct).length
     finished.current = true
     clearPracticeSnapshot(topicId)
@@ -582,12 +681,16 @@ function SessionContent() {
   }
 
   function askTutor(trigger: TutorTrigger, prompt: string) {
+    if (digitalSat) return
+    if (focused) setTutorUsed(prev => ({ ...prev, [focused.id]: true }))
     if (trigger === 'hint' && focused) setHintUsed((prev) => ({ ...prev, [focused.id]: true }))
     setAiPanelOpen(true)
     setPendingTrigger({ trigger, prompt })
   }
 
   function onCalculatorToggle() {
+    if (digitalSat && currentModule?.sectionHint !== 'Math') return
+    if (focused) setDesmosUsed(prev => ({ ...prev, [focused.id]: true }))
     if (fullTest) {
       if (activeScreen === 'desmos') goToScreen('test')
       else goToScreen('desmos')
@@ -628,6 +731,15 @@ function SessionContent() {
     )
   }
 
+  if (digitalSat && breakUntil) {
+    return <div className="mx-auto max-w-xl space-y-5 py-12 text-center">
+      <h1 className="text-2xl font-bold text-paper">Scheduled SAT break</h1>
+      <p className="text-fog">Reading &amp; Writing is complete. Math begins after this 10-minute break.</p>
+      <p className="font-mono text-4xl text-paper" role="timer" aria-label="Break time remaining">{Math.floor(breakRemaining/60)}:{String(breakRemaining%60).padStart(2,'0')}</p>
+      <p className="text-sm text-fog">Your answers are saved. You can reload this page to resume the break.</p>
+    </div>
+  }
+
   if (questions.length === 0) {
     return (
       <div className="mx-auto max-w-2xl py-12 text-center">
@@ -647,7 +759,7 @@ function SessionContent() {
   const allScored = scored === questions.length
   const answerValue = focused ? answers[focused.id] ?? '' : ''
   const focusedNumber = focused
-    ? moduleQuestions.findIndex((q) => q.id === focused.id) + 1
+    ? moduleQuestions.findIndex((q) => q.id === focused.id) + 1 + (digitalSat ? [0,27,54,76][moduleIndex] : 0)
     : 1
   const timeLimit = timed && !fullTest ? Math.max(60, questions.length * Math.max(30, pace)) : 0
   const sectionLabel = currentModule?.label
@@ -660,11 +772,14 @@ function SessionContent() {
         sectionLabel={sectionLabel}
         questions={moduleQuestions}
         answers={answers}
-        marks={marks}
+        marks={digitalSat ? {} : marks}
+        allowCheck={!digitalSat}
+        numberOffset={digitalSat ? [0,27,54,76][moduleIndex] : 0}
         focusedId={focusedId}
         onFocus={focusQuestion}
         onAnswer={(id, value) => {
           if (marks[id] || sectionExpired) return
+          itemEvents.answer(id,value,answers[id])
           setAnswers((prev) => ({ ...prev, [id]: value }))
           setFocusedId(id)
         }}
@@ -686,7 +801,8 @@ function SessionContent() {
     <AnswerSheet
       questions={moduleQuestions}
       answers={answers}
-      marks={marks}
+      marks={digitalSat ? {} : marks}
+      numberOffset={digitalSat ? [0,27,54,76][moduleIndex] : 0}
       focusedId={focusedId}
       onJump={focusQuestion}
     />
@@ -704,9 +820,11 @@ function SessionContent() {
             {examMode ? (examTitle || 'Practice exam') : `${sheetTestType} ${fullTest ? 'practice test' : 'sheet'}`}
             {fullTest && currentModule ? ` · ${currentModule.label}` : ''}
             {' · '}
-            {filledModule}/{moduleQuestions.length} filled · {scoredModule} scored
+            {filledModule}/{moduleQuestions.length} filled{!digitalSat && ` · ${scoredModule} scored`}
             {focused ? ` · Q${focusedNumber}` : ''}
           </p>
+          {digitalSat && <p className="text-xs text-fog">{Object.values(answers).filter(Boolean).length}/98 answered · Math questions 55–98</p>}
+          {saveError && <p role="alert" className="text-sm text-bad">{saveError}</p>}
           {fullTest && modules.length > 1 && (
             <p className="mt-0.5 text-xs text-fog">
               Module {moduleIndex + 1} of {modules.length}
@@ -716,12 +834,12 @@ function SessionContent() {
           )}
         </div>
         <div className="flex flex-wrap items-center gap-2">
-          <StudyTimer running={timerRunning && !sectionExpired} label="Studied" />
+          <StudyTimer running={timerRunning && !sectionExpired} label="Studied" displaySeconds={digitalSat ? elapsed : undefined} />
           {fullTest && currentModule ? (
             <QuestionTimer
               key={`module-timer-${currentModule.id}-${moduleIndex}`}
               mode="countdown"
-              initialSeconds={moduleSecondsLeft > 0 ? moduleSecondsLeft : currentModule.seconds}
+              initialSeconds={sectionExpired ? 0 : moduleSecondsLeft > 0 ? moduleSecondsLeft : currentModule.seconds}
               running={timerRunning && !sectionExpired}
               onTick={setModuleSecondsLeft}
               onTimeUp={() => {
@@ -746,10 +864,10 @@ function SessionContent() {
         <div className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-[var(--line)] bg-[#fff4ef] px-4 py-3">
           <p className="text-sm text-paper">
             Time is up for {currentModule?.label ?? 'this section'}.
-            {isLastModule ? ' Score what you can, then end the test.' : ' Continue to the next module when ready.'}
+            {isLastModule ? ' Submit your answers to end the test.' : ' Submit this module to continue.'}
           </p>
           {!isLastModule && (
-            <Button onClick={advanceModule}>
+            <Button onClick={() => void advanceModule()} disabled={submitting}>
               Next module
               <ChevronRight className="ml-1 h-4 w-4" />
             </Button>
@@ -758,6 +876,8 @@ function SessionContent() {
       )}
 
       <PracticeTools
+        assistance={!digitalSat}
+        calculator={!digitalSat || currentModule?.sectionHint === 'Math'}
         chatOpen={aiPanelOpen}
         calculatorOpen={fullTest ? activeScreen === 'desmos' : desmos.open}
         onChat={() => setAiPanelOpen(true)}
@@ -783,9 +903,9 @@ function SessionContent() {
               </div>
             </div>
           </section>
-          <section className="w-full min-w-full shrink-0 snap-start snap-always px-0.5">
+          {(!digitalSat || currentModule?.sectionHint === 'Math') && <section className="w-full min-w-full shrink-0 snap-start snap-always px-0.5">
             <DesmosPanel screen onBack={() => goToScreen('test')} />
-          </section>
+          </section>}
         </div>
       ) : (
         <div
@@ -815,17 +935,17 @@ function SessionContent() {
       {!fullTest && !desmos.open && <DesmosPanel embedded={false} />}
 
       <div className="flex flex-wrap gap-2">
-        <Button variant="secondary" onClick={() => void scoreAll()} disabled={filledModule === 0 || scoredModule === filledModule}>
+        {!digitalSat && <Button variant="secondary" onClick={() => void scoreAll()} disabled={filledModule === 0 || scoredModule === filledModule}>
           Score filled answers
-        </Button>
+        </Button>}
         {fullTest && !isLastModule && (
-          <Button variant="secondary" onClick={advanceModule}>
+          <Button variant="secondary" onClick={() => void advanceModule()} disabled={submitting}>
             Next module
             <ChevronRight className="ml-1 h-4 w-4" />
           </Button>
         )}
-        <Button onClick={finish} disabled={!allScored && scored === 0 && !sectionExpired}>
-          {allScored || (fullTest && isLastModule) ? 'See results' : `End with ${scored || 0} scored`}
+        <Button onClick={() => void finish()} disabled={submitting || (digitalSat ? !isLastModule : !allScored && scored === 0 && !sectionExpired)}>
+          {submitting ? 'Saving…' : digitalSat ? 'Submit exam' : allScored || (fullTest && isLastModule) ? 'See results' : `End with ${scored || 0} scored`}
         </Button>
       </div>
 

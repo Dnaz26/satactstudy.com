@@ -4,6 +4,7 @@ import * as React from 'react'
 import Link from 'next/link'
 import { Search } from 'lucide-react'
 import { TutorRichText } from '@/components/practice/question-prompt'
+import { AnswerSheet, TestBooklet, type BookletMark, type BookletQuestion } from '@/components/practice/test-booklet'
 import { cn } from '@/lib/utils'
 import { ENGLISH_LEVELS, MATH_LEVELS, type StudyLevel, type StudyTrack } from '@/lib/study/levels'
 import { examplesForLevel } from '@/lib/study/examples'
@@ -50,10 +51,17 @@ const BUCKETS: Array<{ id: Bucket | 'all'; label: string }> = [
   { id: 'reading', label: 'Reading' },
 ]
 
+const REFRESH_DIFFICULTIES: Array<'easy' | 'medium' | 'hard'> = [
+  'easy', 'easy', 'easy', 'medium', 'medium', 'medium', 'medium', 'hard', 'hard', 'hard',
+]
+
 export function RefreshClient() {
   const [query, setQuery] = React.useState('')
   const [bucket, setBucket] = React.useState<Bucket | 'all'>('all')
   const [selectedId, setSelectedId] = React.useState<string | null>(ALL_TOPICS[0]?.id ?? null)
+  const [answers, setAnswers] = React.useState<Record<string, string>>({})
+  const [marks, setMarks] = React.useState<Record<string, BookletMark>>({})
+  const [focusedId, setFocusedId] = React.useState<string | null>(null)
 
   const filtered = React.useMemo(() => {
     const q = query.trim().toLowerCase()
@@ -68,14 +76,77 @@ export function RefreshClient() {
     })
   }, [query, bucket])
 
-  const selected = filtered.find((topic) => topic.id === selectedId) ?? filtered[0] ?? null
+  const selected = React.useMemo(
+    () => ALL_TOPICS.find((topic) => topic.id === selectedId) ?? filtered[0] ?? null,
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [filtered, selectedId],
+  )
 
   React.useEffect(() => {
-    if (selected && selected.id !== selectedId) setSelectedId(selected.id)
-  }, [selected, selectedId])
+    setAnswers({})
+    setMarks({})
+    setFocusedId(null)
+  }, [selected?.id])
 
   const lesson = selected ? buildGuidedLesson(selected.level) : null
   const examples = selected ? examplesForLevel(selected.level) : null
+
+  const questions: BookletQuestion[] = React.useMemo(() => {
+    if (!selected || !lesson) return []
+    const base = lesson.problems.length ? lesson.problems : selected.level.problems
+    if (!base.length) return []
+    return Array.from({ length: 10 }, (_, i) => {
+      const source = base[i % base.length]!
+      return {
+        id: `${selected.id}-q${i + 1}`,
+        question_text: source.prompt,
+        choices: source.choices,
+        correct_answer: source.answer,
+        difficulty: REFRESH_DIFFICULTIES[i] ?? 'medium',
+        topic_id: `${selected.track}-${selected.level.index}`,
+        topic_name: selected.title,
+        section_name: selected.category,
+        test_type: selected.track === 'math' ? 'SAT' : 'SAT',
+        official_explanation: source.explain,
+      } satisfies BookletQuestion
+    })
+  }, [selected, lesson])
+
+  function handleAnswer(id: string, value: string) {
+    if (marks[id]) return
+    setAnswers((prev) => ({ ...prev, [id]: value }))
+  }
+
+  function handleCheck(id: string) {
+    const question = questions.find((q) => q.id === id)
+    const answer = answers[id]
+    if (!question || !answer || marks[id]) return
+    setMarks((prev) => ({
+      ...prev,
+      [id]: {
+        correct: answer === question.correct_answer,
+        why: question.official_explanation ?? `The correct answer is ${question.correct_answer}.`,
+      },
+    }))
+  }
+
+  function handleCheckAll() {
+    setMarks((prev) => {
+      const next = { ...prev }
+      for (const question of questions) {
+        const answer = answers[question.id]
+        if (!answer || next[question.id]) continue
+        next[question.id] = {
+          correct: answer === question.correct_answer,
+          why: question.official_explanation ?? `The correct answer is ${question.correct_answer}.`,
+        }
+      }
+      return next
+    })
+  }
+
+  const scored = questions.filter((q) => marks[q.id]).length
+  const correct = questions.filter((q) => marks[q.id]?.correct).length
 
   return (
     <div className="mx-auto w-full max-w-5xl space-y-6 pb-16 pt-4">
@@ -83,7 +154,7 @@ export function RefreshClient() {
         <p className="font-mono text-xs uppercase tracking-[0.16em] text-fog">Refresh</p>
         <h1 className="font-display text-4xl tracking-tight text-paper">Practice a topic again</h1>
         <p className="max-w-2xl text-sm text-fog">
-          Type a topic you want more practice on, or browse Math, English, and Reading. Open a topic to see simple examples.
+          Pick any of the {ALL_TOPICS.length} topics below to refresh it. Tap a topic to see examples and practice questions.
         </p>
       </header>
 
@@ -181,6 +252,42 @@ export function RefreshClient() {
                     </li>
                   ))}
                 </ul>
+              </div>
+            </div>
+
+            <div className="space-y-4">
+              <div className="flex flex-wrap items-center justify-between gap-2">
+                <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-fog">
+                  Practice test · 10 questions{scored ? ` · ${correct}/${scored} correct` : ''}
+                </p>
+                <button
+                  type="button"
+                  onClick={handleCheckAll}
+                  className="rounded-full border border-line bg-white px-3 py-1.5 text-xs font-semibold text-paper transition hover:border-signal/40 hover:text-signal"
+                >
+                  Check all answered
+                </button>
+              </div>
+              <div className="grid gap-4 xl:grid-cols-[minmax(0,1fr)_12rem]">
+                <TestBooklet
+                  testType={selected.track === 'math' ? 'SAT Math' : 'SAT Reading'}
+                  sectionLabel={selected.title}
+                  questions={questions}
+                  answers={answers}
+                  marks={marks}
+                  focusedId={focusedId}
+                  onFocus={setFocusedId}
+                  onAnswer={handleAnswer}
+                  onCheck={handleCheck}
+                  allowCheck
+                />
+                <AnswerSheet
+                  questions={questions}
+                  answers={answers}
+                  marks={marks}
+                  focusedId={focusedId}
+                  onJump={setFocusedId}
+                />
               </div>
             </div>
           </div>

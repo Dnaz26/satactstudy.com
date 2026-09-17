@@ -1,0 +1,71 @@
+{
+  "passed": true,
+  "exams": 36,
+  "pathsValidated": 72,
+  "questionsPersisted": 132,
+  "assignments": 2376,
+  "exactDuplicatePrompts": 0,
+  "mathDomainCounts": {
+    "Geometry and Trigonometry": 7,
+    "Algebra": 15,
+    "Advanced Math": 15,
+    "Problem-Solving and Data Analysis": 7
+  },
+  "pathExamples": [
+    {
+      "exam": 1,
+      "path": "easy",
+      "domains": {
+        "Geometry and Trigonometry": 7,
+        "Algebra": 15,
+        "Advanced Math": 15,
+        "Problem-Solving and Data Analysis": 7
+      },
+      "difficulty": {
+        "Easy": 16,
+        "Medium": 22,
+        "Hard": 6
+      },
+      "spr": 11
+    },
+    {
+      "exam": 1,
+      "path": "hard",
+      "domains": {
+        "Geometry and Trigonometry": 7,
+        "Algebra": 15,
+        "Advanced Math": 15,
+        "Problem-Solving and Data Analysis": 7
+      },
+      "difficulty": {
+        "Easy": 8,
+        "Medium": 22,
+        "Hard": 14
+      },
+      "spr": 11
+    }
+  ],
+  "coverage": [
+    "Nonlinear equations in one variable and systems of equations in two variables",
+    "Lines, angles, and triangles",
+    "Systems of two linear equations in two variables",
+    "Percentages",
+    "Linear inequalities in one or two variables",
+    "Linear functions",
+    "Equivalent expressions",
+    "Nonlinear functions",
+    "Area and volume",
+    "Circles",
+    "Right triangles and trigonometry",
+    "Linear equations in two variables",
+    "Probability and conditional probability",
+    "Linear equations in one variable",
+    "Inference from sample statistics and margin of error",
+    "Ratios, rates, proportional relationships, and units",
+    "Evaluating statistical claims: observational studies and experiments",
+    "Two-variable data: models and scatterplots",
+    "One-variable data: distributions and measures of center and spread"
+  ],
+  "sharedMathPool": true,
+  "mathQuestionsMayRecurAcrossExams": true
+}

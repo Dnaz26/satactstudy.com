@@ -85,7 +85,7 @@ export default async function DashboardPage({
       .eq('user_id', user.id),
     supabase
       .from('user_practice_exams')
-      .select('status, completed_questions, correct_count')
+      .select('status, completed_questions, correct_count, total_questions')
       .eq('user_id', user.id),
   ])
 
@@ -106,7 +106,7 @@ export default async function DashboardPage({
     return row.completed_at.slice(0, 10) === today
   }).length
   const practiceDoneLifetime = (examProgress ?? []).reduce((sum, row) => {
-    if (row.status === 'completed') return sum + (row.completed_questions ?? 100)
+    if (row.status === 'completed') return sum + (row.completed_questions ?? row.total_questions ?? 98)
     return sum + (row.completed_questions ?? 0)
   }, 0)
 

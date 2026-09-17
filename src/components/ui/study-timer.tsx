@@ -19,11 +19,13 @@ export function StudyTimer({
   label = 'Study time',
   className,
   onSeconds,
+  displaySeconds,
 }: {
   running?: boolean
   label?: string
   className?: string
   onSeconds?: (seconds: number) => void
+  displaySeconds?: number
 }) {
   const [seconds, setSeconds] = React.useState(0)
   const pending = React.useRef(0)
@@ -55,7 +57,7 @@ export function StudyTimer({
     <div className={cn('neu-sm flex items-center gap-2 rounded-2xl px-3 py-2 font-mono text-sm', className)}>
       <Clock className="h-4 w-4 text-signal" />
       <span className="text-[10px] uppercase tracking-[0.14em] text-fog">{label}</span>
-      <span className="font-semibold text-paper">{formatStudyClock(seconds)}</span>
+      <span className="font-semibold text-paper">{formatStudyClock(displaySeconds ?? seconds)}</span>
     </div>
   )
 }

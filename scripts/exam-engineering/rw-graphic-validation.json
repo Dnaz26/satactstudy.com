@@ -1,0 +1,16 @@
+{
+  "independentArithmetic": true,
+  "passageDataMatches": true,
+  "assets": [
+    "soil-water-loss.svg",
+    "recall-practice.svg",
+    "composite-strength.svg"
+  ],
+  "visualRendering": "desktop_browser_passed",
+  "mobileRendering": "390px wrapper: readable labels preserved by horizontal overflow; full in-session interaction pending",
+  "barArithmetic": {
+    "aligned_percent_change": 25,
+    "random_percent_change": 12.5,
+    "pixel_scale": 2
+  }
+}

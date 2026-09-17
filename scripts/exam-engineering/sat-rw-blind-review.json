@@ -1,0 +1,353 @@
+[
+  {
+    "n": 1,
+    "id": "b47f2cb2-e9ab-587d-a1b4-369ae2f3d1be",
+    "passage": "An archaeologist examining a coastal settlement found imported pottery only in houses near the harbor. Rather than interpreting the pottery as evidence that all residents traded overseas, she argued that access to foreign goods was uneven within the settlement. The location of an artifact, she maintained, can be as informative as the artifact itself.",
+    "question": "Which choice best states the main idea of the text?",
+    "choices": [
+      "The archaeologist regards imported pottery as insufficient evidence that overseas trade occurred.",
+      "The distribution of imported pottery suggests unequal access to foreign goods.",
+      "Imported pottery proves that every household participated in overseas trade.",
+      "The imported pottery indicates that the settlement’s overseas trade was concentrated in its earliest period."
+    ],
+    "content_hash": "c52978ef5f02fce4d183c0171b6e712c52c43fa7f33cd66091f3c1ce3c8cfca6"
+  },
+  {
+    "n": 2,
+    "id": "a888cf6b-e346-5044-ae4b-96b476ab8303",
+    "passage": "Some economists describe a price as a compressed message about scarcity. Yet a price can also reflect legal restrictions, market power, or information unavailable to buyers. A historian of commodity markets therefore treats prices as evidence that must be interpreted alongside institutional records, rather than as transparent measures of supply alone.",
+    "question": "Which choice best states the central idea of the text?",
+    "choices": [
+      "Legal restrictions affect prices only when buyers lack information.",
+      "Institutional records are valuable chiefly because they establish the quantity of goods available.",
+      "Prices provide useful evidence, but interpreting them requires attention to influences beyond supply.",
+      "Historical prices are too unreliable to contribute to economic research."
+    ],
+    "content_hash": "fc97e9f3b1f66fe08eb434f73682e78d035c023975605a59f25dd84f1ac1ece7"
+  },
+  {
+    "n": 3,
+    "id": "d79a964f-de15-5eb5-adf6-7176a8db59ee",
+    "passage": "A literary critic argues that the narrator of a novel confuses possessiveness with affection. The narrator praises a friend’s independence when the friend rejects other people’s advice, but calls that same independence disloyalty when the friend rejects the narrator’s own advice. The critic sees the inconsistency as deliberate characterization, not an accidental contradiction.",
+    "question": "Which detail most directly supports the critic’s interpretation?",
+    "choices": [
+      "The critic considers the characterization deliberate.",
+      "The narrator judges the same behavior differently depending on whose advice is rejected.",
+      "The narrator values the friend’s independence even when the friend declines the narrator’s recommendations.",
+      "The narrator’s advice changes as the friend becomes more independent."
+    ],
+    "content_hash": "2af4bc54f3aa2841323d882aec35027be50e3b0aab855762af0fd080b1a730f9"
+  },
+  {
+    "n": 4,
+    "id": "d3e1df28-94c7-553a-a26f-ec66d523da47",
+    "passage": "A linguist proposes that speakers borrow unfamiliar technical terms because the borrowed words mark membership in a professional community, not simply because their language lacks equivalent expressions. To distinguish these explanations, she studies situations in which a familiar local expression and a borrowed term communicate precisely the same technical meaning.",
+    "question": "Which finding would most directly support the linguist’s proposed explanation?",
+    "choices": [
+      "Some technical ideas have no established local expression.",
+      "Both expressions can be translated into a third language.",
+      "The borrowed term was first documented in a professional manual.",
+      "Speakers prefer the borrowed term with professional colleagues but the local expression with other listeners."
+    ],
+    "content_hash": "dc5fe4a130ed725c0a6c49f74153f53bf9e280d3ab7d457d44ddb9c430412cfb"
+  },
+  {
+    "n": 5,
+    "id": "0196f082-16ad-5293-a99a-692accf8f13b",
+    "passage": "An ecologist suggests that shading reduces water loss more strongly in coarse soil than in fine soil. In a controlled trial, identical containers began with equal amounts of water. After 48 hours, water losses were: coarse soil without shade, 40 mL; coarse soil with shade, 22 mL; fine soil without shade, 26 mL; fine soil with shade, 20 mL.",
+    "question": "Which comparison most directly supports the ecologist’s suggestion?",
+    "choices": [
+      "Unshaded coarse soil lost 40 mL, whereas unshaded fine soil lost 26 mL.",
+      "Both shaded containers lost more than 15 mL.",
+      "Shade reduced loss by 18 mL in coarse soil but by 6 mL in fine soil.",
+      "Shaded coarse soil lost 22 mL, whereas shaded fine soil lost 20 mL."
+    ],
+    "content_hash": "9b2ba2039911edf9d12e5e994894038eed691f4c22933ea975f4cb8144d736ae"
+  },
+  {
+    "n": 6,
+    "id": "265c0d07-0220-5f5a-ad3c-d48cbc6977e0",
+    "passage": "A psychologist predicts that spaced practice improves delayed recall more than immediate recall. Two groups studied the same material for equal total time. One practiced in a single session; the other used four separated sessions. Immediate recall scores were 84% and 86%, respectively. One-week recall scores were 51% and 73%, respectively.",
+    "question": "Which finding most directly supports the psychologist’s prediction?",
+    "choices": [
+      "The spaced-practice advantage was 2 percentage points immediately and 22 points after one week.",
+      "The spaced-practice group recalled 86% immediately and 73% after one week.",
+      "Both groups recalled less after one week than immediately.",
+      "The single-session group recalled 51% after one week."
+    ],
+    "content_hash": "ca04dbe12b3ab2ccb9b2c0acc95b342d09d1b6283f97e18664a5ad6ddd43a62d"
+  },
+  {
+    "n": 7,
+    "id": "1e6bf516-deb8-53e9-a915-03f8f858d7ec",
+    "passage": "Astronomers detected a planet’s atmosphere by comparing starlight recorded during a transit with starlight recorded outside the transit. Certain wavelengths were dimmer during the transit, consistent with absorption by atmospheric gases. The team cautioned that similar absorption patterns can arise from more than one combination of gases.",
+    "question": "Which inference is best supported by the text?",
+    "choices": [
+      "Every reduction in starlight must be caused by atmospheric gases.",
+      "The observations establish which gas is most abundant without determining the remaining gases.",
+      "The observations can support the presence of an atmosphere without uniquely identifying its composition.",
+      "The observations identify a single atmospheric gas mixture because several wavelengths are affected."
+    ],
+    "content_hash": "69d49c1807de0e912429881556c03622e6f8681a1ff2e99cc20d70508d42abff"
+  },
+  {
+    "n": 8,
+    "id": "9d4ec316-b98c-5065-a582-3c73440bddcc",
+    "passage": "A conservator stores a fragile textile in low light because exposure gradually weakens its fibers. Short display periods slow the damage but do not reverse damage already caused. The museum therefore rotates the textile with a reproduction, allowing visitors to see the design while limiting exposure of the original.",
+    "question": "Which inference about the museum’s display policy is best supported?",
+    "choices": [
+      "The policy preserves access to the design while reducing further damage to the original.",
+      "The policy gives visitors more frequent access to the original by using lower illumination.",
+      "The policy can preserve the original indefinitely provided that each display period is short.",
+      "The museum considers the reproduction more historically valuable than the original."
+    ],
+    "content_hash": "36a221a2e9bd1574c4f26386bb667966727a1d3b3de5fe1bc6b356bad40487a7"
+  },
+  {
+    "n": 9,
+    "id": "1c81a8e8-03de-5fd2-a9ca-531b1c0fd467",
+    "passage": "The historian admired the expedition leader’s detailed journal, but later discoveries led her to temper her initial enthusiasm. Several places the leader described as uninhabited contained evidence of long-established communities. She retained the journal as a valuable source while treating its judgments more cautiously.",
+    "question": "As used in the text, “temper” most nearly means",
+    "choices": [
+      "strengthen",
+      "conceal",
+      "express",
+      "moderate"
+    ],
+    "content_hash": "84436ae334732a61f0a047a4ed97e6983d5f2ea9055e1fb829c9733a36feb26e"
+  },
+  {
+    "n": 10,
+    "id": "6a9e9f65-e126-5582-ad38-71c9ffa9a8ff",
+    "passage": "The engineers did not expect the protective coating to eliminate corrosion entirely. Their goal was to arrest its progress long enough for damaged components to be replaced during scheduled maintenance. Tests showed that the coating substantially slowed further deterioration without restoring metal already lost.",
+    "question": "As used in the text, “arrest” most nearly means",
+    "choices": [
+      "capture",
+      "attract",
+      "document",
+      "check"
+    ],
+    "content_hash": "11bf084a22d8686a8afad66aff1f38770fe6c4497189e63e4b48f07780914795"
+  },
+  {
+    "n": 11,
+    "id": "c62dfabe-c0ab-5a8f-a682-40a0e974be76",
+    "passage": "A philosopher rejects the claim that the institution’s authority is inevitable. She calls that authority contingent: it depends on arrangements that particular communities established and could revise. Her argument concerns the origins and conditions of authority, not whether the institution currently exercises considerable power.",
+    "question": "As used in the text, “contingent” most nearly means",
+    "choices": [
+      "dependent on circumstances",
+      "certain to persist",
+      "lacking practical influence",
+      "internally inconsistent"
+    ],
+    "content_hash": "82d083a4d6c60d414f11fac08a15d2a2dbac29fa77ba6c1842431abdc7c467fb"
+  },
+  {
+    "n": 12,
+    "id": "ff933d19-66ad-501e-a736-4f4234a77fcd",
+    "passage": "Art historians often describe a workshop’s paintings as the product of one master’s vision. Yet infrared images of a particular panel reveal an underlying composition unlike the master’s surviving sketches. A researcher cites this discrepancy to argue that assistants sometimes contributed substantial compositional decisions, rather than merely executing predetermined instructions.",
+    "question": "What role does the infrared evidence play in the text?",
+    "choices": [
+      "It explains why assistants lacked access to the master’s sketches.",
+      "It explains why differences between the panel and the surviving sketches need not alter the master-centered account.",
+      "It challenges an account that assigns compositional decisions exclusively to the master.",
+      "It establishes that the assistants changed only the painted surface, leaving the underlying composition intact."
+    ],
+    "content_hash": "a533e912e1061a62aa9c6b917f9ac004aa4c4eb283e6640283bad769275bd261"
+  },
+  {
+    "n": 13,
+    "id": "e352ecdc-3ac5-5918-a938-5bc7fb0b3de3",
+    "passage": "A sociologist finds that neighborhoods with more public meeting spaces report greater civic participation. She immediately notes that participation may itself encourage residents to establish such spaces. Rather than withdrawing the observed association, she uses this qualification to distinguish a relationship in the data from a demonstrated direction of causation.",
+    "question": "What is the main purpose of the second sentence?",
+    "choices": [
+      "To explain why the study measured the wrong population.",
+      "To identify an alternative causal explanation for the observed association.",
+      "To deny that the two measured variables are associated.",
+      "To establish that meeting spaces always result from civic participation."
+    ],
+    "content_hash": "68cc4850c1c1a9d9e92b17c35781b996f9c3a4a6670df06b39676b7222aab89d"
+  },
+  {
+    "n": 14,
+    "id": "d2a055cf-af6f-5039-aeda-13a97ef7e612",
+    "passage": "In a poem, a traveler describes an empty station through small traces of recent activity: a warm bench, a swinging door, and a cup still releasing steam. No person appears, but each detail points to someone who has just departed. The poem makes absence perceptible through evidence of presence.",
+    "question": "What is the primary purpose of the text?",
+    "choices": [
+      "To argue that the traveler’s loneliness determines which objects the traveler notices.",
+      "To establish a sequence of events explaining why people left the station.",
+      "To explain how familiar station objects create a contrast between past and present travel practices.",
+      "To explain how details in a poem convey absence indirectly."
+    ],
+    "content_hash": "e381f3c3895386b0fdbdd2c533b1472712b7c3da3b6f234c71b88f8095596232"
+  },
+  {
+    "n": 15,
+    "id": "1a9b58f7-4599-5cb1-a527-0b608de0fce1",
+    "passage": "Text 1: An urban historian argues that a city’s straight street grid shows that its founders followed a comprehensive plan. The repeated alignment is unlikely to have arisen from independent decisions.\n\nText 2: Another historian notes that property boundaries existed before the city expanded. Later builders could have followed those boundaries, producing a regular grid without a single comprehensive founding plan.",
+    "question": "How would the author of Text 2 most likely respond to the interpretation in Text 1?",
+    "choices": [
+      "A comprehensive plan must have existed before any property boundaries were established.",
+      "A regular grid could result from inherited constraints rather than one comprehensive plan.",
+      "The city’s streets were never arranged in a regular grid.",
+      "Independent decisions cannot be influenced by existing property boundaries."
+    ],
+    "content_hash": "f397c249532b009bb3299b350972030fd29cd3e0765333d3f06f51d8948bb2e9"
+  },
+  {
+    "n": 16,
+    "id": "129f6589-6a41-5813-a0d6-8093a6ac2a17",
+    "passage": "Text 1: A biologist argues that an organism’s response to a sudden environmental change can reveal the limits of its current physiology, but says little by itself about changes that might emerge over many generations.\n\nText 2: An evolutionary ecologist studies populations exposed to the same environmental change for twenty generations. She observes that later generations tolerate conditions that the original population could not.",
+    "question": "How are the findings in Text 2 related to the claim in Text 1?",
+    "choices": [
+      "They illustrate why a short-term physiological response need not establish long-term evolutionary limits.",
+      "They show that the original population already possessed the tolerance observed later.",
+      "They refute the claim that sudden changes can reveal current physiological limits.",
+      "They establish that all populations evolve greater tolerance within twenty generations."
+    ],
+    "content_hash": "b33258388566a88249e2a57e114d6e1296688e59a31691f8aeb05fb254b393cf"
+  },
+  {
+    "n": 17,
+    "id": "31fe3c9d-4c0c-52a5-adac-74b1b690dc7e",
+    "passage": "For decades, a pigment’s fading was attributed entirely to light exposure. Recent chemical analyses identified a second process: the binder reacts with moisture even in darkness. ________, shielding the painting from light alone may not prevent further color change.",
+    "question": "Which choice completes the text with the most logical transition?",
+    "choices": [
+      "For example",
+      "Similarly",
+      "Consequently",
+      "Nevertheless"
+    ],
+    "content_hash": "4a03cf9af6fd3ad0919a447913ebd5dba2c6809628f09a914e04bb9e46dd85c8"
+  },
+  {
+    "n": 18,
+    "id": "f8b23a3e-af87-57c6-a4e0-b952a9fdc56f",
+    "passage": "A political scientist’s model predicts that larger coalitions will be less stable because their members have more competing priorities. The model captures the general pattern in the dataset. ________, several large coalitions remained intact when their members agreed on a single urgent objective.",
+    "question": "Which choice completes the text with the most logical transition?",
+    "choices": [
+      "Therefore",
+      "In other words",
+      "Likewise",
+      "Even so"
+    ],
+    "content_hash": "2dc7d1050cb4eb4d786da2241c6667999415dd2dc8731a3e084919c525f4f3b0"
+  },
+  {
+    "n": 19,
+    "id": "c25d8911-1f65-5b24-acae-a2e8ec1dc56c",
+    "passage": "Astronomers describe the apparent motion of nearby stars against distant ones as a change in viewing geometry. The nearby stars need not actually move back and forth over the year. ________, the observer’s changing position can produce the apparent shift.",
+    "question": "Which choice completes the text with the most logical transition?",
+    "choices": [
+      "For comparison",
+      "Rather",
+      "Moreover",
+      "As a result"
+    ],
+    "content_hash": "9eabb013fca49a64e7230d72cd9f21957fc9afa69ebb4c50f828996d60e337bd"
+  },
+  {
+    "n": 20,
+    "id": "a5d6465c-9119-5ce8-ae26-d988ebdd50e5",
+    "passage": "While researching clay production, a student has taken these notes:\n• One study identifies mineral composition by analyzing powdered fragments.\n• Another study uses three-dimensional scans to compare vessel shapes.\n• Both studies investigate ancient manufacturing practices.\n• The first method changes the tested fragment; the second records shape without removing material.",
+    "question": "The student wants to emphasize a difference in how the two methods affect the objects studied. Which choice most effectively uses relevant information from the notes?",
+    "choices": [
+      "Both studies contribute evidence about ancient manufacturing practices.",
+      "Researchers can investigate ancient vessels by analyzing their minerals and comparing their shapes.",
+      "The two studies differ because only the scanning study investigates manufacturing practices.",
+      "Mineral analysis uses powdered fragments, whereas three-dimensional scanning records vessel shape without removing material."
+    ],
+    "content_hash": "0b38bb4ba3c1498b8977fd49cd724600903f85827c1dae1d408fbda2ea9199a3"
+  },
+  {
+    "n": 21,
+    "id": "6160a11c-3347-581e-a548-b194e5e78c19",
+    "passage": "While researching translation, a student has taken these notes:\n• Translator Elian preserves the source poem’s repeating end sounds.\n• To preserve those sounds, Elian sometimes changes the order of images.\n• Translator Sora preserves the order of images.\n• Sora does not retain the repeating end sounds.\n• Both translations retain the poem’s central scene.",
+    "question": "The student wants to contrast the translators’ priorities without claiming that one translation is superior. Which choice most effectively accomplishes this goal?",
+    "choices": [
+      "Elian prioritizes repeating end sounds, sometimes rearranging images, whereas Sora preserves image order without retaining those sounds.",
+      "Sora’s translation is more faithful because it preserves the order of images.",
+      "Both translators preserve the poem’s central scene.",
+      "Elian retains repeating end sounds, proving that Sora overlooked the poem’s musical qualities."
+    ],
+    "content_hash": "34c46701ad5cecd0bcb023f90125afb8b6b43824df37bdcbd28ccbaf05bdb1a5"
+  },
+  {
+    "n": 22,
+    "id": "a17257a5-ad68-5ed4-a0b3-1db152b3a5ec",
+    "passage": "The observatory’s early photographs preserved fine details of the solar ________ modern digital images allow researchers to track those details more frequently. Both records remain useful when scientists compare observations taken decades apart.",
+    "question": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+    "choices": [
+      "surface, and although",
+      "surface;",
+      "surface,",
+      "surface"
+    ],
+    "content_hash": "c743f201dd128805634326f98b863b9308c9df5d8e08333da30785911b2322a7"
+  },
+  {
+    "n": 23,
+    "id": "2972950e-3d59-5dd2-a0d2-eaf74235511c",
+    "passage": "The conservator identified one cause of the sculpture’s ________ salts dissolved in rainwater entered small cracks, then expanded as the water evaporated. The treatment therefore focused on reducing both water entry and salt accumulation.",
+    "question": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+    "choices": [
+      "deterioration because:",
+      "deterioration; because",
+      "deterioration:",
+      "deterioration,"
+    ],
+    "content_hash": "83140579bd464c33576a21994eabe7c7aaa3bd4265d3fbbfa07876b4461c29e2"
+  },
+  {
+    "n": 24,
+    "id": "3aa87fa7-0282-504e-ab8b-7e29fa4eb286",
+    "passage": "The spatial patterns in the mosaic—an intricate arrangement of dark and light ________ suggest that its maker worked from a reusable geometric plan. Small departures from the pattern may record adjustments made during installation.",
+    "question": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+    "choices": [
+      "stones—",
+      "stones,",
+      "stones;",
+      "stones:"
+    ],
+    "content_hash": "742eda86a28e27d91b5c8033072f2fb8157ce9f1b89c9110e5de9a308f5f6b88"
+  },
+  {
+    "n": 25,
+    "id": "c3fb7b74-f7b4-590f-ac47-e7e73fec103b",
+    "passage": "Among the most informative features of the fossil ________ the small grooves along its outer surface. These grooves, which formed during growth, help paleontologists distinguish the fossil from similar specimens found in younger rock layers.",
+    "question": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+    "choices": [
+      "has been",
+      "was",
+      "are",
+      "is"
+    ],
+    "content_hash": "986df63eb71a4fe032e754791b97a63b1c2214eebb43980b41bcbe5ea16661fa"
+  },
+  {
+    "n": 26,
+    "id": "c3fd0502-88f1-5c85-a598-d9edb5ae631d",
+    "passage": "Using measurements from several distant stations, ________ . Their reconstruction suggested that the disturbance began beneath the ocean rather than on land, a conclusion that could not be drawn from a single station’s record.",
+    "question": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+    "choices": [
+      "seismologists reconstructed the disturbance’s point of origin",
+      "the disturbance’s point of origin was reconstructed by seismologists",
+      "a reconstruction of the disturbance’s point of origin became possible",
+      "the distant stations revealed the disturbance’s point of origin"
+    ],
+    "content_hash": "7ad57ab5fdbfcd53653ec4b87ab8ee87457ae759735a3b17b819e905de5717aa"
+  },
+  {
+    "n": 27,
+    "id": "7db81e23-f8da-5986-a27d-9b3bb601887f",
+    "passage": "A linguist compared two recordings of a regional dialect. Although speakers in both recordings used similar vocabulary, the rhythm of speech in the earlier recording was less regular than ________. The distinction remained audible even when the recordings were played at the same speed.",
+    "question": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+    "choices": [
+      "those in the later recording",
+      "that in the later recording",
+      "the later recording",
+      "the speakers in the later recording"
+    ],
+    "content_hash": "2b4bfa62cf73de495924f625d83d0fb96f7482143b24653507464eba583a75f2"
+  }
+]

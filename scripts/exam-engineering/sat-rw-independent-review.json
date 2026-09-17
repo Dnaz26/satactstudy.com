@@ -1,0 +1,847 @@
+{
+  "review_type": "independent_blind_solution_and_editorial_review",
+  "reviewed_at": "2026-09-16T23:15:49.649422+00:00",
+  "scope": "Reviewed only sat-rw-blind-review.json passage, question, choices, ID and hash. Did not open candidate source, builder, draft keys or explanations. Answers independently derived from provided stimuli.",
+  "questions": [
+    {
+      "question_id": "b47f2cb2-e9ab-587d-a1b4-369ae2f3d1be",
+      "content_hash": "c52978ef5f02fce4d183c0171b6e712c52c43fa7f33cd66091f3c1ce3c8cfca6",
+      "independently_selected_answer": "B",
+      "passes_answer_uniqueness": true,
+      "independent_solution": "Distribution supports unequal access, not a claim about when trade occurred, a denial of any overseas trade, or participation by all households.",
+      "style_review": {
+        "status": "passes_for_accessible_sat_item",
+        "notes": "Revised alternatives are plausible distortions, unsupported inferences, or reversals. Reread current passage and all four choices independently; exactly one best answer remains."
+      },
+      "ambiguity_review": {
+        "status": "passes",
+        "notes": "Exactly one best choice from provided passage and options; no outside factual knowledge required."
+      },
+      "difficulty_review": {
+        "status": "editorial_only_not_calibrated",
+        "estimated_level_1_to_7": 2,
+        "label": "easy",
+        "notes": "Answer follows explicit content or one constrained inference; no item in this batch warrants hard/very-hard classification on reasoning alone."
+      },
+      "originality_review": {
+        "status": "no_official_item_used_in_review",
+        "notes": "Review used only this blind artifact. No official item comparison or comprehensive copyrighted-corpus check performed; global originality cannot be certified."
+      },
+      "skill_classification": {
+        "domain": "Information and Ideas",
+        "skill": "Central Ideas and Details"
+      },
+      "issues": []
+    },
+    {
+      "question_id": "a888cf6b-e346-5044-ae4b-96b476ab8303",
+      "content_hash": "fc97e9f3b1f66fe08eb434f73682e78d035c023975605a59f25dd84f1ac1ece7",
+      "independently_selected_answer": "C",
+      "passes_answer_uniqueness": true,
+      "independent_solution": "The historian treats prices as informative but affected by institutions, market power, and information, requiring contextual evidence.",
+      "style_review": {
+        "status": "passes_for_accessible_sat_item",
+        "notes": "Original short academic stimulus and standard four-choice format; advisory distractor limitations listed separately."
+      },
+      "ambiguity_review": {
+        "status": "passes",
+        "notes": "Exactly one best choice from provided passage and options; no outside factual knowledge required."
+      },
+      "difficulty_review": {
+        "status": "editorial_only_not_calibrated",
+        "estimated_level_1_to_7": 3,
+        "label": "lower_medium",
+        "notes": "Answer follows explicit content or one constrained inference; no item in this batch warrants hard/very-hard classification on reasoning alone."
+      },
+      "originality_review": {
+        "status": "no_official_item_used_in_review",
+        "notes": "Review used only this blind artifact. No official item comparison or comprehensive copyrighted-corpus check performed; global originality cannot be certified."
+      },
+      "skill_classification": {
+        "domain": "Information and Ideas",
+        "skill": "Central Ideas and Details"
+      },
+      "issues": []
+    },
+    {
+      "question_id": "d79a964f-de15-5eb5-adf6-7176a8db59ee",
+      "content_hash": "2af4bc54f3aa2841323d882aec35027be50e3b0aab855762af0fd080b1a730f9",
+      "independently_selected_answer": "B",
+      "passes_answer_uniqueness": true,
+      "independent_solution": "The narrator evaluates identical independence differently depending on whose advice is rejected. The critic\u2019s deliberate characterization is a conclusion rather than supporting evidence; other alternatives reverse or invent behavior.",
+      "style_review": {
+        "status": "passes_for_accessible_sat_item",
+        "notes": "Revised alternatives are plausible distortions, unsupported inferences, or reversals. Reread current passage and all four choices independently; exactly one best answer remains."
+      },
+      "ambiguity_review": {
+        "status": "passes",
+        "notes": "Exactly one best choice from provided passage and options; no outside factual knowledge required."
+      },
+      "difficulty_review": {
+        "status": "editorial_only_not_calibrated",
+        "estimated_level_1_to_7": 2,
+        "label": "easy",
+        "notes": "Answer follows explicit content or one constrained inference; no item in this batch warrants hard/very-hard classification on reasoning alone."
+      },
+      "originality_review": {
+        "status": "no_official_item_used_in_review",
+        "notes": "Review used only this blind artifact. No official item comparison or comprehensive copyrighted-corpus check performed; global originality cannot be certified."
+      },
+      "skill_classification": {
+        "domain": "Information and Ideas",
+        "skill": "Command of Evidence \u2014 Textual"
+      },
+      "issues": []
+    },
+    {
+      "question_id": "d3e1df28-94c7-553a-a26f-ec66d523da47",
+      "content_hash": "dc5fe4a130ed725c0a6c49f74153f53bf9e280d3ab7d457d44ddb9c430412cfb",
+      "independently_selected_answer": "D",
+      "passes_answer_uniqueness": true,
+      "independent_solution": "Choosing the borrowed equivalent with colleagues but the local equivalent elsewhere isolates professional identity rather than a missing expression.",
+      "style_review": {
+        "status": "passes_for_accessible_sat_item",
+        "notes": "Original short academic stimulus and standard four-choice format; advisory distractor limitations listed separately."
+      },
+      "ambiguity_review": {
+        "status": "passes",
+        "notes": "Exactly one best choice from provided passage and options; no outside factual knowledge required."
+      },
+      "difficulty_review": {
+        "status": "editorial_only_not_calibrated",
+        "estimated_level_1_to_7": 4,
+        "label": "medium",
+        "notes": "Answer follows explicit content or one constrained inference; no item in this batch warrants hard/very-hard classification on reasoning alone."
+      },
+      "originality_review": {
+        "status": "no_official_item_used_in_review",
+        "notes": "Review used only this blind artifact. No official item comparison or comprehensive copyrighted-corpus check performed; global originality cannot be certified."
+      },
+      "skill_classification": {
+        "domain": "Information and Ideas",
+        "skill": "Command of Evidence \u2014 Textual"
+      },
+      "issues": []
+    },
+    {
+      "question_id": "0196f082-16ad-5293-a99a-692accf8f13b",
+      "content_hash": "9b2ba2039911edf9d12e5e994894038eed691f4c22933ea975f4cb8144d736ae",
+      "independently_selected_answer": "C",
+      "passes_answer_uniqueness": true,
+      "independent_solution": "The shading differences are40\u221222=18mL for coarse and26\u221220=6mL for fine. Comparing those differences directly tests the interaction claimed.",
+      "style_review": {
+        "status": "passes_for_accessible_sat_item",
+        "notes": "Original short academic stimulus and standard four-choice format; advisory distractor limitations listed separately."
+      },
+      "ambiguity_review": {
+        "status": "passes",
+        "notes": "Exactly one best choice from provided passage and options; no outside factual knowledge required."
+      },
+      "difficulty_review": {
+        "status": "editorial_only_not_calibrated",
+        "estimated_level_1_to_7": 3,
+        "label": "lower_medium",
+        "notes": "Answer follows explicit content or one constrained inference; no item in this batch warrants hard/very-hard classification on reasoning alone."
+      },
+      "originality_review": {
+        "status": "no_official_item_used_in_review",
+        "notes": "Review used only this blind artifact. No official item comparison or comprehensive copyrighted-corpus check performed; global originality cannot be certified."
+      },
+      "skill_classification": {
+        "domain": "Information and Ideas",
+        "skill": "Command of Evidence \u2014 Quantitative"
+      },
+      "issues": [
+        {
+          "severity": "assembly_advisory",
+          "issue": "Dataset is sufficient in prose, but supply an original validated table/graph if this slot is intended to meet quantitative-graphics coverage."
+        }
+      ]
+    },
+    {
+      "question_id": "265c0d07-0220-5f5a-ad3c-d48cbc6977e0",
+      "content_hash": "ca04dbe12b3ab2ccb9b2c0acc95b342d09d1b6283f97e18664a5ad6ddd43a62d",
+      "independently_selected_answer": "A",
+      "passes_answer_uniqueness": true,
+      "independent_solution": "The advantage is86\u221284=2 percentage points immediately and73\u221251=22 one week later; the comparative delayed benefit is greater.",
+      "style_review": {
+        "status": "passes_for_accessible_sat_item",
+        "notes": "Original short academic stimulus and standard four-choice format; advisory distractor limitations listed separately."
+      },
+      "ambiguity_review": {
+        "status": "passes",
+        "notes": "Exactly one best choice from provided passage and options; no outside factual knowledge required."
+      },
+      "difficulty_review": {
+        "status": "editorial_only_not_calibrated",
+        "estimated_level_1_to_7": 3,
+        "label": "lower_medium",
+        "notes": "Answer follows explicit content or one constrained inference; no item in this batch warrants hard/very-hard classification on reasoning alone."
+      },
+      "originality_review": {
+        "status": "no_official_item_used_in_review",
+        "notes": "Review used only this blind artifact. No official item comparison or comprehensive copyrighted-corpus check performed; global originality cannot be certified."
+      },
+      "skill_classification": {
+        "domain": "Information and Ideas",
+        "skill": "Command of Evidence \u2014 Quantitative"
+      },
+      "issues": [
+        {
+          "severity": "assembly_advisory",
+          "issue": "Dataset is sufficient in prose, but supply an original validated table/graph if this slot is intended to meet quantitative-graphics coverage."
+        }
+      ]
+    },
+    {
+      "question_id": "1e6bf516-deb8-53e9-a915-03f8f858d7ec",
+      "content_hash": "69d49c1807de0e912429881556c03622e6f8681a1ff2e99cc20d70508d42abff",
+      "independently_selected_answer": "C",
+      "passes_answer_uniqueness": true,
+      "independent_solution": "More than one gas combination can explain the absorption patterns. The observations support atmosphere presence without uniquely establishing mixture or dominant gas; all reductions in starlight need not have the same cause.",
+      "style_review": {
+        "status": "passes_for_accessible_sat_item",
+        "notes": "Revised alternatives are plausible distortions, unsupported inferences, or reversals. Reread current passage and all four choices independently; exactly one best answer remains."
+      },
+      "ambiguity_review": {
+        "status": "passes",
+        "notes": "Exactly one best choice from provided passage and options; no outside factual knowledge required."
+      },
+      "difficulty_review": {
+        "status": "editorial_only_not_calibrated",
+        "estimated_level_1_to_7": 3,
+        "label": "lower_medium",
+        "notes": "Answer follows explicit content or one constrained inference; no item in this batch warrants hard/very-hard classification on reasoning alone."
+      },
+      "originality_review": {
+        "status": "no_official_item_used_in_review",
+        "notes": "Review used only this blind artifact. No official item comparison or comprehensive copyrighted-corpus check performed; global originality cannot be certified."
+      },
+      "skill_classification": {
+        "domain": "Information and Ideas",
+        "skill": "Inferences"
+      },
+      "issues": []
+    },
+    {
+      "question_id": "9d4ec316-b98c-5065-a582-3c73440bddcc",
+      "content_hash": "36a221a2e9bd1574c4f26386bb667966727a1d3b3de5fe1bc6b356bad40487a7",
+      "independently_selected_answer": "A",
+      "passes_answer_uniqueness": true,
+      "independent_solution": "Alternating the original and reproduction maintains access to the design while reducing original exposure. Lower illumination does not establish more frequent original display or indefinite preservation, and reproduction\u2019s historical superiority is not claimed.",
+      "style_review": {
+        "status": "passes_for_accessible_sat_item",
+        "notes": "Revised alternatives are plausible distortions, unsupported inferences, or reversals. Reread current passage and all four choices independently; exactly one best answer remains."
+      },
+      "ambiguity_review": {
+        "status": "passes",
+        "notes": "Exactly one best choice from provided passage and options; no outside factual knowledge required."
+      },
+      "difficulty_review": {
+        "status": "editorial_only_not_calibrated",
+        "estimated_level_1_to_7": 2,
+        "label": "easy",
+        "notes": "Answer follows explicit content or one constrained inference; no item in this batch warrants hard/very-hard classification on reasoning alone."
+      },
+      "originality_review": {
+        "status": "no_official_item_used_in_review",
+        "notes": "Review used only this blind artifact. No official item comparison or comprehensive copyrighted-corpus check performed; global originality cannot be certified."
+      },
+      "skill_classification": {
+        "domain": "Information and Ideas",
+        "skill": "Inferences"
+      },
+      "issues": []
+    },
+    {
+      "question_id": "1c81a8e8-03de-5fd2-a9ca-531b1c0fd467",
+      "content_hash": "84436ae334732a61f0a047a4ed97e6983d5f2ea9055e1fb829c9733a36feb26e",
+      "independently_selected_answer": "D",
+      "passes_answer_uniqueness": true,
+      "independent_solution": "The historian retains appreciation but qualifies it after contradictory evidence; temper means moderate rather than conceal or strengthen.",
+      "style_review": {
+        "status": "passes_for_accessible_sat_item",
+        "notes": "Original short academic stimulus and standard four-choice format; advisory distractor limitations listed separately."
+      },
+      "ambiguity_review": {
+        "status": "passes",
+        "notes": "Exactly one best choice from provided passage and options; no outside factual knowledge required."
+      },
+      "difficulty_review": {
+        "status": "editorial_only_not_calibrated",
+        "estimated_level_1_to_7": 3,
+        "label": "lower_medium",
+        "notes": "Answer follows explicit content or one constrained inference; no item in this batch warrants hard/very-hard classification on reasoning alone."
+      },
+      "originality_review": {
+        "status": "no_official_item_used_in_review",
+        "notes": "Review used only this blind artifact. No official item comparison or comprehensive copyrighted-corpus check performed; global originality cannot be certified."
+      },
+      "skill_classification": {
+        "domain": "Craft and Structure",
+        "skill": "Words in Context"
+      },
+      "issues": []
+    },
+    {
+      "question_id": "6a9e9f65-e126-5582-ad38-71c9ffa9a8ff",
+      "content_hash": "11bf084a22d8686a8afad66aff1f38770fe6c4497189e63e4b48f07780914795",
+      "independently_selected_answer": "D",
+      "passes_answer_uniqueness": true,
+      "independent_solution": "The coating aims to limit or slow corrosion\u2019s progress, so arrest means check in the sense of restrain.",
+      "style_review": {
+        "status": "passes_for_accessible_sat_item",
+        "notes": "Original short academic stimulus and standard four-choice format; advisory distractor limitations listed separately."
+      },
+      "ambiguity_review": {
+        "status": "passes",
+        "notes": "Exactly one best choice from provided passage and options; no outside factual knowledge required."
+      },
+      "difficulty_review": {
+        "status": "editorial_only_not_calibrated",
+        "estimated_level_1_to_7": 3,
+        "label": "lower_medium",
+        "notes": "Answer follows explicit content or one constrained inference; no item in this batch warrants hard/very-hard classification on reasoning alone."
+      },
+      "originality_review": {
+        "status": "no_official_item_used_in_review",
+        "notes": "Review used only this blind artifact. No official item comparison or comprehensive copyrighted-corpus check performed; global originality cannot be certified."
+      },
+      "skill_classification": {
+        "domain": "Craft and Structure",
+        "skill": "Words in Context"
+      },
+      "issues": []
+    },
+    {
+      "question_id": "c62dfabe-c0ab-5a8f-a682-40a0e974be76",
+      "content_hash": "82d083a4d6c60d414f11fac08a15d2a2dbac29fa77ba6c1842431abdc7c467fb",
+      "independently_selected_answer": "A",
+      "passes_answer_uniqueness": true,
+      "independent_solution": "Contingent authority depends on changeable institutional arrangements; it need not lack current influence.",
+      "style_review": {
+        "status": "passes_for_accessible_sat_item",
+        "notes": "Original short academic stimulus and standard four-choice format; advisory distractor limitations listed separately."
+      },
+      "ambiguity_review": {
+        "status": "passes",
+        "notes": "Exactly one best choice from provided passage and options; no outside factual knowledge required."
+      },
+      "difficulty_review": {
+        "status": "editorial_only_not_calibrated",
+        "estimated_level_1_to_7": 3,
+        "label": "lower_medium",
+        "notes": "Answer follows explicit content or one constrained inference; no item in this batch warrants hard/very-hard classification on reasoning alone."
+      },
+      "originality_review": {
+        "status": "no_official_item_used_in_review",
+        "notes": "Review used only this blind artifact. No official item comparison or comprehensive copyrighted-corpus check performed; global originality cannot be certified."
+      },
+      "skill_classification": {
+        "domain": "Craft and Structure",
+        "skill": "Words in Context"
+      },
+      "issues": []
+    },
+    {
+      "question_id": "ff933d19-66ad-501e-a736-4f4234a77fcd",
+      "content_hash": "a533e912e1061a62aa9c6b917f9ac004aa4c4eb283e6640283bad769275bd261",
+      "independently_selected_answer": "C",
+      "passes_answer_uniqueness": true,
+      "independent_solution": "The composition discrepancy is cited to challenge exclusively master-directed design. It does not establish lack of sketch access, surface-only alteration, or preserve the master-centered account.",
+      "style_review": {
+        "status": "passes_for_accessible_sat_item",
+        "notes": "Revised alternatives are plausible distortions, unsupported inferences, or reversals. Reread current passage and all four choices independently; exactly one best answer remains."
+      },
+      "ambiguity_review": {
+        "status": "passes",
+        "notes": "Exactly one best choice from provided passage and options; no outside factual knowledge required."
+      },
+      "difficulty_review": {
+        "status": "editorial_only_not_calibrated",
+        "estimated_level_1_to_7": 4,
+        "label": "medium",
+        "notes": "Answer follows explicit content or one constrained inference; no item in this batch warrants hard/very-hard classification on reasoning alone."
+      },
+      "originality_review": {
+        "status": "no_official_item_used_in_review",
+        "notes": "Review used only this blind artifact. No official item comparison or comprehensive copyrighted-corpus check performed; global originality cannot be certified."
+      },
+      "skill_classification": {
+        "domain": "Craft and Structure",
+        "skill": "Text Structure and Purpose"
+      },
+      "issues": []
+    },
+    {
+      "question_id": "e352ecdc-3ac5-5918-a938-5bc7fb0b3de3",
+      "content_hash": "68cc4850c1c1a9d9e92b17c35781b996f9c3a4a6670df06b39676b7222aab89d",
+      "independently_selected_answer": "B",
+      "passes_answer_uniqueness": true,
+      "independent_solution": "The second sentence proposes reverse causation: participation could create meeting spaces instead of only resulting from them.",
+      "style_review": {
+        "status": "passes_for_accessible_sat_item",
+        "notes": "Original short academic stimulus and standard four-choice format; advisory distractor limitations listed separately."
+      },
+      "ambiguity_review": {
+        "status": "passes",
+        "notes": "Exactly one best choice from provided passage and options; no outside factual knowledge required."
+      },
+      "difficulty_review": {
+        "status": "editorial_only_not_calibrated",
+        "estimated_level_1_to_7": 4,
+        "label": "medium",
+        "notes": "Answer follows explicit content or one constrained inference; no item in this batch warrants hard/very-hard classification on reasoning alone."
+      },
+      "originality_review": {
+        "status": "no_official_item_used_in_review",
+        "notes": "Review used only this blind artifact. No official item comparison or comprehensive copyrighted-corpus check performed; global originality cannot be certified."
+      },
+      "skill_classification": {
+        "domain": "Craft and Structure",
+        "skill": "Text Structure and Purpose"
+      },
+      "issues": []
+    },
+    {
+      "question_id": "d2a055cf-af6f-5039-aeda-13a97ef7e612",
+      "content_hash": "e381f3c3895386b0fdbdd2c533b1472712b7c3da3b6f234c71b88f8095596232",
+      "independently_selected_answer": "D",
+      "passes_answer_uniqueness": true,
+      "independent_solution": "The text analyzes how traces of recent activity convey absence. It does not attribute selection to loneliness, explain why people departed, or compare historic travel practices.",
+      "style_review": {
+        "status": "passes_for_accessible_sat_item",
+        "notes": "Revised alternatives are plausible distortions, unsupported inferences, or reversals. Reread current passage and all four choices independently; exactly one best answer remains."
+      },
+      "ambiguity_review": {
+        "status": "passes",
+        "notes": "Exactly one best choice from provided passage and options; no outside factual knowledge required."
+      },
+      "difficulty_review": {
+        "status": "editorial_only_not_calibrated",
+        "estimated_level_1_to_7": 3,
+        "label": "lower_medium",
+        "notes": "Answer follows explicit content or one constrained inference; no item in this batch warrants hard/very-hard classification on reasoning alone."
+      },
+      "originality_review": {
+        "status": "no_official_item_used_in_review",
+        "notes": "Review used only this blind artifact. No official item comparison or comprehensive copyrighted-corpus check performed; global originality cannot be certified."
+      },
+      "skill_classification": {
+        "domain": "Craft and Structure",
+        "skill": "Text Structure and Purpose"
+      },
+      "issues": []
+    },
+    {
+      "question_id": "1a9b58f7-4599-5cb1-a527-0b608de0fce1",
+      "content_hash": "f397c249532b009bb3299b350972030fd29cd3e0765333d3f06f51d8948bb2e9",
+      "independently_selected_answer": "B",
+      "passes_answer_uniqueness": true,
+      "independent_solution": "Text2 offers inherited property boundaries as an alternative source of street regularity, rather than disputing the grid itself.",
+      "style_review": {
+        "status": "passes_for_accessible_sat_item",
+        "notes": "Original short academic stimulus and standard four-choice format; advisory distractor limitations listed separately."
+      },
+      "ambiguity_review": {
+        "status": "passes",
+        "notes": "Exactly one best choice from provided passage and options; no outside factual knowledge required."
+      },
+      "difficulty_review": {
+        "status": "editorial_only_not_calibrated",
+        "estimated_level_1_to_7": 4,
+        "label": "medium",
+        "notes": "Answer follows explicit content or one constrained inference; no item in this batch warrants hard/very-hard classification on reasoning alone."
+      },
+      "originality_review": {
+        "status": "no_official_item_used_in_review",
+        "notes": "Review used only this blind artifact. No official item comparison or comprehensive copyrighted-corpus check performed; global originality cannot be certified."
+      },
+      "skill_classification": {
+        "domain": "Craft and Structure",
+        "skill": "Cross-Text Connections"
+      },
+      "issues": []
+    },
+    {
+      "question_id": "129f6589-6a41-5813-a0d6-8093a6ac2a17",
+      "content_hash": "b33258388566a88249e2a57e114d6e1296688e59a31691f8aeb05fb254b393cf",
+      "independently_selected_answer": "A",
+      "passes_answer_uniqueness": true,
+      "independent_solution": "Later generations\u2019 new tolerance illustrates the distinction between current physiological limits and possible long-term evolutionary changes.",
+      "style_review": {
+        "status": "passes_for_accessible_sat_item",
+        "notes": "Original short academic stimulus and standard four-choice format; advisory distractor limitations listed separately."
+      },
+      "ambiguity_review": {
+        "status": "passes",
+        "notes": "Exactly one best choice from provided passage and options; no outside factual knowledge required."
+      },
+      "difficulty_review": {
+        "status": "editorial_only_not_calibrated",
+        "estimated_level_1_to_7": 4,
+        "label": "medium",
+        "notes": "Answer follows explicit content or one constrained inference; no item in this batch warrants hard/very-hard classification on reasoning alone."
+      },
+      "originality_review": {
+        "status": "no_official_item_used_in_review",
+        "notes": "Review used only this blind artifact. No official item comparison or comprehensive copyrighted-corpus check performed; global originality cannot be certified."
+      },
+      "skill_classification": {
+        "domain": "Craft and Structure",
+        "skill": "Cross-Text Connections"
+      },
+      "issues": []
+    },
+    {
+      "question_id": "31fe3c9d-4c0c-52a5-adac-74b1b690dc7e",
+      "content_hash": "4a03cf9af6fd3ad0919a447913ebd5dba2c6809628f09a914e04bb9e46dd85c8",
+      "independently_selected_answer": "C",
+      "passes_answer_uniqueness": true,
+      "independent_solution": "Moisture damage in darkness logically leads to the conclusion that light shielding alone is insufficient: consequently.",
+      "style_review": {
+        "status": "passes_for_accessible_sat_item",
+        "notes": "Original short academic stimulus and standard four-choice format; advisory distractor limitations listed separately."
+      },
+      "ambiguity_review": {
+        "status": "passes",
+        "notes": "Exactly one best choice from provided passage and options; no outside factual knowledge required."
+      },
+      "difficulty_review": {
+        "status": "editorial_only_not_calibrated",
+        "estimated_level_1_to_7": 3,
+        "label": "lower_medium",
+        "notes": "Answer follows explicit content or one constrained inference; no item in this batch warrants hard/very-hard classification on reasoning alone."
+      },
+      "originality_review": {
+        "status": "no_official_item_used_in_review",
+        "notes": "Review used only this blind artifact. No official item comparison or comprehensive copyrighted-corpus check performed; global originality cannot be certified."
+      },
+      "skill_classification": {
+        "domain": "Expression of Ideas",
+        "skill": "Transitions"
+      },
+      "issues": []
+    },
+    {
+      "question_id": "f8b23a3e-af87-57c6-a4e0-b952a9fdc56f",
+      "content_hash": "2dc7d1050cb4eb4d786da2241c6667999415dd2dc8731a3e084919c525f4f3b0",
+      "independently_selected_answer": "D",
+      "passes_answer_uniqueness": true,
+      "independent_solution": "The persistence of some large coalitions qualifies the general prediction of instability: even so.",
+      "style_review": {
+        "status": "passes_for_accessible_sat_item",
+        "notes": "Original short academic stimulus and standard four-choice format; advisory distractor limitations listed separately."
+      },
+      "ambiguity_review": {
+        "status": "passes",
+        "notes": "Exactly one best choice from provided passage and options; no outside factual knowledge required."
+      },
+      "difficulty_review": {
+        "status": "editorial_only_not_calibrated",
+        "estimated_level_1_to_7": 3,
+        "label": "lower_medium",
+        "notes": "Answer follows explicit content or one constrained inference; no item in this batch warrants hard/very-hard classification on reasoning alone."
+      },
+      "originality_review": {
+        "status": "no_official_item_used_in_review",
+        "notes": "Review used only this blind artifact. No official item comparison or comprehensive copyrighted-corpus check performed; global originality cannot be certified."
+      },
+      "skill_classification": {
+        "domain": "Expression of Ideas",
+        "skill": "Transitions"
+      },
+      "issues": []
+    },
+    {
+      "question_id": "c25d8911-1f65-5b24-acae-a2e8ec1dc56c",
+      "content_hash": "9eabb013fca49a64e7230d72cd9f21957fc9afa69ebb4c50f828996d60e337bd",
+      "independently_selected_answer": "B",
+      "passes_answer_uniqueness": true,
+      "independent_solution": "The third sentence replaces the actual-motion account with an observer-geometry explanation: rather.",
+      "style_review": {
+        "status": "passes_for_accessible_sat_item",
+        "notes": "Original short academic stimulus and standard four-choice format; advisory distractor limitations listed separately."
+      },
+      "ambiguity_review": {
+        "status": "passes",
+        "notes": "Exactly one best choice from provided passage and options; no outside factual knowledge required."
+      },
+      "difficulty_review": {
+        "status": "editorial_only_not_calibrated",
+        "estimated_level_1_to_7": 3,
+        "label": "lower_medium",
+        "notes": "Answer follows explicit content or one constrained inference; no item in this batch warrants hard/very-hard classification on reasoning alone."
+      },
+      "originality_review": {
+        "status": "no_official_item_used_in_review",
+        "notes": "Review used only this blind artifact. No official item comparison or comprehensive copyrighted-corpus check performed; global originality cannot be certified."
+      },
+      "skill_classification": {
+        "domain": "Expression of Ideas",
+        "skill": "Transitions"
+      },
+      "issues": []
+    },
+    {
+      "question_id": "a5d6465c-9119-5ce8-ae26-d988ebdd50e5",
+      "content_hash": "0b38bb4ba3c1498b8977fd49cd724600903f85827c1dae1d408fbda2ea9199a3",
+      "independently_selected_answer": "D",
+      "passes_answer_uniqueness": true,
+      "independent_solution": "The stated goal is contrasting material effects: destructive powder analysis versus scanning without removal. Only one choice expresses that contrast.",
+      "style_review": {
+        "status": "passes_for_accessible_sat_item",
+        "notes": "Original short academic stimulus and standard four-choice format; advisory distractor limitations listed separately."
+      },
+      "ambiguity_review": {
+        "status": "passes",
+        "notes": "Exactly one best choice from provided passage and options; no outside factual knowledge required."
+      },
+      "difficulty_review": {
+        "status": "editorial_only_not_calibrated",
+        "estimated_level_1_to_7": 3,
+        "label": "lower_medium",
+        "notes": "Answer follows explicit content or one constrained inference; no item in this batch warrants hard/very-hard classification on reasoning alone."
+      },
+      "originality_review": {
+        "status": "no_official_item_used_in_review",
+        "notes": "Review used only this blind artifact. No official item comparison or comprehensive copyrighted-corpus check performed; global originality cannot be certified."
+      },
+      "skill_classification": {
+        "domain": "Expression of Ideas",
+        "skill": "Rhetorical Synthesis"
+      },
+      "issues": []
+    },
+    {
+      "question_id": "6160a11c-3347-581e-a548-b194e5e78c19",
+      "content_hash": "34c46701ad5cecd0bcb023f90125afb8b6b43824df37bdcbd28ccbaf05bdb1a5",
+      "independently_selected_answer": "A",
+      "passes_answer_uniqueness": true,
+      "independent_solution": "The goal is a neutral contrast in priorities; retaining sounds while reordering images contrasts with preserving image order without judging superiority.",
+      "style_review": {
+        "status": "passes_for_accessible_sat_item",
+        "notes": "Original short academic stimulus and standard four-choice format; advisory distractor limitations listed separately."
+      },
+      "ambiguity_review": {
+        "status": "passes",
+        "notes": "Exactly one best choice from provided passage and options; no outside factual knowledge required."
+      },
+      "difficulty_review": {
+        "status": "editorial_only_not_calibrated",
+        "estimated_level_1_to_7": 3,
+        "label": "lower_medium",
+        "notes": "Answer follows explicit content or one constrained inference; no item in this batch warrants hard/very-hard classification on reasoning alone."
+      },
+      "originality_review": {
+        "status": "no_official_item_used_in_review",
+        "notes": "Review used only this blind artifact. No official item comparison or comprehensive copyrighted-corpus check performed; global originality cannot be certified."
+      },
+      "skill_classification": {
+        "domain": "Expression of Ideas",
+        "skill": "Rhetorical Synthesis"
+      },
+      "issues": []
+    },
+    {
+      "question_id": "a17257a5-ad68-5ed4-a0b3-1db152b3a5ec",
+      "content_hash": "c743f201dd128805634326f98b863b9308c9df5d8e08333da30785911b2322a7",
+      "independently_selected_answer": "B",
+      "passes_answer_uniqueness": true,
+      "independent_solution": "Two complete independent clauses require the semicolon; comma alone is a splice, no punctuation a fused sentence, and and although leaves an incomplete subordinate coordination.",
+      "style_review": {
+        "status": "passes_for_accessible_sat_item",
+        "notes": "Original short academic stimulus and standard four-choice format; advisory distractor limitations listed separately."
+      },
+      "ambiguity_review": {
+        "status": "passes",
+        "notes": "Exactly one best choice from provided passage and options; no outside factual knowledge required."
+      },
+      "difficulty_review": {
+        "status": "editorial_only_not_calibrated",
+        "estimated_level_1_to_7": 3,
+        "label": "lower_medium",
+        "notes": "Answer follows explicit content or one constrained inference; no item in this batch warrants hard/very-hard classification on reasoning alone."
+      },
+      "originality_review": {
+        "status": "no_official_item_used_in_review",
+        "notes": "Review used only this blind artifact. No official item comparison or comprehensive copyrighted-corpus check performed; global originality cannot be certified."
+      },
+      "skill_classification": {
+        "domain": "Standard English Conventions",
+        "skill": "Boundaries"
+      },
+      "issues": []
+    },
+    {
+      "question_id": "2972950e-3d59-5dd2-a0d2-eaf74235511c",
+      "content_hash": "83140579bd464c33576a21994eabe7c7aaa3bd4265d3fbbfa07876b4461c29e2",
+      "independently_selected_answer": "C",
+      "passes_answer_uniqueness": true,
+      "independent_solution": "The complete clause introduces an explanation of the identified cause, permitting a colon; the because choices create malformed punctuation or fragments.",
+      "style_review": {
+        "status": "passes_for_accessible_sat_item",
+        "notes": "Original short academic stimulus and standard four-choice format; advisory distractor limitations listed separately."
+      },
+      "ambiguity_review": {
+        "status": "passes",
+        "notes": "Exactly one best choice from provided passage and options; no outside factual knowledge required."
+      },
+      "difficulty_review": {
+        "status": "editorial_only_not_calibrated",
+        "estimated_level_1_to_7": 3,
+        "label": "lower_medium",
+        "notes": "Answer follows explicit content or one constrained inference; no item in this batch warrants hard/very-hard classification on reasoning alone."
+      },
+      "originality_review": {
+        "status": "no_official_item_used_in_review",
+        "notes": "Review used only this blind artifact. No official item comparison or comprehensive copyrighted-corpus check performed; global originality cannot be certified."
+      },
+      "skill_classification": {
+        "domain": "Standard English Conventions",
+        "skill": "Boundaries"
+      },
+      "issues": []
+    },
+    {
+      "question_id": "3aa87fa7-0282-504e-ab8b-7e29fa4eb286",
+      "content_hash": "742eda86a28e27d91b5c8033072f2fb8157ce9f1b89c9110e5de9a308f5f6b88",
+      "independently_selected_answer": "A",
+      "passes_answer_uniqueness": true,
+      "independent_solution": "The opening dash begins a supplementary appositive, which must be closed with a matching dash before the main verb suggest.",
+      "style_review": {
+        "status": "passes_for_accessible_sat_item",
+        "notes": "Original short academic stimulus and standard four-choice format; advisory distractor limitations listed separately."
+      },
+      "ambiguity_review": {
+        "status": "passes",
+        "notes": "Exactly one best choice from provided passage and options; no outside factual knowledge required."
+      },
+      "difficulty_review": {
+        "status": "editorial_only_not_calibrated",
+        "estimated_level_1_to_7": 3,
+        "label": "lower_medium",
+        "notes": "Answer follows explicit content or one constrained inference; no item in this batch warrants hard/very-hard classification on reasoning alone."
+      },
+      "originality_review": {
+        "status": "no_official_item_used_in_review",
+        "notes": "Review used only this blind artifact. No official item comparison or comprehensive copyrighted-corpus check performed; global originality cannot be certified."
+      },
+      "skill_classification": {
+        "domain": "Standard English Conventions",
+        "skill": "Boundaries"
+      },
+      "issues": []
+    },
+    {
+      "question_id": "c3fb7b74-f7b4-590f-ac47-e7e73fec103b",
+      "content_hash": "986df63eb71a4fe032e754791b97a63b1c2214eebb43980b41bcbe5ea16661fa",
+      "independently_selected_answer": "C",
+      "passes_answer_uniqueness": true,
+      "independent_solution": "The inverted grammatical subject is the small grooves, a plural noun requiring are; features is also plural, and no singular choice agrees.",
+      "style_review": {
+        "status": "passes_for_accessible_sat_item",
+        "notes": "Original short academic stimulus and standard four-choice format; advisory distractor limitations listed separately."
+      },
+      "ambiguity_review": {
+        "status": "passes",
+        "notes": "Exactly one best choice from provided passage and options; no outside factual knowledge required."
+      },
+      "difficulty_review": {
+        "status": "editorial_only_not_calibrated",
+        "estimated_level_1_to_7": 4,
+        "label": "medium",
+        "notes": "Answer follows explicit content or one constrained inference; no item in this batch warrants hard/very-hard classification on reasoning alone."
+      },
+      "originality_review": {
+        "status": "no_official_item_used_in_review",
+        "notes": "Review used only this blind artifact. No official item comparison or comprehensive copyrighted-corpus check performed; global originality cannot be certified."
+      },
+      "skill_classification": {
+        "domain": "Standard English Conventions",
+        "skill": "Form, Structure, and Sense"
+      },
+      "issues": []
+    },
+    {
+      "question_id": "c3fd0502-88f1-5c85-a598-d9edb5ae631d",
+      "content_hash": "7ad57ab5fdbfcd53653ec4b87ab8ee87457ae759735a3b17b819e905de5717aa",
+      "independently_selected_answer": "A",
+      "passes_answer_uniqueness": true,
+      "independent_solution": "The opening participial phrase describes seismologists using measurements; alternatives attach it to an origin, reconstruction, or stations, and only seismologists supports Their coherently.",
+      "style_review": {
+        "status": "passes_for_accessible_sat_item",
+        "notes": "Original short academic stimulus and standard four-choice format; advisory distractor limitations listed separately."
+      },
+      "ambiguity_review": {
+        "status": "passes",
+        "notes": "Exactly one best choice from provided passage and options; no outside factual knowledge required."
+      },
+      "difficulty_review": {
+        "status": "editorial_only_not_calibrated",
+        "estimated_level_1_to_7": 4,
+        "label": "medium",
+        "notes": "Answer follows explicit content or one constrained inference; no item in this batch warrants hard/very-hard classification on reasoning alone."
+      },
+      "originality_review": {
+        "status": "no_official_item_used_in_review",
+        "notes": "Review used only this blind artifact. No official item comparison or comprehensive copyrighted-corpus check performed; global originality cannot be certified."
+      },
+      "skill_classification": {
+        "domain": "Standard English Conventions",
+        "skill": "Form, Structure, and Sense"
+      },
+      "issues": []
+    },
+    {
+      "question_id": "7db81e23-f8da-5986-a27d-9b3bb601887f",
+      "content_hash": "2b4bfa62cf73de495924f625d83d0fb96f7482143b24653507464eba583a75f2",
+      "independently_selected_answer": "B",
+      "passes_answer_uniqueness": true,
+      "independent_solution": "The compared noun is singular rhythm, so that in the later recording supplies a parallel rhythm-to-rhythm comparison; the other choices compare rhythm to people or a recording.",
+      "style_review": {
+        "status": "passes_for_accessible_sat_item",
+        "notes": "Original short academic stimulus and standard four-choice format; advisory distractor limitations listed separately."
+      },
+      "ambiguity_review": {
+        "status": "passes",
+        "notes": "Exactly one best choice from provided passage and options; no outside factual knowledge required."
+      },
+      "difficulty_review": {
+        "status": "editorial_only_not_calibrated",
+        "estimated_level_1_to_7": 4,
+        "label": "medium",
+        "notes": "Answer follows explicit content or one constrained inference; no item in this batch warrants hard/very-hard classification on reasoning alone."
+      },
+      "originality_review": {
+        "status": "no_official_item_used_in_review",
+        "notes": "Review used only this blind artifact. No official item comparison or comprehensive copyrighted-corpus check performed; global originality cannot be certified."
+      },
+      "skill_classification": {
+        "domain": "Standard English Conventions",
+        "skill": "Form, Structure, and Sense"
+      },
+      "issues": []
+    }
+  ],
+  "summary": {
+    "reviewed": 27,
+    "answer_uniqueness_passes": 27,
+    "answer_rejections": 0,
+    "style_revision_items": [],
+    "hard_questions_independently_identified": 0,
+    "editorial_difficulty_counts": {
+      "2": 3,
+      "3": 16,
+      "4": 8
+    },
+    "answer_positions": {
+      "B": 7,
+      "C": 7,
+      "D": 6,
+      "A": 7
+    },
+    "release_status": "All current item keys, answer uniqueness, academic style, and editorial classifications supported by independent review. These27 easy/medium items are a reviewed pool, not a complete released first module or adaptive bank. Render and verify the quantitative graphics and complete remaining assembly/metadata/database gates."
+  },
+  "review_round": 2
+}

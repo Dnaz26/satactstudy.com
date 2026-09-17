@@ -1,0 +1,105 @@
+{
+  "review_type": "independent runtime/security and blueprint review",
+  "reviewed_at": "2026-09-16T23:47:46.105751+00:00",
+  "scope": "Read-only source review. No production mutations or adversarial requests sent. Line references describe observed baseline and may move as root repairs concurrently.",
+  "findings": [
+    {
+      "priority": "P1",
+      "file": "src/lib/practice/use-item-events.ts",
+      "lines": [
+        15,
+        17,
+        40
+      ],
+      "issue": "Module-final close does not actually wait for an already-running event upload and drains at most one100-item batch.",
+      "reproduction": "Throttle events endpoint, wait for5-second upload, then submit module. close returns immediately when inFlight is true; transition can lock module and final observation becomes403/409. Alternatively queue more than100 events during connectivity loss; close leaves tail for later rejection.",
+      "repair": "Serialize uploads through a shared promise and bounded drain; never indefinitely block essential exam submission on telemetry."
+    },
+    {
+      "priority": "P1",
+      "file": "supabase/migrations/20260916231746_exam_event_ownership.sql",
+      "lines": [
+        1,
+        5
+      ],
+      "issue": "Direct authenticated INSERT bypasses API current-module/status/break validation.",
+      "reproduction": "Using own authenticated Supabase session, insert an event for an assigned question from a locked module or during break/completed status. Policy requires ownership and overall assignment only.",
+      "impact": "Self-account telemetry contamination, not cross-user escalation. Client observations are already uncorroborated, but table invariants should not contradict API gates.",
+      "repair": "Enforce status/break/current-module conditions inside RLS or use a restricted authenticated invoker RPC with bounded receipt rules."
+    },
+    {
+      "priority": "P1",
+      "file": "supabase/migrations/20260916231546_sat_simulation_break.sql",
+      "lines": [
+        17
+      ],
+      "issue": "Adaptive grading consults current catalog Module1 instead of durable student assignments.",
+      "reproduction": "Start an exam, update its catalog Module1 IDs while that student remains in progress, then submit answers for previously assigned questions. Catalog replacement IDs have no accepted answers and misroute the student.",
+      "repair": "Grade u.assigned_question_ids[55:76]; snapshot form version and eligible second-module pools when starting."
+    },
+    {
+      "priority": "P2",
+      "file": "src/lib/practice/blueprints.ts",
+      "lines": [
+        37,
+        58,
+        62,
+        73,
+        75
+      ],
+      "issue": "PSDA skill cycle does not include evaluating statistical claims in any generated SAT path.",
+      "reproduction": "Six operational PSDA slots select indices0\u20135 over two modules; its seventh skill(index6) is never selected. Field slot selects index0.",
+      "repair": "Explicitly cover observational studies/experiments across exposure-aware form variants; avoid cyclic coverage assumptions."
+    },
+    {
+      "priority": "P2",
+      "file": "src/lib/practice/blueprints.ts",
+      "lines": [
+        72,
+        77
+      ],
+      "issue": "RW pretest items appended after all operational grammar/expression groups rather than embedded among related archetypes.",
+      "reproduction": "Build RW Module1: final two questions return to Information/Craft domains after Standard English Conventions.",
+      "repair": "Insert field items into appropriate skill groups with independent key-hidden scored flags; retain27 count."
+    },
+    {
+      "priority": "P2",
+      "file": "src/lib/practice/blueprints.ts",
+      "lines": [
+        128,
+        131
+      ],
+      "issue": "ACT Reading architecture always selects a paired third set and no visual/quantitative informational passage variant.",
+      "reproduction": "Generate repeated ACT forms; all have same single/single/paired architecture and reading graphic flags allfalse.",
+      "repair": "Add original genre and passage-format variants, including VQI on suitable forms; one paired form itself is allowed."
+    },
+    {
+      "priority": "P2",
+      "file": "src/components/practice/practice-session.tsx",
+      "lines": [
+        465,
+        467,
+        715
+      ],
+      "issue": "Client clock controls break-screen exposure although server clock gates writes.",
+      "reproduction": "Move local system clock forward tenminutes during break. Client exposes Math and starts its clock before server accepts progress/events; when writes remainblocked, answers/time may not persist.",
+      "repair": "Use server-time offset/monotonic clock with authenticated recheck on break expiry. Consider withholding upcoming stimuli until server-confirmed break completion for strict simulation."
+    }
+  ],
+  "operational_blueprint_findings": {
+    "SAT": "Draft slots correctly distinguish98 administered from90 operational:50RW and40Math. OperationalRW13/14/10/13 yields26/28/20/26percent; Math14/14/6/6 yields35/35/15/15percent. Two pretest items per module represented. Live format2 flow still scores98 and routes from22; draft field-test exclusions are not live.",
+    "ACT": "Draft core131 administered/108 scored; optional Science40/34. English40 operational uses16/8/16; Reading27 uses13/8/6; Math41 uses33PHM+8IES with5/8/7/7/6 domain counts.11operational modeling items exceed official minimum8. Science34 uses15/8/11. Category counts and operational passage lengths match published framework targets; content/pacing validity remains unmeasured.",
+    "source": "https://www.act.org/content/dam/act/unsecured/documents/R2519-Design-Framework-for-the-ACT-Enhancements-2026-02.pdf",
+    "source_sections": "Tables2.1\u20132.4, final blueprints; earlier proposed Science45-minute design must not override current40-minute official operational specification."
+  },
+  "positive_security_findings": [
+    "Event API obtains authenticated user; does not accept user_id from body.",
+    "RLS requires event user/session ownership and assignment membership; no cross-user event insertion path identified.",
+    "Exam serializer blanks correct_answer and official/AI explanations before full-test responses.",
+    "Break transition checks server time before subsequent module transitions."
+  ],
+  "calibration_limitations": [
+    "Client timing is uncorroborated research observation, not grading authority.",
+    "No item calibration or official equated-scoring certification follows from accurate blueprint counts."
+  ]
+}

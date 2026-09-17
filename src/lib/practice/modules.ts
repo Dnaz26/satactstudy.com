@@ -1,4 +1,5 @@
 import type { BookletQuestion } from '@/components/practice/test-booklet'
+import { OFFICIAL_SPECIFICATIONS } from './blueprints'
 
 export type PracticeModule = {
   id: string
@@ -8,12 +9,12 @@ export type PracticeModule = {
   questionIds: string[]
 }
 
-/** Fixed 100-question practice exams: 25 reading / 25 english / 50 math. */
+/** Digital SAT: two 27-question RW and two 22-question Math modules. */
 export const EXAM_SECTION_TARGETS = {
-  reading: 25,
-  english: 25,
-  math: 50,
-  total: 100,
+  reading: 27,
+  english: 27,
+  math: 44,
+  total: 98,
 } as const
 
 const READING_SECONDS = 35 * 60
@@ -51,7 +52,7 @@ function sectionBucket(questions: BookletQuestion[], kind: 'reading' | 'english'
 /** Build Exam modules: Reading → English → Math. */
 export function buildExamModules(
   questions: BookletQuestion[],
-  examMeta?: { readingIds?: string[]; englishIds?: string[]; mathIds?: string[] },
+  examMeta?: { readingIds?: string[]; englishIds?: string[]; mathIds?: string[]; formatVersion?: number },
 ): PracticeModule[] {
   if (questions.length === 0) return []
 
@@ -65,6 +66,15 @@ export function buildExamModules(
     ? byIdOrder(questions, examMeta.mathIds)
     : sectionBucket(questions, 'math')
 
+  if (examMeta?.formatVersion === 2) {
+    const rw = [...reading, ...english]
+    return [
+      { id: 'sat-rw-1', label: 'Reading & Writing · Module 1', sectionHint: 'Reading and Writing', seconds: 32 * 60, questionIds: rw.slice(0, 27).map(q => q.id) },
+      { id: 'sat-rw-2', label: 'Reading & Writing · Module 2', sectionHint: 'Reading and Writing', seconds: 32 * 60, questionIds: rw.slice(27, 54).map(q => q.id) },
+      { id: 'sat-math-1', label: 'Math · Module 1', sectionHint: 'Math', seconds: 35 * 60, questionIds: math.slice(0, 22).map(q => q.id) },
+      { id: 'sat-math-2', label: 'Math · Module 2', sectionHint: 'Math', seconds: 35 * 60, questionIds: math.slice(22, 44).map(q => q.id) },
+    ]
+  }
   const modules: PracticeModule[] = []
   if (reading.length) {
     modules.push({
@@ -101,7 +111,12 @@ export function buildPracticeModules(
   testType: string,
   questions: BookletQuestion[],
 ): PracticeModule[] {
-  void testType
+  if (testType === 'ACT') {
+    const sections=[...OFFICIAL_SPECIFICATIONS.ACT.sections,OFFICIAL_SPECIFICATIONS.ACT.science]
+    return sections.map(s=>({id:`act-${s.name.toLowerCase()}`,label:s.name,sectionHint:s.name,seconds:s.seconds,
+      questionIds:questions.filter(q=>q.section_name===s.name).map(q=>q.id)})).filter(s=>s.questionIds.length>0)
+  }
+  // Saved legacy SAT drill sessions retain their existing assignments.
   return buildExamModules(questions)
 }
 
@@ -110,11 +125,10 @@ export function questionsForModule(
   module: PracticeModule | null,
 ): BookletQuestion[] {
   if (!module) return questions
-  const set = new Set(module.questionIds)
-  return questions.filter((q) => set.has(q.id))
+  return byIdOrder(questions, module.questionIds)
 }
 
-export function fullTestCount(_testType?: string): number {
-  void _testType
+export function fullTestCount(testType?: string, includeScience=false): number {
+  if(testType==='ACT') return OFFICIAL_SPECIFICATIONS.ACT.total+(includeScience?OFFICIAL_SPECIFICATIONS.ACT.science.count:0)
   return EXAM_SECTION_TARGETS.total
 }

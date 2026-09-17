@@ -4,7 +4,6 @@ import * as React from 'react'
 import { useSearchParams, useRouter } from 'next/navigation'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-import { Badge } from '@/components/ui/badge'
 import { Progress } from '@/components/ui/progress'
 import { Companion } from '@/components/ui/companion'
 import { LayoutDashboard, RotateCcw, TrendingUp } from 'lucide-react'
@@ -16,6 +15,10 @@ function ResultsContent() {
   const correct = Number(searchParams.get('correct') ?? 0)
   const total = Number(searchParams.get('total') ?? 0)
   const accuracy = total > 0 ? Math.round((correct / total) * 100) : 0
+
+  const math = searchParams.get('math')
+  const rw = searchParams.get('rw')
+  const path = searchParams.get('path')
 
   const companionMode =
     accuracy >= 80 ? 'success' :
@@ -49,6 +52,11 @@ function ResultsContent() {
             <p className="text-fog">{correct} of {total} correct</p>
           </div>
 
+          {total === 98 && math && rw && <div className="space-y-1 text-sm text-fog">
+            <p>Reading & Writing: {rw}/54 · Math: {math}/44</p>
+            <p>Math Module 2: {path === 'harder' ? 'harder' : 'easier'} path</p>
+            <p>Practice accuracy; this is not an official SAT scaled score.</p>
+          </div>}
           <Progress value={accuracy} color={accuracyColor} className="h-3" />
 
           <div className="grid grid-cols-3 gap-4 text-center">

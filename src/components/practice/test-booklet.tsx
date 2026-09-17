@@ -39,20 +39,20 @@ type Group = {
   items: Array<{ question: BookletQuestion; number: number }>
 }
 
-function groupQuestions(questions: BookletQuestion[]): Group[] {
+function groupQuestions(questions: BookletQuestion[], numberOffset = 0): Group[] {
   const groups: Group[] = []
   for (const [index, question] of questions.entries()) {
     const passage = question.passage_content?.trim() || null
     const last = groups[groups.length - 1]
     if (last && last.passage === passage) {
-      last.items.push({ question, number: index + 1 })
+      last.items.push({ question, number: numberOffset + index + 1 })
       continue
     }
     groups.push({
       key: `${passage ? 'passage' : 'sheet'}-${index}`,
       title: question.passage_title ?? null,
       passage,
-      items: [{ question, number: index + 1 }],
+      items: [{ question, number: numberOffset + index + 1 }],
     })
   }
   return groups
@@ -67,7 +67,9 @@ function BookletItem({
   onFocus,
   onAnswer,
   onCheck,
+  allowCheck = true,
 }: {
+  allowCheck?: boolean
   question: BookletQuestion
   number: number
   answer: string
@@ -93,7 +95,7 @@ function BookletItem({
         <span className="mt-0.5 font-mono text-xs font-bold">{number}.</span>
         <QuestionPrompt text={question.question_text} className="mb-0 flex-1 text-[13px] leading-5 text-[#1c2740]" />
       </div>
-      <MathDiagram text={question.question_text} imageUrl={question.image_url} />
+      {allowCheck ? <MathDiagram text={question.question_text} imageUrl={question.image_url} /> : question.image_url ? <MathDiagram text="" imageUrl={question.image_url} /> : null}
 
       {spr ? (
         <input
@@ -143,7 +145,7 @@ function BookletItem({
         </div>
       )}
 
-      {!mark && answer && (
+      {allowCheck && !mark && answer && (
         <button type="button" onClick={onCheck} className="ml-6 text-[11px] font-semibold uppercase tracking-[0.12em] text-[#c45a3c]">
           Check
         </button>
@@ -175,7 +177,11 @@ export function TestBooklet({
   onFocus,
   onAnswer,
   onCheck,
+  allowCheck = true,
+  numberOffset = 0,
 }: {
+  allowCheck?: boolean
+  numberOffset?: number
   testType: string
   sectionLabel: string
   questions: BookletQuestion[]
@@ -186,9 +192,9 @@ export function TestBooklet({
   onAnswer: (id: string, value: string) => void
   onCheck: (id: string) => void
 }) {
-  const groups = groupQuestions(questions)
-  const marked = Object.keys(marks).length
-  const filled = Object.values(answers).filter(Boolean).length
+  const groups = groupQuestions(questions, numberOffset)
+  const marked = questions.filter(q => marks[q.id]).length
+  const filled = questions.filter(q => answers[q.id]).length
 
   return (
     <div className="test-sheet overflow-hidden rounded-sm">
@@ -198,12 +204,12 @@ export function TestBooklet({
           <h1 className="font-display text-lg leading-none">{testType} · {sectionLabel}</h1>
         </div>
         <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-[#1c2740]/70">
-          {questions.length} questions · {filled} marked · {marked} scored
+          {questions.length} questions · {filled} marked{allowCheck && ` · ${marked} scored`}
         </p>
       </header>
 
       <div className="border-b border-[#1c2740]/20 px-5 py-2 text-[11px] leading-4 text-[#1c2740]/75">
-        Work every question on this sheet. Fill one bubble per question. You can jump around and score a question when you want the answer.
+        {allowCheck ? 'Work every question on this sheet. Fill one bubble per question. You can jump around and score a question when you want the answer.' : 'Answer each question with one choice or a numerical response. You can revisit questions within this module. Submitting locks your answers; explanations are available after the exam.'}
       </div>
 
       <div className="test-sheet-lines space-y-6 px-5 py-5">
@@ -225,6 +231,7 @@ export function TestBooklet({
                     focused={focusedId === question.id}
                     onFocus={() => onFocus(question.id)}
                     onAnswer={(value) => onAnswer(question.id, value)}
+                    allowCheck={allowCheck}
                     onCheck={() => onCheck(question.id)}
                   />
                 ))}
@@ -242,6 +249,7 @@ export function TestBooklet({
                     focused={focusedId === question.id}
                     onFocus={() => onFocus(question.id)}
                     onAnswer={(value) => onAnswer(question.id, value)}
+                    allowCheck={allowCheck}
                     onCheck={() => onCheck(question.id)}
                   />
                 </div>
@@ -260,7 +268,9 @@ export function AnswerSheet({
   marks,
   focusedId,
   onJump,
+  numberOffset = 0,
 }: {
+  numberOffset?: number
   questions: BookletQuestion[]
   answers: Record<string, string>
   marks: Record<string, BookletMark>
@@ -272,7 +282,7 @@ export function AnswerSheet({
       <p className="mb-2 font-mono text-[10px] uppercase tracking-[0.16em] text-[#1c2740]/60">Answer sheet</p>
       <ol className="space-y-1.5">
         {questions.map((question, index) => {
-          const number = index + 1
+          const number = numberOffset + index + 1
           const spr = isStudentProduced(question.question_type, question.choices)
           const mark = marks[question.id]
           return (

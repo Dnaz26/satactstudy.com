@@ -1,0 +1,1850 @@
+[
+  {
+    "n": 1,
+    "id": "1b1330b6-5941-5544-a7d3-b30f6c02e920",
+    "prompt": "A repair shop charges a fixed inspection fee plus a constant hourly labor fee. A 2-hour repair costs 95 dollars, and a 5-hour repair costs 200 dollars. What is the inspection fee, in dollars?",
+    "type": "multiple_choice",
+    "domain": "Algebra",
+    "skill": "Linear functions",
+    "choices": [
+      "70",
+      "25",
+      "60",
+      "35"
+    ]
+  },
+  {
+    "n": 2,
+    "id": "a0eb3240-34b4-590f-973b-ae05c5c338a5",
+    "prompt": "If 3(2x − 5) = 4x + 9, what is the value of x − 2?",
+    "type": "multiple_choice",
+    "domain": "Algebra",
+    "skill": "Linear equations in one variable",
+    "choices": [
+      "12",
+      "14",
+      "24",
+      "10"
+    ]
+  },
+  {
+    "n": 3,
+    "id": "ced0a1e8-98de-5dad-aefd-2de9d715f855",
+    "prompt": "The line 3x + 4y = 24 intersects the x-axis at P and the y-axis at Q. What is the slope of the line through P and Q?",
+    "type": "multiple_choice",
+    "domain": "Algebra",
+    "skill": "Linear equations in two variables",
+    "choices": [
+      "$\\frac{4}{3}$",
+      "$- \\frac{4}{3}$",
+      "$\\frac{3}{4}$",
+      "$- \\frac{3}{4}$"
+    ]
+  },
+  {
+    "n": 4,
+    "id": "05141059-5163-56a6-98f9-208e2a340e69",
+    "prompt": "At a museum, adult tickets cost 12 dollars and student tickets cost 8 dollars. A group buys 18 tickets for 184 dollars. How many more adult tickets than student tickets does the group buy?",
+    "type": "student_produced_response",
+    "domain": "Algebra",
+    "skill": "Systems of two linear equations in two variables",
+    "choices": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "n": 5,
+    "id": "849df99f-1b5c-5e71-9bba-cb8fab7b1f22",
+    "prompt": "A club has 240 dollars for notebooks and pens. Notebooks cost 6 dollars each and pens cost 2 dollars each. If the club buys 25 notebooks, what is the greatest number of pens it can buy?",
+    "type": "multiple_choice",
+    "domain": "Algebra",
+    "skill": "Linear inequalities in one or two variables",
+    "choices": [
+      "30",
+      "45",
+      "90",
+      "60"
+    ]
+  },
+  {
+    "n": 6,
+    "id": "76c0964e-7f48-51c5-9368-0e2951b47bd2",
+    "prompt": "A tank initially contains 360 liters of water. Water drains at a constant rate, and 240 liters remain after 8 minutes. How many minutes after draining begins will the tank contain 90 liters?",
+    "type": "multiple_choice",
+    "domain": "Algebra",
+    "skill": "Linear functions",
+    "choices": [
+      "24",
+      "18",
+      "12",
+      "6"
+    ]
+  },
+  {
+    "n": 7,
+    "id": "058c73fe-bcb6-5ebd-8ddb-4a41341f0f6f",
+    "prompt": "The system 2x + 3y = 7 and (k − 1)x + (k + 2)y = 21 has infinitely many solutions. What is k?",
+    "type": "multiple_choice",
+    "domain": "Algebra",
+    "skill": "Systems of two linear equations in two variables",
+    "choices": [
+      "9",
+      "6",
+      "3",
+      "7"
+    ]
+  },
+  {
+    "n": 8,
+    "id": "534807fb-49e1-584e-a90c-8ddd7553d03f",
+    "prompt": "The equation a(2x − 3) + b(x + 4) = 7x − 5 is true for every real number x. What is a − b?",
+    "type": "student_produced_response",
+    "domain": "Algebra",
+    "skill": "Linear equations in one variable",
+    "choices": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "n": 9,
+    "id": "6066ab09-12c6-52ef-8753-978399354122",
+    "prompt": "Which expression is equivalent to (x + 3)² − (x − 3)²?",
+    "type": "multiple_choice",
+    "domain": "Advanced Math",
+    "skill": "Equivalent expressions",
+    "choices": [
+      "12x",
+      "6x",
+      "18",
+      "2x² + 18"
+    ]
+  },
+  {
+    "n": 10,
+    "id": "639e008c-119b-57c3-a7aa-d69ded94403e",
+    "prompt": "The function h(t) = 80(0.75)^t models the mass, in grams, of a substance after t hours. By what percentage does the mass decrease each hour?",
+    "type": "multiple_choice",
+    "domain": "Advanced Math",
+    "skill": "Nonlinear functions",
+    "choices": [
+      "80",
+      "75",
+      "25",
+      "0.75"
+    ]
+  },
+  {
+    "n": 11,
+    "id": "092511ef-e7c9-5358-a225-f9023fc4eefa",
+    "prompt": "The equation x² − 7x + 10 = 0 has solutions r and s. What is r² + s²?",
+    "type": "multiple_choice",
+    "domain": "Advanced Math",
+    "skill": "Nonlinear equations in one variable and systems of equations in two variables",
+    "choices": [
+      "19",
+      "25",
+      "29",
+      "49"
+    ]
+  },
+  {
+    "n": 12,
+    "id": "676798c3-9bb9-5dd5-92bb-473b1070fbda",
+    "prompt": "For f(x) = (x − 4)² + 7, the graph of g(x) = f(x + 2) − 3 has a minimum at (h, k). What is h + k?",
+    "type": "student_produced_response",
+    "domain": "Advanced Math",
+    "skill": "Nonlinear functions",
+    "choices": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "n": 13,
+    "id": "5ec3d13d-2dd8-5a6b-8b45-6e16db886195",
+    "prompt": "What is the solution of √(x + 6) = x?",
+    "type": "multiple_choice",
+    "domain": "Advanced Math",
+    "skill": "Nonlinear equations in one variable and systems of equations in two variables",
+    "choices": [
+      "6",
+      "-2",
+      "2",
+      "3"
+    ]
+  },
+  {
+    "n": 14,
+    "id": "b8b35c78-8a2e-5732-b968-c433865e42f4",
+    "prompt": "For x ≠ 3, which expression is equivalent to (x² − x − 6)/(x − 3)?",
+    "type": "multiple_choice",
+    "domain": "Advanced Math",
+    "skill": "Equivalent expressions",
+    "choices": [
+      "x + 2",
+      "x − 3",
+      "x + 3",
+      "x − 2"
+    ]
+  },
+  {
+    "n": 15,
+    "id": "7f806e97-ad31-53e6-b847-a7f9a85e7519",
+    "prompt": "An exponential function f(x) = ab^x, where a and b are positive constants, satisfies f(0) = 6 and f(2) = 54. What is f(3)?",
+    "type": "multiple_choice",
+    "domain": "Advanced Math",
+    "skill": "Nonlinear functions",
+    "choices": [
+      "486",
+      "162",
+      "72",
+      "108"
+    ]
+  },
+  {
+    "n": 16,
+    "id": "a00a1d6a-1b89-5aee-bc83-47879bbab971",
+    "prompt": "For what positive value of k does x² − kx + 16 = 0 have exactly one real solution?",
+    "type": "multiple_choice",
+    "domain": "Advanced Math",
+    "skill": "Nonlinear equations in one variable and systems of equations in two variables",
+    "choices": [
+      "4",
+      "32",
+      "8",
+      "16"
+    ]
+  },
+  {
+    "n": 17,
+    "id": "dc2b7636-7691-5b18-b379-7fe85ac51138",
+    "prompt": "A map uses a scale of 1 centimeter for 8 kilometers. A route measures 6.5 centimeters on the map. At an average speed of 40 kilometers per hour, how many minutes does the route take?",
+    "type": "multiple_choice",
+    "domain": "Problem-Solving and Data Analysis",
+    "skill": "Ratios, rates, proportional relationships, and units",
+    "choices": [
+      "13",
+      "78",
+      "52",
+      "104"
+    ]
+  },
+  {
+    "n": 18,
+    "id": "39f87325-ca0d-5b4e-8fc4-78cae33b1988",
+    "prompt": "A jacket is discounted by 20%, then a 10% tax is added to the discounted price. The final price is 88 dollars. What was the original price, in dollars?",
+    "type": "student_produced_response",
+    "domain": "Problem-Solving and Data Analysis",
+    "skill": "Percentages",
+    "choices": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "n": 19,
+    "id": "43aba8f1-67bd-53dd-a9b6-bf69c09c9cb0",
+    "prompt": "Of 60 students, 24 take art. Of the students taking art, 9 also take music. A student is selected at random from those taking art. What is the probability that the student also takes music?",
+    "type": "multiple_choice",
+    "domain": "Problem-Solving and Data Analysis",
+    "skill": "Probability and conditional probability",
+    "choices": [
+      "$\\frac{3}{8}$",
+      "$\\frac{1}{4}$",
+      "$\\frac{2}{5}$",
+      "$\\frac{3}{20}$"
+    ]
+  },
+  {
+    "n": 20,
+    "id": "034173a2-3224-5a9d-a200-6691c1c1af8f",
+    "prompt": "Triangles ABC and DEF are similar, with A corresponding to D and B to E. AB = 6, DE = 9, and BC = 10. What is EF?",
+    "type": "multiple_choice",
+    "domain": "Geometry and Trigonometry",
+    "skill": "Lines, angles, and triangles",
+    "choices": [
+      "13",
+      "15",
+      "16",
+      "$\\frac{20}{3}$"
+    ]
+  },
+  {
+    "n": 21,
+    "id": "95769b7f-eeed-55fe-91c2-ddf44340fcda",
+    "prompt": "A circle has equation x² + y² − 6x + 8y = 11. What is its radius?",
+    "type": "student_produced_response",
+    "domain": "Geometry and Trigonometry",
+    "skill": "Circles",
+    "choices": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "n": 22,
+    "id": "1ed29265-cd25-50ad-97d2-aa2ebb10be7d",
+    "prompt": "In right triangle ABC, angle C is 90° and sin A = 3/5. If the area of the triangle is 54, what is the hypotenuse?",
+    "type": "multiple_choice",
+    "domain": "Geometry and Trigonometry",
+    "skill": "Right triangles and trigonometry",
+    "choices": [
+      "30",
+      "18",
+      "12",
+      "15"
+    ]
+  },
+  {
+    "n": 23,
+    "id": "376d6f9e-75c1-54ef-acff-bad07c3388a4",
+    "prompt": "If 5x + 7 = 2x + 25, what is the value of 3x + 1?",
+    "type": "multiple_choice",
+    "domain": "Algebra",
+    "skill": "Linear equations in one variable",
+    "choices": [
+      "18",
+      "31",
+      "7",
+      "19"
+    ]
+  },
+  {
+    "n": 24,
+    "id": "1fa0e202-c938-5b4a-8c4b-af294d8836d3",
+    "prompt": "A linear function has f(2) = 11 and f(6) = 23. What is f(0)?",
+    "type": "multiple_choice",
+    "domain": "Algebra",
+    "skill": "Linear functions",
+    "choices": [
+      "5",
+      "3",
+      "8",
+      "11"
+    ]
+  },
+  {
+    "n": 25,
+    "id": "b47d0d00-a0ae-589c-884b-411d9070ce34",
+    "prompt": "The system x + y = 14 and x − y = 4 has solution (x, y). What is xy?",
+    "type": "multiple_choice",
+    "domain": "Algebra",
+    "skill": "Systems of two linear equations in two variables",
+    "choices": [
+      "45",
+      "49",
+      "20",
+      "90"
+    ]
+  },
+  {
+    "n": 26,
+    "id": "6a33a339-a98d-5803-b812-5a8a82a7b527",
+    "prompt": "A phone plan costs 18 dollars per month plus 3 dollars per gigabyte used. If the monthly budget is at most 45 dollars, what is the maximum whole number of gigabytes that can be used?",
+    "type": "student_produced_response",
+    "domain": "Algebra",
+    "skill": "Linear inequalities in one or two variables",
+    "choices": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "n": 27,
+    "id": "5f68a040-46ae-5649-82df-21528d0e3495",
+    "prompt": "A line is parallel to y = −2x + 7 and passes through (3, 1). What is the x-coordinate of its x-intercept?",
+    "type": "multiple_choice",
+    "domain": "Algebra",
+    "skill": "Linear equations in two variables",
+    "choices": [
+      "$- \\frac{7}{2}$",
+      "$\\frac{1}{2}$",
+      "3",
+      "$\\frac{7}{2}$"
+    ]
+  },
+  {
+    "n": 28,
+    "id": "603c41e4-8971-574c-9b71-10092032ea67",
+    "prompt": "A candle is 24 centimeters tall before it burns and 19 centimeters tall after 2 hours. Assuming a constant burning rate, after how many total hours will it be 9 centimeters tall?",
+    "type": "student_produced_response",
+    "domain": "Algebra",
+    "skill": "Linear functions",
+    "choices": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "n": 29,
+    "id": "877515db-40c3-5a44-afb5-1dcdbe65c39f",
+    "prompt": "For one positive value of a, the system ax + 2y = 6 and 3x + (a − 1)y = 9 has no solution. What is a?",
+    "type": "multiple_choice",
+    "domain": "Algebra",
+    "skill": "Systems of two linear equations in two variables",
+    "choices": [
+      "12",
+      "4",
+      "3",
+      "0"
+    ]
+  },
+  {
+    "n": 30,
+    "id": "667167d1-e482-5430-b8e6-602c77e7c96c",
+    "prompt": "Which expression is equivalent to x² + 8x + 15?",
+    "type": "multiple_choice",
+    "domain": "Advanced Math",
+    "skill": "Equivalent expressions",
+    "choices": [
+      "(x − 3)(x − 5)",
+      "(x + 3)(x + 5)",
+      "(x + 4)² − 15",
+      "(x + 1)(x + 15)"
+    ]
+  },
+  {
+    "n": 31,
+    "id": "6f309293-a798-5c8f-97f7-77f715c2a441",
+    "prompt": "What is the larger solution of (x − 2)(x + 5) = 0?",
+    "type": "multiple_choice",
+    "domain": "Advanced Math",
+    "skill": "Nonlinear equations in one variable and systems of equations in two variables",
+    "choices": [
+      "2",
+      "5",
+      "-2",
+      "-5"
+    ]
+  },
+  {
+    "n": 32,
+    "id": "76effa83-88c8-50d3-afa1-836b5ff43653",
+    "prompt": "For the quadratic f(x) = (x + 2)² − 9, what is the minimum value of f(x)?",
+    "type": "multiple_choice",
+    "domain": "Advanced Math",
+    "skill": "Nonlinear functions",
+    "choices": [
+      "-2",
+      "2",
+      "9",
+      "-9"
+    ]
+  },
+  {
+    "n": 33,
+    "id": "bdef9e75-22c2-5dc2-a780-988621d87977",
+    "prompt": "A population is modeled by P(t) = 200(1.10)^t, where t is measured in years. Which expression models the population after m months?",
+    "type": "multiple_choice",
+    "domain": "Advanced Math",
+    "skill": "Nonlinear functions",
+    "choices": [
+      "200(1.10)^m",
+      "200(1.10)^(m/12)",
+      "200(0.10)^m",
+      "200(1.10)^(12m)"
+    ]
+  },
+  {
+    "n": 34,
+    "id": "b290f90a-348d-5cd2-bb17-0e0a8a2abd3f",
+    "prompt": "If x is positive and x² + 3x = 28, what is x + 3?",
+    "type": "student_produced_response",
+    "domain": "Advanced Math",
+    "skill": "Nonlinear equations in one variable and systems of equations in two variables",
+    "choices": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "n": 35,
+    "id": "f48c2f57-d0c6-56c2-badf-0595afca7b50",
+    "prompt": "For x ≠ 0, which expression is equivalent to (6x² + 9x)/(3x)?",
+    "type": "multiple_choice",
+    "domain": "Advanced Math",
+    "skill": "Equivalent expressions",
+    "choices": [
+      "2x + 9",
+      "2x² + 3x",
+      "2x + 3",
+      "3x + 2"
+    ]
+  },
+  {
+    "n": 36,
+    "id": "47b863f0-1e92-5e77-8d4a-e6a4ef0a2a0b",
+    "prompt": "For a value of k, squaring both sides of √(x + k) = x − 2 produces a quadratic with a repeated root, and that root satisfies the original equation. What is k?",
+    "type": "multiple_choice",
+    "domain": "Advanced Math",
+    "skill": "Nonlinear equations in one variable and systems of equations in two variables",
+    "choices": [
+      "-2",
+      "$\\frac{9}{4}$",
+      "$- \\frac{9}{4}$",
+      "2"
+    ]
+  },
+  {
+    "n": 37,
+    "id": "76dac43d-fef7-5c05-9e35-f51035ec87fc",
+    "prompt": "A recipe uses flour and sugar in a mass ratio of 5 to 2. If their combined mass is 420 grams, how many grams of sugar are used?",
+    "type": "multiple_choice",
+    "domain": "Problem-Solving and Data Analysis",
+    "skill": "Ratios, rates, proportional relationships, and units",
+    "choices": [
+      "120",
+      "300",
+      "168",
+      "84"
+    ]
+  },
+  {
+    "n": 38,
+    "id": "7caa510c-958f-5174-97b3-bdad721c6c4d",
+    "prompt": "A store raises a price from 40 dollars to 46 dollars. What is the percentage increase?",
+    "type": "student_produced_response",
+    "domain": "Problem-Solving and Data Analysis",
+    "skill": "Percentages",
+    "choices": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "n": 39,
+    "id": "e5d36b26-2733-58af-a504-b20bf5bc8bc8",
+    "prompt": "Five measurements have a mean of 12. A sixth measurement of 24 is added. What is the new mean?",
+    "type": "multiple_choice",
+    "domain": "Problem-Solving and Data Analysis",
+    "skill": "One-variable data: distributions and measures of center and spread",
+    "choices": [
+      "14",
+      "18",
+      "36",
+      "16"
+    ]
+  },
+  {
+    "n": 40,
+    "id": "9d0c4041-bb14-5911-8e53-028a081eb835",
+    "prompt": "A researcher randomly selects 200 students from one high school to survey about sleep. To which population can the survey results most appropriately be generalized?",
+    "type": "multiple_choice",
+    "domain": "Problem-Solving and Data Analysis",
+    "skill": "Evaluating statistical claims: observational studies and experiments",
+    "choices": [
+      "All high school students in the country",
+      "All students at that high school",
+      "Only the 200 surveyed students",
+      "All people who sleep less than eight hours"
+    ]
+  },
+  {
+    "n": 41,
+    "id": "316595b2-9b49-5d36-bded-874a556a9f8f",
+    "prompt": "A rectangular garden is twice as long as it is wide and has a perimeter of 36 meters. What is its area, in square meters?",
+    "type": "student_produced_response",
+    "domain": "Geometry and Trigonometry",
+    "skill": "Area and volume",
+    "choices": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "n": 42,
+    "id": "15ca2ffd-54a9-5c71-8e1b-72f22b5351c8",
+    "prompt": "Two parallel lines are cut by a transversal. One of the obtuse angles is 118°. What is the measure, in degrees, of each acute angle?",
+    "type": "multiple_choice",
+    "domain": "Geometry and Trigonometry",
+    "skill": "Lines, angles, and triangles",
+    "choices": [
+      "118",
+      "62",
+      "152",
+      "28"
+    ]
+  },
+  {
+    "n": 43,
+    "id": "615e2cc5-8670-53f7-99a6-61b07b97b5e1",
+    "prompt": "A sector of a circle has central angle 60° and radius 6. What is its area divided by π?",
+    "type": "student_produced_response",
+    "domain": "Geometry and Trigonometry",
+    "skill": "Circles",
+    "choices": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "n": 44,
+    "id": "f457dccb-0d8f-5543-a37d-5e33ead92228",
+    "prompt": "In right triangle ABC, angle C is 90°, AC = 8, and BC = 6. What is cos A?",
+    "type": "multiple_choice",
+    "domain": "Geometry and Trigonometry",
+    "skill": "Right triangles and trigonometry",
+    "choices": [
+      "$\\frac{3}{4}$",
+      "$\\frac{3}{5}$",
+      "$\\frac{4}{5}$",
+      "$\\frac{4}{3}$"
+    ]
+  },
+  {
+    "n": 45,
+    "id": "21fd0f29-8010-51af-ba66-247ace14ece4",
+    "prompt": "A line has slope 3/2 and passes through (4, 9). What is its y-intercept?",
+    "type": "multiple_choice",
+    "domain": "Algebra",
+    "skill": "Linear functions",
+    "choices": [
+      "3",
+      "15",
+      "6",
+      "9"
+    ]
+  },
+  {
+    "n": 46,
+    "id": "1c82260e-dec8-5afb-88e7-f5328f0b5830",
+    "prompt": "Two printers working together print 150 pages in 5 minutes. Printer A prints 6 more pages per minute than printer B. How many pages does printer B print in 8 minutes?",
+    "type": "multiple_choice",
+    "domain": "Algebra",
+    "skill": "Systems of two linear equations in two variables",
+    "choices": [
+      "120",
+      "144",
+      "96",
+      "72"
+    ]
+  },
+  {
+    "n": 47,
+    "id": "cae8df48-099b-5b45-8a00-da0dd853f5fb",
+    "prompt": "A company ships boxes weighing 4 kilograms and 7 kilograms. A shipment must contain at least 20 boxes and weigh at most 110 kilograms. If it contains exactly 12 of the 4-kilogram boxes, what is the greatest possible number of 7-kilogram boxes?",
+    "type": "multiple_choice",
+    "domain": "Algebra",
+    "skill": "Linear inequalities in one or two variables",
+    "choices": [
+      "15",
+      "8",
+      "7",
+      "9"
+    ]
+  },
+  {
+    "n": 48,
+    "id": "bdcecedd-f7a2-57f8-8d66-7765252bd877",
+    "prompt": "The system 3x + 2y = 12 and ax + 8y = b has no solution when a = 12. Which value of b would instead make the system have infinitely many solutions?",
+    "type": "student_produced_response",
+    "domain": "Algebra",
+    "skill": "Systems of two linear equations in two variables",
+    "choices": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "n": 49,
+    "id": "81c5b84b-172e-5794-bf5a-138316bb3eac",
+    "prompt": "For one real value of k, the equation (k² − 4)x = k + 2 has no solution. What is that value?",
+    "type": "multiple_choice",
+    "domain": "Algebra",
+    "skill": "Linear equations in one variable",
+    "choices": [
+      "6",
+      "2",
+      "0",
+      "-2"
+    ]
+  },
+  {
+    "n": 50,
+    "id": "df219c12-7060-50d3-a8ab-c6c51dde588c",
+    "prompt": "The line ax + by = 12 has x-intercept 3 and y-intercept −2. What is a − b?",
+    "type": "multiple_choice",
+    "domain": "Algebra",
+    "skill": "Linear equations in two variables",
+    "choices": [
+      "-10",
+      "2",
+      "-2",
+      "10"
+    ]
+  },
+  {
+    "n": 51,
+    "id": "edf4481e-32cf-5f90-997d-703958c4b4d5",
+    "prompt": "A linear function f satisfies f(x + 3) − f(x) = 12 for every x. If f(2) = 5, what is f(7)?",
+    "type": "student_produced_response",
+    "domain": "Algebra",
+    "skill": "Linear functions",
+    "choices": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "n": 52,
+    "id": "732e99c3-1388-5c49-b36f-4d4d0eae92dd",
+    "prompt": "An object has height h(t) = −4t² + 24t + 7. What is its maximum height?",
+    "type": "multiple_choice",
+    "domain": "Advanced Math",
+    "skill": "Nonlinear functions",
+    "choices": [
+      "43",
+      "24",
+      "7",
+      "36"
+    ]
+  },
+  {
+    "n": 53,
+    "id": "2d38354a-5fa1-5620-83bf-3019cf4bb05f",
+    "prompt": "For what value of k does the line y = 2x + k intersect the parabola y = x² at exactly one point?",
+    "type": "multiple_choice",
+    "domain": "Advanced Math",
+    "skill": "Nonlinear equations in one variable and systems of equations in two variables",
+    "choices": [
+      "-4",
+      "1",
+      "4",
+      "-1"
+    ]
+  },
+  {
+    "n": 54,
+    "id": "9060e01e-579a-5b38-844a-cf4a2564632d",
+    "prompt": "For positive a and b, which expression is equivalent to (a^(3/2)b^(−1/2))²/(ab)?",
+    "type": "multiple_choice",
+    "domain": "Advanced Math",
+    "skill": "Equivalent expressions",
+    "choices": [
+      "a²/b²",
+      "a²/b",
+      "a³/b²",
+      "a/b"
+    ]
+  },
+  {
+    "n": 55,
+    "id": "45282e0e-7c29-509b-8346-6d10598822fb",
+    "prompt": "For x ≠ 2, the equation (x² − 6x + k)/(x − 2) = 0 has exactly one distinct real solution for two real values of k. What is the sum of those values?",
+    "type": "student_produced_response",
+    "domain": "Advanced Math",
+    "skill": "Nonlinear equations in one variable and systems of equations in two variables",
+    "choices": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "n": 56,
+    "id": "0be5459f-7bf2-594b-befe-bbc369b580b7",
+    "prompt": "A quadratic f has zeros −1 and 5 and satisfies f(2) = −18. What is f(0)?",
+    "type": "multiple_choice",
+    "domain": "Advanced Math",
+    "skill": "Nonlinear functions",
+    "choices": [
+      "20",
+      "10",
+      "-10",
+      "-20"
+    ]
+  },
+  {
+    "n": 57,
+    "id": "b7305fa8-4dc6-54f5-8dbd-a133daadfed4",
+    "prompt": "For f(x) = x² − 6x + 11, what is the minimum value of f(x + 1) + 4?",
+    "type": "student_produced_response",
+    "domain": "Advanced Math",
+    "skill": "Nonlinear functions",
+    "choices": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "n": 58,
+    "id": "7d10aea9-6e79-5a8e-8afd-7ba657569f1a",
+    "prompt": "The equation x² + bx + 12 = 0 has two positive roots, one three times the other. What is b?",
+    "type": "multiple_choice",
+    "domain": "Advanced Math",
+    "skill": "Nonlinear equations in one variable and systems of equations in two variables",
+    "choices": [
+      "16",
+      "8",
+      "-16",
+      "-8"
+    ]
+  },
+  {
+    "n": 59,
+    "id": "fe611d04-43fd-515f-b44f-d0c4690de91e",
+    "prompt": "A line of best fit is y = 2.4x + 18. A data point has x = 10 and observed y = 47. What is observed y minus predicted y?",
+    "type": "multiple_choice",
+    "domain": "Problem-Solving and Data Analysis",
+    "skill": "Two-variable data: models and scatterplots",
+    "choices": [
+      "18",
+      "29",
+      "-5",
+      "5"
+    ]
+  },
+  {
+    "n": 60,
+    "id": "5ee3de66-7dd9-57b7-9d75-386818817922",
+    "prompt": "A survey records 40 cyclists and 60 noncyclists. Of the cyclists, 30 wear helmets; of the noncyclists, 15 wear helmets for other activities. Among respondents who wear helmets, what fraction are cyclists?",
+    "type": "multiple_choice",
+    "domain": "Problem-Solving and Data Analysis",
+    "skill": "Probability and conditional probability",
+    "choices": [
+      "$\\frac{3}{4}$",
+      "$\\frac{3}{10}$",
+      "$\\frac{1}{2}$",
+      "$\\frac{2}{3}$"
+    ]
+  },
+  {
+    "n": 61,
+    "id": "ddcfc0f1-3694-5a09-909e-fee74fb6416b",
+    "prompt": "A random sample estimates that 62% of a town supports a proposal, with a margin of error of 4 percentage points. Which statement is supported?",
+    "type": "multiple_choice",
+    "domain": "Problem-Solving and Data Analysis",
+    "skill": "Inference from sample statistics and margin of error",
+    "choices": [
+      "Exactly 62% of residents support it",
+      "Every random sample will give between 58% and 66%",
+      "The population support is plausibly between 58% and 66%",
+      "The margin of error proves the proposal causes support"
+    ]
+  },
+  {
+    "n": 62,
+    "id": "659834c9-a07f-5317-81fb-eac41b8215c8",
+    "prompt": "A positive quantity increases by p%, then decreases by p%. The final quantity is 91% of the original. What is p?",
+    "type": "student_produced_response",
+    "domain": "Problem-Solving and Data Analysis",
+    "skill": "Percentages",
+    "choices": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "n": 63,
+    "id": "0e7dbcda-cd0a-5208-abec-8f6d84a33c3f",
+    "prompt": "Two similar solid cones have volumes in the ratio 8 to 27. The smaller cone has height 10. What is the height of the larger cone?",
+    "type": "multiple_choice",
+    "domain": "Geometry and Trigonometry",
+    "skill": "Area and volume",
+    "choices": [
+      "15",
+      "$\\frac{135}{4}$",
+      "20",
+      "30"
+    ]
+  },
+  {
+    "n": 64,
+    "id": "642fc2bd-73c4-55da-9003-7d5cc80e85dd",
+    "prompt": "A circle has radius 12. An arc has length 8π. What is the central angle of the arc, in degrees?",
+    "type": "multiple_choice",
+    "domain": "Geometry and Trigonometry",
+    "skill": "Circles",
+    "choices": [
+      "120",
+      "90",
+      "60",
+      "240"
+    ]
+  },
+  {
+    "n": 65,
+    "id": "15feb238-3eef-5320-8e97-0bcf86e7e42d",
+    "prompt": "In right triangle ABC, angle C is 90° and tan A = 5/12. The hypotenuse is 39. What is the area of the triangle?",
+    "type": "student_produced_response",
+    "domain": "Geometry and Trigonometry",
+    "skill": "Right triangles and trigonometry",
+    "choices": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "n": 66,
+    "id": "c63173a5-2fda-5262-9b73-1fbf98faefd1",
+    "prompt": "The circle (x − 2)² + (y + 1)² = 25 intersects the line y = 3 at two points. What is the distance between those points?",
+    "type": "multiple_choice",
+    "domain": "Geometry and Trigonometry",
+    "skill": "Circles",
+    "choices": [
+      "10",
+      "8",
+      "6",
+      "3"
+    ]
+  },
+  {
+    "n": 67,
+    "id": "9fad5355-84d7-517d-9202-842d83490d24",
+    "prompt": "A number n is multiplied by 4, then 9 is subtracted. The result equals twice the sum of n and 3. What is n?",
+    "type": "multiple_choice",
+    "domain": "Algebra",
+    "skill": "Linear equations in one variable",
+    "choices": [
+      "9",
+      "$\\frac{15}{2}$",
+      "15",
+      "3"
+    ]
+  },
+  {
+    "n": 68,
+    "id": "096be00b-3e12-5baf-833c-0649ac4b87e4",
+    "prompt": "The equation C = 0.08m + 15 gives the cost, in dollars, to mail m brochures. What does 15 represent?",
+    "type": "multiple_choice",
+    "domain": "Algebra",
+    "skill": "Linear functions",
+    "choices": [
+      "The cost of each brochure",
+      "The cost when no brochures are mailed",
+      "The number of brochures mailed for one dollar",
+      "The increase in cost for 15 brochures"
+    ]
+  },
+  {
+    "n": 69,
+    "id": "a1b22091-9c63-5875-bd3c-d97f974bb997",
+    "prompt": "A school orders 30 small and large banners. Small banners cost 9 dollars and large banners cost 15 dollars. The total cost is 342 dollars. What fraction of the banners are large?",
+    "type": "multiple_choice",
+    "domain": "Algebra",
+    "skill": "Systems of two linear equations in two variables",
+    "choices": [
+      "$\\frac{2}{5}$",
+      "$\\frac{3}{5}$",
+      "$\\frac{4}{5}$",
+      "$\\frac{1}{5}$"
+    ]
+  },
+  {
+    "n": 70,
+    "id": "d0fe0488-9fc9-53d7-8bbe-538e7e907890",
+    "prompt": "The equation 2x + 5y = 35 describes a line. If x increases by 10 along the line, by how much does y decrease?",
+    "type": "student_produced_response",
+    "domain": "Algebra",
+    "skill": "Linear equations in two variables",
+    "choices": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "n": 71,
+    "id": "07c8b68e-738d-5273-a530-293bbd13c316",
+    "prompt": "A volunteer must spend at least 12 hours on two projects. Project A takes 3 hours per session and project B takes 2 hours per session. Which pair (A sessions, B sessions) meets the requirement?",
+    "type": "multiple_choice",
+    "domain": "Algebra",
+    "skill": "Linear inequalities in one or two variables",
+    "choices": [
+      "(2, 2)",
+      "(1, 4)",
+      "(3, 1)",
+      "(2, 3)"
+    ]
+  },
+  {
+    "n": 72,
+    "id": "cceedf73-f1c9-57d1-b4b8-1476638afab0",
+    "prompt": "A line passes through (−2, 7) and (4, −5). What is the value of y at the point on the line where x = 1?",
+    "type": "multiple_choice",
+    "domain": "Algebra",
+    "skill": "Linear functions",
+    "choices": [
+      "1",
+      "5",
+      "3",
+      "-1"
+    ]
+  },
+  {
+    "n": 73,
+    "id": "8b883f9d-74c4-5f61-8300-53b46962c217",
+    "prompt": "For the system 4x − 6y = 10 and 2x − 3y = c, which condition describes all and only the values of c for which there is no solution?",
+    "type": "multiple_choice",
+    "domain": "Algebra",
+    "skill": "Systems of two linear equations in two variables",
+    "choices": [
+      "c > 5 only",
+      "c = 5",
+      "c ≠ 5",
+      "c = 0 only"
+    ]
+  },
+  {
+    "n": 74,
+    "id": "df5a0165-0425-51b4-ba3b-26ee7ba827fd",
+    "prompt": "For what value of k does 2(kx + 3) = 8x + k have no solution?",
+    "type": "student_produced_response",
+    "domain": "Algebra",
+    "skill": "Linear equations in one variable",
+    "choices": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "n": 75,
+    "id": "8fb36121-a105-5889-9642-9160d2a59d32",
+    "prompt": "For x > 0, which expression is equivalent to √(25x²) + √(4x²)?",
+    "type": "multiple_choice",
+    "domain": "Advanced Math",
+    "skill": "Equivalent expressions",
+    "choices": [
+      "7x",
+      "29x",
+      "√(29)*x",
+      "21x²"
+    ]
+  },
+  {
+    "n": 76,
+    "id": "1fa1ddc9-a194-5b06-acb0-d67cf4ff0a91",
+    "prompt": "If (x − 1)² = 16, what is the sum of all real solutions?",
+    "type": "multiple_choice",
+    "domain": "Advanced Math",
+    "skill": "Nonlinear equations in one variable and systems of equations in two variables",
+    "choices": [
+      "-8",
+      "8",
+      "0",
+      "2"
+    ]
+  },
+  {
+    "n": 77,
+    "id": "e51a7f4b-acdc-5817-a483-1452b4639efe",
+    "prompt": "The function f(x) = x² + bx + c has a vertex at (3, −4). What is c?",
+    "type": "multiple_choice",
+    "domain": "Advanced Math",
+    "skill": "Nonlinear functions",
+    "choices": [
+      "9",
+      "-13",
+      "-4",
+      "5"
+    ]
+  },
+  {
+    "n": 78,
+    "id": "91612a9b-f127-5732-b4f4-cc00f89793cc",
+    "prompt": "What is the positive solution of x² = 3x + 18?",
+    "type": "student_produced_response",
+    "domain": "Advanced Math",
+    "skill": "Nonlinear equations in one variable and systems of equations in two variables",
+    "choices": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "n": 79,
+    "id": "e8342ce1-e4e3-5082-a1c9-ca88966d4da6",
+    "prompt": "For x ≠ −2 and x ≠ 2, which expression equals 1/(x − 2) − 1/(x + 2)?",
+    "type": "multiple_choice",
+    "domain": "Advanced Math",
+    "skill": "Equivalent expressions",
+    "choices": [
+      "4/(x² − 4)",
+      "4/(x² + 4)",
+      "2x/(x² − 4)",
+      "2/(x² − 4)"
+    ]
+  },
+  {
+    "n": 80,
+    "id": "975e2e10-b430-55ed-ae65-92a214c42dda",
+    "prompt": "A substance has a half-life of 3 hours. Its mass is 96 grams at time zero. What is its mass after 9 hours?",
+    "type": "multiple_choice",
+    "domain": "Advanced Math",
+    "skill": "Nonlinear functions",
+    "choices": [
+      "12",
+      "48",
+      "24",
+      "32"
+    ]
+  },
+  {
+    "n": 81,
+    "id": "5ed605db-5b3d-5251-864b-d2765f92c5c5",
+    "prompt": "The graphs y = x² − 2 and y = 2x + 1 intersect at two points. What is the sum of the x-coordinates of those points?",
+    "type": "multiple_choice",
+    "domain": "Advanced Math",
+    "skill": "Nonlinear equations in one variable and systems of equations in two variables",
+    "choices": [
+      "-3",
+      "2",
+      "-2",
+      "3"
+    ]
+  },
+  {
+    "n": 82,
+    "id": "de6f16b2-3a4f-5cdd-9eb7-f309a61bd620",
+    "prompt": "A polynomial p(x) leaves a remainder of 7 when divided by x − 2. If q(x) = p(x) − 3x, what is the remainder when q(x) is divided by x − 2?",
+    "type": "multiple_choice",
+    "domain": "Advanced Math",
+    "skill": "Nonlinear functions",
+    "choices": [
+      "1",
+      "7",
+      "13",
+      "4"
+    ]
+  },
+  {
+    "n": 83,
+    "id": "c705529a-853b-5d29-845e-954dfd8d963e",
+    "prompt": "A data set consists of 4, 6, 8, 10, and 12. A second data set is formed by adding 3 to every value. How does its standard deviation compare with that of the first set?",
+    "type": "multiple_choice",
+    "domain": "Problem-Solving and Data Analysis",
+    "skill": "One-variable data: distributions and measures of center and spread",
+    "choices": [
+      "It is multiplied by 3",
+      "It is unchanged",
+      "It increases by 3",
+      "It decreases by 3"
+    ]
+  },
+  {
+    "n": 84,
+    "id": "8ce70ff5-645f-557d-a3b2-7958fabb6b4c",
+    "prompt": "Measurements give (time in hours, temperature in °C): (1, 18), (3, 24), (5, 30). If the linear trend continues, at what time will the temperature reach 39°C?",
+    "type": "student_produced_response",
+    "domain": "Problem-Solving and Data Analysis",
+    "skill": "Two-variable data: models and scatterplots",
+    "choices": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "n": 85,
+    "id": "50e413bf-7834-51df-88dc-60cba9f9b946",
+    "prompt": "A random sample of 80 trees from a forest contains 12 diseased trees. Using the sample proportion, how many diseased trees are estimated in a forest of 2,400 trees?",
+    "type": "multiple_choice",
+    "domain": "Problem-Solving and Data Analysis",
+    "skill": "Inference from sample statistics and margin of error",
+    "choices": [
+      "480",
+      "120",
+      "360",
+      "240"
+    ]
+  },
+  {
+    "n": 86,
+    "id": "6bc6b3d0-f74f-582a-9c11-265afe7bd438",
+    "prompt": "An exterior angle of a triangle is 125°. One nonadjacent interior angle is 48°. What is the other nonadjacent interior angle, in degrees?",
+    "type": "multiple_choice",
+    "domain": "Geometry and Trigonometry",
+    "skill": "Lines, angles, and triangles",
+    "choices": [
+      "173",
+      "77",
+      "125",
+      "55"
+    ]
+  },
+  {
+    "n": 87,
+    "id": "8d5d2918-fbd5-5eaf-afca-f3bab8d1e3ab",
+    "prompt": "A cube’s surface area is 150 square centimeters. What is its volume, in cubic centimeters?",
+    "type": "student_produced_response",
+    "domain": "Geometry and Trigonometry",
+    "skill": "Area and volume",
+    "choices": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "n": 88,
+    "id": "0f8a6624-28dd-5dd9-8b5b-3a601a60f6c6",
+    "prompt": "A line is tangent to a circle at T. The circle’s center is O. Point P on the tangent line satisfies OP = 13 and PT = 12. What is the area of the circle divided by π?",
+    "type": "multiple_choice",
+    "domain": "Geometry and Trigonometry",
+    "skill": "Circles",
+    "choices": [
+      "144",
+      "25",
+      "5",
+      "169"
+    ]
+  },
+  {
+    "n": 89,
+    "id": "c51fd85a-7b18-5d94-bd58-f787f2146ba9",
+    "prompt": "A rectangle’s length is 4 centimeters more than its width. Its perimeter is 40 centimeters. What is its width?",
+    "type": "multiple_choice",
+    "domain": "Algebra",
+    "skill": "Linear equations in one variable",
+    "choices": [
+      "12",
+      "8",
+      "10",
+      "6"
+    ]
+  },
+  {
+    "n": 90,
+    "id": "4e4e3ea6-f45e-5d17-9af8-6580284d808d",
+    "prompt": "A taxi charges 5 dollars to begin a trip and 2.50 dollars per kilometer. A trip costs 22.50 dollars. How many kilometers long is the trip?",
+    "type": "multiple_choice",
+    "domain": "Algebra",
+    "skill": "Linear functions",
+    "choices": [
+      "11",
+      "5",
+      "9",
+      "7"
+    ]
+  },
+  {
+    "n": 91,
+    "id": "22e54525-442a-5bcc-bdb9-caebbc054fac",
+    "prompt": "Which point lies on the line 3x − 2y = 12?",
+    "type": "multiple_choice",
+    "domain": "Algebra",
+    "skill": "Linear equations in two variables",
+    "choices": [
+      "(4, 0)",
+      "(6, 2)",
+      "(0, 6)",
+      "(2, 3)"
+    ]
+  },
+  {
+    "n": 92,
+    "id": "687e8acd-f9a2-5a33-829e-51bf981a275d",
+    "prompt": "Two numbers have a sum of 21. The larger is twice the smaller minus 3. What is the larger number?",
+    "type": "student_produced_response",
+    "domain": "Algebra",
+    "skill": "Systems of two linear equations in two variables",
+    "choices": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "n": 93,
+    "id": "72ecbcd6-c837-5ec8-b3b6-3572bf97d545",
+    "prompt": "Which inequality describes all solutions of 7 − 2x > 15?",
+    "type": "multiple_choice",
+    "domain": "Algebra",
+    "skill": "Linear inequalities in one or two variables",
+    "choices": [
+      "x < −4",
+      "x > −4",
+      "x < 4",
+      "x > 4"
+    ]
+  },
+  {
+    "n": 94,
+    "id": "4a93085e-c2e8-5f64-8708-a6503d5d0c95",
+    "prompt": "A line crosses the y-axis at 6 and the x-axis at 4. What is y when x = 2?",
+    "type": "student_produced_response",
+    "domain": "Algebra",
+    "skill": "Linear functions",
+    "choices": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "n": 95,
+    "id": "c117abfb-30a9-5835-a97a-1ab881d53454",
+    "prompt": "The lines kx + 4y = 8 and 3x + ky = 7 are parallel and distinct. If k is positive, what is k?",
+    "type": "multiple_choice",
+    "domain": "Algebra",
+    "skill": "Systems of two linear equations in two variables",
+    "choices": [
+      "4",
+      "0",
+      "12",
+      "$2 \\sqrt{3}$"
+    ]
+  },
+  {
+    "n": 96,
+    "id": "9752cae1-597e-5e08-83b1-a802a6b5f55f",
+    "prompt": "Which expression is equivalent to (2x + 1)(x − 3)?",
+    "type": "multiple_choice",
+    "domain": "Advanced Math",
+    "skill": "Equivalent expressions",
+    "choices": [
+      "2x² − 5x − 3",
+      "2x² − 5x + 3",
+      "2x² − 6x + 1",
+      "2x² + 5x − 3"
+    ]
+  },
+  {
+    "n": 97,
+    "id": "7a4f8d1b-f8b8-5229-ba17-fbd761cc5cee",
+    "prompt": "The graph of y = x² is shifted 3 units to the right and 2 units down. What is the resulting equation?",
+    "type": "multiple_choice",
+    "domain": "Advanced Math",
+    "skill": "Nonlinear functions",
+    "choices": [
+      "y = (x − 3)² − 2",
+      "y = (x − 2)² − 3",
+      "y = (x − 3)² + 2",
+      "y = (x + 3)² − 2"
+    ]
+  },
+  {
+    "n": 98,
+    "id": "49e6a0df-0685-5100-a285-e10a216f57b2",
+    "prompt": "How many distinct real solutions does x² + 6x + 9 = 0 have?",
+    "type": "multiple_choice",
+    "domain": "Advanced Math",
+    "skill": "Nonlinear equations in one variable and systems of equations in two variables",
+    "choices": [
+      "2",
+      "1",
+      "9",
+      "3"
+    ]
+  },
+  {
+    "n": 99,
+    "id": "40350bb3-f3c3-5ba7-a06f-bb51103ce6e3",
+    "prompt": "The value of a machine decreases by 15% each year. Its initial value is 8,000 dollars. Which function gives its value after t years?",
+    "type": "multiple_choice",
+    "domain": "Advanced Math",
+    "skill": "Nonlinear functions",
+    "choices": [
+      "8000 − 15t",
+      "8000(0.85)^t",
+      "8000(0.15)^t",
+      "8000(1.15)^t"
+    ]
+  },
+  {
+    "n": 100,
+    "id": "0ff1d08e-32a6-5b19-b8f5-1c60d7b0c47f",
+    "prompt": "If 1/x + 1/6 = 1/2, what is x?",
+    "type": "student_produced_response",
+    "domain": "Advanced Math",
+    "skill": "Nonlinear equations in one variable and systems of equations in two variables",
+    "choices": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "n": 101,
+    "id": "7b1386f9-2fe9-5974-bd06-40f5943b18fa",
+    "prompt": "A quadratic has zeros 1 and 7 and opens upward. What is the x-coordinate of its vertex?",
+    "type": "multiple_choice",
+    "domain": "Advanced Math",
+    "skill": "Nonlinear functions",
+    "choices": [
+      "1",
+      "7",
+      "4",
+      "3"
+    ]
+  },
+  {
+    "n": 102,
+    "id": "00df7c44-6e74-518b-b54b-bf86ce5b5695",
+    "prompt": "For positive k, which condition describes all and only the values of k for which |x − 2| + |x + 2| = k has exactly two distinct real solutions?",
+    "type": "multiple_choice",
+    "domain": "Advanced Math",
+    "skill": "Nonlinear equations in one variable and systems of equations in two variables",
+    "choices": [
+      "k > 4",
+      "k ≥ 4",
+      "0 < k < 4",
+      "k = 4"
+    ]
+  },
+  {
+    "n": 103,
+    "id": "2f8d31ef-5555-57a2-a3cc-10186a7e24d6",
+    "prompt": "A two-way table records 18 students who play soccer and chess, 12 who play soccer only, 10 who play chess only, and 20 who play neither. What is the probability that a randomly selected student plays chess?",
+    "type": "multiple_choice",
+    "domain": "Problem-Solving and Data Analysis",
+    "skill": "Probability and conditional probability",
+    "choices": [
+      "$\\frac{7}{15}$",
+      "$\\frac{3}{10}$",
+      "$\\frac{1}{2}$",
+      "$\\frac{3}{5}$"
+    ]
+  },
+  {
+    "n": 104,
+    "id": "fab65bdc-3dc3-555f-998b-3c4b6484f1a0",
+    "prompt": "A cyclist travels 18 kilometers in 45 minutes. What is the average speed, in kilometers per hour?",
+    "type": "student_produced_response",
+    "domain": "Problem-Solving and Data Analysis",
+    "skill": "Ratios, rates, proportional relationships, and units",
+    "choices": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "n": 105,
+    "id": "ebd8eaa5-0474-5c4a-891c-aeffd95b6e0a",
+    "prompt": "A frequency table has value 2 occurring 3 times, value 4 occurring 4 times, and value 8 occurring 1 time. What is the mean?",
+    "type": "multiple_choice",
+    "domain": "Problem-Solving and Data Analysis",
+    "skill": "One-variable data: distributions and measures of center and spread",
+    "choices": [
+      "$\\frac{15}{4}$",
+      "3",
+      "4",
+      "$\\frac{14}{3}$"
+    ]
+  },
+  {
+    "n": 106,
+    "id": "dc889662-15db-50a1-86ea-55ddc2f2c0ff",
+    "prompt": "Students choose whether to attend an optional review session. Those attending score higher on average. Why does this alone fail to show that the session caused higher scores?",
+    "type": "multiple_choice",
+    "domain": "Problem-Solving and Data Analysis",
+    "skill": "Evaluating statistical claims: observational studies and experiments",
+    "choices": [
+      "Averages cannot be compared between groups",
+      "The higher average proves the session caused improvement",
+      "The groups were not randomly assigned and may differ in other ways",
+      "A larger sample would automatically remove all confounding"
+    ]
+  },
+  {
+    "n": 107,
+    "id": "8ec1ac7a-9501-5116-bfea-4c5c5d94ea6d",
+    "prompt": "A cylinder has radius 3 and height 8. What is its volume divided by π?",
+    "type": "student_produced_response",
+    "domain": "Geometry and Trigonometry",
+    "skill": "Area and volume",
+    "choices": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "n": 108,
+    "id": "ce7d6fc9-94c8-55ad-a22b-70960c32c2d8",
+    "prompt": "A circle has circumference 18π. What is its area divided by π?",
+    "type": "multiple_choice",
+    "domain": "Geometry and Trigonometry",
+    "skill": "Circles",
+    "choices": [
+      "324",
+      "9",
+      "81",
+      "18"
+    ]
+  },
+  {
+    "n": 109,
+    "id": "851642d9-e839-5fbe-b2ec-45aa4df547aa",
+    "prompt": "A ladder 13 feet long reaches 12 feet up a vertical wall. The wall and ground are perpendicular. How many feet is the foot of the ladder from the wall?",
+    "type": "student_produced_response",
+    "domain": "Geometry and Trigonometry",
+    "skill": "Right triangles and trigonometry",
+    "choices": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "n": 110,
+    "id": "b0ccb059-c0b2-5b2e-b02f-09546d99cd06",
+    "prompt": "Two triangles are similar. Their areas are 16 and 36. A side of the smaller triangle is 10. What is the corresponding side of the larger triangle?",
+    "type": "multiple_choice",
+    "domain": "Geometry and Trigonometry",
+    "skill": "Lines, angles, and triangles",
+    "choices": [
+      "20",
+      "15",
+      "22.5",
+      "25"
+    ]
+  },
+  {
+    "n": 111,
+    "id": "3ad2658d-7e68-56ee-8e39-ebcecc98cda0",
+    "prompt": "If (3x − 2)/4 = (x + 6)/2, what is x?",
+    "type": "multiple_choice",
+    "domain": "Algebra",
+    "skill": "Linear equations in one variable",
+    "choices": [
+      "7",
+      "14",
+      "16",
+      "10"
+    ]
+  },
+  {
+    "n": 112,
+    "id": "f3ccc446-b8bd-54da-917a-d0a6d694fefd",
+    "prompt": "A laboratory converts a measurement x to a new scale by f(x) = ax + b. It has f(10) = 26 and f(25) = 56. What is f(−5)?",
+    "type": "multiple_choice",
+    "domain": "Algebra",
+    "skill": "Linear functions",
+    "choices": [
+      "-14",
+      "-4",
+      "4",
+      "16"
+    ]
+  },
+  {
+    "n": 113,
+    "id": "ce76a58e-913a-5c24-bf18-b550e3a16f43",
+    "prompt": "A feasible region satisfies y ≥ x + 2 and y ≤ −2x + 14. What is the greatest possible value of x in the region?",
+    "type": "multiple_choice",
+    "domain": "Algebra",
+    "skill": "Linear inequalities in one or two variables",
+    "choices": [
+      "12",
+      "4",
+      "6",
+      "2"
+    ]
+  },
+  {
+    "n": 114,
+    "id": "a14eb353-e30c-5052-ace4-6ae47714c74c",
+    "prompt": "For positive a, the system ax + 2y = 6 and 8x + ay = 13 has no solution for exactly one value of a. What is a?",
+    "type": "student_produced_response",
+    "domain": "Algebra",
+    "skill": "Systems of two linear equations in two variables",
+    "choices": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "n": 115,
+    "id": "c6b1e207-44e7-58f3-913c-4be20aa73c9f",
+    "prompt": "A line through (2, 5) is perpendicular to 2x − 3y = 9. What is its y-intercept?",
+    "type": "multiple_choice",
+    "domain": "Algebra",
+    "skill": "Linear equations in two variables",
+    "choices": [
+      "6",
+      "10",
+      "2",
+      "8"
+    ]
+  },
+  {
+    "n": 116,
+    "id": "c9141d97-6b9b-5684-b0a0-aa18ce58fd10",
+    "prompt": "A linear function satisfies f(2x) = 2f(x) − 7 for every real x. What is f(0)?",
+    "type": "multiple_choice",
+    "domain": "Algebra",
+    "skill": "Linear functions",
+    "choices": [
+      "0",
+      "14",
+      "-7",
+      "7"
+    ]
+  },
+  {
+    "n": 117,
+    "id": "9ed3846f-8e5a-57f7-9cf5-e2fddb997774",
+    "prompt": "A solution is made by mixing 10% salt water and 25% salt water. The final 30-liter mixture is 20% salt. How many liters of the 25% solution are used?",
+    "type": "student_produced_response",
+    "domain": "Algebra",
+    "skill": "Systems of two linear equations in two variables",
+    "choices": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "n": 118,
+    "id": "0bc8f5ad-38f6-5b41-9be9-cc7ae379153a",
+    "prompt": "Which expression is equivalent to x³ − 4x² − x + 4?",
+    "type": "multiple_choice",
+    "domain": "Advanced Math",
+    "skill": "Equivalent expressions",
+    "choices": [
+      "(x − 4)(x² + 1)",
+      "(x − 4)(x − 1)(x + 1)",
+      "(x − 1)(x² − 4)",
+      "(x + 4)(x − 1)(x + 1)"
+    ]
+  },
+  {
+    "n": 119,
+    "id": "0b7da4b5-968c-5865-a189-81280c157f31",
+    "prompt": "The equation x² − 6x + c = 0 has two distinct real roots whose difference is 4. What is c?",
+    "type": "multiple_choice",
+    "domain": "Advanced Math",
+    "skill": "Nonlinear equations in one variable and systems of equations in two variables",
+    "choices": [
+      "20",
+      "9",
+      "5",
+      "13"
+    ]
+  },
+  {
+    "n": 120,
+    "id": "5276d96c-02f2-5f29-af22-a543056e9a55",
+    "prompt": "For f(x) = a(x − h)² + k, f(1) = f(5) = 8 and f(3) = −4. What is a?",
+    "type": "multiple_choice",
+    "domain": "Advanced Math",
+    "skill": "Nonlinear functions",
+    "choices": [
+      "3",
+      "12",
+      "-3",
+      "2"
+    ]
+  },
+  {
+    "n": 121,
+    "id": "ace27b48-2fc1-5da9-9e84-783ec776161d",
+    "prompt": "For positive k, the equation x⁴ − 5x² + k = 0 has exactly two distinct real solutions. What is k?",
+    "type": "student_produced_response",
+    "domain": "Advanced Math",
+    "skill": "Nonlinear equations in one variable and systems of equations in two variables",
+    "choices": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "n": 122,
+    "id": "80ce227a-c6c7-555d-bd85-97a005722bf4",
+    "prompt": "A positive exponential function f(x) = ab^x satisfies f(1) = 12 and f(4) = 96. What is a + b?",
+    "type": "multiple_choice",
+    "domain": "Advanced Math",
+    "skill": "Nonlinear functions",
+    "choices": [
+      "6",
+      "14",
+      "10",
+      "8"
+    ]
+  },
+  {
+    "n": 123,
+    "id": "d780ef06-b018-5443-b5b1-6a964e857bc9",
+    "prompt": "What is the sum of the solutions of (x − 3)² = 2x + 1?",
+    "type": "student_produced_response",
+    "domain": "Advanced Math",
+    "skill": "Nonlinear equations in one variable and systems of equations in two variables",
+    "choices": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "n": 124,
+    "id": "71267ead-bd13-5411-8ffe-8fd156b22406",
+    "prompt": "For what value of k does x² + 4x + k = 0 have a root that is twice the other root?",
+    "type": "multiple_choice",
+    "domain": "Advanced Math",
+    "skill": "Nonlinear equations in one variable and systems of equations in two variables",
+    "choices": [
+      "$\\frac{32}{9}$",
+      "$\\frac{16}{9}$",
+      "8",
+      "4"
+    ]
+  },
+  {
+    "n": 125,
+    "id": "a4584994-381a-57e0-a961-d96a7a946b24",
+    "prompt": "A machine produces 1,200 parts in 50 minutes. At the same rate, how many hours does it take to produce 3,600 parts?",
+    "type": "multiple_choice",
+    "domain": "Problem-Solving and Data Analysis",
+    "skill": "Ratios, rates, proportional relationships, and units",
+    "choices": [
+      "2.5",
+      "3",
+      "1.5",
+      "2"
+    ]
+  },
+  {
+    "n": 126,
+    "id": "f7ec6840-1740-52f5-b6c9-268511455f5a",
+    "prompt": "Data set A is 2, 4, 6, 8, 10. Data set B is 1, 4, 6, 8, 11. Which comparison is correct?",
+    "type": "multiple_choice",
+    "domain": "Problem-Solving and Data Analysis",
+    "skill": "One-variable data: distributions and measures of center and spread",
+    "choices": [
+      "They have equal means and equal standard deviations",
+      "B has a greater mean and the same standard deviation",
+      "A has a greater mean and greater standard deviation",
+      "They have the same mean, but B has greater standard deviation"
+    ]
+  },
+  {
+    "n": 127,
+    "id": "7f746ab9-39a5-5d49-befb-40ab58f3fba0",
+    "prompt": "A study randomly assigns volunteers to two exercise programs and compares their blood pressure afterward. Which feature best supports a conclusion that the program caused a difference?",
+    "type": "multiple_choice",
+    "domain": "Problem-Solving and Data Analysis",
+    "skill": "Evaluating statistical claims: observational studies and experiments",
+    "choices": [
+      "The volunteers came from one city",
+      "The outcome was measured numerically",
+      "Both groups had more than one person",
+      "Random assignment to the programs"
+    ]
+  },
+  {
+    "n": 128,
+    "id": "06634456-88d2-529d-b2aa-6bd9c1082555",
+    "prompt": "The price of an item is reduced by 25%. By what percentage must the reduced price increase to return to the original price?",
+    "type": "student_produced_response",
+    "domain": "Problem-Solving and Data Analysis",
+    "skill": "Percentages",
+    "choices": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "n": 129,
+    "id": "20244afd-81fb-5e09-93b1-dc2fcfb26679",
+    "prompt": "A rectangular prism has dimensions x, 2x, and 3x and volume 162. What is its total surface area?",
+    "type": "multiple_choice",
+    "domain": "Geometry and Trigonometry",
+    "skill": "Area and volume",
+    "choices": [
+      "324",
+      "108",
+      "54",
+      "198"
+    ]
+  },
+  {
+    "n": 130,
+    "id": "cae013b5-b60d-55cf-a1b3-12d230fafa2b",
+    "prompt": "A circle centered at (−3, 4) passes through (1, 7). What is its radius?",
+    "type": "multiple_choice",
+    "domain": "Geometry and Trigonometry",
+    "skill": "Circles",
+    "choices": [
+      "3",
+      "5",
+      "4",
+      "7"
+    ]
+  },
+  {
+    "n": 131,
+    "id": "3d6d3efd-ca6b-5352-bac6-0e970ce62ff0",
+    "prompt": "In triangle ABC, D lies on AB and E lies on AC, with DE parallel to BC. AD = 4, DB = 6, and the area of triangle ADE is 12. What is the area of quadrilateral DBCE?",
+    "type": "student_produced_response",
+    "domain": "Geometry and Trigonometry",
+    "skill": "Lines, angles, and triangles",
+    "choices": [
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "n": 132,
+    "id": "100648a6-ad70-5266-83f7-68c7874c3aa4",
+    "prompt": "Angles A and B of a right triangle are complementary. If sin A = 7/25, what is sin B?",
+    "type": "multiple_choice",
+    "domain": "Geometry and Trigonometry",
+    "skill": "Right triangles and trigonometry",
+    "choices": [
+      "$\\frac{24}{25}$",
+      "$\\frac{7}{24}$",
+      "$\\frac{7}{25}$",
+      "$\\frac{25}{24}$"
+    ]
+  }
+]

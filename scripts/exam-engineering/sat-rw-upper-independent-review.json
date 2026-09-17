@@ -1,0 +1,1317 @@
+{
+  "review_type": "independent blind upper candidate review",
+  "reviewed_at": "2026-09-16T23:28:54.542312+00:00",
+  "scope": "Only sat-rw-upper-blind-review.json opened for candidate review. No candidate source,generatedkeys,or explanations accessed.",
+  "questions": [
+    {
+      "question_id": "367c1c59-ba3f-5a6c-a171-c5ed45042524",
+      "content_hash": "1fff6d9c9285ad8a66298d2c26faf2c386b6ed9e761e85d7959cb3288535fc18",
+      "independently_selected_answer": "B",
+      "passes_answer_uniqueness": true,
+      "independent_solution": "Sterile chambers reproduce the layers, disproving universal microbial necessity; unmatched cave acid concentrations leave microbial contribution in the cave open.",
+      "style_review": {
+        "status": "passes",
+        "notes": "Academic stimuli and interpretively related distractors; difficulty is estimated independently, not inferred from upper-pool label."
+      },
+      "ambiguity_review": {
+        "status": "passes",
+        "notes": "Sterile chambers reproduce the layers, disproving universal microbial necessity; unmatched cave acid concentrations leave microbial contribution in the cave open."
+      },
+      "difficulty_review": {
+        "status": "editorial_only_not_calibrated",
+        "estimated_level_1_to_7": 5,
+        "label": "upper_medium",
+        "notes": "No empirical response-time or ability calibration; no level6/7 item independently identified."
+      },
+      "originality_review": {
+        "status": "no_official_item_used_in_review",
+        "notes": "Only this blind artifact used; no comprehensive protected-item corpus comparison performed."
+      },
+      "skill_classification": {
+        "domain": "Information and Ideas",
+        "skill": "Inferences"
+      },
+      "distractor_rationales": {
+        "A": {
+          "is_independently_best": false,
+          "rationale": "Infers historical acid concentration from merely matching laboratory products."
+        },
+        "B": {
+          "is_independently_best": true,
+          "rationale": "Qualified claim consistent with both laboratory mechanism and unresolved cave conditions."
+        },
+        "C": {
+          "is_independently_best": false,
+          "rationale": "Overstates exclusion of a cave contribution from nonmicrobial laboratory possibility."
+        },
+        "D": {
+          "is_independently_best": false,
+          "rationale": "Treats different conditions as eliminating all mechanistic evidence."
+        }
+      },
+      "issues": []
+    },
+    {
+      "question_id": "74c4a05e-e74a-55eb-a4bc-fe082b308a85",
+      "content_hash": "683d4ceb29d2a291cdcbf7a09f2fb310e5e39475f3f9b7ad1f90964b7eeb39f4",
+      "independently_selected_answer": "A",
+      "passes_answer_uniqueness": true,
+      "independent_solution": "Office copying practices could change survival rates independently of original writing rates, providing an alternative explanation of the observed archive pattern.",
+      "style_review": {
+        "status": "passes",
+        "notes": "Academic stimuli and interpretively related distractors; difficulty is estimated independently, not inferred from upper-pool label."
+      },
+      "ambiguity_review": {
+        "status": "passes",
+        "notes": "Office copying practices could change survival rates independently of original writing rates, providing an alternative explanation of the observed archive pattern."
+      },
+      "difficulty_review": {
+        "status": "editorial_only_not_calibrated",
+        "estimated_level_1_to_7": 5,
+        "label": "upper_medium",
+        "notes": "No empirical response-time or ability calibration; no level6/7 item independently identified."
+      },
+      "originality_review": {
+        "status": "no_official_item_used_in_review",
+        "notes": "Only this blind artifact used; no comprehensive protected-item corpus comparison performed."
+      },
+      "skill_classification": {
+        "domain": "Information and Ideas",
+        "skill": "Inferences"
+      },
+      "distractor_rationales": {
+        "A": {
+          "is_independently_best": true,
+          "rationale": "Preservation confound is the relevant alternative."
+        },
+        "B": {
+          "is_independently_best": false,
+          "rationale": "Equal vulnerability does not establish equal original writing rates."
+        },
+        "C": {
+          "is_independently_best": false,
+          "rationale": "Requirement does not establish that writing had no commercial motivation."
+        },
+        "D": {
+          "is_independently_best": false,
+          "rationale": "Missing copying requirement does not render surviving correspondence uninformative."
+        }
+      },
+      "issues": []
+    },
+    {
+      "question_id": "d57f4ba2-4bcb-512d-ae7d-82e1f25e0d39",
+      "content_hash": "950c66e25dd2a2642f1fc72b051effa016874753b105bf644ef420e26ddc3d44",
+      "independently_selected_answer": "A",
+      "passes_answer_uniqueness": true,
+      "independent_solution": "An identical recording with opposite effects depending on preparation information directly demonstrates the predicted contextual interaction.",
+      "style_review": {
+        "status": "passes",
+        "notes": "Academic stimuli and interpretively related distractors; difficulty is estimated independently, not inferred from upper-pool label."
+      },
+      "ambiguity_review": {
+        "status": "passes",
+        "notes": "An identical recording with opposite effects depending on preparation information directly demonstrates the predicted contextual interaction."
+      },
+      "difficulty_review": {
+        "status": "editorial_only_not_calibrated",
+        "estimated_level_1_to_7": 5,
+        "label": "upper_medium",
+        "notes": "No empirical response-time or ability calibration; no level6/7 item independently identified."
+      },
+      "originality_review": {
+        "status": "no_official_item_used_in_review",
+        "notes": "Only this blind artifact used; no comprehensive protected-item corpus comparison performed."
+      },
+      "skill_classification": {
+        "domain": "Information and Ideas",
+        "skill": "Command of Evidence \u2014 Textual"
+      },
+      "distractor_rationales": {
+        "A": {
+          "is_independently_best": true,
+          "rationale": "Opposite effects under different preparation information test the explanatory interaction."
+        },
+        "B": {
+          "is_independently_best": false,
+          "rationale": "Memory details do not test contextual recommendation acceptance."
+        },
+        "C": {
+          "is_independently_best": false,
+          "rationale": "Additional evidence benefits independent of hesitation do not test the specified interaction."
+        },
+        "D": {
+          "is_independently_best": false,
+          "rationale": "Speakers\u2019 reported preparation does not test listeners\u2019 interpretation and acceptance."
+        }
+      },
+      "issues": []
+    },
+    {
+      "question_id": "dc3a5922-224c-528c-a9bb-f99dbc1f0cd1",
+      "content_hash": "281611abccc28b9bb4da1904cfdc12ec49f2862419221ec63eccd7ea9bd65d68",
+      "independently_selected_answer": "B",
+      "passes_answer_uniqueness": true,
+      "independent_solution": "Polishing improves aligned strength by30/120=25%, versus10/80=12.5% for random fibers; treatment-effect comparison matters, not finished strength alone.",
+      "style_review": {
+        "status": "passes",
+        "notes": "Academic stimuli and interpretively related distractors; difficulty is estimated independently, not inferred from upper-pool label."
+      },
+      "ambiguity_review": {
+        "status": "passes",
+        "notes": "Polishing improves aligned strength by30/120=25%, versus10/80=12.5% for random fibers; treatment-effect comparison matters, not finished strength alone."
+      },
+      "difficulty_review": {
+        "status": "editorial_only_not_calibrated",
+        "estimated_level_1_to_7": 4,
+        "label": "medium",
+        "notes": "No empirical response-time or ability calibration; no level6/7 item independently identified."
+      },
+      "originality_review": {
+        "status": "no_official_item_used_in_review",
+        "notes": "Only this blind artifact used; no comprehensive protected-item corpus comparison performed."
+      },
+      "skill_classification": {
+        "domain": "Information and Ideas",
+        "skill": "Command of Evidence \u2014 Quantitative"
+      },
+      "distractor_rationales": {
+        "A": {
+          "is_independently_best": false,
+          "rationale": "Crosses both polishing and fiber orientation, confounding the treatment comparison."
+        },
+        "B": {
+          "is_independently_best": true,
+          "rationale": "Compares percentage polishing improvements within each orientation."
+        },
+        "C": {
+          "is_independently_best": false,
+          "rationale": "Compares final strengths rather than polishing effects."
+        },
+        "D": {
+          "is_independently_best": false,
+          "rationale": "Compares pretreatment orientation differences rather than polishing effects."
+        }
+      },
+      "issues": []
+    },
+    {
+      "question_id": "7cb71b32-ae4b-59cf-aa4e-7f55d3c42e06",
+      "content_hash": "418669d49c09eab3917dfd9093a34d49ef6db840cc04a3a28b33c5c13134edee",
+      "independently_selected_answer": "A",
+      "passes_answer_uniqueness": true,
+      "independent_solution": "The novel supplies intelligible motives without deciding which governed the action; revisedA correctly locates uncertainty about the character\u2019s decision.",
+      "style_review": {
+        "status": "passes",
+        "notes": "Academic stimuli and interpretively related distractors; difficulty is estimated independently, not inferred from upper-pool label."
+      },
+      "ambiguity_review": {
+        "status": "passes",
+        "notes": "The novel supplies intelligible motives without deciding which governed the action; revisedA correctly locates uncertainty about the character\u2019s decision."
+      },
+      "difficulty_review": {
+        "status": "editorial_only_not_calibrated",
+        "estimated_level_1_to_7": 5,
+        "label": "upper_medium",
+        "notes": "No empirical response-time or ability calibration; no level6/7 item independently identified."
+      },
+      "originality_review": {
+        "status": "no_official_item_used_in_review",
+        "notes": "Only this blind artifact used; no comprehensive protected-item corpus comparison performed."
+      },
+      "skill_classification": {
+        "domain": "Information and Ideas",
+        "skill": "Central Ideas and Details"
+      },
+      "distractor_rationales": {
+        "A": {
+          "is_independently_best": true,
+          "rationale": "Revised choice accurately distinguishes intelligibility from resolving the governing motive."
+        },
+        "B": {
+          "is_independently_best": false,
+          "rationale": "Contradicts intelligibility without selecting a decisive motive."
+        },
+        "C": {
+          "is_independently_best": false,
+          "rationale": "Treats deliberate design as an accidental omission."
+        },
+        "D": {
+          "is_independently_best": false,
+          "rationale": "Incorrectly eliminates the unresolved weighting of motives."
+        }
+      },
+      "issues": []
+    },
+    {
+      "question_id": "600526ec-2da9-5111-a928-30bf984bd43a",
+      "content_hash": "72919666a8fc9cb9fadfdef55dba7a6ac5c33a10f0d51325e7da4c208ba5fdd6",
+      "independently_selected_answer": "A",
+      "passes_answer_uniqueness": true,
+      "independent_solution": "Return transfers linked to prior transfers while supplier output stays fixed support reciprocity beyond independent supplier purchases.",
+      "style_review": {
+        "status": "passes",
+        "notes": "Academic stimuli and interpretively related distractors; difficulty is estimated independently, not inferred from upper-pool label."
+      },
+      "ambiguity_review": {
+        "status": "passes",
+        "notes": "Return transfers linked to prior transfers while supplier output stays fixed support reciprocity beyond independent supplier purchases."
+      },
+      "difficulty_review": {
+        "status": "editorial_only_not_calibrated",
+        "estimated_level_1_to_7": 4,
+        "label": "medium",
+        "notes": "No empirical response-time or ability calibration; no level6/7 item independently identified."
+      },
+      "originality_review": {
+        "status": "no_official_item_used_in_review",
+        "notes": "Only this blind artifact used; no comprehensive protected-item corpus comparison performed."
+      },
+      "skill_classification": {
+        "domain": "Information and Ideas",
+        "skill": "Command of Evidence \u2014 Textual"
+      },
+      "distractor_rationales": {
+        "A": {
+          "is_independently_best": true,
+          "rationale": "Linked reciprocal transfers with fixed supplier output distinguish the proposed accounts."
+        },
+        "B": {
+          "is_independently_best": false,
+          "rationale": "Common provenance is consistent with either account."
+        },
+        "C": {
+          "is_independently_best": false,
+          "rationale": "Supplier-dependent growth supports the competing supplier mechanism, not reciprocal linkage."
+        },
+        "D": {
+          "is_independently_best": false,
+          "rationale": "Unequal totals do not establish reciprocal obligation."
+        }
+      },
+      "issues": []
+    },
+    {
+      "question_id": "5d587899-341d-50a9-a9cd-0342050c7ea7",
+      "content_hash": "088ffd371c4ea2ff0c0eb49af2c894d9105b639b957439c5db09d39d7facd837",
+      "independently_selected_answer": "A",
+      "passes_answer_uniqueness": true,
+      "independent_solution": "Weighted national gains can coexist with regional losses, exactly illustrating Text1\u2019s warning about aggregate interpretation.",
+      "style_review": {
+        "status": "passes",
+        "notes": "Academic stimuli and interpretively related distractors; difficulty is estimated independently, not inferred from upper-pool label."
+      },
+      "ambiguity_review": {
+        "status": "passes",
+        "notes": "Weighted national gains can coexist with regional losses, exactly illustrating Text1\u2019s warning about aggregate interpretation."
+      },
+      "difficulty_review": {
+        "status": "editorial_only_not_calibrated",
+        "estimated_level_1_to_7": 4,
+        "label": "medium",
+        "notes": "No empirical response-time or ability calibration; no level6/7 item independently identified."
+      },
+      "originality_review": {
+        "status": "no_official_item_used_in_review",
+        "notes": "Only this blind artifact used; no comprehensive protected-item corpus comparison performed."
+      },
+      "skill_classification": {
+        "domain": "Craft and Structure",
+        "skill": "Cross-Text Connections"
+      },
+      "distractor_rationales": {
+        "A": {
+          "is_independently_best": true,
+          "rationale": "Aggregate positivity is compatible with component negativity."
+        },
+        "B": {
+          "is_independently_best": false,
+          "rationale": "Incorrectly requires every component to share the aggregate sign."
+        },
+        "C": {
+          "is_independently_best": false,
+          "rationale": "Overgeneralizes beyond the actual weighting to any weighting scheme."
+        },
+        "D": {
+          "is_independently_best": false,
+          "rationale": "Regional size does not alone explain the cause of regional effect differences."
+        }
+      },
+      "issues": []
+    },
+    {
+      "question_id": "767553b3-dacd-58ca-ad89-816f55c3cc03",
+      "content_hash": "1cb48a5fa70b9e9ef2847393711132c6fdd0b7dbd14cc6863e4ebc794c8aa1d4",
+      "independently_selected_answer": "D",
+      "passes_answer_uniqueness": true,
+      "independent_solution": "Text2 changes experimental conditions to produce divergent model predictions where greater precision in Text1\u2019s original conditions cannot discriminate them.",
+      "style_review": {
+        "status": "passes",
+        "notes": "Academic stimuli and interpretively related distractors; difficulty is estimated independently, not inferred from upper-pool label."
+      },
+      "ambiguity_review": {
+        "status": "passes",
+        "notes": "Text2 changes experimental conditions to produce divergent model predictions where greater precision in Text1\u2019s original conditions cannot discriminate them."
+      },
+      "difficulty_review": {
+        "status": "editorial_only_not_calibrated",
+        "estimated_level_1_to_7": 5,
+        "label": "upper_medium",
+        "notes": "No empirical response-time or ability calibration; no level6/7 item independently identified."
+      },
+      "originality_review": {
+        "status": "no_official_item_used_in_review",
+        "notes": "Only this blind artifact used; no comprehensive protected-item corpus comparison performed."
+      },
+      "skill_classification": {
+        "domain": "Craft and Structure",
+        "skill": "Cross-Text Connections"
+      },
+      "distractor_rationales": {
+        "A": {
+          "is_independently_best": false,
+          "rationale": "Precision can reduce measurement uncertainty; Text2 does not reject this."
+        },
+        "B": {
+          "is_independently_best": false,
+          "rationale": "Overgeneralizes a condition-specific information benefit."
+        },
+        "C": {
+          "is_independently_best": false,
+          "rationale": "Does not explain why the low-temperature predictions coincide."
+        },
+        "D": {
+          "is_independently_best": true,
+          "rationale": "Alternative conditions expose model disagreement."
+        }
+      },
+      "issues": []
+    },
+    {
+      "question_id": "169f8230-82fe-50d6-acfc-a89d0ee4283d",
+      "content_hash": "37c2d0365ae9c52f8ecf53114cfd3681eb7c44e82a9d9e9d0f741695478beffe",
+      "independently_selected_answer": "B",
+      "passes_answer_uniqueness": true,
+      "independent_solution": "Complete records for few families but absent records for others mean uneven representation, not damaged or inaccurate documents.",
+      "style_review": {
+        "status": "passes",
+        "notes": "Academic stimuli and interpretively related distractors; difficulty is estimated independently, not inferred from upper-pool label."
+      },
+      "ambiguity_review": {
+        "status": "passes",
+        "notes": "Complete records for few families but absent records for others mean uneven representation, not damaged or inaccurate documents."
+      },
+      "difficulty_review": {
+        "status": "editorial_only_not_calibrated",
+        "estimated_level_1_to_7": 3,
+        "label": "lower_medium",
+        "notes": "No empirical response-time or ability calibration; no level6/7 item independently identified."
+      },
+      "originality_review": {
+        "status": "no_official_item_used_in_review",
+        "notes": "Only this blind artifact used; no comprehensive protected-item corpus comparison performed."
+      },
+      "skill_classification": {
+        "domain": "Craft and Structure",
+        "skill": "Words in Context"
+      },
+      "distractor_rationales": {
+        "A": {
+          "is_independently_best": false,
+          "rationale": "Assembly from unrelated sources is not asserted."
+        },
+        "B": {
+          "is_independently_best": true,
+          "rationale": "Representation differs greatly across families."
+        },
+        "C": {
+          "is_independently_best": false,
+          "rationale": "Passage explicitly distinguishes coverage from fragmentary condition."
+        },
+        "D": {
+          "is_independently_best": false,
+          "rationale": "Factual accuracy is not the identified problem."
+        }
+      },
+      "issues": []
+    },
+    {
+      "question_id": "a02703ae-e614-5b79-ad36-428e7f90e78c",
+      "content_hash": "5a8791bf494f05a9d06e4783e73311b03ac23d9ded24a84704b66758e3124bf8",
+      "independently_selected_answer": "D",
+      "passes_answer_uniqueness": true,
+      "independent_solution": "The sketches preserve alternative possibilities; lines register them by recording, not endorsing or coordinating them.",
+      "style_review": {
+        "status": "passes",
+        "notes": "Academic stimuli and interpretively related distractors; difficulty is estimated independently, not inferred from upper-pool label."
+      },
+      "ambiguity_review": {
+        "status": "passes",
+        "notes": "The sketches preserve alternative possibilities; lines register them by recording, not endorsing or coordinating them."
+      },
+      "difficulty_review": {
+        "status": "editorial_only_not_calibrated",
+        "estimated_level_1_to_7": 3,
+        "label": "lower_medium",
+        "notes": "No empirical response-time or ability calibration; no level6/7 item independently identified."
+      },
+      "originality_review": {
+        "status": "no_official_item_used_in_review",
+        "notes": "Only this blind artifact used; no comprehensive protected-item corpus comparison performed."
+      },
+      "skill_classification": {
+        "domain": "Craft and Structure",
+        "skill": "Words in Context"
+      },
+      "distractor_rationales": {
+        "A": {
+          "is_independently_best": false,
+          "rationale": "Preserved alternatives are not endorsed as final choices."
+        },
+        "B": {
+          "is_independently_best": false,
+          "rationale": "Coordination does not fit lines preserving alternatives."
+        },
+        "C": {
+          "is_independently_best": false,
+          "rationale": "Recognize typically requires a perceiver, whereas lines record possibilities."
+        },
+        "D": {
+          "is_independently_best": true,
+          "rationale": "Record matches preserving alternatives."
+        }
+      },
+      "issues": []
+    },
+    {
+      "question_id": "3603b388-1d95-5dae-a965-7b81a818b4e1",
+      "content_hash": "a6e1322f1f3f3136377463600ccb7262d70826cc1dccf0d0a4eaa33a1997341b",
+      "independently_selected_answer": "C",
+      "passes_answer_uniqueness": true,
+      "independent_solution": "The clock analogy separates reliability from accuracy, explaining why acknowledged consistency does not establish the intended additional measurement property.",
+      "style_review": {
+        "status": "passes",
+        "notes": "Academic stimuli and interpretively related distractors; difficulty is estimated independently, not inferred from upper-pool label."
+      },
+      "ambiguity_review": {
+        "status": "passes",
+        "notes": "The clock analogy separates reliability from accuracy, explaining why acknowledged consistency does not establish the intended additional measurement property."
+      },
+      "difficulty_review": {
+        "status": "editorial_only_not_calibrated",
+        "estimated_level_1_to_7": 4,
+        "label": "medium",
+        "notes": "No empirical response-time or ability calibration; no level6/7 item independently identified."
+      },
+      "originality_review": {
+        "status": "no_official_item_used_in_review",
+        "notes": "Only this blind artifact used; no comprehensive protected-item corpus comparison performed."
+      },
+      "skill_classification": {
+        "domain": "Craft and Structure",
+        "skill": "Text Structure and Purpose"
+      },
+      "distractor_rationales": {
+        "A": {
+          "is_independently_best": false,
+          "rationale": "The comparison is an analogy, not a measurement replacement proposal."
+        },
+        "B": {
+          "is_independently_best": false,
+          "rationale": "Analogy does not establish actual ranking errors."
+        },
+        "C": {
+          "is_independently_best": true,
+          "rationale": "Illustrates insufficiency of consistency to demonstrate accuracy."
+        },
+        "D": {
+          "is_independently_best": false,
+          "rationale": "Passage explicitly grants consistency."
+        }
+      },
+      "issues": []
+    },
+    {
+      "question_id": "7f7e4465-d9e8-5913-adb5-20b3e7ee47f0",
+      "content_hash": "d35163bd4c0fb25b689873fee6e543291ad3249e8628739e4bb873a250b65fe8",
+      "independently_selected_answer": "C",
+      "passes_answer_uniqueness": true,
+      "independent_solution": "The text observes recurring jaw shape, qualifies the feeding explanation, then proposes wear evidence that could test it, without yet adjudicating between explanations.",
+      "style_review": {
+        "status": "passes",
+        "notes": "Academic stimuli and interpretively related distractors; difficulty is estimated independently, not inferred from upper-pool label."
+      },
+      "ambiguity_review": {
+        "status": "passes",
+        "notes": "The text observes recurring jaw shape, qualifies the feeding explanation, then proposes wear evidence that could test it, without yet adjudicating between explanations."
+      },
+      "difficulty_review": {
+        "status": "editorial_only_not_calibrated",
+        "estimated_level_1_to_7": 4,
+        "label": "medium",
+        "notes": "No empirical response-time or ability calibration; no level6/7 item independently identified."
+      },
+      "originality_review": {
+        "status": "no_official_item_used_in_review",
+        "notes": "Only this blind artifact used; no comprehensive protected-item corpus comparison performed."
+      },
+      "skill_classification": {
+        "domain": "Craft and Structure",
+        "skill": "Text Structure and Purpose"
+      },
+      "distractor_rationales": {
+        "A": {
+          "is_independently_best": false,
+          "rationale": "Feeding function is a hypothesis, not established; shapes are described as similar."
+        },
+        "B": {
+          "is_independently_best": false,
+          "rationale": "The pattern itself is observed, not rejected."
+        },
+        "C": {
+          "is_independently_best": true,
+          "rationale": "Precisely follows observation, qualification, and proposed test."
+        },
+        "D": {
+          "is_independently_best": false,
+          "rationale": "No explanation has yet been rejected or endorsed using results."
+        }
+      },
+      "issues": []
+    },
+    {
+      "question_id": "0cd4bc4e-a2a4-5a62-abdb-548e49ab84e2",
+      "content_hash": "d0e29db86bc51fffb818cf4b779c7efddb2bd547bd03c836789b8dc1bc000cab",
+      "independently_selected_answer": "B",
+      "passes_answer_uniqueness": true,
+      "independent_solution": "The composer retains compatible features and omits incompatible ones: selective means discriminating in what is retained.",
+      "style_review": {
+        "status": "passes",
+        "notes": "Academic stimuli and interpretively related distractors; difficulty is estimated independently, not inferred from upper-pool label."
+      },
+      "ambiguity_review": {
+        "status": "passes",
+        "notes": "The composer retains compatible features and omits incompatible ones: selective means discriminating in what is retained."
+      },
+      "difficulty_review": {
+        "status": "editorial_only_not_calibrated",
+        "estimated_level_1_to_7": 3,
+        "label": "lower_medium",
+        "notes": "No empirical response-time or ability calibration; no level6/7 item independently identified."
+      },
+      "originality_review": {
+        "status": "no_official_item_used_in_review",
+        "notes": "Only this blind artifact used; no comprehensive protected-item corpus comparison performed."
+      },
+      "skill_classification": {
+        "domain": "Craft and Structure",
+        "skill": "Words in Context"
+      },
+      "distractor_rationales": {
+        "A": {
+          "is_independently_best": false,
+          "rationale": "Source value is not rejected."
+        },
+        "B": {
+          "is_independently_best": true,
+          "rationale": "Retention is discriminating, retaining some features and omitting others."
+        },
+        "C": {
+          "is_independently_best": false,
+          "rationale": "Number of sources is not the meaning at issue."
+        },
+        "D": {
+          "is_independently_best": false,
+          "rationale": "The score explicitly does not reproduce source performances."
+        }
+      },
+      "issues": []
+    },
+    {
+      "question_id": "ba6d697b-366b-5c15-adf3-c8ea2d5e8490",
+      "content_hash": "c0baa4112079fba4025df17ae34a73f1b524545780ee59e5c79eaa6121b39c96",
+      "independently_selected_answer": "B",
+      "passes_answer_uniqueness": true,
+      "independent_solution": "Repeated prohibitions may indicate persistent prohibited behavior; thus introduces that conclusion.",
+      "style_review": {
+        "status": "passes",
+        "notes": "Academic stimuli and interpretively related distractors; difficulty is estimated independently, not inferred from upper-pool label."
+      },
+      "ambiguity_review": {
+        "status": "passes",
+        "notes": "Repeated prohibitions may indicate persistent prohibited behavior; thus introduces that conclusion."
+      },
+      "difficulty_review": {
+        "status": "editorial_only_not_calibrated",
+        "estimated_level_1_to_7": 4,
+        "label": "medium",
+        "notes": "No empirical response-time or ability calibration; no level6/7 item independently identified."
+      },
+      "originality_review": {
+        "status": "no_official_item_used_in_review",
+        "notes": "Only this blind artifact used; no comprehensive protected-item corpus comparison performed."
+      },
+      "skill_classification": {
+        "domain": "Expression of Ideas",
+        "skill": "Transitions"
+      },
+      "distractor_rationales": {
+        "A": {
+          "is_independently_best": false,
+          "rationale": "No simultaneous event is introduced."
+        },
+        "B": {
+          "is_independently_best": true,
+          "rationale": "Introduces the implication of continued prohibition."
+        },
+        "C": {
+          "is_independently_best": false,
+          "rationale": "Conclusion is consistent with the previous qualification rather than opposing it."
+        },
+        "D": {
+          "is_independently_best": false,
+          "rationale": "No separate analogous case is introduced."
+        }
+      },
+      "issues": []
+    },
+    {
+      "question_id": "1cce29cc-f664-58b9-ad4a-fd5f19991f01",
+      "content_hash": "ae3d800f7315d21f138695509c528cf85c454dc9818beb59d830c7fb1cccc989",
+      "independently_selected_answer": "C",
+      "passes_answer_uniqueness": true,
+      "independent_solution": "Possible fixed calibration bias warrants the consequence that greater precision alone does not establish greater accuracy. No revised alternative expresses that implication.",
+      "style_review": {
+        "status": "passes",
+        "notes": "Academic stimuli and interpretively related distractors; difficulty is estimated independently, not inferred from upper-pool label."
+      },
+      "ambiguity_review": {
+        "status": "passes",
+        "notes": "Possible fixed calibration bias warrants the consequence that greater precision alone does not establish greater accuracy. No revised alternative expresses that implication."
+      },
+      "difficulty_review": {
+        "status": "editorial_only_not_calibrated",
+        "estimated_level_1_to_7": 4,
+        "label": "medium",
+        "notes": "No empirical response-time or ability calibration; no level6/7 item independently identified."
+      },
+      "originality_review": {
+        "status": "no_official_item_used_in_review",
+        "notes": "Only this blind artifact used; no comprehensive protected-item corpus comparison performed."
+      },
+      "skill_classification": {
+        "domain": "Expression of Ideas",
+        "skill": "Transitions"
+      },
+      "distractor_rationales": {
+        "A": {
+          "is_independently_best": false,
+          "rationale": "Final sentence draws an implication rather than offering an example."
+        },
+        "B": {
+          "is_independently_best": false,
+          "rationale": "No separate analogous phenomenon is supplied."
+        },
+        "C": {
+          "is_independently_best": true,
+          "rationale": "Connects bias possibility to insufficient accuracy evidence."
+        },
+        "D": {
+          "is_independently_best": false,
+          "rationale": "For comparison incorrectly introduces a separate comparison rather than the implication of possible fixed bias."
+        }
+      },
+      "issues": []
+    },
+    {
+      "question_id": "be95add0-e52e-55cc-a244-b21e7fd0c91c",
+      "content_hash": "41141a75e221a27f99619af2822d0fa6de2790379902d9b1608ff47598fe0426",
+      "independently_selected_answer": "D",
+      "passes_answer_uniqueness": true,
+      "independent_solution": "Competitive markets do not meet the low-competition condition underlying the caution; accordingly introduces the limited conclusion.",
+      "style_review": {
+        "status": "passes",
+        "notes": "Academic stimuli and interpretively related distractors; difficulty is estimated independently, not inferred from upper-pool label."
+      },
+      "ambiguity_review": {
+        "status": "passes",
+        "notes": "Competitive markets do not meet the low-competition condition underlying the caution; accordingly introduces the limited conclusion."
+      },
+      "difficulty_review": {
+        "status": "editorial_only_not_calibrated",
+        "estimated_level_1_to_7": 4,
+        "label": "medium",
+        "notes": "No empirical response-time or ability calibration; no level6/7 item independently identified."
+      },
+      "originality_review": {
+        "status": "no_official_item_used_in_review",
+        "notes": "Only this blind artifact used; no comprehensive protected-item corpus comparison performed."
+      },
+      "skill_classification": {
+        "domain": "Expression of Ideas",
+        "skill": "Transitions"
+      },
+      "distractor_rationales": {
+        "A": {
+          "is_independently_best": false,
+          "rationale": "The conclusion is not an inverse claim to a stated comparison."
+        },
+        "B": {
+          "is_independently_best": false,
+          "rationale": "Ignoring the competition condition misstates the logic."
+        },
+        "C": {
+          "is_independently_best": false,
+          "rationale": "The conclusion is not an example of the previous statement."
+        },
+        "D": {
+          "is_independently_best": true,
+          "rationale": "The condition difference warrants the limited inference."
+        }
+      },
+      "issues": []
+    },
+    {
+      "question_id": "3163d187-d091-5af4-a7a5-b98f26795305",
+      "content_hash": "24062955a5cb9ff3f68ebf6b650cf8f24a6b57d9c14b449b371aa149312eafa3",
+      "independently_selected_answer": "D",
+      "passes_answer_uniqueness": true,
+      "independent_solution": "The notes support association while explicitly withholding isolation of the causal effect; no total confounding explanation or universal causal effect is established.",
+      "style_review": {
+        "status": "passes",
+        "notes": "Academic stimuli and interpretively related distractors; difficulty is estimated independently, not inferred from upper-pool label."
+      },
+      "ambiguity_review": {
+        "status": "passes",
+        "notes": "The notes support association while explicitly withholding isolation of the causal effect; no total confounding explanation or universal causal effect is established."
+      },
+      "difficulty_review": {
+        "status": "editorial_only_not_calibrated",
+        "estimated_level_1_to_7": 4,
+        "label": "medium",
+        "notes": "No empirical response-time or ability calibration; no level6/7 item independently identified."
+      },
+      "originality_review": {
+        "status": "no_official_item_used_in_review",
+        "notes": "Only this blind artifact used; no comprehensive protected-item corpus comparison performed."
+      },
+      "skill_classification": {
+        "domain": "Expression of Ideas",
+        "skill": "Rhetorical Synthesis"
+      },
+      "distractor_rationales": {
+        "A": {
+          "is_independently_best": false,
+          "rationale": "Claims causality beyond observational design."
+        },
+        "B": {
+          "is_independently_best": false,
+          "rationale": "Claims building density completely explains the association without evidence."
+        },
+        "C": {
+          "is_independently_best": false,
+          "rationale": "Denies an observed relationship because causality was not isolated."
+        },
+        "D": {
+          "is_independently_best": true,
+          "rationale": "Retains association and explicitly limits causal interpretation."
+        }
+      },
+      "issues": []
+    },
+    {
+      "question_id": "6ec72b6e-c3f8-5460-a5e7-3a2c6dba88df",
+      "content_hash": "fbdf00beaaca59344194e8a6dd7c262eaafaa01ba4693eeed0bf620f920858cf",
+      "independently_selected_answer": "C",
+      "passes_answer_uniqueness": true,
+      "independent_solution": "The reader findings evaluate different attributes, allowing a contrast without an unsupported overall translation ranking.",
+      "style_review": {
+        "status": "passes",
+        "notes": "Academic stimuli and interpretively related distractors; difficulty is estimated independently, not inferred from upper-pool label."
+      },
+      "ambiguity_review": {
+        "status": "passes",
+        "notes": "The reader findings evaluate different attributes, allowing a contrast without an unsupported overall translation ranking."
+      },
+      "difficulty_review": {
+        "status": "editorial_only_not_calibrated",
+        "estimated_level_1_to_7": 4,
+        "label": "medium",
+        "notes": "No empirical response-time or ability calibration; no level6/7 item independently identified."
+      },
+      "originality_review": {
+        "status": "no_official_item_used_in_review",
+        "notes": "Only this blind artifact used; no comprehensive protected-item corpus comparison performed."
+      },
+      "skill_classification": {
+        "domain": "Expression of Ideas",
+        "skill": "Rhetorical Synthesis"
+      },
+      "distractor_rationales": {
+        "A": {
+          "is_independently_best": false,
+          "rationale": "Reverses which version conveyed humor better."
+        },
+        "B": {
+          "is_independently_best": false,
+          "rationale": "No overall equivalence was evaluated."
+        },
+        "C": {
+          "is_independently_best": true,
+          "rationale": "Contrasts the two reader-rated qualities without global ranking."
+        },
+        "D": {
+          "is_independently_best": false,
+          "rationale": "Converts one quality advantage into unsupported overall superiority."
+        }
+      },
+      "issues": []
+    },
+    {
+      "question_id": "608d32a1-831a-51f6-ad31-fb887fda838e",
+      "content_hash": "bf68c971d590f8f37ee269898a82a6e516e5f4485bc43a93ac6e657b3d5a2540",
+      "independently_selected_answer": "C",
+      "passes_answer_uniqueness": true,
+      "independent_solution": "Mass and size are different complementary measurements whose combination permits density estimation.",
+      "style_review": {
+        "status": "passes",
+        "notes": "Academic stimuli and interpretively related distractors; difficulty is estimated independently, not inferred from upper-pool label."
+      },
+      "ambiguity_review": {
+        "status": "passes",
+        "notes": "Mass and size are different complementary measurements whose combination permits density estimation."
+      },
+      "difficulty_review": {
+        "status": "editorial_only_not_calibrated",
+        "estimated_level_1_to_7": 3,
+        "label": "lower_medium",
+        "notes": "No empirical response-time or ability calibration; no level6/7 item independently identified."
+      },
+      "originality_review": {
+        "status": "no_official_item_used_in_review",
+        "notes": "Only this blind artifact used; no comprehensive protected-item corpus comparison performed."
+      },
+      "skill_classification": {
+        "domain": "Expression of Ideas",
+        "skill": "Rhetorical Synthesis"
+      },
+      "distractor_rationales": {
+        "A": {
+          "is_independently_best": false,
+          "rationale": "Relative measurement accuracy is not reported."
+        },
+        "B": {
+          "is_independently_best": false,
+          "rationale": "Methods measure different quantities, not the same ones."
+        },
+        "C": {
+          "is_independently_best": true,
+          "rationale": "Different quantities jointly support a density estimate."
+        },
+        "D": {
+          "is_independently_best": false,
+          "rationale": "Neither method alone supplies both required quantities."
+        }
+      },
+      "issues": []
+    },
+    {
+      "question_id": "c2576054-7587-55b6-a2f7-e849bb127494",
+      "content_hash": "68066e3fca983401a618dec88c3bb8dea1547e573a2e4d8b7f86863e1765c8ca",
+      "independently_selected_answer": "A",
+      "passes_answer_uniqueness": true,
+      "independent_solution": "Semicolon separates independent clauses before however. Comma alone creates a splice, absent punctuation creates a fused sentence, and pattern and; strands the conjunction before the delimiter.",
+      "style_review": {
+        "status": "passes",
+        "notes": "Academic stimuli and interpretively related distractors; difficulty is estimated independently, not inferred from upper-pool label."
+      },
+      "ambiguity_review": {
+        "status": "passes",
+        "notes": "Semicolon separates independent clauses before however. Comma alone creates a splice, absent punctuation creates a fused sentence, and pattern and; strands the conjunction before the delimiter."
+      },
+      "difficulty_review": {
+        "status": "editorial_only_not_calibrated",
+        "estimated_level_1_to_7": 3,
+        "label": "lower_medium",
+        "notes": "No empirical response-time or ability calibration; no level6/7 item independently identified."
+      },
+      "originality_review": {
+        "status": "no_official_item_used_in_review",
+        "notes": "Only this blind artifact used; no comprehensive protected-item corpus comparison performed."
+      },
+      "skill_classification": {
+        "domain": "Standard English Conventions",
+        "skill": "Boundaries"
+      },
+      "distractor_rationales": {
+        "A": {
+          "is_independently_best": true,
+          "rationale": "Conventional semicolon before conjunctive adverb."
+        },
+        "B": {
+          "is_independently_best": false,
+          "rationale": "Creates a comma splice between independent clauses."
+        },
+        "C": {
+          "is_independently_best": false,
+          "rationale": "Creates a fused sentence boundary."
+        },
+        "D": {
+          "is_independently_best": false,
+          "rationale": "Places coordinating conjunction before the semicolon, leaving incomplete coordination; not a defensible boundary."
+        }
+      },
+      "issues": []
+    },
+    {
+      "question_id": "84b50fdf-dbd3-5ad4-a04a-90ac23c596bc",
+      "content_hash": "861977061e05f51030c71c64930b9f7be3ea9687e430021db6a9a92e79d5585a",
+      "independently_selected_answer": "B",
+      "passes_answer_uniqueness": true,
+      "independent_solution": "The subject fragments is followed by a restrictive relative clause ending at layer; no punctuation should separate the full subject from contain.",
+      "style_review": {
+        "status": "passes",
+        "notes": "Academic stimuli and interpretively related distractors; difficulty is estimated independently, not inferred from upper-pool label."
+      },
+      "ambiguity_review": {
+        "status": "passes",
+        "notes": "The subject fragments is followed by a restrictive relative clause ending at layer; no punctuation should separate the full subject from contain."
+      },
+      "difficulty_review": {
+        "status": "editorial_only_not_calibrated",
+        "estimated_level_1_to_7": 4,
+        "label": "medium",
+        "notes": "No empirical response-time or ability calibration; no level6/7 item independently identified."
+      },
+      "originality_review": {
+        "status": "no_official_item_used_in_review",
+        "notes": "Only this blind artifact used; no comprehensive protected-item corpus comparison performed."
+      },
+      "skill_classification": {
+        "domain": "Standard English Conventions",
+        "skill": "Boundaries"
+      },
+      "distractor_rationales": {
+        "A": {
+          "is_independently_best": false,
+          "rationale": "Colon separates subject from predicate."
+        },
+        "B": {
+          "is_independently_best": true,
+          "rationale": "No punctuation separates restrictive subject clause from verb."
+        },
+        "C": {
+          "is_independently_best": false,
+          "rationale": "Comma separates subject from predicate."
+        },
+        "D": {
+          "is_independently_best": false,
+          "rationale": "Semicolon separates subject from predicate."
+        }
+      },
+      "issues": []
+    },
+    {
+      "question_id": "75b7dee8-13cf-5af4-a043-8f04ddb49487",
+      "content_hash": "707a971e98c06f1ae3d79eb58d83f187ec00218e400980fd95ca5bfcd13ad346",
+      "independently_selected_answer": "D",
+      "passes_answer_uniqueness": true,
+      "independent_solution": "A specialist in marine ecology is supplementary apposition opened by a comma; a second comma closes it before the main sentence continues.",
+      "style_review": {
+        "status": "passes",
+        "notes": "Academic stimuli and interpretively related distractors; difficulty is estimated independently, not inferred from upper-pool label."
+      },
+      "ambiguity_review": {
+        "status": "passes",
+        "notes": "A specialist in marine ecology is supplementary apposition opened by a comma; a second comma closes it before the main sentence continues."
+      },
+      "difficulty_review": {
+        "status": "editorial_only_not_calibrated",
+        "estimated_level_1_to_7": 4,
+        "label": "medium",
+        "notes": "No empirical response-time or ability calibration; no level6/7 item independently identified."
+      },
+      "originality_review": {
+        "status": "no_official_item_used_in_review",
+        "notes": "Only this blind artifact used; no comprehensive protected-item corpus comparison performed."
+      },
+      "skill_classification": {
+        "domain": "Standard English Conventions",
+        "skill": "Boundaries"
+      },
+      "distractor_rationales": {
+        "A": {
+          "is_independently_best": false,
+          "rationale": "Semicolon cannot terminate the appositive before subordinate continuation."
+        },
+        "B": {
+          "is_independently_best": false,
+          "rationale": "Colon does not close the comma-opened supplement."
+        },
+        "C": {
+          "is_independently_best": false,
+          "rationale": "Fails to close supplementary apposition."
+        },
+        "D": {
+          "is_independently_best": true,
+          "rationale": "Closes supplementary apposition with matching comma."
+        }
+      },
+      "issues": []
+    },
+    {
+      "question_id": "f35d7735-9c5f-5154-a0c9-7f7b6cd74827",
+      "content_hash": "98a13ff9c357b750bcf21d16939a30777f9f4eb7b83f3b20f1aeebdf30563e82",
+      "independently_selected_answer": "B",
+      "passes_answer_uniqueness": true,
+      "independent_solution": "The complete first clause introduces a list of the three alteration types, so a colon is correct. Semicolon cannot introduce the fragment list; colon after including improperly separates it from its objects.",
+      "style_review": {
+        "status": "passes",
+        "notes": "Academic stimuli and interpretively related distractors; difficulty is estimated independently, not inferred from upper-pool label."
+      },
+      "ambiguity_review": {
+        "status": "passes",
+        "notes": "The complete first clause introduces a list of the three alteration types, so a colon is correct. Semicolon cannot introduce the fragment list; colon after including improperly separates it from its objects."
+      },
+      "difficulty_review": {
+        "status": "editorial_only_not_calibrated",
+        "estimated_level_1_to_7": 3,
+        "label": "lower_medium",
+        "notes": "No empirical response-time or ability calibration; no level6/7 item independently identified."
+      },
+      "originality_review": {
+        "status": "no_official_item_used_in_review",
+        "notes": "Only this blind artifact used; no comprehensive protected-item corpus comparison performed."
+      },
+      "skill_classification": {
+        "domain": "Standard English Conventions",
+        "skill": "Boundaries"
+      },
+      "distractor_rationales": {
+        "A": {
+          "is_independently_best": false,
+          "rationale": "Colon improperly follows including, separating it from its objects."
+        },
+        "B": {
+          "is_independently_best": true,
+          "rationale": "Complete clause introduces the list with a colon."
+        },
+        "C": {
+          "is_independently_best": false,
+          "rationale": "Following list is not an independent clause."
+        },
+        "D": {
+          "is_independently_best": false,
+          "rationale": "Colon after including separates it from its objects."
+        }
+      },
+      "issues": []
+    },
+    {
+      "question_id": "6355b29c-ceb6-50bb-abf9-257aa8643308",
+      "content_hash": "0a9be41864be9aa9a65630cc493217b4bb1ab226cb2ff66a9063c795fcc372e7",
+      "independently_selected_answer": "C",
+      "passes_answer_uniqueness": true,
+      "independent_solution": "The singular subject relationship requires provides; plural stations and frequencies are intervening nouns.",
+      "style_review": {
+        "status": "passes",
+        "notes": "Academic stimuli and interpretively related distractors; difficulty is estimated independently, not inferred from upper-pool label."
+      },
+      "ambiguity_review": {
+        "status": "passes",
+        "notes": "The singular subject relationship requires provides; plural stations and frequencies are intervening nouns."
+      },
+      "difficulty_review": {
+        "status": "editorial_only_not_calibrated",
+        "estimated_level_1_to_7": 4,
+        "label": "medium",
+        "notes": "No empirical response-time or ability calibration; no level6/7 item independently identified."
+      },
+      "originality_review": {
+        "status": "no_official_item_used_in_review",
+        "notes": "Only this blind artifact used; no comprehensive protected-item corpus comparison performed."
+      },
+      "skill_classification": {
+        "domain": "Standard English Conventions",
+        "skill": "Form, Structure, and Sense"
+      },
+      "distractor_rationales": {
+        "A": {
+          "is_independently_best": false,
+          "rationale": "Plural have disagrees with relationship."
+        },
+        "B": {
+          "is_independently_best": false,
+          "rationale": "Plural are disagrees with relationship."
+        },
+        "C": {
+          "is_independently_best": true,
+          "rationale": "Singular provides agrees with relationship."
+        },
+        "D": {
+          "is_independently_best": false,
+          "rationale": "Plural provide disagrees with relationship."
+        }
+      },
+      "issues": []
+    },
+    {
+      "question_id": "0dfb5295-da8f-581b-a3b9-3df0f9ea8711",
+      "content_hash": "b5fcae4f317611e294b60ddcb877fc9a8766db559a3f86c9d259bef6850e56b1",
+      "independently_selected_answer": "D",
+      "passes_answer_uniqueness": true,
+      "independent_solution": "The parallel infinitive sequence is to reconstruct, distinguish, and identify; identify matches the other verbs.",
+      "style_review": {
+        "status": "passes",
+        "notes": "Academic stimuli and interpretively related distractors; difficulty is estimated independently, not inferred from upper-pool label."
+      },
+      "ambiguity_review": {
+        "status": "passes",
+        "notes": "The parallel infinitive sequence is to reconstruct, distinguish, and identify; identify matches the other verbs."
+      },
+      "difficulty_review": {
+        "status": "editorial_only_not_calibrated",
+        "estimated_level_1_to_7": 3,
+        "label": "lower_medium",
+        "notes": "No empirical response-time or ability calibration; no level6/7 item independently identified."
+      },
+      "originality_review": {
+        "status": "no_official_item_used_in_review",
+        "notes": "Only this blind artifact used; no comprehensive protected-item corpus comparison performed."
+      },
+      "skill_classification": {
+        "domain": "Standard English Conventions",
+        "skill": "Form, Structure, and Sense"
+      },
+      "distractor_rationales": {
+        "A": {
+          "is_independently_best": false,
+          "rationale": "Participle breaks infinitive parallelism."
+        },
+        "B": {
+          "is_independently_best": false,
+          "rationale": "Past form breaks infinitive parallelism."
+        },
+        "C": {
+          "is_independently_best": false,
+          "rationale": "Nominal form breaks infinitive parallelism."
+        },
+        "D": {
+          "is_independently_best": true,
+          "rationale": "Base verb identify shares infinitive to."
+        }
+      },
+      "issues": []
+    },
+    {
+      "question_id": "e6c78300-28cd-5a24-aa7d-abda50f5f63f",
+      "content_hash": "dfb37ed1522f4fbe3cf5e48e0ba46a71a3829184ef3e6c2674b0f7d17d7775c2",
+      "independently_selected_answer": "A",
+      "passes_answer_uniqueness": true,
+      "independent_solution": "Several translators possess the decisions, requiring plural possessive translators\u2019.",
+      "style_review": {
+        "status": "passes",
+        "notes": "Academic stimuli and interpretively related distractors; difficulty is estimated independently, not inferred from upper-pool label."
+      },
+      "ambiguity_review": {
+        "status": "passes",
+        "notes": "Several translators possess the decisions, requiring plural possessive translators\u2019."
+      },
+      "difficulty_review": {
+        "status": "editorial_only_not_calibrated",
+        "estimated_level_1_to_7": 3,
+        "label": "lower_medium",
+        "notes": "No empirical response-time or ability calibration; no level6/7 item independently identified."
+      },
+      "originality_review": {
+        "status": "no_official_item_used_in_review",
+        "notes": "Only this blind artifact used; no comprehensive protected-item corpus comparison performed."
+      },
+      "skill_classification": {
+        "domain": "Standard English Conventions",
+        "skill": "Form, Structure, and Sense"
+      },
+      "distractor_rationales": {
+        "A": {
+          "is_independently_best": true,
+          "rationale": "Plural possessive matches decisions of several translators."
+        },
+        "B": {
+          "is_independently_best": false,
+          "rationale": "Singular possessive does not match the several-translator group reference."
+        },
+        "C": {
+          "is_independently_best": false,
+          "rationale": "Plural without apostrophe fails to mark the intended possession."
+        },
+        "D": {
+          "is_independently_best": false,
+          "rationale": "Singular noun fails to express the intended possession."
+        }
+      },
+      "issues": []
+    },
+    {
+      "question_id": "d433b283-683a-5e49-a95c-9b51447f7cb5",
+      "content_hash": "4fd9250efe057742ca4bc9692cf1a8ce1471ff89d933a9ee856dc53a84cea25a",
+      "independently_selected_answer": "C",
+      "passes_answer_uniqueness": true,
+      "independent_solution": "Spending the three seasons precedes a stated past arrival, requiring past perfect had spent.",
+      "style_review": {
+        "status": "passes",
+        "notes": "Academic stimuli and interpretively related distractors; difficulty is estimated independently, not inferred from upper-pool label."
+      },
+      "ambiguity_review": {
+        "status": "passes",
+        "notes": "Spending the three seasons precedes a stated past arrival, requiring past perfect had spent."
+      },
+      "difficulty_review": {
+        "status": "editorial_only_not_calibrated",
+        "estimated_level_1_to_7": 3,
+        "label": "lower_medium",
+        "notes": "No empirical response-time or ability calibration; no level6/7 item independently identified."
+      },
+      "originality_review": {
+        "status": "no_official_item_used_in_review",
+        "notes": "Only this blind artifact used; no comprehensive protected-item corpus comparison performed."
+      },
+      "skill_classification": {
+        "domain": "Standard English Conventions",
+        "skill": "Form, Structure, and Sense"
+      },
+      "distractor_rationales": {
+        "A": {
+          "is_independently_best": false,
+          "rationale": "Future tense conflicts with already completed past activity."
+        },
+        "B": {
+          "is_independently_best": false,
+          "rationale": "Present tense conflicts with prior past completion."
+        },
+        "C": {
+          "is_independently_best": true,
+          "rationale": "Past perfect marks completion before the1924arrival."
+        },
+        "D": {
+          "is_independently_best": false,
+          "rationale": "Present perfect does not anchor the completion before the past arrival."
+        }
+      },
+      "issues": []
+    }
+  ],
+  "summary": {
+    "reviewed": 27,
+    "answer_uniqueness_passes": 27,
+    "answer_rejections": [],
+    "semantic_precision_repairs": [],
+    "hard_questions_independently_identified": 0,
+    "editorial_level_counts": {
+      "5": 5,
+      "4": 13,
+      "3": 9
+    },
+    "release_status": "Current revised candidates pass answer uniqueness/style review. Difficulty remains editorial lower-medium through upper-medium; no complete exam fidelity or empirical calibration certification."
+  },
+  "review_round": 2
+}

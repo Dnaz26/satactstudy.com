@@ -63,17 +63,21 @@ export function dedupeAgainstHistory(text: string, history: string[]): string {
  */
 export const CHAT_CHECKLIST = [
   { id: 'definition', label: 'Definition (super simple)' },
-  { id: 'irlExample', label: 'Real-world example' },
-  { id: 'breakdown', label: 'Breakdown of every part' },
-  { id: 'build', label: 'Build example for student to translate' },
-  { id: 'yesExamples', label: 'Correct examples' },
-  { id: 'noExamples', label: 'Incorrect examples' },
-  { id: 'explainBack', label: 'Student explains in own words' },
-  { id: 'practice', label: 'Five multiple-choice questions' },
-  { id: 'create', label: 'Student creates a question + analysis' },
+  { id: 'checkDefinition', label: 'Multiple-choice check of the definition' },
+  { id: 'breakdown', label: 'Worked example with each part highlighted + defined' },
+  { id: 'checkMeaning', label: 'Multiple-choice check of what each part means' },
+  { id: 'yesExamples', label: 'Correct examples + why they work' },
+  { id: 'noExamples', label: 'Incorrect examples / traps + why they fail' },
+  { id: 'identifyCorrect', label: '3 fresh correct-or-incorrect multiple-choice checks' },
+  { id: 'miniExam', label: '3-question mini exam, easy to medium to hard, multi-step' },
+  { id: 'create', label: 'Student creates an SAT/ACT question + analysis' },
 ] as const
 
 export type ChatChecklistId = (typeof CHAT_CHECKLIST)[number]['id']
+
+export function emptyChecklistProgress(): Record<ChatChecklistId, boolean> {
+  return Object.fromEntries(CHAT_CHECKLIST.map((item) => [item.id, false])) as Record<ChatChecklistId, boolean>
+}
 
 export function inferChecklistProgress(
   assistantText: string,
@@ -81,26 +85,27 @@ export function inferChecklistProgress(
 ): Record<ChatChecklistId, boolean> {
   const t = normalizeTutorText(assistantText)
   const next: Record<ChatChecklistId, boolean> = {
-    definition: Boolean(prior.definition),
-    irlExample: Boolean(prior.irlExample),
-    breakdown: Boolean(prior.breakdown),
-    build: Boolean(prior.build),
-    yesExamples: Boolean(prior.yesExamples),
-    noExamples: Boolean(prior.noExamples),
-    explainBack: Boolean(prior.explainBack),
-    practice: Boolean(prior.practice),
-    create: Boolean(prior.create),
+    ...emptyChecklistProgress(),
+    ...prior,
   }
 
-  if (/\b(is|means|definition|in short|simply)\b/.test(t) && t.length < 220) next.definition = true
-  if (/\b(for example|real life|say i|let s say|imagine|suppose|sold|everyday)\b/.test(t)) next.irlExample = true
-  if (/\b(part|breakdown|slope|each piece|analyze|look for|controls)\b/.test(t)) next.breakdown = true
-  if (/\b(translate|built this|your turn to analyze|what does each)\b/.test(t)) next.build = true
-  if (/\b(correct|good example|this works|follows the rule)\b/.test(t)) next.yesExamples = true
-  if (/\b(incorrect|trap|not |fails|wrong because)\b/.test(t)) next.noExamples = true
-  if (/\b(own words|explain back|tell me what|in your words)\b/.test(t)) next.explainBack = true
-  if (/\b(practice|multiple choice|question 1|try this item)\b/.test(t)) next.practice = true
-  if (/\b(create|write your own|build a question|your analysis)\b/.test(t)) next.create = true
+  if (/\b(is|means|definition|in short|simply)\b/.test(t) && t.length < 320) next.definition = true
+  if (/\b(multiple choice|which of the following|choose|option [a-d]|a\)|b\)|c\)|d\))\b/.test(t)) {
+    // Generic MCQ signal — attribute to the earliest unchecked MCQ step.
+    if (!next.checkDefinition) next.checkDefinition = true
+    else if (next.checkMeaning && !next.identifyCorrect) next.identifyCorrect = true
+  }
+  if (/\b(what does|what do you think|which answer|test your understanding|quick check)\b/.test(t)) {
+    if (!next.checkDefinition) next.checkDefinition = true
+    else if (!next.checkMeaning) next.checkMeaning = true
+  }
+  if (/\b(part|breakdown|each part|highlight|notice|equation|problem|relates to|this means|because)\b/.test(t)) next.breakdown = true
+  if (/\b(what does each|what does it mean|which part|everything involved)\b/.test(t)) next.checkMeaning = true
+  if (/\b(correct|good example|this works|follows the rule|works because)\b/.test(t)) next.yesExamples = true
+  if (/\b(incorrect|trap|not |fails|wrong because|common mistake)\b/.test(t)) next.noExamples = true
+  if (/\b(correct or incorrect|is this correct|is this right|true or false|identify)\b/.test(t)) next.identifyCorrect = true
+  if (/\b(mini exam|easy medium hard|easy .* medium .* hard|multi step|step 1 .* step 2|advanced)\b/.test(t)) next.miniExam = true
+  if (/\b(create|write your own|build a question|your analysis|your own sat|your own act)\b/.test(t)) next.create = true
 
   return next
 }

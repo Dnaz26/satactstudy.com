@@ -102,7 +102,7 @@ export async function canAnswerQuestion(userId: string): Promise<EntitlementResu
     return { allowed: true, used: usage.questions_answered, limit: 999999 }
   }
 
-  // No daily question caps — practice exams are 100 Q and must never hit a soft wall.
+  // No daily question caps — SAT practice exams are 98 Q and must never hit a soft wall.
   if (!access.onboardingCompleted || hasProductAccess({
     plan: access.plan,
     role: access.role,

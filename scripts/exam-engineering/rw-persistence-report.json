@@ -1,0 +1,15 @@
+{
+  "passed": true,
+  "questions": 54,
+  "passages": 54,
+  "metadata": 54,
+  "independentlyVerified": true,
+  "active": false,
+  "examsModified": 0,
+  "difficultyLevels": {
+    "2": 3,
+    "3": 25,
+    "4": 21,
+    "5": 5
+  }
+}

@@ -1,0 +1,3566 @@
+[
+  {
+    "id": "b47f2cb2-e9ab-587d-a1b4-369ae2f3d1be",
+    "test_type": "SAT",
+    "section_name": "Reading and Writing",
+    "category_name": "Information and Ideas",
+    "topic_name": "Central Ideas and Details",
+    "subtopic_name": "central claim",
+    "difficulty": "Easy",
+    "difficulty_score": 0.16666666666666666,
+    "difficulty_level": 2,
+    "passage": "An archaeologist examining a coastal settlement found imported pottery only in houses near the harbor. Rather than interpreting the pottery as evidence that all residents traded overseas, she argued that access to foreign goods was uneven within the settlement. The location of an artifact, she maintained, can be as informative as the artifact itself.",
+    "question_text": "Which choice best states the main idea of the text?",
+    "question_type": "multiple_choice",
+    "choice_a": "The archaeologist regards imported pottery as insufficient evidence that overseas trade occurred.",
+    "choice_b": "The distribution of imported pottery suggests unequal access to foreign goods.",
+    "choice_c": "Imported pottery proves that every household participated in overseas trade.",
+    "choice_d": "The imported pottery indicates that the settlement’s overseas trade was concentrated in its earliest period.",
+    "choice_e": null,
+    "image_url": null,
+    "correct_answer": "B",
+    "official_explanation": "The archaeologist uses the pottery’s concentration near the harbor to support a claim about unequal access. A: Confuses a limit on household-level inference with rejecting evidence of overseas trade. C: Overgeneralizes the evidence to every household. D: Infers a historical period from location evidence that establishes no chronology.",
+    "source": "PrepSAT/ACT original authored academic stimuli",
+    "source_type": "original",
+    "source_rights_status": "original",
+    "active": false,
+    "approved": false,
+    "review_status": "pending",
+    "answer_verification_status": "pending",
+    "metadata": {
+      "domain": "Information and Ideas",
+      "skill": "Central Ideas and Details",
+      "subskill": "central claim",
+      "difficulty_level": 2,
+      "estimated_seconds": 45,
+      "difficulty_basis": "editorial",
+      "module_eligibility": [
+        {
+          "module": 1,
+          "route": "common"
+        },
+        {
+          "module": 2,
+          "route": "easier"
+        }
+      ],
+      "distractor_rationales": {
+        "A": "Confuses a limit on household-level inference with rejecting evidence of overseas trade.",
+        "B": "Correct: The archaeologist uses the pottery’s concentration near the harbor to support a claim about unequal access.",
+        "C": "Overgeneralizes the evidence to every household.",
+        "D": "Infers a historical period from location evidence that establishes no chronology."
+      },
+      "graphic_type": null,
+      "graphic_data": null,
+      "originality_evidence": {
+        "original_authorship": true,
+        "no_official_item_reconstruction": true,
+        "method": "Individually authored fictional studies and passages; official framework only"
+      },
+      "validation_evidence": {
+        "generation": true
+      },
+      "validation_status": "pending",
+      "content_hash": "c52978ef5f02fce4d183c0171b6e712c52c43fa7f33cd66091f3c1ce3c8cfca6"
+    }
+  },
+  {
+    "id": "a888cf6b-e346-5044-ae4b-96b476ab8303",
+    "test_type": "SAT",
+    "section_name": "Reading and Writing",
+    "category_name": "Information and Ideas",
+    "topic_name": "Central Ideas and Details",
+    "subtopic_name": "central claim qualification",
+    "difficulty": "Medium",
+    "difficulty_score": 0.5,
+    "difficulty_level": 4,
+    "passage": "Some economists describe a price as a compressed message about scarcity. Yet a price can also reflect legal restrictions, market power, or information unavailable to buyers. A historian of commodity markets therefore treats prices as evidence that must be interpreted alongside institutional records, rather than as transparent measures of supply alone.",
+    "question_text": "Which choice best states the central idea of the text?",
+    "question_type": "multiple_choice",
+    "choice_a": "Legal restrictions affect prices only when buyers lack information.",
+    "choice_b": "Institutional records are valuable chiefly because they establish the quantity of goods available.",
+    "choice_c": "Prices provide useful evidence, but interpreting them requires attention to influences beyond supply.",
+    "choice_d": "Historical prices are too unreliable to contribute to economic research.",
+    "choice_e": null,
+    "image_url": null,
+    "correct_answer": "C",
+    "official_explanation": "The text qualifies the scarcity interpretation by identifying other influences and recommending contextual evidence. A: Adds an unsupported condition linking two separate influences. B: Narrows the function of institutional records without support. D: Turns a qualified approach into a complete rejection.",
+    "source": "PrepSAT/ACT original authored academic stimuli",
+    "source_type": "original",
+    "source_rights_status": "original",
+    "active": false,
+    "approved": false,
+    "review_status": "pending",
+    "answer_verification_status": "pending",
+    "metadata": {
+      "domain": "Information and Ideas",
+      "skill": "Central Ideas and Details",
+      "subskill": "central claim qualification",
+      "difficulty_level": 4,
+      "estimated_seconds": 70,
+      "difficulty_basis": "editorial",
+      "module_eligibility": [
+        {
+          "module": 1,
+          "route": "common"
+        },
+        {
+          "module": 2,
+          "route": "easier"
+        }
+      ],
+      "distractor_rationales": {
+        "A": "Adds an unsupported condition linking two separate influences.",
+        "B": "Narrows the function of institutional records without support.",
+        "C": "Correct: The text qualifies the scarcity interpretation by identifying other influences and recommending contextual evidence.",
+        "D": "Turns a qualified approach into a complete rejection."
+      },
+      "graphic_type": null,
+      "graphic_data": null,
+      "originality_evidence": {
+        "original_authorship": true,
+        "no_official_item_reconstruction": true,
+        "method": "Individually authored fictional studies and passages; official framework only"
+      },
+      "validation_evidence": {
+        "generation": true
+      },
+      "validation_status": "pending",
+      "content_hash": "fc97e9f3b1f66fe08eb434f73682e78d035c023975605a59f25dd84f1ac1ece7"
+    }
+  },
+  {
+    "id": "d79a964f-de15-5eb5-adf6-7176a8db59ee",
+    "test_type": "SAT",
+    "section_name": "Reading and Writing",
+    "category_name": "Information and Ideas",
+    "topic_name": "Command of Evidence — Textual",
+    "subtopic_name": "support a stated inference",
+    "difficulty": "Medium",
+    "difficulty_score": 0.5,
+    "difficulty_level": 4,
+    "passage": "A literary critic argues that the narrator of a novel confuses possessiveness with affection. The narrator praises a friend’s independence when the friend rejects other people’s advice, but calls that same independence disloyalty when the friend rejects the narrator’s own advice. The critic sees the inconsistency as deliberate characterization, not an accidental contradiction.",
+    "question_text": "Which detail most directly supports the critic’s interpretation?",
+    "question_type": "multiple_choice",
+    "choice_a": "The critic considers the characterization deliberate.",
+    "choice_b": "The narrator judges the same behavior differently depending on whose advice is rejected.",
+    "choice_c": "The narrator values the friend’s independence even when the friend declines the narrator’s recommendations.",
+    "choice_d": "The narrator’s advice changes as the friend becomes more independent.",
+    "choice_e": null,
+    "image_url": null,
+    "correct_answer": "B",
+    "official_explanation": "The inconsistent response exposes the narrator’s desire for control rather than respect for the friend’s independence. A: Restates the critic’s conclusion rather than supplying the supporting behavior. C: Contradicts the narrator’s accusation of disloyalty when the narrator’s own advice is rejected. D: Invents a change in the advice rather than evaluating responses to its rejection.",
+    "source": "PrepSAT/ACT original authored academic stimuli",
+    "source_type": "original",
+    "source_rights_status": "original",
+    "active": false,
+    "approved": false,
+    "review_status": "pending",
+    "answer_verification_status": "pending",
+    "metadata": {
+      "domain": "Information and Ideas",
+      "skill": "Command of Evidence — Textual",
+      "subskill": "support a stated inference",
+      "difficulty_level": 4,
+      "estimated_seconds": 70,
+      "difficulty_basis": "editorial",
+      "module_eligibility": [
+        {
+          "module": 1,
+          "route": "common"
+        },
+        {
+          "module": 2,
+          "route": "easier"
+        }
+      ],
+      "distractor_rationales": {
+        "A": "Restates the critic’s conclusion rather than supplying the supporting behavior.",
+        "B": "Correct: The inconsistent response exposes the narrator’s desire for control rather than respect for the friend’s independence.",
+        "C": "Contradicts the narrator’s accusation of disloyalty when the narrator’s own advice is rejected.",
+        "D": "Invents a change in the advice rather than evaluating responses to its rejection."
+      },
+      "graphic_type": null,
+      "graphic_data": null,
+      "originality_evidence": {
+        "original_authorship": true,
+        "no_official_item_reconstruction": true,
+        "method": "Individually authored fictional studies and passages; official framework only"
+      },
+      "validation_evidence": {
+        "generation": true
+      },
+      "validation_status": "pending",
+      "content_hash": "2af4bc54f3aa2841323d882aec35027be50e3b0aab855762af0fd080b1a730f9"
+    }
+  },
+  {
+    "id": "d3e1df28-94c7-553a-a26f-ec66d523da47",
+    "test_type": "SAT",
+    "section_name": "Reading and Writing",
+    "category_name": "Information and Ideas",
+    "topic_name": "Command of Evidence — Textual",
+    "subtopic_name": "distinguish discriminating evidence",
+    "difficulty": "Hard",
+    "difficulty_score": 0.8333333333333334,
+    "difficulty_level": 6,
+    "passage": "A linguist proposes that speakers borrow unfamiliar technical terms because the borrowed words mark membership in a professional community, not simply because their language lacks equivalent expressions. To distinguish these explanations, she studies situations in which a familiar local expression and a borrowed term communicate precisely the same technical meaning.",
+    "question_text": "Which finding would most directly support the linguist’s proposed explanation?",
+    "question_type": "multiple_choice",
+    "choice_a": "Some technical ideas have no established local expression.",
+    "choice_b": "Both expressions can be translated into a third language.",
+    "choice_c": "The borrowed term was first documented in a professional manual.",
+    "choice_d": "Speakers prefer the borrowed term with professional colleagues but the local expression with other listeners.",
+    "choice_e": null,
+    "image_url": null,
+    "correct_answer": "D",
+    "official_explanation": "Changing terms with audience while meaning stays fixed supports a community-membership function beyond lexical necessity. A: Supports the competing missing-equivalent explanation instead. B: Does not address why speakers choose one expression over the other. C: Establishes an origin, not the social reason for continued use.",
+    "source": "PrepSAT/ACT original authored academic stimuli",
+    "source_type": "original",
+    "source_rights_status": "original",
+    "active": false,
+    "approved": false,
+    "review_status": "pending",
+    "answer_verification_status": "pending",
+    "metadata": {
+      "domain": "Information and Ideas",
+      "skill": "Command of Evidence — Textual",
+      "subskill": "distinguish discriminating evidence",
+      "difficulty_level": 6,
+      "estimated_seconds": 90,
+      "difficulty_basis": "editorial",
+      "module_eligibility": [
+        {
+          "module": 1,
+          "route": "common"
+        },
+        {
+          "module": 2,
+          "route": "easier"
+        }
+      ],
+      "distractor_rationales": {
+        "A": "Supports the competing missing-equivalent explanation instead.",
+        "B": "Does not address why speakers choose one expression over the other.",
+        "C": "Establishes an origin, not the social reason for continued use.",
+        "D": "Correct: Changing terms with audience while meaning stays fixed supports a community-membership function beyond lexical necessity."
+      },
+      "graphic_type": null,
+      "graphic_data": null,
+      "originality_evidence": {
+        "original_authorship": true,
+        "no_official_item_reconstruction": true,
+        "method": "Individually authored fictional studies and passages; official framework only"
+      },
+      "validation_evidence": {
+        "generation": true
+      },
+      "validation_status": "pending",
+      "content_hash": "dc5fe4a130ed725c0a6c49f74153f53bf9e280d3ab7d457d44ddb9c430412cfb"
+    }
+  },
+  {
+    "id": "0196f082-16ad-5293-a99a-692accf8f13b",
+    "test_type": "SAT",
+    "section_name": "Reading and Writing",
+    "category_name": "Information and Ideas",
+    "topic_name": "Command of Evidence — Quantitative",
+    "subtopic_name": "compare changes across conditions",
+    "difficulty": "Medium",
+    "difficulty_score": 0.5,
+    "difficulty_level": 4,
+    "passage": "An ecologist suggests that shading reduces water loss more strongly in coarse soil than in fine soil. In a controlled trial, identical containers began with equal amounts of water. After 48 hours, water losses were: coarse soil without shade, 40 mL; coarse soil with shade, 22 mL; fine soil without shade, 26 mL; fine soil with shade, 20 mL.",
+    "question_text": "Which comparison most directly supports the ecologist’s suggestion?",
+    "question_type": "multiple_choice",
+    "choice_a": "Unshaded coarse soil lost 40 mL, whereas unshaded fine soil lost 26 mL.",
+    "choice_b": "Both shaded containers lost more than 15 mL.",
+    "choice_c": "Shade reduced loss by 18 mL in coarse soil but by 6 mL in fine soil.",
+    "choice_d": "Shaded coarse soil lost 22 mL, whereas shaded fine soil lost 20 mL.",
+    "choice_e": null,
+    "image_url": "/digital-sat/reading-writing/soil-water-loss.svg",
+    "correct_answer": "C",
+    "official_explanation": "The claim concerns the effect of shading in each soil: 40−22=18 versus 26−20=6. A: Compares unshaded outcomes without measuring the shading effect. B: A common threshold does not compare the size of the two effects. D: Compares shaded outcomes without measuring the shading effect.",
+    "source": "PrepSAT/ACT original authored academic stimuli",
+    "source_type": "original",
+    "source_rights_status": "original",
+    "active": false,
+    "approved": false,
+    "review_status": "pending",
+    "answer_verification_status": "pending",
+    "metadata": {
+      "domain": "Information and Ideas",
+      "skill": "Command of Evidence — Quantitative",
+      "subskill": "compare changes across conditions",
+      "difficulty_level": 4,
+      "estimated_seconds": 70,
+      "difficulty_basis": "editorial",
+      "module_eligibility": [
+        {
+          "module": 1,
+          "route": "common"
+        },
+        {
+          "module": 2,
+          "route": "easier"
+        }
+      ],
+      "distractor_rationales": {
+        "A": "Compares unshaded outcomes without measuring the shading effect.",
+        "B": "A common threshold does not compare the size of the two effects.",
+        "C": "Correct: The claim concerns the effect of shading in each soil: 40−22=18 versus 26−20=6.",
+        "D": "Compares shaded outcomes without measuring the shading effect."
+      },
+      "graphic_type": "table",
+      "graphic_data": {
+        "columns": [
+          "Soil",
+          "Unshaded loss (mL)",
+          "Shaded loss (mL)"
+        ],
+        "rows": [
+          [
+            "Coarse",
+            40,
+            22
+          ],
+          [
+            "Fine",
+            26,
+            20
+          ]
+        ]
+      },
+      "originality_evidence": {
+        "original_authorship": true,
+        "no_official_item_reconstruction": true,
+        "method": "Individually authored fictional studies and passages; official framework only"
+      },
+      "validation_evidence": {
+        "generation": true
+      },
+      "validation_status": "pending",
+      "content_hash": "9b2ba2039911edf9d12e5e994894038eed691f4c22933ea975f4cb8144d736ae"
+    }
+  },
+  {
+    "id": "265c0d07-0220-5f5a-ad3c-d48cbc6977e0",
+    "test_type": "SAT",
+    "section_name": "Reading and Writing",
+    "category_name": "Information and Ideas",
+    "topic_name": "Command of Evidence — Quantitative",
+    "subtopic_name": "account for a comparison condition",
+    "difficulty": "Hard",
+    "difficulty_score": 0.8333333333333334,
+    "difficulty_level": 6,
+    "passage": "A psychologist predicts that spaced practice improves delayed recall more than immediate recall. Two groups studied the same material for equal total time. One practiced in a single session; the other used four separated sessions. Immediate recall scores were 84% and 86%, respectively. One-week recall scores were 51% and 73%, respectively.",
+    "question_text": "Which finding most directly supports the psychologist’s prediction?",
+    "question_type": "multiple_choice",
+    "choice_a": "The spaced-practice advantage was 2 percentage points immediately and 22 points after one week.",
+    "choice_b": "The spaced-practice group recalled 86% immediately and 73% after one week.",
+    "choice_c": "Both groups recalled less after one week than immediately.",
+    "choice_d": "The single-session group recalled 51% after one week.",
+    "choice_e": null,
+    "image_url": "/digital-sat/reading-writing/recall-practice.svg",
+    "correct_answer": "A",
+    "official_explanation": "Comparing between-group differences at both times isolates whether the advantage is greater after a delay. B: Shows decline within one group, not how the relative advantage changes. C: A shared decline does not compare the advantage of spacing. D: A single group’s score supplies no between-condition or between-time comparison.",
+    "source": "PrepSAT/ACT original authored academic stimuli",
+    "source_type": "original",
+    "source_rights_status": "original",
+    "active": false,
+    "approved": false,
+    "review_status": "pending",
+    "answer_verification_status": "pending",
+    "metadata": {
+      "domain": "Information and Ideas",
+      "skill": "Command of Evidence — Quantitative",
+      "subskill": "account for a comparison condition",
+      "difficulty_level": 6,
+      "estimated_seconds": 90,
+      "difficulty_basis": "editorial",
+      "module_eligibility": [
+        {
+          "module": 1,
+          "route": "common"
+        },
+        {
+          "module": 2,
+          "route": "easier"
+        }
+      ],
+      "distractor_rationales": {
+        "A": "Correct: Comparing between-group differences at both times isolates whether the advantage is greater after a delay.",
+        "B": "Shows decline within one group, not how the relative advantage changes.",
+        "C": "A shared decline does not compare the advantage of spacing.",
+        "D": "A single group’s score supplies no between-condition or between-time comparison."
+      },
+      "graphic_type": "table",
+      "graphic_data": {
+        "columns": [
+          "Practice",
+          "Immediate recall (%)",
+          "One-week recall (%)"
+        ],
+        "rows": [
+          [
+            "Single session",
+            84,
+            51
+          ],
+          [
+            "Spaced sessions",
+            86,
+            73
+          ]
+        ]
+      },
+      "originality_evidence": {
+        "original_authorship": true,
+        "no_official_item_reconstruction": true,
+        "method": "Individually authored fictional studies and passages; official framework only"
+      },
+      "validation_evidence": {
+        "generation": true
+      },
+      "validation_status": "pending",
+      "content_hash": "ca04dbe12b3ab2ccb9b2c0acc95b342d09d1b6283f97e18664a5ad6ddd43a62d"
+    }
+  },
+  {
+    "id": "1e6bf516-deb8-53e9-a915-03f8f858d7ec",
+    "test_type": "SAT",
+    "section_name": "Reading and Writing",
+    "category_name": "Information and Ideas",
+    "topic_name": "Inferences",
+    "subtopic_name": "limited inference from evidence",
+    "difficulty": "Medium",
+    "difficulty_score": 0.5,
+    "difficulty_level": 4,
+    "passage": "Astronomers detected a planet’s atmosphere by comparing starlight recorded during a transit with starlight recorded outside the transit. Certain wavelengths were dimmer during the transit, consistent with absorption by atmospheric gases. The team cautioned that similar absorption patterns can arise from more than one combination of gases.",
+    "question_text": "Which inference is best supported by the text?",
+    "question_type": "multiple_choice",
+    "choice_a": "Every reduction in starlight must be caused by atmospheric gases.",
+    "choice_b": "The observations establish which gas is most abundant without determining the remaining gases.",
+    "choice_c": "The observations can support the presence of an atmosphere without uniquely identifying its composition.",
+    "choice_d": "The observations identify a single atmospheric gas mixture because several wavelengths are affected.",
+    "choice_e": null,
+    "image_url": null,
+    "correct_answer": "C",
+    "official_explanation": "The evidence supports atmospheric absorption, while the warning limits what can be inferred about the particular gases. A: Generalizes beyond the specific wavelength evidence. B: Infers abundance information that the observations do not uniquely establish. D: Treats multiple affected wavelengths as sufficient to resolve the explicitly described ambiguity.",
+    "source": "PrepSAT/ACT original authored academic stimuli",
+    "source_type": "original",
+    "source_rights_status": "original",
+    "active": false,
+    "approved": false,
+    "review_status": "pending",
+    "answer_verification_status": "pending",
+    "metadata": {
+      "domain": "Information and Ideas",
+      "skill": "Inferences",
+      "subskill": "limited inference from evidence",
+      "difficulty_level": 4,
+      "estimated_seconds": 70,
+      "difficulty_basis": "editorial",
+      "module_eligibility": [
+        {
+          "module": 1,
+          "route": "common"
+        },
+        {
+          "module": 2,
+          "route": "easier"
+        }
+      ],
+      "distractor_rationales": {
+        "A": "Generalizes beyond the specific wavelength evidence.",
+        "B": "Infers abundance information that the observations do not uniquely establish.",
+        "C": "Correct: The evidence supports atmospheric absorption, while the warning limits what can be inferred about the particular gases.",
+        "D": "Treats multiple affected wavelengths as sufficient to resolve the explicitly described ambiguity."
+      },
+      "graphic_type": null,
+      "graphic_data": null,
+      "originality_evidence": {
+        "original_authorship": true,
+        "no_official_item_reconstruction": true,
+        "method": "Individually authored fictional studies and passages; official framework only"
+      },
+      "validation_evidence": {
+        "generation": true
+      },
+      "validation_status": "pending",
+      "content_hash": "69d49c1807de0e912429881556c03622e6f8681a1ff2e99cc20d70508d42abff"
+    }
+  },
+  {
+    "id": "9d4ec316-b98c-5065-a582-3c73440bddcc",
+    "test_type": "SAT",
+    "section_name": "Reading and Writing",
+    "category_name": "Information and Ideas",
+    "topic_name": "Inferences",
+    "subtopic_name": "infer consequence of a stated mechanism",
+    "difficulty": "Easy",
+    "difficulty_score": 0.16666666666666666,
+    "difficulty_level": 2,
+    "passage": "A conservator stores a fragile textile in low light because exposure gradually weakens its fibers. Short display periods slow the damage but do not reverse damage already caused. The museum therefore rotates the textile with a reproduction, allowing visitors to see the design while limiting exposure of the original.",
+    "question_text": "Which inference about the museum’s display policy is best supported?",
+    "question_type": "multiple_choice",
+    "choice_a": "The policy preserves access to the design while reducing further damage to the original.",
+    "choice_b": "The policy gives visitors more frequent access to the original by using lower illumination.",
+    "choice_c": "The policy can preserve the original indefinitely provided that each display period is short.",
+    "choice_d": "The museum considers the reproduction more historically valuable than the original.",
+    "choice_e": null,
+    "image_url": null,
+    "correct_answer": "A",
+    "official_explanation": "Rotation allows viewing while reducing the original’s exposure, which the text connects to further damage. B: Confuses maintaining access to the design with increasing access to the original. C: Turns reduced ongoing damage into an unsupported guarantee of indefinite preservation. D: Invents a judgment about historical value.",
+    "source": "PrepSAT/ACT original authored academic stimuli",
+    "source_type": "original",
+    "source_rights_status": "original",
+    "active": false,
+    "approved": false,
+    "review_status": "pending",
+    "answer_verification_status": "pending",
+    "metadata": {
+      "domain": "Information and Ideas",
+      "skill": "Inferences",
+      "subskill": "infer consequence of a stated mechanism",
+      "difficulty_level": 2,
+      "estimated_seconds": 45,
+      "difficulty_basis": "editorial",
+      "module_eligibility": [
+        {
+          "module": 1,
+          "route": "common"
+        },
+        {
+          "module": 2,
+          "route": "easier"
+        }
+      ],
+      "distractor_rationales": {
+        "A": "Correct: Rotation allows viewing while reducing the original’s exposure, which the text connects to further damage.",
+        "B": "Confuses maintaining access to the design with increasing access to the original.",
+        "C": "Turns reduced ongoing damage into an unsupported guarantee of indefinite preservation.",
+        "D": "Invents a judgment about historical value."
+      },
+      "graphic_type": null,
+      "graphic_data": null,
+      "originality_evidence": {
+        "original_authorship": true,
+        "no_official_item_reconstruction": true,
+        "method": "Individually authored fictional studies and passages; official framework only"
+      },
+      "validation_evidence": {
+        "generation": true
+      },
+      "validation_status": "pending",
+      "content_hash": "36a221a2e9bd1574c4f26386bb667966727a1d3b3de5fe1bc6b356bad40487a7"
+    }
+  },
+  {
+    "id": "1c81a8e8-03de-5fd2-a9ca-531b1c0fd467",
+    "test_type": "SAT",
+    "section_name": "Reading and Writing",
+    "category_name": "Craft and Structure",
+    "topic_name": "Words in Context",
+    "subtopic_name": "contextual sense of temper",
+    "difficulty": "Easy",
+    "difficulty_score": 0.16666666666666666,
+    "difficulty_level": 2,
+    "passage": "The historian admired the expedition leader’s detailed journal, but later discoveries led her to temper her initial enthusiasm. Several places the leader described as uninhabited contained evidence of long-established communities. She retained the journal as a valuable source while treating its judgments more cautiously.",
+    "question_text": "As used in the text, “temper” most nearly means",
+    "question_type": "multiple_choice",
+    "choice_a": "strengthen",
+    "choice_b": "conceal",
+    "choice_c": "express",
+    "choice_d": "moderate",
+    "choice_e": null,
+    "image_url": null,
+    "correct_answer": "D",
+    "official_explanation": "The historian’s enthusiasm becomes more restrained after conflicting evidence, so “moderate” fits. A: Reverses the effect of the later discoveries. B: Suggests hiding a reaction rather than revising it. C: Describes communicating enthusiasm, not reducing it.",
+    "source": "PrepSAT/ACT original authored academic stimuli",
+    "source_type": "original",
+    "source_rights_status": "original",
+    "active": false,
+    "approved": false,
+    "review_status": "pending",
+    "answer_verification_status": "pending",
+    "metadata": {
+      "domain": "Craft and Structure",
+      "skill": "Words in Context",
+      "subskill": "contextual sense of temper",
+      "difficulty_level": 2,
+      "estimated_seconds": 45,
+      "difficulty_basis": "editorial",
+      "module_eligibility": [
+        {
+          "module": 1,
+          "route": "common"
+        },
+        {
+          "module": 2,
+          "route": "easier"
+        }
+      ],
+      "distractor_rationales": {
+        "A": "Reverses the effect of the later discoveries.",
+        "B": "Suggests hiding a reaction rather than revising it.",
+        "C": "Describes communicating enthusiasm, not reducing it.",
+        "D": "Correct: The historian’s enthusiasm becomes more restrained after conflicting evidence, so “moderate” fits."
+      },
+      "graphic_type": null,
+      "graphic_data": null,
+      "originality_evidence": {
+        "original_authorship": true,
+        "no_official_item_reconstruction": true,
+        "method": "Individually authored fictional studies and passages; official framework only"
+      },
+      "validation_evidence": {
+        "generation": true
+      },
+      "validation_status": "pending",
+      "content_hash": "84436ae334732a61f0a047a4ed97e6983d5f2ea9055e1fb829c9733a36feb26e"
+    }
+  },
+  {
+    "id": "6a9e9f65-e126-5582-ad38-71c9ffa9a8ff",
+    "test_type": "SAT",
+    "section_name": "Reading and Writing",
+    "category_name": "Craft and Structure",
+    "topic_name": "Words in Context",
+    "subtopic_name": "contextual sense of arrest",
+    "difficulty": "Medium",
+    "difficulty_score": 0.5,
+    "difficulty_level": 4,
+    "passage": "The engineers did not expect the protective coating to eliminate corrosion entirely. Their goal was to arrest its progress long enough for damaged components to be replaced during scheduled maintenance. Tests showed that the coating substantially slowed further deterioration without restoring metal already lost.",
+    "question_text": "As used in the text, “arrest” most nearly means",
+    "question_type": "multiple_choice",
+    "choice_a": "capture",
+    "choice_b": "attract",
+    "choice_c": "document",
+    "choice_d": "check",
+    "choice_e": null,
+    "image_url": null,
+    "correct_answer": "D",
+    "official_explanation": "The coating is intended to restrain corrosion’s advance; “check” means impede in this context. A: Uses a detention-related meaning unsuitable for a process. B: Uses the attention-grabbing sense of arrest, which does not fit corrosion. C: Confuses controlling deterioration with recording it.",
+    "source": "PrepSAT/ACT original authored academic stimuli",
+    "source_type": "original",
+    "source_rights_status": "original",
+    "active": false,
+    "approved": false,
+    "review_status": "pending",
+    "answer_verification_status": "pending",
+    "metadata": {
+      "domain": "Craft and Structure",
+      "skill": "Words in Context",
+      "subskill": "contextual sense of arrest",
+      "difficulty_level": 4,
+      "estimated_seconds": 70,
+      "difficulty_basis": "editorial",
+      "module_eligibility": [
+        {
+          "module": 1,
+          "route": "common"
+        },
+        {
+          "module": 2,
+          "route": "easier"
+        }
+      ],
+      "distractor_rationales": {
+        "A": "Uses a detention-related meaning unsuitable for a process.",
+        "B": "Uses the attention-grabbing sense of arrest, which does not fit corrosion.",
+        "C": "Confuses controlling deterioration with recording it.",
+        "D": "Correct: The coating is intended to restrain corrosion’s advance; “check” means impede in this context."
+      },
+      "graphic_type": null,
+      "graphic_data": null,
+      "originality_evidence": {
+        "original_authorship": true,
+        "no_official_item_reconstruction": true,
+        "method": "Individually authored fictional studies and passages; official framework only"
+      },
+      "validation_evidence": {
+        "generation": true
+      },
+      "validation_status": "pending",
+      "content_hash": "11bf084a22d8686a8afad66aff1f38770fe6c4497189e63e4b48f07780914795"
+    }
+  },
+  {
+    "id": "c62dfabe-c0ab-5a8f-a682-40a0e974be76",
+    "test_type": "SAT",
+    "section_name": "Reading and Writing",
+    "category_name": "Craft and Structure",
+    "topic_name": "Words in Context",
+    "subtopic_name": "contextual sense of contingent",
+    "difficulty": "Hard",
+    "difficulty_score": 0.8333333333333334,
+    "difficulty_level": 6,
+    "passage": "A philosopher rejects the claim that the institution’s authority is inevitable. She calls that authority contingent: it depends on arrangements that particular communities established and could revise. Her argument concerns the origins and conditions of authority, not whether the institution currently exercises considerable power.",
+    "question_text": "As used in the text, “contingent” most nearly means",
+    "question_type": "multiple_choice",
+    "choice_a": "dependent on circumstances",
+    "choice_b": "certain to persist",
+    "choice_c": "lacking practical influence",
+    "choice_d": "internally inconsistent",
+    "choice_e": null,
+    "image_url": null,
+    "correct_answer": "A",
+    "official_explanation": "The explanatory clause defines the authority as dependent on revisable arrangements. B: Opposes the explicit rejection of inevitability. C: Confuses conditional origins with lack of current power. D: Attributes contradiction rather than dependence.",
+    "source": "PrepSAT/ACT original authored academic stimuli",
+    "source_type": "original",
+    "source_rights_status": "original",
+    "active": false,
+    "approved": false,
+    "review_status": "pending",
+    "answer_verification_status": "pending",
+    "metadata": {
+      "domain": "Craft and Structure",
+      "skill": "Words in Context",
+      "subskill": "contextual sense of contingent",
+      "difficulty_level": 6,
+      "estimated_seconds": 90,
+      "difficulty_basis": "editorial",
+      "module_eligibility": [
+        {
+          "module": 1,
+          "route": "common"
+        },
+        {
+          "module": 2,
+          "route": "easier"
+        }
+      ],
+      "distractor_rationales": {
+        "A": "Correct: The explanatory clause defines the authority as dependent on revisable arrangements.",
+        "B": "Opposes the explicit rejection of inevitability.",
+        "C": "Confuses conditional origins with lack of current power.",
+        "D": "Attributes contradiction rather than dependence."
+      },
+      "graphic_type": null,
+      "graphic_data": null,
+      "originality_evidence": {
+        "original_authorship": true,
+        "no_official_item_reconstruction": true,
+        "method": "Individually authored fictional studies and passages; official framework only"
+      },
+      "validation_evidence": {
+        "generation": true
+      },
+      "validation_status": "pending",
+      "content_hash": "82d083a4d6c60d414f11fac08a15d2a2dbac29fa77ba6c1842431abdc7c467fb"
+    }
+  },
+  {
+    "id": "ff933d19-66ad-501e-a736-4f4234a77fcd",
+    "test_type": "SAT",
+    "section_name": "Reading and Writing",
+    "category_name": "Craft and Structure",
+    "topic_name": "Text Structure and Purpose",
+    "subtopic_name": "function of a counterexample",
+    "difficulty": "Medium",
+    "difficulty_score": 0.5,
+    "difficulty_level": 4,
+    "passage": "Art historians often describe a workshop’s paintings as the product of one master’s vision. Yet infrared images of a particular panel reveal an underlying composition unlike the master’s surviving sketches. A researcher cites this discrepancy to argue that assistants sometimes contributed substantial compositional decisions, rather than merely executing predetermined instructions.",
+    "question_text": "What role does the infrared evidence play in the text?",
+    "question_type": "multiple_choice",
+    "choice_a": "It explains why assistants lacked access to the master’s sketches.",
+    "choice_b": "It explains why differences between the panel and the surviving sketches need not alter the master-centered account.",
+    "choice_c": "It challenges an account that assigns compositional decisions exclusively to the master.",
+    "choice_d": "It establishes that the assistants changed only the painted surface, leaving the underlying composition intact.",
+    "choice_e": null,
+    "image_url": null,
+    "correct_answer": "C",
+    "official_explanation": "The underlying design conflicts with exclusive master authorship and supports a more collaborative account. A: Invents a reason for the difference. B: Reverses the researcher’s stated use of the discrepancy to challenge the master-centered account. D: The evidence concerns underlying compositional decisions, not merely changes on the surface.",
+    "source": "PrepSAT/ACT original authored academic stimuli",
+    "source_type": "original",
+    "source_rights_status": "original",
+    "active": false,
+    "approved": false,
+    "review_status": "pending",
+    "answer_verification_status": "pending",
+    "metadata": {
+      "domain": "Craft and Structure",
+      "skill": "Text Structure and Purpose",
+      "subskill": "function of a counterexample",
+      "difficulty_level": 4,
+      "estimated_seconds": 70,
+      "difficulty_basis": "editorial",
+      "module_eligibility": [
+        {
+          "module": 1,
+          "route": "common"
+        },
+        {
+          "module": 2,
+          "route": "easier"
+        }
+      ],
+      "distractor_rationales": {
+        "A": "Invents a reason for the difference.",
+        "B": "Reverses the researcher’s stated use of the discrepancy to challenge the master-centered account.",
+        "C": "Correct: The underlying design conflicts with exclusive master authorship and supports a more collaborative account.",
+        "D": "The evidence concerns underlying compositional decisions, not merely changes on the surface."
+      },
+      "graphic_type": null,
+      "graphic_data": null,
+      "originality_evidence": {
+        "original_authorship": true,
+        "no_official_item_reconstruction": true,
+        "method": "Individually authored fictional studies and passages; official framework only"
+      },
+      "validation_evidence": {
+        "generation": true
+      },
+      "validation_status": "pending",
+      "content_hash": "a533e912e1061a62aa9c6b917f9ac004aa4c4eb283e6640283bad769275bd261"
+    }
+  },
+  {
+    "id": "e352ecdc-3ac5-5918-a938-5bc7fb0b3de3",
+    "test_type": "SAT",
+    "section_name": "Reading and Writing",
+    "category_name": "Craft and Structure",
+    "topic_name": "Text Structure and Purpose",
+    "subtopic_name": "function of a qualification",
+    "difficulty": "Hard",
+    "difficulty_score": 0.8333333333333334,
+    "difficulty_level": 6,
+    "passage": "A sociologist finds that neighborhoods with more public meeting spaces report greater civic participation. She immediately notes that participation may itself encourage residents to establish such spaces. Rather than withdrawing the observed association, she uses this qualification to distinguish a relationship in the data from a demonstrated direction of causation.",
+    "question_text": "What is the main purpose of the second sentence?",
+    "question_type": "multiple_choice",
+    "choice_a": "To explain why the study measured the wrong population.",
+    "choice_b": "To identify an alternative causal explanation for the observed association.",
+    "choice_c": "To deny that the two measured variables are associated.",
+    "choice_d": "To establish that meeting spaces always result from civic participation.",
+    "choice_e": null,
+    "image_url": null,
+    "correct_answer": "B",
+    "official_explanation": "The second sentence raises reverse causation without denying the reported relationship. A: Invents a sampling defect not mentioned in the passage. C: Contradicts the explicit retention of the association. D: Changes a possibility into an established universal result.",
+    "source": "PrepSAT/ACT original authored academic stimuli",
+    "source_type": "original",
+    "source_rights_status": "original",
+    "active": false,
+    "approved": false,
+    "review_status": "pending",
+    "answer_verification_status": "pending",
+    "metadata": {
+      "domain": "Craft and Structure",
+      "skill": "Text Structure and Purpose",
+      "subskill": "function of a qualification",
+      "difficulty_level": 6,
+      "estimated_seconds": 90,
+      "difficulty_basis": "editorial",
+      "module_eligibility": [
+        {
+          "module": 1,
+          "route": "common"
+        },
+        {
+          "module": 2,
+          "route": "easier"
+        }
+      ],
+      "distractor_rationales": {
+        "A": "Invents a sampling defect not mentioned in the passage.",
+        "B": "Correct: The second sentence raises reverse causation without denying the reported relationship.",
+        "C": "Contradicts the explicit retention of the association.",
+        "D": "Changes a possibility into an established universal result."
+      },
+      "graphic_type": null,
+      "graphic_data": null,
+      "originality_evidence": {
+        "original_authorship": true,
+        "no_official_item_reconstruction": true,
+        "method": "Individually authored fictional studies and passages; official framework only"
+      },
+      "validation_evidence": {
+        "generation": true
+      },
+      "validation_status": "pending",
+      "content_hash": "68cc4850c1c1a9d9e92b17c35781b996f9c3a4a6670df06b39676b7222aab89d"
+    }
+  },
+  {
+    "id": "d2a055cf-af6f-5039-aeda-13a97ef7e612",
+    "test_type": "SAT",
+    "section_name": "Reading and Writing",
+    "category_name": "Craft and Structure",
+    "topic_name": "Text Structure and Purpose",
+    "subtopic_name": "overall rhetorical purpose",
+    "difficulty": "Easy",
+    "difficulty_score": 0.16666666666666666,
+    "difficulty_level": 2,
+    "passage": "In a poem, a traveler describes an empty station through small traces of recent activity: a warm bench, a swinging door, and a cup still releasing steam. No person appears, but each detail points to someone who has just departed. The poem makes absence perceptible through evidence of presence.",
+    "question_text": "What is the primary purpose of the text?",
+    "question_type": "multiple_choice",
+    "choice_a": "To argue that the traveler’s loneliness determines which objects the traveler notices.",
+    "choice_b": "To establish a sequence of events explaining why people left the station.",
+    "choice_c": "To explain how familiar station objects create a contrast between past and present travel practices.",
+    "choice_d": "To explain how details in a poem convey absence indirectly.",
+    "choice_e": null,
+    "image_url": null,
+    "correct_answer": "D",
+    "official_explanation": "The passage identifies a technique and explains how the listed details achieve an effect. A: Attributes a psychological cause not established in the passage. B: Mistakes traces of recent activity for an explanation of why people departed. C: Invents a historical comparison rather than explaining the described literary effect.",
+    "source": "PrepSAT/ACT original authored academic stimuli",
+    "source_type": "original",
+    "source_rights_status": "original",
+    "active": false,
+    "approved": false,
+    "review_status": "pending",
+    "answer_verification_status": "pending",
+    "metadata": {
+      "domain": "Craft and Structure",
+      "skill": "Text Structure and Purpose",
+      "subskill": "overall rhetorical purpose",
+      "difficulty_level": 2,
+      "estimated_seconds": 45,
+      "difficulty_basis": "editorial",
+      "module_eligibility": [
+        {
+          "module": 1,
+          "route": "common"
+        },
+        {
+          "module": 2,
+          "route": "easier"
+        }
+      ],
+      "distractor_rationales": {
+        "A": "Attributes a psychological cause not established in the passage.",
+        "B": "Mistakes traces of recent activity for an explanation of why people departed.",
+        "C": "Invents a historical comparison rather than explaining the described literary effect.",
+        "D": "Correct: The passage identifies a technique and explains how the listed details achieve an effect."
+      },
+      "graphic_type": null,
+      "graphic_data": null,
+      "originality_evidence": {
+        "original_authorship": true,
+        "no_official_item_reconstruction": true,
+        "method": "Individually authored fictional studies and passages; official framework only"
+      },
+      "validation_evidence": {
+        "generation": true
+      },
+      "validation_status": "pending",
+      "content_hash": "e381f3c3895386b0fdbdd2c533b1472712b7c3da3b6f234c71b88f8095596232"
+    }
+  },
+  {
+    "id": "1a9b58f7-4599-5cb1-a527-0b608de0fce1",
+    "test_type": "SAT",
+    "section_name": "Reading and Writing",
+    "category_name": "Craft and Structure",
+    "topic_name": "Cross-Text Connections",
+    "subtopic_name": "identify precise disagreement",
+    "difficulty": "Medium",
+    "difficulty_score": 0.5,
+    "difficulty_level": 4,
+    "passage": "Text 1: An urban historian argues that a city’s straight street grid shows that its founders followed a comprehensive plan. The repeated alignment is unlikely to have arisen from independent decisions.\n\nText 2: Another historian notes that property boundaries existed before the city expanded. Later builders could have followed those boundaries, producing a regular grid without a single comprehensive founding plan.",
+    "question_text": "How would the author of Text 2 most likely respond to the interpretation in Text 1?",
+    "question_type": "multiple_choice",
+    "choice_a": "A comprehensive plan must have existed before any property boundaries were established.",
+    "choice_b": "A regular grid could result from inherited constraints rather than one comprehensive plan.",
+    "choice_c": "The city’s streets were never arranged in a regular grid.",
+    "choice_d": "Independent decisions cannot be influenced by existing property boundaries.",
+    "choice_e": null,
+    "image_url": null,
+    "correct_answer": "B",
+    "official_explanation": "Text2 accepts the appearance but proposes an alternative mechanism, weakening the inference to centralized planning. A: Asserts the opposite sequence without evidence. C: Denies a feature that Text2 does not dispute. D: Contradicts the proposed influence of boundaries.",
+    "source": "PrepSAT/ACT original authored academic stimuli",
+    "source_type": "original",
+    "source_rights_status": "original",
+    "active": false,
+    "approved": false,
+    "review_status": "pending",
+    "answer_verification_status": "pending",
+    "metadata": {
+      "domain": "Craft and Structure",
+      "skill": "Cross-Text Connections",
+      "subskill": "identify precise disagreement",
+      "difficulty_level": 4,
+      "estimated_seconds": 70,
+      "difficulty_basis": "editorial",
+      "module_eligibility": [
+        {
+          "module": 1,
+          "route": "common"
+        },
+        {
+          "module": 2,
+          "route": "easier"
+        }
+      ],
+      "distractor_rationales": {
+        "A": "Asserts the opposite sequence without evidence.",
+        "B": "Correct: Text2 accepts the appearance but proposes an alternative mechanism, weakening the inference to centralized planning.",
+        "C": "Denies a feature that Text2 does not dispute.",
+        "D": "Contradicts the proposed influence of boundaries."
+      },
+      "graphic_type": null,
+      "graphic_data": null,
+      "originality_evidence": {
+        "original_authorship": true,
+        "no_official_item_reconstruction": true,
+        "method": "Individually authored fictional studies and passages; official framework only"
+      },
+      "validation_evidence": {
+        "generation": true
+      },
+      "validation_status": "pending",
+      "content_hash": "f397c249532b009bb3299b350972030fd29cd3e0765333d3f06f51d8948bb2e9"
+    }
+  },
+  {
+    "id": "129f6589-6a41-5813-a0d6-8093a6ac2a17",
+    "test_type": "SAT",
+    "section_name": "Reading and Writing",
+    "category_name": "Craft and Structure",
+    "topic_name": "Cross-Text Connections",
+    "subtopic_name": "reconcile differently scoped claims",
+    "difficulty": "Hard",
+    "difficulty_score": 0.8333333333333334,
+    "difficulty_level": 6,
+    "passage": "Text 1: A biologist argues that an organism’s response to a sudden environmental change can reveal the limits of its current physiology, but says little by itself about changes that might emerge over many generations.\n\nText 2: An evolutionary ecologist studies populations exposed to the same environmental change for twenty generations. She observes that later generations tolerate conditions that the original population could not.",
+    "question_text": "How are the findings in Text 2 related to the claim in Text 1?",
+    "question_type": "multiple_choice",
+    "choice_a": "They illustrate why a short-term physiological response need not establish long-term evolutionary limits.",
+    "choice_b": "They show that the original population already possessed the tolerance observed later.",
+    "choice_c": "They refute the claim that sudden changes can reveal current physiological limits.",
+    "choice_d": "They establish that all populations evolve greater tolerance within twenty generations.",
+    "choice_e": null,
+    "image_url": null,
+    "correct_answer": "A",
+    "official_explanation": "The texts distinguish immediate capacity from change over generations; the second provides an example consistent with that distinction. B: Confuses later evolved tolerance with the original population’s demonstrated capacity. C: Treats a compatible long-term finding as a refutation of a short-term claim. D: Overgeneralizes a result from studied populations.",
+    "source": "PrepSAT/ACT original authored academic stimuli",
+    "source_type": "original",
+    "source_rights_status": "original",
+    "active": false,
+    "approved": false,
+    "review_status": "pending",
+    "answer_verification_status": "pending",
+    "metadata": {
+      "domain": "Craft and Structure",
+      "skill": "Cross-Text Connections",
+      "subskill": "reconcile differently scoped claims",
+      "difficulty_level": 6,
+      "estimated_seconds": 90,
+      "difficulty_basis": "editorial",
+      "module_eligibility": [
+        {
+          "module": 1,
+          "route": "common"
+        },
+        {
+          "module": 2,
+          "route": "easier"
+        }
+      ],
+      "distractor_rationales": {
+        "A": "Correct: The texts distinguish immediate capacity from change over generations; the second provides an example consistent with that distinction.",
+        "B": "Confuses later evolved tolerance with the original population’s demonstrated capacity.",
+        "C": "Treats a compatible long-term finding as a refutation of a short-term claim.",
+        "D": "Overgeneralizes a result from studied populations."
+      },
+      "graphic_type": null,
+      "graphic_data": null,
+      "originality_evidence": {
+        "original_authorship": true,
+        "no_official_item_reconstruction": true,
+        "method": "Individually authored fictional studies and passages; official framework only"
+      },
+      "validation_evidence": {
+        "generation": true
+      },
+      "validation_status": "pending",
+      "content_hash": "b33258388566a88249e2a57e114d6e1296688e59a31691f8aeb05fb254b393cf"
+    }
+  },
+  {
+    "id": "31fe3c9d-4c0c-52a5-adac-74b1b690dc7e",
+    "test_type": "SAT",
+    "section_name": "Reading and Writing",
+    "category_name": "Expression of Ideas",
+    "topic_name": "Transitions",
+    "subtopic_name": "contrast",
+    "difficulty": "Easy",
+    "difficulty_score": 0.16666666666666666,
+    "difficulty_level": 2,
+    "passage": "For decades, a pigment’s fading was attributed entirely to light exposure. Recent chemical analyses identified a second process: the binder reacts with moisture even in darkness. ________, shielding the painting from light alone may not prevent further color change.",
+    "question_text": "Which choice completes the text with the most logical transition?",
+    "question_type": "multiple_choice",
+    "choice_a": "For example",
+    "choice_b": "Similarly",
+    "choice_c": "Consequently",
+    "choice_d": "Nevertheless",
+    "choice_e": null,
+    "image_url": null,
+    "correct_answer": "C",
+    "official_explanation": "The final sentence is a practical consequence of the newly identified additional process. A: Introduces an example rather than the stated consequence. B: Implies comparison with a parallel case that is absent. D: Signals opposition although the conclusion follows from the finding.",
+    "source": "PrepSAT/ACT original authored academic stimuli",
+    "source_type": "original",
+    "source_rights_status": "original",
+    "active": false,
+    "approved": false,
+    "review_status": "pending",
+    "answer_verification_status": "pending",
+    "metadata": {
+      "domain": "Expression of Ideas",
+      "skill": "Transitions",
+      "subskill": "contrast",
+      "difficulty_level": 2,
+      "estimated_seconds": 45,
+      "difficulty_basis": "editorial",
+      "module_eligibility": [
+        {
+          "module": 1,
+          "route": "common"
+        },
+        {
+          "module": 2,
+          "route": "easier"
+        }
+      ],
+      "distractor_rationales": {
+        "A": "Introduces an example rather than the stated consequence.",
+        "B": "Implies comparison with a parallel case that is absent.",
+        "C": "Correct: The final sentence is a practical consequence of the newly identified additional process.",
+        "D": "Signals opposition although the conclusion follows from the finding."
+      },
+      "graphic_type": null,
+      "graphic_data": null,
+      "originality_evidence": {
+        "original_authorship": true,
+        "no_official_item_reconstruction": true,
+        "method": "Individually authored fictional studies and passages; official framework only"
+      },
+      "validation_evidence": {
+        "generation": true
+      },
+      "validation_status": "pending",
+      "content_hash": "4a03cf9af6fd3ad0919a447913ebd5dba2c6809628f09a914e04bb9e46dd85c8"
+    }
+  },
+  {
+    "id": "f8b23a3e-af87-57c6-a4e0-b952a9fdc56f",
+    "test_type": "SAT",
+    "section_name": "Reading and Writing",
+    "category_name": "Expression of Ideas",
+    "topic_name": "Transitions",
+    "subtopic_name": "qualification",
+    "difficulty": "Medium",
+    "difficulty_score": 0.5,
+    "difficulty_level": 4,
+    "passage": "A political scientist’s model predicts that larger coalitions will be less stable because their members have more competing priorities. The model captures the general pattern in the dataset. ________, several large coalitions remained intact when their members agreed on a single urgent objective.",
+    "question_text": "Which choice completes the text with the most logical transition?",
+    "question_type": "multiple_choice",
+    "choice_a": "Therefore",
+    "choice_b": "In other words",
+    "choice_c": "Likewise",
+    "choice_d": "Even so",
+    "choice_e": null,
+    "image_url": null,
+    "correct_answer": "D",
+    "official_explanation": "The final sentence qualifies the general pattern by presenting exceptions. A: Makes the exceptions a consequence of the model’s successful prediction. B: Treats exceptions as a restatement of the general pattern. C: Suggests similarity where a contrast is intended.",
+    "source": "PrepSAT/ACT original authored academic stimuli",
+    "source_type": "original",
+    "source_rights_status": "original",
+    "active": false,
+    "approved": false,
+    "review_status": "pending",
+    "answer_verification_status": "pending",
+    "metadata": {
+      "domain": "Expression of Ideas",
+      "skill": "Transitions",
+      "subskill": "qualification",
+      "difficulty_level": 4,
+      "estimated_seconds": 70,
+      "difficulty_basis": "editorial",
+      "module_eligibility": [
+        {
+          "module": 1,
+          "route": "common"
+        },
+        {
+          "module": 2,
+          "route": "easier"
+        }
+      ],
+      "distractor_rationales": {
+        "A": "Makes the exceptions a consequence of the model’s successful prediction.",
+        "B": "Treats exceptions as a restatement of the general pattern.",
+        "C": "Suggests similarity where a contrast is intended.",
+        "D": "Correct: The final sentence qualifies the general pattern by presenting exceptions."
+      },
+      "graphic_type": null,
+      "graphic_data": null,
+      "originality_evidence": {
+        "original_authorship": true,
+        "no_official_item_reconstruction": true,
+        "method": "Individually authored fictional studies and passages; official framework only"
+      },
+      "validation_evidence": {
+        "generation": true
+      },
+      "validation_status": "pending",
+      "content_hash": "2dc7d1050cb4eb4d786da2241c6667999415dd2dc8731a3e084919c525f4f3b0"
+    }
+  },
+  {
+    "id": "c25d8911-1f65-5b24-acae-a2e8ec1dc56c",
+    "test_type": "SAT",
+    "section_name": "Reading and Writing",
+    "category_name": "Expression of Ideas",
+    "topic_name": "Transitions",
+    "subtopic_name": "clarify distinction",
+    "difficulty": "Hard",
+    "difficulty_score": 0.8333333333333334,
+    "difficulty_level": 6,
+    "passage": "Astronomers describe the apparent motion of nearby stars against distant ones as a change in viewing geometry. The nearby stars need not actually move back and forth over the year. ________, the observer’s changing position can produce the apparent shift.",
+    "question_text": "Which choice completes the text with the most logical transition?",
+    "question_type": "multiple_choice",
+    "choice_a": "For comparison",
+    "choice_b": "Rather",
+    "choice_c": "Moreover",
+    "choice_d": "As a result",
+    "choice_e": null,
+    "image_url": null,
+    "correct_answer": "B",
+    "official_explanation": "“Rather” replaces the rejected interpretation of stellar motion with the intended geometric explanation. A: Introduces a comparison rather than the correction. C: Adds information without expressing the corrective relationship. D: Suggests the observer’s movement results from stars not moving.",
+    "source": "PrepSAT/ACT original authored academic stimuli",
+    "source_type": "original",
+    "source_rights_status": "original",
+    "active": false,
+    "approved": false,
+    "review_status": "pending",
+    "answer_verification_status": "pending",
+    "metadata": {
+      "domain": "Expression of Ideas",
+      "skill": "Transitions",
+      "subskill": "clarify distinction",
+      "difficulty_level": 6,
+      "estimated_seconds": 90,
+      "difficulty_basis": "editorial",
+      "module_eligibility": [
+        {
+          "module": 1,
+          "route": "common"
+        },
+        {
+          "module": 2,
+          "route": "easier"
+        }
+      ],
+      "distractor_rationales": {
+        "A": "Introduces a comparison rather than the correction.",
+        "B": "Correct: “Rather” replaces the rejected interpretation of stellar motion with the intended geometric explanation.",
+        "C": "Adds information without expressing the corrective relationship.",
+        "D": "Suggests the observer’s movement results from stars not moving."
+      },
+      "graphic_type": null,
+      "graphic_data": null,
+      "originality_evidence": {
+        "original_authorship": true,
+        "no_official_item_reconstruction": true,
+        "method": "Individually authored fictional studies and passages; official framework only"
+      },
+      "validation_evidence": {
+        "generation": true
+      },
+      "validation_status": "pending",
+      "content_hash": "9eabb013fca49a64e7230d72cd9f21957fc9afa69ebb4c50f828996d60e337bd"
+    }
+  },
+  {
+    "id": "a5d6465c-9119-5ce8-ae26-d988ebdd50e5",
+    "test_type": "SAT",
+    "section_name": "Reading and Writing",
+    "category_name": "Expression of Ideas",
+    "topic_name": "Rhetorical Synthesis",
+    "subtopic_name": "emphasize methodological difference",
+    "difficulty": "Medium",
+    "difficulty_score": 0.5,
+    "difficulty_level": 4,
+    "passage": "While researching clay production, a student has taken these notes:\n• One study identifies mineral composition by analyzing powdered fragments.\n• Another study uses three-dimensional scans to compare vessel shapes.\n• Both studies investigate ancient manufacturing practices.\n• The first method changes the tested fragment; the second records shape without removing material.",
+    "question_text": "The student wants to emphasize a difference in how the two methods affect the objects studied. Which choice most effectively uses relevant information from the notes?",
+    "question_type": "multiple_choice",
+    "choice_a": "Both studies contribute evidence about ancient manufacturing practices.",
+    "choice_b": "Researchers can investigate ancient vessels by analyzing their minerals and comparing their shapes.",
+    "choice_c": "The two studies differ because only the scanning study investigates manufacturing practices.",
+    "choice_d": "Mineral analysis uses powdered fragments, whereas three-dimensional scanning records vessel shape without removing material.",
+    "choice_e": null,
+    "image_url": null,
+    "correct_answer": "D",
+    "official_explanation": "The correct choice compares material removal with non-removal, the requested effect on objects. A: Accurate shared purpose, but it does not emphasize the requested difference. B: Lists methods without explaining how they affect objects. C: Misstates the purpose: both studies concern manufacturing.",
+    "source": "PrepSAT/ACT original authored academic stimuli",
+    "source_type": "original",
+    "source_rights_status": "original",
+    "active": false,
+    "approved": false,
+    "review_status": "pending",
+    "answer_verification_status": "pending",
+    "metadata": {
+      "domain": "Expression of Ideas",
+      "skill": "Rhetorical Synthesis",
+      "subskill": "emphasize methodological difference",
+      "difficulty_level": 4,
+      "estimated_seconds": 70,
+      "difficulty_basis": "editorial",
+      "module_eligibility": [
+        {
+          "module": 1,
+          "route": "common"
+        },
+        {
+          "module": 2,
+          "route": "easier"
+        }
+      ],
+      "distractor_rationales": {
+        "A": "Accurate shared purpose, but it does not emphasize the requested difference.",
+        "B": "Lists methods without explaining how they affect objects.",
+        "C": "Misstates the purpose: both studies concern manufacturing.",
+        "D": "Correct: The correct choice compares material removal with non-removal, the requested effect on objects."
+      },
+      "graphic_type": null,
+      "graphic_data": null,
+      "originality_evidence": {
+        "original_authorship": true,
+        "no_official_item_reconstruction": true,
+        "method": "Individually authored fictional studies and passages; official framework only"
+      },
+      "validation_evidence": {
+        "generation": true
+      },
+      "validation_status": "pending",
+      "content_hash": "0b38bb4ba3c1498b8977fd49cd724600903f85827c1dae1d408fbda2ea9199a3"
+    }
+  },
+  {
+    "id": "6160a11c-3347-581e-a548-b194e5e78c19",
+    "test_type": "SAT",
+    "section_name": "Reading and Writing",
+    "category_name": "Expression of Ideas",
+    "topic_name": "Rhetorical Synthesis",
+    "subtopic_name": "make bounded comparison",
+    "difficulty": "Hard",
+    "difficulty_score": 0.8333333333333334,
+    "difficulty_level": 6,
+    "passage": "While researching translation, a student has taken these notes:\n• Translator Elian preserves the source poem’s repeating end sounds.\n• To preserve those sounds, Elian sometimes changes the order of images.\n• Translator Sora preserves the order of images.\n• Sora does not retain the repeating end sounds.\n• Both translations retain the poem’s central scene.",
+    "question_text": "The student wants to contrast the translators’ priorities without claiming that one translation is superior. Which choice most effectively accomplishes this goal?",
+    "question_type": "multiple_choice",
+    "choice_a": "Elian prioritizes repeating end sounds, sometimes rearranging images, whereas Sora preserves image order without retaining those sounds.",
+    "choice_b": "Sora’s translation is more faithful because it preserves the order of images.",
+    "choice_c": "Both translators preserve the poem’s central scene.",
+    "choice_d": "Elian retains repeating end sounds, proving that Sora overlooked the poem’s musical qualities.",
+    "choice_e": null,
+    "image_url": null,
+    "correct_answer": "A",
+    "official_explanation": "The correct choice contrasts documented tradeoffs without introducing a ranking or unsupported motives. B: Adds a superiority judgment the student explicitly wants to avoid. C: States common ground rather than contrasting priorities. D: Adds an unsupported accusation about Sora’s attention.",
+    "source": "PrepSAT/ACT original authored academic stimuli",
+    "source_type": "original",
+    "source_rights_status": "original",
+    "active": false,
+    "approved": false,
+    "review_status": "pending",
+    "answer_verification_status": "pending",
+    "metadata": {
+      "domain": "Expression of Ideas",
+      "skill": "Rhetorical Synthesis",
+      "subskill": "make bounded comparison",
+      "difficulty_level": 6,
+      "estimated_seconds": 90,
+      "difficulty_basis": "editorial",
+      "module_eligibility": [
+        {
+          "module": 1,
+          "route": "common"
+        },
+        {
+          "module": 2,
+          "route": "easier"
+        }
+      ],
+      "distractor_rationales": {
+        "A": "Correct: The correct choice contrasts documented tradeoffs without introducing a ranking or unsupported motives.",
+        "B": "Adds a superiority judgment the student explicitly wants to avoid.",
+        "C": "States common ground rather than contrasting priorities.",
+        "D": "Adds an unsupported accusation about Sora’s attention."
+      },
+      "graphic_type": null,
+      "graphic_data": null,
+      "originality_evidence": {
+        "original_authorship": true,
+        "no_official_item_reconstruction": true,
+        "method": "Individually authored fictional studies and passages; official framework only"
+      },
+      "validation_evidence": {
+        "generation": true
+      },
+      "validation_status": "pending",
+      "content_hash": "34c46701ad5cecd0bcb023f90125afb8b6b43824df37bdcbd28ccbaf05bdb1a5"
+    }
+  },
+  {
+    "id": "a17257a5-ad68-5ed4-a0b3-1db152b3a5ec",
+    "test_type": "SAT",
+    "section_name": "Reading and Writing",
+    "category_name": "Standard English Conventions",
+    "topic_name": "Boundaries",
+    "subtopic_name": "semicolon between independent clauses",
+    "difficulty": "Easy",
+    "difficulty_score": 0.16666666666666666,
+    "difficulty_level": 2,
+    "passage": "The observatory’s early photographs preserved fine details of the solar ________ modern digital images allow researchers to track those details more frequently. Both records remain useful when scientists compare observations taken decades apart.",
+    "question_text": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+    "question_type": "multiple_choice",
+    "choice_a": "surface, and although",
+    "choice_b": "surface;",
+    "choice_c": "surface,",
+    "choice_d": "surface",
+    "choice_e": null,
+    "image_url": null,
+    "correct_answer": "B",
+    "official_explanation": "A semicolon correctly separates two independent clauses without adding an incomplete subordination. A: Adds an “although” clause without a main clause to complete that coordination. C: Creates a comma splice between independent clauses. D: Creates a fused sentence.",
+    "source": "PrepSAT/ACT original authored academic stimuli",
+    "source_type": "original",
+    "source_rights_status": "original",
+    "active": false,
+    "approved": false,
+    "review_status": "pending",
+    "answer_verification_status": "pending",
+    "metadata": {
+      "domain": "Standard English Conventions",
+      "skill": "Boundaries",
+      "subskill": "semicolon between independent clauses",
+      "difficulty_level": 2,
+      "estimated_seconds": 45,
+      "difficulty_basis": "editorial",
+      "module_eligibility": [
+        {
+          "module": 1,
+          "route": "common"
+        },
+        {
+          "module": 2,
+          "route": "easier"
+        }
+      ],
+      "distractor_rationales": {
+        "A": "Adds an “although” clause without a main clause to complete that coordination.",
+        "B": "Correct: A semicolon correctly separates two independent clauses without adding an incomplete subordination.",
+        "C": "Creates a comma splice between independent clauses.",
+        "D": "Creates a fused sentence."
+      },
+      "graphic_type": null,
+      "graphic_data": null,
+      "originality_evidence": {
+        "original_authorship": true,
+        "no_official_item_reconstruction": true,
+        "method": "Individually authored fictional studies and passages; official framework only"
+      },
+      "validation_evidence": {
+        "generation": true
+      },
+      "validation_status": "pending",
+      "content_hash": "c743f201dd128805634326f98b863b9308c9df5d8e08333da30785911b2322a7"
+    }
+  },
+  {
+    "id": "2972950e-3d59-5dd2-a0d2-eaf74235511c",
+    "test_type": "SAT",
+    "section_name": "Reading and Writing",
+    "category_name": "Standard English Conventions",
+    "topic_name": "Boundaries",
+    "subtopic_name": "colon after complete clause",
+    "difficulty": "Medium",
+    "difficulty_score": 0.5,
+    "difficulty_level": 4,
+    "passage": "The conservator identified one cause of the sculpture’s ________ salts dissolved in rainwater entered small cracks, then expanded as the water evaporated. The treatment therefore focused on reducing both water entry and salt accumulation.",
+    "question_text": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+    "question_type": "multiple_choice",
+    "choice_a": "deterioration because:",
+    "choice_b": "deterioration; because",
+    "choice_c": "deterioration:",
+    "choice_d": "deterioration,",
+    "choice_e": null,
+    "image_url": null,
+    "correct_answer": "C",
+    "official_explanation": "A complete clause introduces an explanation, so a colon is appropriate before the explanatory independent clause. A: Places a colon immediately after a subordinating conjunction. B: Leaves an explanatory subordinate clause detached after a semicolon. D: Uses a comma alone between independent clauses.",
+    "source": "PrepSAT/ACT original authored academic stimuli",
+    "source_type": "original",
+    "source_rights_status": "original",
+    "active": false,
+    "approved": false,
+    "review_status": "pending",
+    "answer_verification_status": "pending",
+    "metadata": {
+      "domain": "Standard English Conventions",
+      "skill": "Boundaries",
+      "subskill": "colon after complete clause",
+      "difficulty_level": 4,
+      "estimated_seconds": 70,
+      "difficulty_basis": "editorial",
+      "module_eligibility": [
+        {
+          "module": 1,
+          "route": "common"
+        },
+        {
+          "module": 2,
+          "route": "easier"
+        }
+      ],
+      "distractor_rationales": {
+        "A": "Places a colon immediately after a subordinating conjunction.",
+        "B": "Leaves an explanatory subordinate clause detached after a semicolon.",
+        "C": "Correct: A complete clause introduces an explanation, so a colon is appropriate before the explanatory independent clause.",
+        "D": "Uses a comma alone between independent clauses."
+      },
+      "graphic_type": null,
+      "graphic_data": null,
+      "originality_evidence": {
+        "original_authorship": true,
+        "no_official_item_reconstruction": true,
+        "method": "Individually authored fictional studies and passages; official framework only"
+      },
+      "validation_evidence": {
+        "generation": true
+      },
+      "validation_status": "pending",
+      "content_hash": "83140579bd464c33576a21994eabe7c7aaa3bd4265d3fbbfa07876b4461c29e2"
+    }
+  },
+  {
+    "id": "3aa87fa7-0282-504e-ab8b-7e29fa4eb286",
+    "test_type": "SAT",
+    "section_name": "Reading and Writing",
+    "category_name": "Standard English Conventions",
+    "topic_name": "Boundaries",
+    "subtopic_name": "parenthetical apposition and predicate boundary",
+    "difficulty": "Hard",
+    "difficulty_score": 0.8333333333333334,
+    "difficulty_level": 6,
+    "passage": "The spatial patterns in the mosaic—an intricate arrangement of dark and light ________ suggest that its maker worked from a reusable geometric plan. Small departures from the pattern may record adjustments made during installation.",
+    "question_text": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+    "question_type": "multiple_choice",
+    "choice_a": "stones—",
+    "choice_b": "stones,",
+    "choice_c": "stones;",
+    "choice_d": "stones:",
+    "choice_e": null,
+    "image_url": null,
+    "correct_answer": "A",
+    "official_explanation": "The opening em dash introduces supplementary information; a matching dash closes it before the main predicate. B: Fails to pair the opening dash and obscures the main clause boundary. C: Splits the subject from its predicate. D: Introduces a colon where the parenthetical must close.",
+    "source": "PrepSAT/ACT original authored academic stimuli",
+    "source_type": "original",
+    "source_rights_status": "original",
+    "active": false,
+    "approved": false,
+    "review_status": "pending",
+    "answer_verification_status": "pending",
+    "metadata": {
+      "domain": "Standard English Conventions",
+      "skill": "Boundaries",
+      "subskill": "parenthetical apposition and predicate boundary",
+      "difficulty_level": 6,
+      "estimated_seconds": 90,
+      "difficulty_basis": "editorial",
+      "module_eligibility": [
+        {
+          "module": 1,
+          "route": "common"
+        },
+        {
+          "module": 2,
+          "route": "easier"
+        }
+      ],
+      "distractor_rationales": {
+        "A": "Correct: The opening em dash introduces supplementary information; a matching dash closes it before the main predicate.",
+        "B": "Fails to pair the opening dash and obscures the main clause boundary.",
+        "C": "Splits the subject from its predicate.",
+        "D": "Introduces a colon where the parenthetical must close."
+      },
+      "graphic_type": null,
+      "graphic_data": null,
+      "originality_evidence": {
+        "original_authorship": true,
+        "no_official_item_reconstruction": true,
+        "method": "Individually authored fictional studies and passages; official framework only"
+      },
+      "validation_evidence": {
+        "generation": true
+      },
+      "validation_status": "pending",
+      "content_hash": "742eda86a28e27d91b5c8033072f2fb8157ce9f1b89c9110e5de9a308f5f6b88"
+    }
+  },
+  {
+    "id": "c3fb7b74-f7b4-590f-ac47-e7e73fec103b",
+    "test_type": "SAT",
+    "section_name": "Reading and Writing",
+    "category_name": "Standard English Conventions",
+    "topic_name": "Form, Structure, and Sense",
+    "subtopic_name": "subject verb agreement",
+    "difficulty": "Easy",
+    "difficulty_score": 0.16666666666666666,
+    "difficulty_level": 2,
+    "passage": "Among the most informative features of the fossil ________ the small grooves along its outer surface. These grooves, which formed during growth, help paleontologists distinguish the fossil from similar specimens found in younger rock layers.",
+    "question_text": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+    "question_type": "multiple_choice",
+    "choice_a": "has been",
+    "choice_b": "was",
+    "choice_c": "are",
+    "choice_d": "is",
+    "choice_e": null,
+    "image_url": null,
+    "correct_answer": "C",
+    "official_explanation": "The inverted sentence’s subject is the plural “small grooves,” requiring “are” in the present-tense description. A: Uses a singular verb for a plural subject. B: Uses a singular verb and shifts the stated present description. D: Agrees with the nearby singular “fossil” rather than the actual subject.",
+    "source": "PrepSAT/ACT original authored academic stimuli",
+    "source_type": "original",
+    "source_rights_status": "original",
+    "active": false,
+    "approved": false,
+    "review_status": "pending",
+    "answer_verification_status": "pending",
+    "metadata": {
+      "domain": "Standard English Conventions",
+      "skill": "Form, Structure, and Sense",
+      "subskill": "subject verb agreement",
+      "difficulty_level": 2,
+      "estimated_seconds": 45,
+      "difficulty_basis": "editorial",
+      "module_eligibility": [
+        {
+          "module": 1,
+          "route": "common"
+        },
+        {
+          "module": 2,
+          "route": "easier"
+        }
+      ],
+      "distractor_rationales": {
+        "A": "Uses a singular verb for a plural subject.",
+        "B": "Uses a singular verb and shifts the stated present description.",
+        "C": "Correct: The inverted sentence’s subject is the plural “small grooves,” requiring “are” in the present-tense description.",
+        "D": "Agrees with the nearby singular “fossil” rather than the actual subject."
+      },
+      "graphic_type": null,
+      "graphic_data": null,
+      "originality_evidence": {
+        "original_authorship": true,
+        "no_official_item_reconstruction": true,
+        "method": "Individually authored fictional studies and passages; official framework only"
+      },
+      "validation_evidence": {
+        "generation": true
+      },
+      "validation_status": "pending",
+      "content_hash": "986df63eb71a4fe032e754791b97a63b1c2214eebb43980b41bcbe5ea16661fa"
+    }
+  },
+  {
+    "id": "c3fd0502-88f1-5c85-a598-d9edb5ae631d",
+    "test_type": "SAT",
+    "section_name": "Reading and Writing",
+    "category_name": "Standard English Conventions",
+    "topic_name": "Form, Structure, and Sense",
+    "subtopic_name": "modifier attachment",
+    "difficulty": "Medium",
+    "difficulty_score": 0.5,
+    "difficulty_level": 4,
+    "passage": "Using measurements from several distant stations, ________ . Their reconstruction suggested that the disturbance began beneath the ocean rather than on land, a conclusion that could not be drawn from a single station’s record.",
+    "question_text": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+    "question_type": "multiple_choice",
+    "choice_a": "seismologists reconstructed the disturbance’s point of origin",
+    "choice_b": "the disturbance’s point of origin was reconstructed by seismologists",
+    "choice_c": "a reconstruction of the disturbance’s point of origin became possible",
+    "choice_d": "the distant stations revealed the disturbance’s point of origin",
+    "choice_e": null,
+    "image_url": null,
+    "correct_answer": "A",
+    "official_explanation": "The introductory participial phrase describes the people using measurements, so “seismologists” must be the subject. B: Makes the point of origin the user of measurements. C: Makes a reconstruction, rather than people, the user of measurements. D: Makes stations perform the measurement-based analytical action.",
+    "source": "PrepSAT/ACT original authored academic stimuli",
+    "source_type": "original",
+    "source_rights_status": "original",
+    "active": false,
+    "approved": false,
+    "review_status": "pending",
+    "answer_verification_status": "pending",
+    "metadata": {
+      "domain": "Standard English Conventions",
+      "skill": "Form, Structure, and Sense",
+      "subskill": "modifier attachment",
+      "difficulty_level": 4,
+      "estimated_seconds": 70,
+      "difficulty_basis": "editorial",
+      "module_eligibility": [
+        {
+          "module": 1,
+          "route": "common"
+        },
+        {
+          "module": 2,
+          "route": "easier"
+        }
+      ],
+      "distractor_rationales": {
+        "A": "Correct: The introductory participial phrase describes the people using measurements, so “seismologists” must be the subject.",
+        "B": "Makes the point of origin the user of measurements.",
+        "C": "Makes a reconstruction, rather than people, the user of measurements.",
+        "D": "Makes stations perform the measurement-based analytical action."
+      },
+      "graphic_type": null,
+      "graphic_data": null,
+      "originality_evidence": {
+        "original_authorship": true,
+        "no_official_item_reconstruction": true,
+        "method": "Individually authored fictional studies and passages; official framework only"
+      },
+      "validation_evidence": {
+        "generation": true
+      },
+      "validation_status": "pending",
+      "content_hash": "7ad57ab5fdbfcd53653ec4b87ab8ee87457ae759735a3b17b819e905de5717aa"
+    }
+  },
+  {
+    "id": "7db81e23-f8da-5986-a27d-9b3bb601887f",
+    "test_type": "SAT",
+    "section_name": "Reading and Writing",
+    "category_name": "Standard English Conventions",
+    "topic_name": "Form, Structure, and Sense",
+    "subtopic_name": "logical comparison",
+    "difficulty": "Hard",
+    "difficulty_score": 0.8333333333333334,
+    "difficulty_level": 6,
+    "passage": "A linguist compared two recordings of a regional dialect. Although speakers in both recordings used similar vocabulary, the rhythm of speech in the earlier recording was less regular than ________. The distinction remained audible even when the recordings were played at the same speed.",
+    "question_text": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+    "question_type": "multiple_choice",
+    "choice_a": "those in the later recording",
+    "choice_b": "that in the later recording",
+    "choice_c": "the later recording",
+    "choice_d": "the speakers in the later recording",
+    "choice_e": null,
+    "image_url": null,
+    "correct_answer": "B",
+    "official_explanation": "The comparison must be between rhythms; singular “that” refers back to “the rhythm of speech.” A: Uses a plural pronoun for singular rhythm. C: Compares a rhythm with a recording. D: Compares a rhythm with speakers.",
+    "source": "PrepSAT/ACT original authored academic stimuli",
+    "source_type": "original",
+    "source_rights_status": "original",
+    "active": false,
+    "approved": false,
+    "review_status": "pending",
+    "answer_verification_status": "pending",
+    "metadata": {
+      "domain": "Standard English Conventions",
+      "skill": "Form, Structure, and Sense",
+      "subskill": "logical comparison",
+      "difficulty_level": 6,
+      "estimated_seconds": 90,
+      "difficulty_basis": "editorial",
+      "module_eligibility": [
+        {
+          "module": 1,
+          "route": "common"
+        },
+        {
+          "module": 2,
+          "route": "easier"
+        }
+      ],
+      "distractor_rationales": {
+        "A": "Uses a plural pronoun for singular rhythm.",
+        "B": "Correct: The comparison must be between rhythms; singular “that” refers back to “the rhythm of speech.”",
+        "C": "Compares a rhythm with a recording.",
+        "D": "Compares a rhythm with speakers."
+      },
+      "graphic_type": null,
+      "graphic_data": null,
+      "originality_evidence": {
+        "original_authorship": true,
+        "no_official_item_reconstruction": true,
+        "method": "Individually authored fictional studies and passages; official framework only"
+      },
+      "validation_evidence": {
+        "generation": true
+      },
+      "validation_status": "pending",
+      "content_hash": "2b4bfa62cf73de495924f625d83d0fb96f7482143b24653507464eba583a75f2"
+    }
+  },
+  {
+    "id": "367c1c59-ba3f-5a6c-a171-c5ed45042524",
+    "test_type": "SAT",
+    "section_name": "Reading and Writing",
+    "category_name": "Information and Ideas",
+    "topic_name": "Inferences",
+    "subtopic_name": "separate a sufficient mechanism from a necessary cause",
+    "difficulty": "Hard",
+    "difficulty_score": 0.8333333333333334,
+    "difficulty_level": 6,
+    "passage": "A geochemist proposes that a mineral layer in cave walls formed only when microbes released an acid. In sterile laboratory chambers, however, water containing the same acid produced indistinguishable layers. The acid concentration required in those chambers exceeded concentrations measured in the cave’s incoming water. The laboratory result therefore reproduces the mineralization, but the difference in concentrations remains relevant to explaining its occurrence in the cave.",
+    "question_text": "Which inference is best supported by the text?",
+    "question_type": "multiple_choice",
+    "choice_a": "The indistinguishable layers demonstrate that the cave’s incoming water contained the laboratory acid concentration when the layers formed.",
+    "choice_b": "Microbial activity need not be necessary for producing the layer under all conditions, although it may help explain conditions in the cave.",
+    "choice_c": "The laboratory result establishes that microbial activity made no contribution to the cave’s mineral layers.",
+    "choice_d": "Because the laboratory acid concentration was higher, the experiment provides no evidence about a mechanism capable of producing the layer.",
+    "choice_e": null,
+    "image_url": null,
+    "correct_answer": "B",
+    "official_explanation": "The sterile result shows a nonmicrobial route under high-acid conditions; the cave’s lower incoming concentration leaves a possible microbial contribution unresolved. A: Infers identical starting conditions from identical final layers. C: Confuses demonstrating a possible nonmicrobial mechanism with excluding microbes from the actual cave. D: Rejects demonstrated mechanistic sufficiency because the experiment does not establish the cave’s actual source of acid.",
+    "source": "PrepSAT/ACT original authored academic stimuli",
+    "source_type": "original",
+    "source_rights_status": "original",
+    "active": false,
+    "approved": false,
+    "review_status": "pending",
+    "answer_verification_status": "pending",
+    "metadata": {
+      "domain": "Information and Ideas",
+      "skill": "Inferences",
+      "subskill": "separate a sufficient mechanism from a necessary cause",
+      "difficulty_level": 6,
+      "estimated_seconds": 90,
+      "difficulty_basis": "editorial",
+      "module_eligibility": [
+        {
+          "module": 1,
+          "route": "common"
+        },
+        {
+          "module": 2,
+          "route": "harder"
+        }
+      ],
+      "distractor_rationales": {
+        "A": "Infers identical starting conditions from identical final layers.",
+        "B": "Correct: The sterile result shows a nonmicrobial route under high-acid conditions; the cave’s lower incoming concentration leaves a possible microbial contribution unresolved.",
+        "C": "Confuses demonstrating a possible nonmicrobial mechanism with excluding microbes from the actual cave.",
+        "D": "Rejects demonstrated mechanistic sufficiency because the experiment does not establish the cave’s actual source of acid."
+      },
+      "graphic_type": null,
+      "graphic_data": null,
+      "originality_evidence": {
+        "original_authorship": true,
+        "no_official_item_reconstruction": true,
+        "method": "Individually authored fictional studies and passages; official framework only"
+      },
+      "validation_evidence": {
+        "generation": true
+      },
+      "validation_status": "pending",
+      "content_hash": "1fff6d9c9285ad8a66298d2c26faf2c386b6ed9e761e85d7959cb3288535fc18"
+    }
+  },
+  {
+    "id": "74c4a05e-e74a-55eb-a4bc-fe082b308a85",
+    "test_type": "SAT",
+    "section_name": "Reading and Writing",
+    "category_name": "Information and Ideas",
+    "topic_name": "Inferences",
+    "subtopic_name": "distinguish acquisition from preservation in competing explanations",
+    "difficulty": "Hard",
+    "difficulty_score": 1,
+    "difficulty_level": 7,
+    "passage": "A historian observes that merchants’ letters survive more often from inland towns than from coastal ports. She first interprets the pattern as evidence that inland merchants relied more heavily on written agreements. An archivist then finds that inland town offices required copies of commercial correspondence, whereas coastal offices generally did not. Private collections from both regions were equally vulnerable to loss. The historian retains her interpretation only as one possibility among several.",
+    "question_text": "Which inference best explains why the archivist’s finding changes the status of the historian’s interpretation?",
+    "question_type": "multiple_choice",
+    "choice_a": "A difference in preservation practices could generate the surviving pattern without a corresponding difference in merchants’ original reliance on letters.",
+    "choice_b": "Equal vulnerability of private collections establishes that original letter-writing rates were identical in the two regions.",
+    "choice_c": "The copying requirement proves that inland merchants wrote letters only to satisfy town officials.",
+    "choice_d": "Because coastal offices lacked a copying requirement, surviving coastal letters cannot provide evidence about commercial practices.",
+    "choice_e": null,
+    "image_url": null,
+    "correct_answer": "A",
+    "official_explanation": "The office-copy rule changes the chance of preservation, which can produce the observed archive pattern independently of original writing frequency. B: Equal loss risk in private collections does not establish equal original production or total preservation. C: Turns a preservation requirement into the exclusive motivation for composing correspondence. D: Overstates the limitation: surviving letters remain evidence, though regional counts require caution.",
+    "source": "PrepSAT/ACT original authored academic stimuli",
+    "source_type": "original",
+    "source_rights_status": "original",
+    "active": false,
+    "approved": false,
+    "review_status": "pending",
+    "answer_verification_status": "pending",
+    "metadata": {
+      "domain": "Information and Ideas",
+      "skill": "Inferences",
+      "subskill": "distinguish acquisition from preservation in competing explanations",
+      "difficulty_level": 7,
+      "estimated_seconds": 90,
+      "difficulty_basis": "editorial",
+      "module_eligibility": [
+        {
+          "module": 1,
+          "route": "common"
+        },
+        {
+          "module": 2,
+          "route": "harder"
+        }
+      ],
+      "distractor_rationales": {
+        "A": "Correct: The office-copy rule changes the chance of preservation, which can produce the observed archive pattern independently of original writing frequency.",
+        "B": "Equal loss risk in private collections does not establish equal original production or total preservation.",
+        "C": "Turns a preservation requirement into the exclusive motivation for composing correspondence.",
+        "D": "Overstates the limitation: surviving letters remain evidence, though regional counts require caution."
+      },
+      "graphic_type": null,
+      "graphic_data": null,
+      "originality_evidence": {
+        "original_authorship": true,
+        "no_official_item_reconstruction": true,
+        "method": "Individually authored fictional studies and passages; official framework only"
+      },
+      "validation_evidence": {
+        "generation": true
+      },
+      "validation_status": "pending",
+      "content_hash": "683d4ceb29d2a291cdcbf7a09f2fb310e5e39475f3f9b7ad1f90964b7eeb39f4"
+    }
+  },
+  {
+    "id": "d57f4ba2-4bcb-512d-ae7d-82e1f25e0d39",
+    "test_type": "SAT",
+    "section_name": "Reading and Writing",
+    "category_name": "Information and Ideas",
+    "topic_name": "Command of Evidence — Textual",
+    "subtopic_name": "discriminate an interaction mechanism",
+    "difficulty": "Hard",
+    "difficulty_score": 1,
+    "difficulty_level": 7,
+    "passage": "A psychologist argues that a speaker’s hesitation can make a recommendation persuasive when it signals careful consideration, but unpersuasive when it signals unfamiliarity. She rejects an account in which hesitation always reduces confidence in the recommendation. Her explanation predicts that the effect depends on what listeners already know about the speaker’s preparation, even when the recommendation and the recorded hesitation remain unchanged.",
+    "question_text": "Which finding would most directly support the psychologist’s explanation over the account she rejects?",
+    "question_type": "multiple_choice",
+    "choice_a": "The same hesitant recording increases acceptance among listeners told the speaker reviewed extensive evidence but decreases acceptance among listeners told the speaker had not reviewed it.",
+    "choice_b": "Listeners who hear a hesitant recording remember fewer details of the recommendation than listeners who hear a fluent recording.",
+    "choice_c": "Listeners given additional evidence accept a recommendation more frequently, regardless of whether they hear hesitation.",
+    "choice_d": "Hesitant speakers report spending more time preparing their recommendations than fluent speakers report spending.",
+    "choice_e": null,
+    "image_url": null,
+    "correct_answer": "A",
+    "official_explanation": "The same hesitation produces opposite effects conditional on information about preparation, supporting the proposed interaction over a universal negative effect. B: Demonstrates a memory effect, not the preparation-dependent reversal in persuasion. C: Shows a general evidence effect without isolating an interaction with hesitation. D: Measures speakers’ self-reported preparation rather than listeners’ interpretation or acceptance.",
+    "source": "PrepSAT/ACT original authored academic stimuli",
+    "source_type": "original",
+    "source_rights_status": "original",
+    "active": false,
+    "approved": false,
+    "review_status": "pending",
+    "answer_verification_status": "pending",
+    "metadata": {
+      "domain": "Information and Ideas",
+      "skill": "Command of Evidence — Textual",
+      "subskill": "discriminate an interaction mechanism",
+      "difficulty_level": 7,
+      "estimated_seconds": 90,
+      "difficulty_basis": "editorial",
+      "module_eligibility": [
+        {
+          "module": 1,
+          "route": "common"
+        },
+        {
+          "module": 2,
+          "route": "harder"
+        }
+      ],
+      "distractor_rationales": {
+        "A": "Correct: The same hesitation produces opposite effects conditional on information about preparation, supporting the proposed interaction over a universal negative effect.",
+        "B": "Demonstrates a memory effect, not the preparation-dependent reversal in persuasion.",
+        "C": "Shows a general evidence effect without isolating an interaction with hesitation.",
+        "D": "Measures speakers’ self-reported preparation rather than listeners’ interpretation or acceptance."
+      },
+      "graphic_type": null,
+      "graphic_data": null,
+      "originality_evidence": {
+        "original_authorship": true,
+        "no_official_item_reconstruction": true,
+        "method": "Individually authored fictional studies and passages; official framework only"
+      },
+      "validation_evidence": {
+        "generation": true
+      },
+      "validation_status": "pending",
+      "content_hash": "950c66e25dd2a2642f1fc72b051effa016874753b105bf644ef420e26ddc3d44"
+    }
+  },
+  {
+    "id": "dc3a5922-224c-528c-a9bb-f99dbc1f0cd1",
+    "test_type": "SAT",
+    "section_name": "Reading and Writing",
+    "category_name": "Information and Ideas",
+    "topic_name": "Command of Evidence — Quantitative",
+    "subtopic_name": "interpret a interaction without confounding baseline",
+    "difficulty": "Hard",
+    "difficulty_score": 0.8333333333333334,
+    "difficulty_level": 6,
+    "passage": "A materials scientist predicts that polishing will increase a composite’s strength more when its fibers are aligned than when they are randomly oriented. Four equally sized groups are tested under identical conditions. Mean breaking forces are: aligned, unpolished, 120 N; aligned, polished, 150 N; random, unpolished, 80 N; random, polished, 90 N. The prediction concerns the effect of polishing, not simply the relative strength of the finished materials.",
+    "question_text": "Which statement most directly supports the prediction?",
+    "question_type": "multiple_choice",
+    "choice_a": "Polished aligned fibers exceeded unpolished random fibers by 70 N.",
+    "choice_b": "Polishing increased mean breaking force by 25% for aligned fibers but by 12.5% for randomly oriented fibers.",
+    "choice_c": "The polished aligned composite had a mean breaking force greater than that of the polished random composite.",
+    "choice_d": "The unpolished aligned composite was 50% stronger than the unpolished random composite.",
+    "choice_e": null,
+    "image_url": "/digital-sat/reading-writing/composite-strength.svg",
+    "correct_answer": "B",
+    "official_explanation": "The relevant within-orientation relative increases are30/120=25% and10/80=12.5%; this compares the polishing effects. A: Confounds polishing and orientation by changing both simultaneously. C: Compares finished strengths without accounting for different unpolished baselines. D: Describes the baseline orientation difference, not polishing’s effect.",
+    "source": "PrepSAT/ACT original authored academic stimuli",
+    "source_type": "original",
+    "source_rights_status": "original",
+    "active": false,
+    "approved": false,
+    "review_status": "pending",
+    "answer_verification_status": "pending",
+    "metadata": {
+      "domain": "Information and Ideas",
+      "skill": "Command of Evidence — Quantitative",
+      "subskill": "interpret a interaction without confounding baseline",
+      "difficulty_level": 6,
+      "estimated_seconds": 90,
+      "difficulty_basis": "editorial",
+      "module_eligibility": [
+        {
+          "module": 1,
+          "route": "common"
+        },
+        {
+          "module": 2,
+          "route": "harder"
+        }
+      ],
+      "distractor_rationales": {
+        "A": "Confounds polishing and orientation by changing both simultaneously.",
+        "B": "Correct: The relevant within-orientation relative increases are30/120=25% and10/80=12.5%; this compares the polishing effects.",
+        "C": "Compares finished strengths without accounting for different unpolished baselines.",
+        "D": "Describes the baseline orientation difference, not polishing’s effect."
+      },
+      "graphic_type": "bar_graph",
+      "graphic_data": {
+        "columns": [
+          "Fiber orientation",
+          "Unpolished force (N)",
+          "Polished force (N)"
+        ],
+        "rows": [
+          [
+            "Aligned",
+            120,
+            150
+          ],
+          [
+            "Random",
+            80,
+            90
+          ]
+        ]
+      },
+      "originality_evidence": {
+        "original_authorship": true,
+        "no_official_item_reconstruction": true,
+        "method": "Individually authored fictional studies and passages; official framework only"
+      },
+      "validation_evidence": {
+        "generation": true
+      },
+      "validation_status": "pending",
+      "content_hash": "281611abccc28b9bb4da1904cfdc12ec49f2862419221ec63eccd7ea9bd65d68"
+    }
+  },
+  {
+    "id": "7cb71b32-ae4b-59cf-aa4e-7f55d3c42e06",
+    "test_type": "SAT",
+    "section_name": "Reading and Writing",
+    "category_name": "Information and Ideas",
+    "topic_name": "Central Ideas and Details",
+    "subtopic_name": "preserve a subtle limited claim",
+    "difficulty": "Hard",
+    "difficulty_score": 0.8333333333333334,
+    "difficulty_level": 6,
+    "passage": "A critic distinguishes a novel’s refusal to explain a character’s decision from a failure to make the decision intelligible. The novel supplies several motives but assigns none decisive weight. Readers can therefore understand why the character might act without discovering which motive governed the action. For the critic, this design makes uncertainty an object of understanding rather than an obstacle that further plot information must eventually remove.",
+    "question_text": "Which choice best states the main idea of the text?",
+    "question_type": "multiple_choice",
+    "choice_a": "The critic argues that presenting plausible motives without resolving their relative importance can make uncertainty about a character’s decision intelligible.",
+    "choice_b": "The critic argues that readers understand a decision only after identifying the single motive responsible for it.",
+    "choice_c": "The critic attributes the character’s uncertainty to missing plot information that the novel inadvertently fails to provide.",
+    "choice_d": "The critic regards the novel’s several motives as interchangeable explanations that eliminate uncertainty about the decision.",
+    "choice_e": null,
+    "image_url": null,
+    "correct_answer": "A",
+    "official_explanation": "The critic treats understandable but unresolved motivation as a deliberate design, not a missing explanation or elimination of uncertainty. B: Reverses the distinction between intelligibility and decisive explanation. C: Recasts deliberate uncertainty as accidental omission. D: Confuses supplying several possible motives with establishing that their weights are identical.",
+    "source": "PrepSAT/ACT original authored academic stimuli",
+    "source_type": "original",
+    "source_rights_status": "original",
+    "active": false,
+    "approved": false,
+    "review_status": "pending",
+    "answer_verification_status": "pending",
+    "metadata": {
+      "domain": "Information and Ideas",
+      "skill": "Central Ideas and Details",
+      "subskill": "preserve a subtle limited claim",
+      "difficulty_level": 6,
+      "estimated_seconds": 90,
+      "difficulty_basis": "editorial",
+      "module_eligibility": [
+        {
+          "module": 1,
+          "route": "common"
+        },
+        {
+          "module": 2,
+          "route": "harder"
+        }
+      ],
+      "distractor_rationales": {
+        "A": "Correct: The critic treats understandable but unresolved motivation as a deliberate design, not a missing explanation or elimination of uncertainty.",
+        "B": "Reverses the distinction between intelligibility and decisive explanation.",
+        "C": "Recasts deliberate uncertainty as accidental omission.",
+        "D": "Confuses supplying several possible motives with establishing that their weights are identical."
+      },
+      "graphic_type": null,
+      "graphic_data": null,
+      "originality_evidence": {
+        "original_authorship": true,
+        "no_official_item_reconstruction": true,
+        "method": "Individually authored fictional studies and passages; official framework only"
+      },
+      "validation_evidence": {
+        "generation": true
+      },
+      "validation_status": "pending",
+      "content_hash": "418669d49c09eab3917dfd9093a34d49ef6db840cc04a3a28b33c5c13134edee"
+    }
+  },
+  {
+    "id": "600526ec-2da9-5111-a928-30bf984bd43a",
+    "test_type": "SAT",
+    "section_name": "Reading and Writing",
+    "category_name": "Information and Ideas",
+    "topic_name": "Command of Evidence — Textual",
+    "subtopic_name": "evidence must exclude an alternative explanation",
+    "difficulty": "Hard",
+    "difficulty_score": 0.8333333333333334,
+    "difficulty_level": 6,
+    "passage": "An anthropologist argues that a pattern of tool exchange reflects reciprocal obligations between settlements rather than independent purchases from a common supplier. Finding similar tools at both settlements cannot distinguish these accounts: either could produce that pattern. The anthropologist therefore seeks evidence linking transfers in one direction to subsequent transfers in the other, independently of changes in the supplier’s output.",
+    "question_text": "Which finding would most directly support the anthropologist’s explanation?",
+    "question_type": "multiple_choice",
+    "choice_a": "Transfers from one settlement were followed by return transfers from the other even during intervals when the common supplier’s output remained unchanged.",
+    "choice_b": "Both settlements possessed tools with the same mineral composition as tools made by the common supplier.",
+    "choice_c": "Tool quantities at both settlements increased during years when the common supplier produced more tools.",
+    "choice_d": "One settlement possessed more tools than the other throughout the period examined.",
+    "choice_e": null,
+    "image_url": null,
+    "correct_answer": "A",
+    "official_explanation": "Linked return transfers when supplier output is stable support reciprocity beyond the common-purchase account. B: Supports common sourcing but does not distinguish reciprocal exchange from independent purchases. C: Fits the supplier-driven alternative without establishing linked transfers. D: A persistent quantity difference does not show obligations or reciprocal transfers.",
+    "source": "PrepSAT/ACT original authored academic stimuli",
+    "source_type": "original",
+    "source_rights_status": "original",
+    "active": false,
+    "approved": false,
+    "review_status": "pending",
+    "answer_verification_status": "pending",
+    "metadata": {
+      "domain": "Information and Ideas",
+      "skill": "Command of Evidence — Textual",
+      "subskill": "evidence must exclude an alternative explanation",
+      "difficulty_level": 6,
+      "estimated_seconds": 90,
+      "difficulty_basis": "editorial",
+      "module_eligibility": [
+        {
+          "module": 1,
+          "route": "common"
+        },
+        {
+          "module": 2,
+          "route": "harder"
+        }
+      ],
+      "distractor_rationales": {
+        "A": "Correct: Linked return transfers when supplier output is stable support reciprocity beyond the common-purchase account.",
+        "B": "Supports common sourcing but does not distinguish reciprocal exchange from independent purchases.",
+        "C": "Fits the supplier-driven alternative without establishing linked transfers.",
+        "D": "A persistent quantity difference does not show obligations or reciprocal transfers."
+      },
+      "graphic_type": null,
+      "graphic_data": null,
+      "originality_evidence": {
+        "original_authorship": true,
+        "no_official_item_reconstruction": true,
+        "method": "Individually authored fictional studies and passages; official framework only"
+      },
+      "validation_evidence": {
+        "generation": true
+      },
+      "validation_status": "pending",
+      "content_hash": "72919666a8fc9cb9fadfdef55dba7a6ac5c33a10f0d51325e7da4c208ba5fdd6"
+    }
+  },
+  {
+    "id": "5d587899-341d-50a9-a9cd-0342050c7ea7",
+    "test_type": "SAT",
+    "section_name": "Reading and Writing",
+    "category_name": "Craft and Structure",
+    "topic_name": "Cross-Text Connections",
+    "subtopic_name": "identify agreement despite contrasting evidence scales",
+    "difficulty": "Hard",
+    "difficulty_score": 1,
+    "difficulty_level": 7,
+    "passage": "Text 1: An economist cautions that a policy’s national average effect cannot establish how every region responded. Regional effects of opposite signs can cancel, and regions need not receive equal weight in the national figure.\n\nText 2: A researcher estimates that a policy increased output by 4% nationally. Her regional analysis finds modest losses in several small regions and larger gains in the two regions that account for most national output.",
+    "question_text": "How would the author of Text 1 most likely characterize the results in Text2?",
+    "question_type": "multiple_choice",
+    "choice_a": "They illustrate how a positive aggregate effect can coexist with negative effects in some regions.",
+    "choice_b": "They undermine the national estimate because every regional effect must share the aggregate effect’s sign.",
+    "choice_c": "They show that positive effects in large regions necessarily exceed the combined losses in every other region under any weighting scheme.",
+    "choice_d": "They establish that the policy’s regional differences arise entirely from differences in regional size.",
+    "choice_e": null,
+    "image_url": null,
+    "correct_answer": "A",
+    "official_explanation": "Text 1 warns against inferring universal regional gains from an aggregate; Text 2 supplies the compatible mixed-sign example. B: Contradicts the caution that regional signs can differ from the aggregate sign. C: Overextends a result under observed weights to every possible weighting scheme. D: Confuses the weights affecting aggregation with the causes of regional effect differences.",
+    "source": "PrepSAT/ACT original authored academic stimuli",
+    "source_type": "original",
+    "source_rights_status": "original",
+    "active": false,
+    "approved": false,
+    "review_status": "pending",
+    "answer_verification_status": "pending",
+    "metadata": {
+      "domain": "Craft and Structure",
+      "skill": "Cross-Text Connections",
+      "subskill": "identify agreement despite contrasting evidence scales",
+      "difficulty_level": 7,
+      "estimated_seconds": 90,
+      "difficulty_basis": "editorial",
+      "module_eligibility": [
+        {
+          "module": 1,
+          "route": "common"
+        },
+        {
+          "module": 2,
+          "route": "harder"
+        }
+      ],
+      "distractor_rationales": {
+        "A": "Correct: Text 1 warns against inferring universal regional gains from an aggregate; Text 2 supplies the compatible mixed-sign example.",
+        "B": "Contradicts the caution that regional signs can differ from the aggregate sign.",
+        "C": "Overextends a result under observed weights to every possible weighting scheme.",
+        "D": "Confuses the weights affecting aggregation with the causes of regional effect differences."
+      },
+      "graphic_type": null,
+      "graphic_data": null,
+      "originality_evidence": {
+        "original_authorship": true,
+        "no_official_item_reconstruction": true,
+        "method": "Individually authored fictional studies and passages; official framework only"
+      },
+      "validation_evidence": {
+        "generation": true
+      },
+      "validation_status": "pending",
+      "content_hash": "088ffd371c4ea2ff0c0eb49af2c894d9105b639b957439c5db09d39d7facd837"
+    }
+  },
+  {
+    "id": "767553b3-dacd-58ca-ad89-816f55c3cc03",
+    "test_type": "SAT",
+    "section_name": "Reading and Writing",
+    "category_name": "Craft and Structure",
+    "topic_name": "Cross-Text Connections",
+    "subtopic_name": "differentiate diagnostic scope from explanatory scope",
+    "difficulty": "Hard",
+    "difficulty_score": 1,
+    "difficulty_level": 7,
+    "passage": "Text 1: A physicist notes that two theoretical models predict the same measured motion at low temperatures. More precise measurement within that range may reduce uncertainty about the motion without distinguishing the models.\n\nText 2: Another physicist proposes testing the models at higher temperatures, where one predicts a sharp change in motion and the other predicts a gradual change. She argues that a less precise measurement there may be more informative for choosing between the models.",
+    "question_text": "Which choice best describes the relationship between the two texts?",
+    "question_type": "multiple_choice",
+    "choice_a": "Text 2 rejects Text1’s claim that greater precision can reduce uncertainty about measured motion.",
+    "choice_b": "Text 2 establishes that less precise measurements are generally more informative than more precise measurements.",
+    "choice_c": "Text 2 offers an explanation for why both models predict identical motion at low temperatures.",
+    "choice_d": "Text 2 proposes changing the conditions to obtain evidence capable of resolving the distinction that Text 1 says greater precision alone may not resolve.",
+    "choice_e": null,
+    "image_url": null,
+    "correct_answer": "D",
+    "official_explanation": "The second text moves to a range where predictions diverge; it does not deny the value of precision within the original range. A: Confuses discriminating models with measuring motion more precisely. B: Generalizes a conditional advantage in this particular test range. C: Proposes a discriminating test rather than explaining the original agreement.",
+    "source": "PrepSAT/ACT original authored academic stimuli",
+    "source_type": "original",
+    "source_rights_status": "original",
+    "active": false,
+    "approved": false,
+    "review_status": "pending",
+    "answer_verification_status": "pending",
+    "metadata": {
+      "domain": "Craft and Structure",
+      "skill": "Cross-Text Connections",
+      "subskill": "differentiate diagnostic scope from explanatory scope",
+      "difficulty_level": 7,
+      "estimated_seconds": 90,
+      "difficulty_basis": "editorial",
+      "module_eligibility": [
+        {
+          "module": 1,
+          "route": "common"
+        },
+        {
+          "module": 2,
+          "route": "harder"
+        }
+      ],
+      "distractor_rationales": {
+        "A": "Confuses discriminating models with measuring motion more precisely.",
+        "B": "Generalizes a conditional advantage in this particular test range.",
+        "C": "Proposes a discriminating test rather than explaining the original agreement.",
+        "D": "Correct: The second text moves to a range where predictions diverge; it does not deny the value of precision within the original range."
+      },
+      "graphic_type": null,
+      "graphic_data": null,
+      "originality_evidence": {
+        "original_authorship": true,
+        "no_official_item_reconstruction": true,
+        "method": "Individually authored fictional studies and passages; official framework only"
+      },
+      "validation_evidence": {
+        "generation": true
+      },
+      "validation_status": "pending",
+      "content_hash": "1cb48a5fa70b9e9ef2847393711132c6fdd0b7dbd14cc6863e4ebc794c8aa1d4"
+    }
+  },
+  {
+    "id": "169f8230-82fe-50d6-acfc-a89d0ee4283d",
+    "test_type": "SAT",
+    "section_name": "Reading and Writing",
+    "category_name": "Craft and Structure",
+    "topic_name": "Words in Context",
+    "subtopic_name": "infer qualified evaluative meaning",
+    "difficulty": "Medium",
+    "difficulty_score": 0.6666666666666666,
+    "difficulty_level": 5,
+    "passage": "The historian calls the archive’s coverage patchy, not because its surviving documents are fragmentary, but because they cluster around a few prosperous families. For those families the record is exceptionally complete; for most other residents, even major events leave no trace. The difficulty lies in extrapolating from the archive, not in deciphering its individual documents.",
+    "question_text": "As used in the text, “patchy” most nearly means",
+    "question_type": "multiple_choice",
+    "choice_a": "assembled from unrelated sources",
+    "choice_b": "uneven in representation",
+    "choice_c": "damaged in physical condition",
+    "choice_d": "inconsistent in factual accuracy",
+    "choice_e": null,
+    "image_url": null,
+    "correct_answer": "B",
+    "official_explanation": "The archive covers certain families fully while omitting others, so its representation is uneven. A: Infers unrelated provenance rather than unequal representation. C: Applies a physical sense the text explicitly distinguishes from the problem. D: Confuses unequal coverage with unreliable statements in surviving documents.",
+    "source": "PrepSAT/ACT original authored academic stimuli",
+    "source_type": "original",
+    "source_rights_status": "original",
+    "active": false,
+    "approved": false,
+    "review_status": "pending",
+    "answer_verification_status": "pending",
+    "metadata": {
+      "domain": "Craft and Structure",
+      "skill": "Words in Context",
+      "subskill": "infer qualified evaluative meaning",
+      "difficulty_level": 5,
+      "estimated_seconds": 70,
+      "difficulty_basis": "editorial",
+      "module_eligibility": [
+        {
+          "module": 1,
+          "route": "common"
+        },
+        {
+          "module": 2,
+          "route": "harder"
+        }
+      ],
+      "distractor_rationales": {
+        "A": "Infers unrelated provenance rather than unequal representation.",
+        "B": "Correct: The archive covers certain families fully while omitting others, so its representation is uneven.",
+        "C": "Applies a physical sense the text explicitly distinguishes from the problem.",
+        "D": "Confuses unequal coverage with unreliable statements in surviving documents."
+      },
+      "graphic_type": null,
+      "graphic_data": null,
+      "originality_evidence": {
+        "original_authorship": true,
+        "no_official_item_reconstruction": true,
+        "method": "Individually authored fictional studies and passages; official framework only"
+      },
+      "validation_evidence": {
+        "generation": true
+      },
+      "validation_status": "pending",
+      "content_hash": "37c2d0365ae9c52f8ecf53114cfd3681eb7c44e82a9d9e9d0f741695478beffe"
+    }
+  },
+  {
+    "id": "a02703ae-e614-5b79-ad36-428e7f90e78c",
+    "test_type": "SAT",
+    "section_name": "Reading and Writing",
+    "category_name": "Craft and Structure",
+    "topic_name": "Words in Context",
+    "subtopic_name": "identify intended sense across related alternatives",
+    "difficulty": "Hard",
+    "difficulty_score": 0.8333333333333334,
+    "difficulty_level": 6,
+    "passage": "Although the artist’s early sketches appear tentative, their apparent looseness should not be mistaken for indecision. The lines register alternatives that the finished painting deliberately suppresses. A critic describes the sketches as exploratory: their value lies less in anticipating the final arrangement than in preserving the range of possibilities through which that arrangement emerged.",
+    "question_text": "As used in the text, “register” most nearly means",
+    "question_type": "multiple_choice",
+    "choice_a": "endorse",
+    "choice_b": "coordinate",
+    "choice_c": "recognize",
+    "choice_d": "record",
+    "choice_e": null,
+    "image_url": null,
+    "correct_answer": "D",
+    "official_explanation": "The lines preserve or record alternative possibilities; they neither approve all alternatives nor merely notice them. A: Suggests approval rather than documentation. B: Suggests arranging alternatives into a unified relation rather than preserving them. C: Uses a noticing sense that does not fit lines serving as a lasting record.",
+    "source": "PrepSAT/ACT original authored academic stimuli",
+    "source_type": "original",
+    "source_rights_status": "original",
+    "active": false,
+    "approved": false,
+    "review_status": "pending",
+    "answer_verification_status": "pending",
+    "metadata": {
+      "domain": "Craft and Structure",
+      "skill": "Words in Context",
+      "subskill": "identify intended sense across related alternatives",
+      "difficulty_level": 6,
+      "estimated_seconds": 90,
+      "difficulty_basis": "editorial",
+      "module_eligibility": [
+        {
+          "module": 1,
+          "route": "common"
+        },
+        {
+          "module": 2,
+          "route": "harder"
+        }
+      ],
+      "distractor_rationales": {
+        "A": "Suggests approval rather than documentation.",
+        "B": "Suggests arranging alternatives into a unified relation rather than preserving them.",
+        "C": "Uses a noticing sense that does not fit lines serving as a lasting record.",
+        "D": "Correct: The lines preserve or record alternative possibilities; they neither approve all alternatives nor merely notice them."
+      },
+      "graphic_type": null,
+      "graphic_data": null,
+      "originality_evidence": {
+        "original_authorship": true,
+        "no_official_item_reconstruction": true,
+        "method": "Individually authored fictional studies and passages; official framework only"
+      },
+      "validation_evidence": {
+        "generation": true
+      },
+      "validation_status": "pending",
+      "content_hash": "5a8791bf494f05a9d06e4783e73311b03ac23d9ded24a84704b66758e3124bf8"
+    }
+  },
+  {
+    "id": "3603b388-1d95-5dae-a965-7b81a818b4e1",
+    "test_type": "SAT",
+    "section_name": "Reading and Writing",
+    "category_name": "Craft and Structure",
+    "topic_name": "Text Structure and Purpose",
+    "subtopic_name": "role of a concession within a challenge",
+    "difficulty": "Hard",
+    "difficulty_score": 0.8333333333333334,
+    "difficulty_level": 6,
+    "passage": "A theorist grants that a standardized examination can rank students consistently across repeated administrations. She then asks whether consistency establishes that the examination measures the intended ability. A clock that runs at a constant but incorrect rate, she observes, is consistent without being accurate. Her criticism does not deny the observed consistency; it challenges the conclusion drawn from it.",
+    "question_text": "What role does the clock comparison play in the text?",
+    "question_type": "multiple_choice",
+    "choice_a": "It proposes replacing repeated examinations with measurements of clock accuracy.",
+    "choice_b": "It establishes that the examination’s rankings are consistently incorrect.",
+    "choice_c": "It illustrates why the acknowledged consistency is insufficient to establish the additional property under discussion.",
+    "choice_d": "It disputes the finding that the examination ranks students consistently.",
+    "choice_e": null,
+    "image_url": null,
+    "correct_answer": "C",
+    "official_explanation": "The analogy distinguishes consistency from validity without asserting that the particular examination is actually invalid. A: Treats an analogy as a proposed research method. B: Turns failure to establish correctness into proof of incorrectness. D: Mistakes a challenge to the inference for a rejection of its premise.",
+    "source": "PrepSAT/ACT original authored academic stimuli",
+    "source_type": "original",
+    "source_rights_status": "original",
+    "active": false,
+    "approved": false,
+    "review_status": "pending",
+    "answer_verification_status": "pending",
+    "metadata": {
+      "domain": "Craft and Structure",
+      "skill": "Text Structure and Purpose",
+      "subskill": "role of a concession within a challenge",
+      "difficulty_level": 6,
+      "estimated_seconds": 90,
+      "difficulty_basis": "editorial",
+      "module_eligibility": [
+        {
+          "module": 1,
+          "route": "common"
+        },
+        {
+          "module": 2,
+          "route": "harder"
+        }
+      ],
+      "distractor_rationales": {
+        "A": "Treats an analogy as a proposed research method.",
+        "B": "Turns failure to establish correctness into proof of incorrectness.",
+        "C": "Correct: The analogy distinguishes consistency from validity without asserting that the particular examination is actually invalid.",
+        "D": "Mistakes a challenge to the inference for a rejection of its premise."
+      },
+      "graphic_type": null,
+      "graphic_data": null,
+      "originality_evidence": {
+        "original_authorship": true,
+        "no_official_item_reconstruction": true,
+        "method": "Individually authored fictional studies and passages; official framework only"
+      },
+      "validation_evidence": {
+        "generation": true
+      },
+      "validation_status": "pending",
+      "content_hash": "a6e1322f1f3f3136377463600ccb7262d70826cc1dccf0d0a4eaa33a1997341b"
+    }
+  },
+  {
+    "id": "7f7e4465-d9e8-5913-adb5-20b3e7ee47f0",
+    "test_type": "SAT",
+    "section_name": "Reading and Writing",
+    "category_name": "Craft and Structure",
+    "topic_name": "Text Structure and Purpose",
+    "subtopic_name": "trace shift from observation to bounded hypothesis",
+    "difficulty": "Hard",
+    "difficulty_score": 1,
+    "difficulty_level": 7,
+    "passage": "A paleontologist observes that one fossil lineage developed a similar jaw shape in two separate intervals. She considers whether the resemblance reflects adaptation to a recurring food source, but notes that similar shapes can perform different functions. Rather than treating resemblance as an explanation, she identifies wear patterns that would be expected if the proposed feeding function were correct.",
+    "question_text": "Which choice best describes the structure of the text?",
+    "question_type": "multiple_choice",
+    "choice_a": "It establishes a recurring feeding function and explains why the jaw shapes associated with it differ.",
+    "choice_b": "It challenges the occurrence of a recurring pattern by showing that shape and function need not correspond.",
+    "choice_c": "It presents a recurring pattern, qualifies one interpretation of that pattern, and identifies evidence that could test the interpretation.",
+    "choice_d": "It presents two opposing explanations, rejects one using wear patterns, and endorses the other.",
+    "choice_e": null,
+    "image_url": null,
+    "correct_answer": "C",
+    "official_explanation": "The text moves from resemblance to a tentative adaptive explanation and then to a discriminating test; no wear result is reported. A: Confuses a proposed feeding function with an established one and reverses the shape relationship. B: Mistakes caution about interpretation for doubt about the observed resemblance. D: Invents both a second developed explanation and a completed test result.",
+    "source": "PrepSAT/ACT original authored academic stimuli",
+    "source_type": "original",
+    "source_rights_status": "original",
+    "active": false,
+    "approved": false,
+    "review_status": "pending",
+    "answer_verification_status": "pending",
+    "metadata": {
+      "domain": "Craft and Structure",
+      "skill": "Text Structure and Purpose",
+      "subskill": "trace shift from observation to bounded hypothesis",
+      "difficulty_level": 7,
+      "estimated_seconds": 90,
+      "difficulty_basis": "editorial",
+      "module_eligibility": [
+        {
+          "module": 1,
+          "route": "common"
+        },
+        {
+          "module": 2,
+          "route": "harder"
+        }
+      ],
+      "distractor_rationales": {
+        "A": "Confuses a proposed feeding function with an established one and reverses the shape relationship.",
+        "B": "Mistakes caution about interpretation for doubt about the observed resemblance.",
+        "C": "Correct: The text moves from resemblance to a tentative adaptive explanation and then to a discriminating test; no wear result is reported.",
+        "D": "Invents both a second developed explanation and a completed test result."
+      },
+      "graphic_type": null,
+      "graphic_data": null,
+      "originality_evidence": {
+        "original_authorship": true,
+        "no_official_item_reconstruction": true,
+        "method": "Individually authored fictional studies and passages; official framework only"
+      },
+      "validation_evidence": {
+        "generation": true
+      },
+      "validation_status": "pending",
+      "content_hash": "d35163bd4c0fb25b689873fee6e543291ad3249e8628739e4bb873a250b65fe8"
+    }
+  },
+  {
+    "id": "0cd4bc4e-a2a4-5a62-abdb-548e49ab84e2",
+    "test_type": "SAT",
+    "section_name": "Reading and Writing",
+    "category_name": "Craft and Structure",
+    "topic_name": "Words in Context",
+    "subtopic_name": "distinguish critical judgment from dismissal",
+    "difficulty": "Medium",
+    "difficulty_score": 0.6666666666666666,
+    "difficulty_level": 5,
+    "passage": "A musicologist describes a composer’s reliance on folk melodies as selective. The composer retained rhythmic features that suited the ensemble but omitted ornaments that depended on the original singers’ vocal techniques. The resulting score does not reproduce the source performances; neither does it draw on them indiscriminately.",
+    "question_text": "As used in the text, “selective” most nearly means",
+    "question_type": "multiple_choice",
+    "choice_a": "skeptical of the sources’ value",
+    "choice_b": "discriminating in what is retained",
+    "choice_c": "limited to a single source",
+    "choice_d": "accurate in reproducing details",
+    "choice_e": null,
+    "image_url": null,
+    "correct_answer": "B",
+    "official_explanation": "The composer chooses particular features according to their suitability and omits others. A: Infers a negative evaluation of source value rather than adaptation to an ensemble. C: Mistakes selection of features for selection of only one source. D: Contradicts the explicit distinction from reproduction.",
+    "source": "PrepSAT/ACT original authored academic stimuli",
+    "source_type": "original",
+    "source_rights_status": "original",
+    "active": false,
+    "approved": false,
+    "review_status": "pending",
+    "answer_verification_status": "pending",
+    "metadata": {
+      "domain": "Craft and Structure",
+      "skill": "Words in Context",
+      "subskill": "distinguish critical judgment from dismissal",
+      "difficulty_level": 5,
+      "estimated_seconds": 70,
+      "difficulty_basis": "editorial",
+      "module_eligibility": [
+        {
+          "module": 1,
+          "route": "common"
+        },
+        {
+          "module": 2,
+          "route": "harder"
+        }
+      ],
+      "distractor_rationales": {
+        "A": "Infers a negative evaluation of source value rather than adaptation to an ensemble.",
+        "B": "Correct: The composer chooses particular features according to their suitability and omits others.",
+        "C": "Mistakes selection of features for selection of only one source.",
+        "D": "Contradicts the explicit distinction from reproduction."
+      },
+      "graphic_type": null,
+      "graphic_data": null,
+      "originality_evidence": {
+        "original_authorship": true,
+        "no_official_item_reconstruction": true,
+        "method": "Individually authored fictional studies and passages; official framework only"
+      },
+      "validation_evidence": {
+        "generation": true
+      },
+      "validation_status": "pending",
+      "content_hash": "d0e29db86bc51fffb818cf4b779c7efddb2bd547bd03c836789b8dc1bc000cab"
+    }
+  },
+  {
+    "id": "ba6d697b-366b-5c15-adf3-c8ea2d5e8490",
+    "test_type": "SAT",
+    "section_name": "Reading and Writing",
+    "category_name": "Expression of Ideas",
+    "topic_name": "Transitions",
+    "subtopic_name": "distinguish correction from concession",
+    "difficulty": "Hard",
+    "difficulty_score": 0.8333333333333334,
+    "difficulty_level": 6,
+    "passage": "A historian notes that an ordinance’s repeated renewal does not necessarily show repeated compliance. Reissuing the same prohibition may instead indicate that officials continued to encounter the prohibited behavior. ________, the recurrence of the rule can sometimes be evidence of its limited effectiveness rather than its successful enforcement.",
+    "question_text": "Which choice completes the text with the most logical transition?",
+    "question_type": "multiple_choice",
+    "choice_a": "Meanwhile",
+    "choice_b": "Thus",
+    "choice_c": "Nevertheless",
+    "choice_d": "Similarly",
+    "choice_e": null,
+    "image_url": null,
+    "correct_answer": "B",
+    "official_explanation": "The final sentence draws the consequence of the preceding alternative interpretation. A: Indicates simultaneity without the inferential relationship. C: Introduces a concession even though the final interpretation follows the preceding explanation. D: Suggests a separate parallel example rather than a conclusion about the same recurrence.",
+    "source": "PrepSAT/ACT original authored academic stimuli",
+    "source_type": "original",
+    "source_rights_status": "original",
+    "active": false,
+    "approved": false,
+    "review_status": "pending",
+    "answer_verification_status": "pending",
+    "metadata": {
+      "domain": "Expression of Ideas",
+      "skill": "Transitions",
+      "subskill": "distinguish correction from concession",
+      "difficulty_level": 6,
+      "estimated_seconds": 90,
+      "difficulty_basis": "editorial",
+      "module_eligibility": [
+        {
+          "module": 1,
+          "route": "common"
+        },
+        {
+          "module": 2,
+          "route": "harder"
+        }
+      ],
+      "distractor_rationales": {
+        "A": "Indicates simultaneity without the inferential relationship.",
+        "B": "Correct: The final sentence draws the consequence of the preceding alternative interpretation.",
+        "C": "Introduces a concession even though the final interpretation follows the preceding explanation.",
+        "D": "Suggests a separate parallel example rather than a conclusion about the same recurrence."
+      },
+      "graphic_type": null,
+      "graphic_data": null,
+      "originality_evidence": {
+        "original_authorship": true,
+        "no_official_item_reconstruction": true,
+        "method": "Individually authored fictional studies and passages; official framework only"
+      },
+      "validation_evidence": {
+        "generation": true
+      },
+      "validation_status": "pending",
+      "content_hash": "c0baa4112079fba4025df17ae34a73f1b524545780ee59e5c79eaa6121b39c96"
+    }
+  },
+  {
+    "id": "1cce29cc-f664-58b9-ad4a-fd5f19991f01",
+    "test_type": "SAT",
+    "section_name": "Reading and Writing",
+    "category_name": "Expression of Ideas",
+    "topic_name": "Transitions",
+    "subtopic_name": "preserve contrast across nested concessions",
+    "difficulty": "Hard",
+    "difficulty_score": 0.8333333333333334,
+    "difficulty_level": 6,
+    "passage": "Astronomers obtained more observations, reducing random uncertainty in the estimated brightness of a star. The extra observations all came from the same instrument, whose calibration might contain a fixed bias. ________, the improved precision did not by itself establish that the brightness estimate was closer to the true value.",
+    "question_text": "Which choice completes the text with the most logical transition?",
+    "question_type": "multiple_choice",
+    "choice_a": "For instance",
+    "choice_b": "Likewise",
+    "choice_c": "Consequently",
+    "choice_d": "For comparison",
+    "choice_e": null,
+    "image_url": null,
+    "correct_answer": "C",
+    "official_explanation": "The final sentence follows from the unchanged possible bias: greater precision alone does not establish improved accuracy. A: Treats the conclusion as an example of a broader preceding claim. B: Introduces similarity rather than the causal limitation. D: Introduces comparison where the conclusion instead follows from a limitation of the measurement.",
+    "source": "PrepSAT/ACT original authored academic stimuli",
+    "source_type": "original",
+    "source_rights_status": "original",
+    "active": false,
+    "approved": false,
+    "review_status": "pending",
+    "answer_verification_status": "pending",
+    "metadata": {
+      "domain": "Expression of Ideas",
+      "skill": "Transitions",
+      "subskill": "preserve contrast across nested concessions",
+      "difficulty_level": 6,
+      "estimated_seconds": 90,
+      "difficulty_basis": "editorial",
+      "module_eligibility": [
+        {
+          "module": 1,
+          "route": "common"
+        },
+        {
+          "module": 2,
+          "route": "harder"
+        }
+      ],
+      "distractor_rationales": {
+        "A": "Treats the conclusion as an example of a broader preceding claim.",
+        "B": "Introduces similarity rather than the causal limitation.",
+        "C": "Correct: The final sentence follows from the unchanged possible bias: greater precision alone does not establish improved accuracy.",
+        "D": "Introduces comparison where the conclusion instead follows from a limitation of the measurement."
+      },
+      "graphic_type": null,
+      "graphic_data": null,
+      "originality_evidence": {
+        "original_authorship": true,
+        "no_official_item_reconstruction": true,
+        "method": "Individually authored fictional studies and passages; official framework only"
+      },
+      "validation_evidence": {
+        "generation": true
+      },
+      "validation_status": "pending",
+      "content_hash": "ae3d800f7315d21f138695509c528cf85c454dc9818beb59d830c7fb1cccc989"
+    }
+  },
+  {
+    "id": "be95add0-e52e-55cc-a244-b21e7fd0c91c",
+    "test_type": "SAT",
+    "section_name": "Reading and Writing",
+    "category_name": "Expression of Ideas",
+    "topic_name": "Transitions",
+    "subtopic_name": "connect a condition-sensitive conclusion",
+    "difficulty": "Hard",
+    "difficulty_score": 1,
+    "difficulty_level": 7,
+    "passage": "An economist estimates that a subsidy lowered participating firms’ costs. She cautions that lower costs need not translate into lower consumer prices when a firm faces little competition. In the markets she studied, however, several rival firms competed for the same customers. ________, the general caution does not rule out a price reduction in those particular markets.",
+    "question_text": "Which choice completes the text with the most logical transition?",
+    "question_type": "multiple_choice",
+    "choice_a": "Conversely",
+    "choice_b": "Regardless",
+    "choice_c": "For example",
+    "choice_d": "Accordingly",
+    "choice_e": null,
+    "image_url": null,
+    "correct_answer": "D",
+    "official_explanation": "The observed competition removes the condition emphasized in the caution, supporting the limited conclusion that a reduction is not ruled out. A: Introduces a reversed relationship rather than applying a condition-sensitive caution. B: Suggests ignoring the market evidence instead of using it to support the conclusion. C: Presents an example rather than drawing the conclusion about the studied markets.",
+    "source": "PrepSAT/ACT original authored academic stimuli",
+    "source_type": "original",
+    "source_rights_status": "original",
+    "active": false,
+    "approved": false,
+    "review_status": "pending",
+    "answer_verification_status": "pending",
+    "metadata": {
+      "domain": "Expression of Ideas",
+      "skill": "Transitions",
+      "subskill": "connect a condition-sensitive conclusion",
+      "difficulty_level": 7,
+      "estimated_seconds": 90,
+      "difficulty_basis": "editorial",
+      "module_eligibility": [
+        {
+          "module": 1,
+          "route": "common"
+        },
+        {
+          "module": 2,
+          "route": "harder"
+        }
+      ],
+      "distractor_rationales": {
+        "A": "Introduces a reversed relationship rather than applying a condition-sensitive caution.",
+        "B": "Suggests ignoring the market evidence instead of using it to support the conclusion.",
+        "C": "Presents an example rather than drawing the conclusion about the studied markets.",
+        "D": "Correct: The observed competition removes the condition emphasized in the caution, supporting the limited conclusion that a reduction is not ruled out."
+      },
+      "graphic_type": null,
+      "graphic_data": null,
+      "originality_evidence": {
+        "original_authorship": true,
+        "no_official_item_reconstruction": true,
+        "method": "Individually authored fictional studies and passages; official framework only"
+      },
+      "validation_evidence": {
+        "generation": true
+      },
+      "validation_status": "pending",
+      "content_hash": "41141a75e221a27f99619af2822d0fa6de2790379902d9b1608ff47598fe0426"
+    }
+  },
+  {
+    "id": "3163d187-d091-5af4-a7a5-b98f26795305",
+    "test_type": "SAT",
+    "section_name": "Reading and Writing",
+    "category_name": "Expression of Ideas",
+    "topic_name": "Rhetorical Synthesis",
+    "subtopic_name": "avoid causal overclaim while reporting association",
+    "difficulty": "Hard",
+    "difficulty_score": 0.8333333333333334,
+    "difficulty_level": 6,
+    "passage": "While researching urban heat, a student has taken these notes:\n• A survey compared neighborhoods with different amounts of tree cover.\n• Neighborhoods with more tree cover had lower afternoon temperatures.\n• The survey did not randomly assign tree cover.\n• Building density also differed among neighborhoods.\n• The authors reported an association and recommended further causal research.",
+    "question_text": "The student wants to summarize the finding without overstating what the survey establishes. Which choice most effectively accomplishes this goal?",
+    "question_type": "multiple_choice",
+    "choice_a": "The survey established that increasing tree cover lowers temperatures regardless of building density.",
+    "choice_b": "Differences in building density explain the entire relationship between tree cover and temperature.",
+    "choice_c": "Because tree cover was not randomly assigned, the survey identified no relationship between tree cover and temperature.",
+    "choice_d": "Greater tree cover was associated with lower afternoon temperatures, although the survey did not isolate tree cover’s causal effect.",
+    "choice_e": null,
+    "image_url": null,
+    "correct_answer": "D",
+    "official_explanation": "The correct choice states the measured association and its causal limitation without inventing an explanation. A: Converts an observational association into a universal causal claim. B: Asserts a complete alternative explanation that the notes do not establish. C: Confuses inability to isolate causation with inability to observe an association.",
+    "source": "PrepSAT/ACT original authored academic stimuli",
+    "source_type": "original",
+    "source_rights_status": "original",
+    "active": false,
+    "approved": false,
+    "review_status": "pending",
+    "answer_verification_status": "pending",
+    "metadata": {
+      "domain": "Expression of Ideas",
+      "skill": "Rhetorical Synthesis",
+      "subskill": "avoid causal overclaim while reporting association",
+      "difficulty_level": 6,
+      "estimated_seconds": 90,
+      "difficulty_basis": "editorial",
+      "module_eligibility": [
+        {
+          "module": 1,
+          "route": "common"
+        },
+        {
+          "module": 2,
+          "route": "harder"
+        }
+      ],
+      "distractor_rationales": {
+        "A": "Converts an observational association into a universal causal claim.",
+        "B": "Asserts a complete alternative explanation that the notes do not establish.",
+        "C": "Confuses inability to isolate causation with inability to observe an association.",
+        "D": "Correct: The correct choice states the measured association and its causal limitation without inventing an explanation."
+      },
+      "graphic_type": null,
+      "graphic_data": null,
+      "originality_evidence": {
+        "original_authorship": true,
+        "no_official_item_reconstruction": true,
+        "method": "Individually authored fictional studies and passages; official framework only"
+      },
+      "validation_evidence": {
+        "generation": true
+      },
+      "validation_status": "pending",
+      "content_hash": "24062955a5cb9ff3f68ebf6b650cf8f24a6b57d9c14b449b371aa149312eafa3"
+    }
+  },
+  {
+    "id": "6ec72b6e-c3f8-5460-a5e7-3a2c6dba88df",
+    "test_type": "SAT",
+    "section_name": "Reading and Writing",
+    "category_name": "Expression of Ideas",
+    "topic_name": "Rhetorical Synthesis",
+    "subtopic_name": "compare dependent measures without conflating them",
+    "difficulty": "Hard",
+    "difficulty_score": 1,
+    "difficulty_level": 7,
+    "passage": "While researching a translation, a student has taken these notes:\n• Version A preserves the source text’s sentence order.\n• Version B rearranges sentences to preserve connections that depend on wordplay.\n• Readers rated Version A as easier to compare line by line with the source.\n• Readers rated Version B as conveying the source’s humor more effectively.\n• The study did not rank overall translation quality.",
+    "question_text": "The student wants to contrast the versions using the reader findings while avoiding an unsupported overall ranking. Which choice most effectively accomplishes this goal?",
+    "question_type": "multiple_choice",
+    "choice_a": "Readers preferred Version A’s humor because its sentences followed the source order.",
+    "choice_b": "The study found the versions equivalent in overall quality despite their different sentence arrangements.",
+    "choice_c": "Readers found Version A easier to compare line by line, but found Version B more effective at conveying humor; these judgments concerned different qualities.",
+    "choice_d": "Version B was the better translation because readers rated its humor more highly.",
+    "choice_e": null,
+    "image_url": null,
+    "correct_answer": "C",
+    "official_explanation": "The choice accurately contrasts the two reader judgments and keeps them separate from an unmeasured overall ranking. A: Misattributes the humor finding to Version A. B: Turns the absence of an overall ranking into evidence of equality. D: Elevates one measured quality into an overall quality conclusion.",
+    "source": "PrepSAT/ACT original authored academic stimuli",
+    "source_type": "original",
+    "source_rights_status": "original",
+    "active": false,
+    "approved": false,
+    "review_status": "pending",
+    "answer_verification_status": "pending",
+    "metadata": {
+      "domain": "Expression of Ideas",
+      "skill": "Rhetorical Synthesis",
+      "subskill": "compare dependent measures without conflating them",
+      "difficulty_level": 7,
+      "estimated_seconds": 90,
+      "difficulty_basis": "editorial",
+      "module_eligibility": [
+        {
+          "module": 1,
+          "route": "common"
+        },
+        {
+          "module": 2,
+          "route": "harder"
+        }
+      ],
+      "distractor_rationales": {
+        "A": "Misattributes the humor finding to Version A.",
+        "B": "Turns the absence of an overall ranking into evidence of equality.",
+        "C": "Correct: The choice accurately contrasts the two reader judgments and keeps them separate from an unmeasured overall ranking.",
+        "D": "Elevates one measured quality into an overall quality conclusion."
+      },
+      "graphic_type": null,
+      "graphic_data": null,
+      "originality_evidence": {
+        "original_authorship": true,
+        "no_official_item_reconstruction": true,
+        "method": "Individually authored fictional studies and passages; official framework only"
+      },
+      "validation_evidence": {
+        "generation": true
+      },
+      "validation_status": "pending",
+      "content_hash": "fbdf00beaaca59344194e8a6dd7c262eaafaa01ba4693eeed0bf620f920858cf"
+    }
+  },
+  {
+    "id": "608d32a1-831a-51f6-ad31-fb887fda838e",
+    "test_type": "SAT",
+    "section_name": "Reading and Writing",
+    "category_name": "Expression of Ideas",
+    "topic_name": "Rhetorical Synthesis",
+    "subtopic_name": "explain a common result through contrasting mechanisms",
+    "difficulty": "Hard",
+    "difficulty_score": 0.8333333333333334,
+    "difficulty_level": 6,
+    "passage": "While researching astronomy, a student has taken these notes:\n• Method A estimates a planet’s mass from its gravitational effect on a star.\n• Method B estimates a planet’s size from the fraction of starlight blocked during a transit.\n• Combining mass and size estimates allows researchers to estimate average density.\n• Neither method alone supplies both mass and size.",
+    "question_text": "The student wants to explain why the methods are complementary. Which choice most effectively uses relevant information from the notes?",
+    "question_type": "multiple_choice",
+    "choice_a": "Method A is more accurate than Method B because gravitational effects reveal mass directly.",
+    "choice_b": "The methods are complementary because each supplies the same measurements through a different mechanism.",
+    "choice_c": "The methods provide different quantities—mass and size—that together allow an estimate of average density.",
+    "choice_d": "Both methods independently determine average density by observing changes in a star.",
+    "choice_e": null,
+    "image_url": null,
+    "correct_answer": "C",
+    "official_explanation": "The correct choice identifies the distinct inputs and the result made possible by combining them. A: Invents an accuracy comparison. B: Confuses complementary different quantities with redundant identical measurements. D: Contradicts the stated limitation of either method alone.",
+    "source": "PrepSAT/ACT original authored academic stimuli",
+    "source_type": "original",
+    "source_rights_status": "original",
+    "active": false,
+    "approved": false,
+    "review_status": "pending",
+    "answer_verification_status": "pending",
+    "metadata": {
+      "domain": "Expression of Ideas",
+      "skill": "Rhetorical Synthesis",
+      "subskill": "explain a common result through contrasting mechanisms",
+      "difficulty_level": 6,
+      "estimated_seconds": 90,
+      "difficulty_basis": "editorial",
+      "module_eligibility": [
+        {
+          "module": 1,
+          "route": "common"
+        },
+        {
+          "module": 2,
+          "route": "harder"
+        }
+      ],
+      "distractor_rationales": {
+        "A": "Invents an accuracy comparison.",
+        "B": "Confuses complementary different quantities with redundant identical measurements.",
+        "C": "Correct: The correct choice identifies the distinct inputs and the result made possible by combining them.",
+        "D": "Contradicts the stated limitation of either method alone."
+      },
+      "graphic_type": null,
+      "graphic_data": null,
+      "originality_evidence": {
+        "original_authorship": true,
+        "no_official_item_reconstruction": true,
+        "method": "Individually authored fictional studies and passages; official framework only"
+      },
+      "validation_evidence": {
+        "generation": true
+      },
+      "validation_status": "pending",
+      "content_hash": "bf68c971d590f8f37ee269898a82a6e516e5f4485bc43a93ac6e657b3d5a2540"
+    }
+  },
+  {
+    "id": "c2576054-7587-55b6-a2f7-e849bb127494",
+    "test_type": "SAT",
+    "section_name": "Reading and Writing",
+    "category_name": "Standard English Conventions",
+    "topic_name": "Boundaries",
+    "subtopic_name": "independent clause plus conjunctive adverb",
+    "difficulty": "Hard",
+    "difficulty_score": 0.8333333333333334,
+    "difficulty_level": 6,
+    "passage": "The revised model reproduced the observed seasonal ________ however, it failed to explain the unusually rapid changes recorded during individual storms. The researchers therefore regarded its agreement with the seasonal pattern as a partial success rather than a complete explanation.",
+    "question_text": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+    "question_type": "multiple_choice",
+    "choice_a": "pattern;",
+    "choice_b": "pattern,",
+    "choice_c": "pattern",
+    "choice_d": "pattern and;",
+    "choice_e": null,
+    "image_url": null,
+    "correct_answer": "A",
+    "official_explanation": "The clauses on either side of however are independent; a semicolon joins them before the conjunctive adverb. B: Creates a comma splice. C: Creates a fused sentence. D: Places a semicolon after the coordinating conjunction instead of correctly joining the independent clauses.",
+    "source": "PrepSAT/ACT original authored academic stimuli",
+    "source_type": "original",
+    "source_rights_status": "original",
+    "active": false,
+    "approved": false,
+    "review_status": "pending",
+    "answer_verification_status": "pending",
+    "metadata": {
+      "domain": "Standard English Conventions",
+      "skill": "Boundaries",
+      "subskill": "independent clause plus conjunctive adverb",
+      "difficulty_level": 6,
+      "estimated_seconds": 90,
+      "difficulty_basis": "editorial",
+      "module_eligibility": [
+        {
+          "module": 1,
+          "route": "common"
+        },
+        {
+          "module": 2,
+          "route": "harder"
+        }
+      ],
+      "distractor_rationales": {
+        "A": "Correct: The clauses on either side of however are independent; a semicolon joins them before the conjunctive adverb.",
+        "B": "Creates a comma splice.",
+        "C": "Creates a fused sentence.",
+        "D": "Places a semicolon after the coordinating conjunction instead of correctly joining the independent clauses."
+      },
+      "graphic_type": null,
+      "graphic_data": null,
+      "originality_evidence": {
+        "original_authorship": true,
+        "no_official_item_reconstruction": true,
+        "method": "Individually authored fictional studies and passages; official framework only"
+      },
+      "validation_evidence": {
+        "generation": true
+      },
+      "validation_status": "pending",
+      "content_hash": "68066e3fca983401a618dec88c3bb8dea1547e573a2e4d8b7f86863e1765c8ca"
+    }
+  },
+  {
+    "id": "84b50fdf-dbd3-5ad4-a04a-90ac23c596bc",
+    "test_type": "SAT",
+    "section_name": "Reading and Writing",
+    "category_name": "Standard English Conventions",
+    "topic_name": "Boundaries",
+    "subtopic_name": "restrictive relative clause and main predicate",
+    "difficulty": "Hard",
+    "difficulty_score": 0.8333333333333334,
+    "difficulty_level": 6,
+    "passage": "The fragments of ceramic that archaeologists recovered from the deepest ________ contain a mineral absent from the fragments found closer to the surface. This difference may reflect a change in the source of clay used at the settlement.",
+    "question_text": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+    "question_type": "multiple_choice",
+    "choice_a": "layer:",
+    "choice_b": "layer",
+    "choice_c": "layer,",
+    "choice_d": "layer;",
+    "choice_e": null,
+    "image_url": null,
+    "correct_answer": "B",
+    "official_explanation": "The restrictive relative clause ends at layer; no punctuation should separate the full subject from its main verb contain. A: Uses a colon after an incomplete clause and separates subject from verb. C: Unnecessarily separates the subject from its predicate. D: Places a semicolon between a subject and its verb rather than independent clauses.",
+    "source": "PrepSAT/ACT original authored academic stimuli",
+    "source_type": "original",
+    "source_rights_status": "original",
+    "active": false,
+    "approved": false,
+    "review_status": "pending",
+    "answer_verification_status": "pending",
+    "metadata": {
+      "domain": "Standard English Conventions",
+      "skill": "Boundaries",
+      "subskill": "restrictive relative clause and main predicate",
+      "difficulty_level": 6,
+      "estimated_seconds": 90,
+      "difficulty_basis": "editorial",
+      "module_eligibility": [
+        {
+          "module": 1,
+          "route": "common"
+        },
+        {
+          "module": 2,
+          "route": "harder"
+        }
+      ],
+      "distractor_rationales": {
+        "A": "Uses a colon after an incomplete clause and separates subject from verb.",
+        "B": "Correct: The restrictive relative clause ends at layer; no punctuation should separate the full subject from its main verb contain.",
+        "C": "Unnecessarily separates the subject from its predicate.",
+        "D": "Places a semicolon between a subject and its verb rather than independent clauses."
+      },
+      "graphic_type": null,
+      "graphic_data": null,
+      "originality_evidence": {
+        "original_authorship": true,
+        "no_official_item_reconstruction": true,
+        "method": "Individually authored fictional studies and passages; official framework only"
+      },
+      "validation_evidence": {
+        "generation": true
+      },
+      "validation_status": "pending",
+      "content_hash": "861977061e05f51030c71c64930b9f7be3ea9687e430021db6a9a92e79d5585a"
+    }
+  },
+  {
+    "id": "75b7dee8-13cf-5af4-a043-8f04ddb49487",
+    "test_type": "SAT",
+    "section_name": "Reading and Writing",
+    "category_name": "Standard English Conventions",
+    "topic_name": "Boundaries",
+    "subtopic_name": "appositive inside prepositional object",
+    "difficulty": "Hard",
+    "difficulty_score": 1,
+    "difficulty_level": 7,
+    "passage": "The biologist compared the observations with those of her collaborator, a specialist in marine ________ before concluding that the apparent discrepancy arose from differences in sampling depth. Both researchers had counted the same species but at different points in the water column.",
+    "question_text": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+    "question_type": "multiple_choice",
+    "choice_a": "ecology;",
+    "choice_b": "ecology:",
+    "choice_c": "ecology",
+    "choice_d": "ecology,",
+    "choice_e": null,
+    "image_url": null,
+    "correct_answer": "D",
+    "official_explanation": "The supplementary appositive a specialist in marine ecology begins after collaborator and must close with a comma before the sentence continues. A: Attempts to end an appositive with a semicolon and leaves the continuation without an independent clause. B: Introduces a colon where the appositive must close. C: Fails to close the appositive begun with a comma.",
+    "source": "PrepSAT/ACT original authored academic stimuli",
+    "source_type": "original",
+    "source_rights_status": "original",
+    "active": false,
+    "approved": false,
+    "review_status": "pending",
+    "answer_verification_status": "pending",
+    "metadata": {
+      "domain": "Standard English Conventions",
+      "skill": "Boundaries",
+      "subskill": "appositive inside prepositional object",
+      "difficulty_level": 7,
+      "estimated_seconds": 90,
+      "difficulty_basis": "editorial",
+      "module_eligibility": [
+        {
+          "module": 1,
+          "route": "common"
+        },
+        {
+          "module": 2,
+          "route": "harder"
+        }
+      ],
+      "distractor_rationales": {
+        "A": "Attempts to end an appositive with a semicolon and leaves the continuation without an independent clause.",
+        "B": "Introduces a colon where the appositive must close.",
+        "C": "Fails to close the appositive begun with a comma.",
+        "D": "Correct: The supplementary appositive a specialist in marine ecology begins after collaborator and must close with a comma before the sentence continues."
+      },
+      "graphic_type": null,
+      "graphic_data": null,
+      "originality_evidence": {
+        "original_authorship": true,
+        "no_official_item_reconstruction": true,
+        "method": "Individually authored fictional studies and passages; official framework only"
+      },
+      "validation_evidence": {
+        "generation": true
+      },
+      "validation_status": "pending",
+      "content_hash": "707a971e98c06f1ae3d79eb58d83f187ec00218e400980fd95ca5bfcd13ad346"
+    }
+  },
+  {
+    "id": "f35d7735-9c5f-5154-a0c9-7f7b6cd74827",
+    "test_type": "SAT",
+    "section_name": "Reading and Writing",
+    "category_name": "Standard English Conventions",
+    "topic_name": "Boundaries",
+    "subtopic_name": "colon introduces a list after a full clause",
+    "difficulty": "Hard",
+    "difficulty_score": 0.8333333333333334,
+    "difficulty_level": 6,
+    "passage": "The examination of the manuscript revealed three distinct kinds of ________ revisions to sentence order, corrections to factual details, and changes to the narrator’s descriptions. The editor analyzed each kind separately before proposing a chronology of the author’s revisions.",
+    "question_text": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+    "question_type": "multiple_choice",
+    "choice_a": "alteration including:",
+    "choice_b": "alteration:",
+    "choice_c": "alteration;",
+    "choice_d": "alteration, including:",
+    "choice_e": null,
+    "image_url": null,
+    "correct_answer": "B",
+    "official_explanation": "The complete clause can introduce its explanatory three-part list with a colon. A: Inappropriately inserts a colon between including and its objects. C: A semicolon cannot attach the nonclausal list as a second independent clause. D: Inappropriately inserts a colon between including and its objects.",
+    "source": "PrepSAT/ACT original authored academic stimuli",
+    "source_type": "original",
+    "source_rights_status": "original",
+    "active": false,
+    "approved": false,
+    "review_status": "pending",
+    "answer_verification_status": "pending",
+    "metadata": {
+      "domain": "Standard English Conventions",
+      "skill": "Boundaries",
+      "subskill": "colon introduces a list after a full clause",
+      "difficulty_level": 6,
+      "estimated_seconds": 90,
+      "difficulty_basis": "editorial",
+      "module_eligibility": [
+        {
+          "module": 1,
+          "route": "common"
+        },
+        {
+          "module": 2,
+          "route": "harder"
+        }
+      ],
+      "distractor_rationales": {
+        "A": "Inappropriately inserts a colon between including and its objects.",
+        "B": "Correct: The complete clause can introduce its explanatory three-part list with a colon.",
+        "C": "A semicolon cannot attach the nonclausal list as a second independent clause.",
+        "D": "Inappropriately inserts a colon between including and its objects."
+      },
+      "graphic_type": null,
+      "graphic_data": null,
+      "originality_evidence": {
+        "original_authorship": true,
+        "no_official_item_reconstruction": true,
+        "method": "Individually authored fictional studies and passages; official framework only"
+      },
+      "validation_evidence": {
+        "generation": true
+      },
+      "validation_status": "pending",
+      "content_hash": "98a13ff9c357b750bcf21d16939a30777f9f4eb7b83f3b20f1aeebdf30563e82"
+    }
+  },
+  {
+    "id": "6355b29c-ceb6-50bb-abf9-257aa8643308",
+    "test_type": "SAT",
+    "section_name": "Reading and Writing",
+    "category_name": "Standard English Conventions",
+    "topic_name": "Form, Structure, and Sense",
+    "subtopic_name": "singular head despite intervening plural nouns",
+    "difficulty": "Hard",
+    "difficulty_score": 0.8333333333333334,
+    "difficulty_level": 6,
+    "passage": "The relationship between the frequencies recorded at the two stations ________ evidence that the waves originated from a common disturbance. The frequencies themselves differ, but the ratio between them remains nearly constant across the recorded events.",
+    "question_text": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+    "question_type": "multiple_choice",
+    "choice_a": "have provided",
+    "choice_b": "are providing",
+    "choice_c": "provides",
+    "choice_d": "provide",
+    "choice_e": null,
+    "image_url": null,
+    "correct_answer": "C",
+    "official_explanation": "The singular head relationship is the subject; the intervening plural frequencies and stations do not determine agreement. A: Uses a plural auxiliary with the singular subject. B: Uses a plural auxiliary with the singular subject. D: Agrees with nearby plural nouns rather than the singular subject.",
+    "source": "PrepSAT/ACT original authored academic stimuli",
+    "source_type": "original",
+    "source_rights_status": "original",
+    "active": false,
+    "approved": false,
+    "review_status": "pending",
+    "answer_verification_status": "pending",
+    "metadata": {
+      "domain": "Standard English Conventions",
+      "skill": "Form, Structure, and Sense",
+      "subskill": "singular head despite intervening plural nouns",
+      "difficulty_level": 6,
+      "estimated_seconds": 90,
+      "difficulty_basis": "editorial",
+      "module_eligibility": [
+        {
+          "module": 1,
+          "route": "common"
+        },
+        {
+          "module": 2,
+          "route": "harder"
+        }
+      ],
+      "distractor_rationales": {
+        "A": "Uses a plural auxiliary with the singular subject.",
+        "B": "Uses a plural auxiliary with the singular subject.",
+        "C": "Correct: The singular head relationship is the subject; the intervening plural frequencies and stations do not determine agreement.",
+        "D": "Agrees with nearby plural nouns rather than the singular subject."
+      },
+      "graphic_type": null,
+      "graphic_data": null,
+      "originality_evidence": {
+        "original_authorship": true,
+        "no_official_item_reconstruction": true,
+        "method": "Individually authored fictional studies and passages; official framework only"
+      },
+      "validation_evidence": {
+        "generation": true
+      },
+      "validation_status": "pending",
+      "content_hash": "0a9be41864be9aa9a65630cc493217b4bb1ab226cb2ff66a9063c795fcc372e7"
+    }
+  },
+  {
+    "id": "0dfb5295-da8f-581b-a3b9-3df0f9ea8711",
+    "test_type": "SAT",
+    "section_name": "Reading and Writing",
+    "category_name": "Standard English Conventions",
+    "topic_name": "Form, Structure, and Sense",
+    "subtopic_name": "parallel predicates under shared infinitive",
+    "difficulty": "Hard",
+    "difficulty_score": 0.8333333333333334,
+    "difficulty_level": 6,
+    "passage": "The historian’s purpose was to reconstruct the sequence of negotiations, distinguish public statements from private proposals, and ________ the points at which the parties’ positions changed. Her account makes no claim to recover every participant’s unrecorded intentions.",
+    "question_text": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+    "question_type": "multiple_choice",
+    "choice_a": "identifying",
+    "choice_b": "identified",
+    "choice_c": "identification of",
+    "choice_d": "identify",
+    "choice_e": null,
+    "image_url": null,
+    "correct_answer": "D",
+    "official_explanation": "Identify is parallel with reconstruct and distinguish under the shared infinitive marker to. A: Breaks the coordinated infinitive verb structure with a participle. B: Breaks the infinitive series with a past-tense form. C: Replaces the required coordinated verb with a noun phrase.",
+    "source": "PrepSAT/ACT original authored academic stimuli",
+    "source_type": "original",
+    "source_rights_status": "original",
+    "active": false,
+    "approved": false,
+    "review_status": "pending",
+    "answer_verification_status": "pending",
+    "metadata": {
+      "domain": "Standard English Conventions",
+      "skill": "Form, Structure, and Sense",
+      "subskill": "parallel predicates under shared infinitive",
+      "difficulty_level": 6,
+      "estimated_seconds": 90,
+      "difficulty_basis": "editorial",
+      "module_eligibility": [
+        {
+          "module": 1,
+          "route": "common"
+        },
+        {
+          "module": 2,
+          "route": "harder"
+        }
+      ],
+      "distractor_rationales": {
+        "A": "Breaks the coordinated infinitive verb structure with a participle.",
+        "B": "Breaks the infinitive series with a past-tense form.",
+        "C": "Replaces the required coordinated verb with a noun phrase.",
+        "D": "Correct: Identify is parallel with reconstruct and distinguish under the shared infinitive marker to."
+      },
+      "graphic_type": null,
+      "graphic_data": null,
+      "originality_evidence": {
+        "original_authorship": true,
+        "no_official_item_reconstruction": true,
+        "method": "Individually authored fictional studies and passages; official framework only"
+      },
+      "validation_evidence": {
+        "generation": true
+      },
+      "validation_status": "pending",
+      "content_hash": "b5fcae4f317611e294b60ddcb877fc9a8766db559a3f86c9d259bef6850e56b1"
+    }
+  },
+  {
+    "id": "e6c78300-28cd-5a24-aa7d-abda50f5f63f",
+    "test_type": "SAT",
+    "section_name": "Reading and Writing",
+    "category_name": "Standard English Conventions",
+    "topic_name": "Form, Structure, and Sense",
+    "subtopic_name": "plural possessive for a defined group",
+    "difficulty": "Hard",
+    "difficulty_score": 1,
+    "difficulty_level": 7,
+    "passage": "The report compared the methods of several translators, treating the ________ decisions about rhythm separately from their decisions about imagery. This separation allowed the authors to describe different priorities without assuming that all departures from the source served the same purpose.",
+    "question_text": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+    "question_type": "multiple_choice",
+    "choice_a": "translators’",
+    "choice_b": "translator’s",
+    "choice_c": "translators",
+    "choice_d": "translator",
+    "choice_e": null,
+    "image_url": null,
+    "correct_answer": "A",
+    "official_explanation": "The decisions belong to the several translators identified in the opening clause, so the plural possessive translators’ is required. B: Marks possession by one translator rather than the defined plural group. C: Provides a plural noun without the possessive form required before decisions. D: Provides a singular nonpossessive noun and does not refer grammatically to the defined group.",
+    "source": "PrepSAT/ACT original authored academic stimuli",
+    "source_type": "original",
+    "source_rights_status": "original",
+    "active": false,
+    "approved": false,
+    "review_status": "pending",
+    "answer_verification_status": "pending",
+    "metadata": {
+      "domain": "Standard English Conventions",
+      "skill": "Form, Structure, and Sense",
+      "subskill": "plural possessive for a defined group",
+      "difficulty_level": 7,
+      "estimated_seconds": 90,
+      "difficulty_basis": "editorial",
+      "module_eligibility": [
+        {
+          "module": 1,
+          "route": "common"
+        },
+        {
+          "module": 2,
+          "route": "harder"
+        }
+      ],
+      "distractor_rationales": {
+        "A": "Correct: The decisions belong to the several translators identified in the opening clause, so the plural possessive translators’ is required.",
+        "B": "Marks possession by one translator rather than the defined plural group.",
+        "C": "Provides a plural noun without the possessive form required before decisions.",
+        "D": "Provides a singular nonpossessive noun and does not refer grammatically to the defined group."
+      },
+      "graphic_type": null,
+      "graphic_data": null,
+      "originality_evidence": {
+        "original_authorship": true,
+        "no_official_item_reconstruction": true,
+        "method": "Individually authored fictional studies and passages; official framework only"
+      },
+      "validation_evidence": {
+        "generation": true
+      },
+      "validation_status": "pending",
+      "content_hash": "dfb37ed1522f4fbe3cf5e48e0ba46a71a3829184ef3e6c2674b0f7d17d7775c2"
+    }
+  },
+  {
+    "id": "d433b283-683a-5e49-a95c-9b51447f7cb5",
+    "test_type": "SAT",
+    "section_name": "Reading and Writing",
+    "category_name": "Standard English Conventions",
+    "topic_name": "Form, Structure, and Sense",
+    "subtopic_name": "tense sequence with explicit past reference",
+    "difficulty": "Hard",
+    "difficulty_score": 0.8333333333333334,
+    "difficulty_level": 6,
+    "passage": "When the second expedition reached the valley in 1924, the first expedition ________ three seasons documenting its terraces. The second team used those earlier records to distinguish newly exposed structures from features that had already been mapped.",
+    "question_text": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+    "question_type": "multiple_choice",
+    "choice_a": "will spend",
+    "choice_b": "spends",
+    "choice_c": "had spent",
+    "choice_d": "has spent",
+    "choice_e": null,
+    "image_url": null,
+    "correct_answer": "C",
+    "official_explanation": "The spending occurred before the specified past arrival, so the past perfect had spent fits the sequence. A: Places earlier activity in the future relative to the narrative. B: Uses present tense for activity completed before the past arrival. D: Uses present perfect despite the specified completed past reference point.",
+    "source": "PrepSAT/ACT original authored academic stimuli",
+    "source_type": "original",
+    "source_rights_status": "original",
+    "active": false,
+    "approved": false,
+    "review_status": "pending",
+    "answer_verification_status": "pending",
+    "metadata": {
+      "domain": "Standard English Conventions",
+      "skill": "Form, Structure, and Sense",
+      "subskill": "tense sequence with explicit past reference",
+      "difficulty_level": 6,
+      "estimated_seconds": 90,
+      "difficulty_basis": "editorial",
+      "module_eligibility": [
+        {
+          "module": 1,
+          "route": "common"
+        },
+        {
+          "module": 2,
+          "route": "harder"
+        }
+      ],
+      "distractor_rationales": {
+        "A": "Places earlier activity in the future relative to the narrative.",
+        "B": "Uses present tense for activity completed before the past arrival.",
+        "C": "Correct: The spending occurred before the specified past arrival, so the past perfect had spent fits the sequence.",
+        "D": "Uses present perfect despite the specified completed past reference point."
+      },
+      "graphic_type": null,
+      "graphic_data": null,
+      "originality_evidence": {
+        "original_authorship": true,
+        "no_official_item_reconstruction": true,
+        "method": "Individually authored fictional studies and passages; official framework only"
+      },
+      "validation_evidence": {
+        "generation": true
+      },
+      "validation_status": "pending",
+      "content_hash": "4fd9250efe057742ca4bc9692cf1a8ce1471ff89d933a9ee856dc53a84cea25a"
+    }
+  }
+]

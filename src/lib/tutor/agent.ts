@@ -3,7 +3,7 @@ import { buildEnrichedTutorContext, recentConversation } from './context'
 import { bumpMethodScore, getTutorPreferences, recordMisconception, recordTutorInteraction } from './memory'
 import { finishNovaTrace, novaUsageRequestType, startNovaTrace } from './observability'
 import { parseTutorOutput, studentSafeError } from './output'
-import { CHAT_CHECKLIST, inferChecklistProgress, normalizeTutorText } from './anti-repeat'
+import { CHAT_CHECKLIST, emptyChecklistProgress, inferChecklistProgress, normalizeTutorText } from './anti-repeat'
 import { buildTutorSystemPrompt } from './prompt'
 import { routeNovaModel } from './router'
 import { injectionGuardrailNote, sanitizeStudentText, scopeTutorRequest, suspicionScore } from './security'
@@ -66,17 +66,7 @@ async function tutorMessages(
     .filter((line) => normalizeTutorText(line).length >= 12)
     .slice(-16)
 
-  let checklistState: Record<(typeof CHAT_CHECKLIST)[number]['id'], boolean> = {
-    definition: false,
-    irlExample: false,
-    breakdown: false,
-    build: false,
-    yesExamples: false,
-    noExamples: false,
-    explainBack: false,
-    practice: false,
-    create: false,
-  }
+  let checklistState: Record<(typeof CHAT_CHECKLIST)[number]['id'], boolean> = emptyChecklistProgress()
   for (const m of conversation) {
     if (m.role !== 'assistant' || typeof m.content !== 'string') continue
     checklistState = inferChecklistProgress(m.content, checklistState)

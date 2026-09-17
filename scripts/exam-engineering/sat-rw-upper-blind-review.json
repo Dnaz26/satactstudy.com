@@ -1,0 +1,353 @@
+[
+  {
+    "n": 28,
+    "id": "367c1c59-ba3f-5a6c-a171-c5ed45042524",
+    "passage": "A geochemist proposes that a mineral layer in cave walls formed only when microbes released an acid. In sterile laboratory chambers, however, water containing the same acid produced indistinguishable layers. The acid concentration required in those chambers exceeded concentrations measured in the cave’s incoming water. The laboratory result therefore reproduces the mineralization, but the difference in concentrations remains relevant to explaining its occurrence in the cave.",
+    "question": "Which inference is best supported by the text?",
+    "choices": [
+      "The indistinguishable layers demonstrate that the cave’s incoming water contained the laboratory acid concentration when the layers formed.",
+      "Microbial activity need not be necessary for producing the layer under all conditions, although it may help explain conditions in the cave.",
+      "The laboratory result establishes that microbial activity made no contribution to the cave’s mineral layers.",
+      "Because the laboratory acid concentration was higher, the experiment provides no evidence about a mechanism capable of producing the layer."
+    ],
+    "content_hash": "1fff6d9c9285ad8a66298d2c26faf2c386b6ed9e761e85d7959cb3288535fc18"
+  },
+  {
+    "n": 29,
+    "id": "74c4a05e-e74a-55eb-a4bc-fe082b308a85",
+    "passage": "A historian observes that merchants’ letters survive more often from inland towns than from coastal ports. She first interprets the pattern as evidence that inland merchants relied more heavily on written agreements. An archivist then finds that inland town offices required copies of commercial correspondence, whereas coastal offices generally did not. Private collections from both regions were equally vulnerable to loss. The historian retains her interpretation only as one possibility among several.",
+    "question": "Which inference best explains why the archivist’s finding changes the status of the historian’s interpretation?",
+    "choices": [
+      "A difference in preservation practices could generate the surviving pattern without a corresponding difference in merchants’ original reliance on letters.",
+      "Equal vulnerability of private collections establishes that original letter-writing rates were identical in the two regions.",
+      "The copying requirement proves that inland merchants wrote letters only to satisfy town officials.",
+      "Because coastal offices lacked a copying requirement, surviving coastal letters cannot provide evidence about commercial practices."
+    ],
+    "content_hash": "683d4ceb29d2a291cdcbf7a09f2fb310e5e39475f3f9b7ad1f90964b7eeb39f4"
+  },
+  {
+    "n": 30,
+    "id": "d57f4ba2-4bcb-512d-ae7d-82e1f25e0d39",
+    "passage": "A psychologist argues that a speaker’s hesitation can make a recommendation persuasive when it signals careful consideration, but unpersuasive when it signals unfamiliarity. She rejects an account in which hesitation always reduces confidence in the recommendation. Her explanation predicts that the effect depends on what listeners already know about the speaker’s preparation, even when the recommendation and the recorded hesitation remain unchanged.",
+    "question": "Which finding would most directly support the psychologist’s explanation over the account she rejects?",
+    "choices": [
+      "The same hesitant recording increases acceptance among listeners told the speaker reviewed extensive evidence but decreases acceptance among listeners told the speaker had not reviewed it.",
+      "Listeners who hear a hesitant recording remember fewer details of the recommendation than listeners who hear a fluent recording.",
+      "Listeners given additional evidence accept a recommendation more frequently, regardless of whether they hear hesitation.",
+      "Hesitant speakers report spending more time preparing their recommendations than fluent speakers report spending."
+    ],
+    "content_hash": "950c66e25dd2a2642f1fc72b051effa016874753b105bf644ef420e26ddc3d44"
+  },
+  {
+    "n": 31,
+    "id": "dc3a5922-224c-528c-a9bb-f99dbc1f0cd1",
+    "passage": "A materials scientist predicts that polishing will increase a composite’s strength more when its fibers are aligned than when they are randomly oriented. Four equally sized groups are tested under identical conditions. Mean breaking forces are: aligned, unpolished, 120 N; aligned, polished, 150 N; random, unpolished, 80 N; random, polished, 90 N. The prediction concerns the effect of polishing, not simply the relative strength of the finished materials.",
+    "question": "Which statement most directly supports the prediction?",
+    "choices": [
+      "Polished aligned fibers exceeded unpolished random fibers by 70 N.",
+      "Polishing increased mean breaking force by 25% for aligned fibers but by 12.5% for randomly oriented fibers.",
+      "The polished aligned composite had a mean breaking force greater than that of the polished random composite.",
+      "The unpolished aligned composite was 50% stronger than the unpolished random composite."
+    ],
+    "content_hash": "281611abccc28b9bb4da1904cfdc12ec49f2862419221ec63eccd7ea9bd65d68"
+  },
+  {
+    "n": 32,
+    "id": "7cb71b32-ae4b-59cf-aa4e-7f55d3c42e06",
+    "passage": "A critic distinguishes a novel’s refusal to explain a character’s decision from a failure to make the decision intelligible. The novel supplies several motives but assigns none decisive weight. Readers can therefore understand why the character might act without discovering which motive governed the action. For the critic, this design makes uncertainty an object of understanding rather than an obstacle that further plot information must eventually remove.",
+    "question": "Which choice best states the main idea of the text?",
+    "choices": [
+      "The critic argues that presenting plausible motives without resolving their relative importance can make uncertainty about a character’s decision intelligible.",
+      "The critic argues that readers understand a decision only after identifying the single motive responsible for it.",
+      "The critic attributes the character’s uncertainty to missing plot information that the novel inadvertently fails to provide.",
+      "The critic regards the novel’s several motives as interchangeable explanations that eliminate uncertainty about the decision."
+    ],
+    "content_hash": "418669d49c09eab3917dfd9093a34d49ef6db840cc04a3a28b33c5c13134edee"
+  },
+  {
+    "n": 33,
+    "id": "600526ec-2da9-5111-a928-30bf984bd43a",
+    "passage": "An anthropologist argues that a pattern of tool exchange reflects reciprocal obligations between settlements rather than independent purchases from a common supplier. Finding similar tools at both settlements cannot distinguish these accounts: either could produce that pattern. The anthropologist therefore seeks evidence linking transfers in one direction to subsequent transfers in the other, independently of changes in the supplier’s output.",
+    "question": "Which finding would most directly support the anthropologist’s explanation?",
+    "choices": [
+      "Transfers from one settlement were followed by return transfers from the other even during intervals when the common supplier’s output remained unchanged.",
+      "Both settlements possessed tools with the same mineral composition as tools made by the common supplier.",
+      "Tool quantities at both settlements increased during years when the common supplier produced more tools.",
+      "One settlement possessed more tools than the other throughout the period examined."
+    ],
+    "content_hash": "72919666a8fc9cb9fadfdef55dba7a6ac5c33a10f0d51325e7da4c208ba5fdd6"
+  },
+  {
+    "n": 34,
+    "id": "5d587899-341d-50a9-a9cd-0342050c7ea7",
+    "passage": "Text 1: An economist cautions that a policy’s national average effect cannot establish how every region responded. Regional effects of opposite signs can cancel, and regions need not receive equal weight in the national figure.\n\nText 2: A researcher estimates that a policy increased output by 4% nationally. Her regional analysis finds modest losses in several small regions and larger gains in the two regions that account for most national output.",
+    "question": "How would the author of Text 1 most likely characterize the results in Text2?",
+    "choices": [
+      "They illustrate how a positive aggregate effect can coexist with negative effects in some regions.",
+      "They undermine the national estimate because every regional effect must share the aggregate effect’s sign.",
+      "They show that positive effects in large regions necessarily exceed the combined losses in every other region under any weighting scheme.",
+      "They establish that the policy’s regional differences arise entirely from differences in regional size."
+    ],
+    "content_hash": "088ffd371c4ea2ff0c0eb49af2c894d9105b639b957439c5db09d39d7facd837"
+  },
+  {
+    "n": 35,
+    "id": "767553b3-dacd-58ca-ad89-816f55c3cc03",
+    "passage": "Text 1: A physicist notes that two theoretical models predict the same measured motion at low temperatures. More precise measurement within that range may reduce uncertainty about the motion without distinguishing the models.\n\nText 2: Another physicist proposes testing the models at higher temperatures, where one predicts a sharp change in motion and the other predicts a gradual change. She argues that a less precise measurement there may be more informative for choosing between the models.",
+    "question": "Which choice best describes the relationship between the two texts?",
+    "choices": [
+      "Text 2 rejects Text1’s claim that greater precision can reduce uncertainty about measured motion.",
+      "Text 2 establishes that less precise measurements are generally more informative than more precise measurements.",
+      "Text 2 offers an explanation for why both models predict identical motion at low temperatures.",
+      "Text 2 proposes changing the conditions to obtain evidence capable of resolving the distinction that Text 1 says greater precision alone may not resolve."
+    ],
+    "content_hash": "1cb48a5fa70b9e9ef2847393711132c6fdd0b7dbd14cc6863e4ebc794c8aa1d4"
+  },
+  {
+    "n": 36,
+    "id": "169f8230-82fe-50d6-acfc-a89d0ee4283d",
+    "passage": "The historian calls the archive’s coverage patchy, not because its surviving documents are fragmentary, but because they cluster around a few prosperous families. For those families the record is exceptionally complete; for most other residents, even major events leave no trace. The difficulty lies in extrapolating from the archive, not in deciphering its individual documents.",
+    "question": "As used in the text, “patchy” most nearly means",
+    "choices": [
+      "assembled from unrelated sources",
+      "uneven in representation",
+      "damaged in physical condition",
+      "inconsistent in factual accuracy"
+    ],
+    "content_hash": "37c2d0365ae9c52f8ecf53114cfd3681eb7c44e82a9d9e9d0f741695478beffe"
+  },
+  {
+    "n": 37,
+    "id": "a02703ae-e614-5b79-ad36-428e7f90e78c",
+    "passage": "Although the artist’s early sketches appear tentative, their apparent looseness should not be mistaken for indecision. The lines register alternatives that the finished painting deliberately suppresses. A critic describes the sketches as exploratory: their value lies less in anticipating the final arrangement than in preserving the range of possibilities through which that arrangement emerged.",
+    "question": "As used in the text, “register” most nearly means",
+    "choices": [
+      "endorse",
+      "coordinate",
+      "recognize",
+      "record"
+    ],
+    "content_hash": "5a8791bf494f05a9d06e4783e73311b03ac23d9ded24a84704b66758e3124bf8"
+  },
+  {
+    "n": 38,
+    "id": "3603b388-1d95-5dae-a965-7b81a818b4e1",
+    "passage": "A theorist grants that a standardized examination can rank students consistently across repeated administrations. She then asks whether consistency establishes that the examination measures the intended ability. A clock that runs at a constant but incorrect rate, she observes, is consistent without being accurate. Her criticism does not deny the observed consistency; it challenges the conclusion drawn from it.",
+    "question": "What role does the clock comparison play in the text?",
+    "choices": [
+      "It proposes replacing repeated examinations with measurements of clock accuracy.",
+      "It establishes that the examination’s rankings are consistently incorrect.",
+      "It illustrates why the acknowledged consistency is insufficient to establish the additional property under discussion.",
+      "It disputes the finding that the examination ranks students consistently."
+    ],
+    "content_hash": "a6e1322f1f3f3136377463600ccb7262d70826cc1dccf0d0a4eaa33a1997341b"
+  },
+  {
+    "n": 39,
+    "id": "7f7e4465-d9e8-5913-adb5-20b3e7ee47f0",
+    "passage": "A paleontologist observes that one fossil lineage developed a similar jaw shape in two separate intervals. She considers whether the resemblance reflects adaptation to a recurring food source, but notes that similar shapes can perform different functions. Rather than treating resemblance as an explanation, she identifies wear patterns that would be expected if the proposed feeding function were correct.",
+    "question": "Which choice best describes the structure of the text?",
+    "choices": [
+      "It establishes a recurring feeding function and explains why the jaw shapes associated with it differ.",
+      "It challenges the occurrence of a recurring pattern by showing that shape and function need not correspond.",
+      "It presents a recurring pattern, qualifies one interpretation of that pattern, and identifies evidence that could test the interpretation.",
+      "It presents two opposing explanations, rejects one using wear patterns, and endorses the other."
+    ],
+    "content_hash": "d35163bd4c0fb25b689873fee6e543291ad3249e8628739e4bb873a250b65fe8"
+  },
+  {
+    "n": 40,
+    "id": "0cd4bc4e-a2a4-5a62-abdb-548e49ab84e2",
+    "passage": "A musicologist describes a composer’s reliance on folk melodies as selective. The composer retained rhythmic features that suited the ensemble but omitted ornaments that depended on the original singers’ vocal techniques. The resulting score does not reproduce the source performances; neither does it draw on them indiscriminately.",
+    "question": "As used in the text, “selective” most nearly means",
+    "choices": [
+      "skeptical of the sources’ value",
+      "discriminating in what is retained",
+      "limited to a single source",
+      "accurate in reproducing details"
+    ],
+    "content_hash": "d0e29db86bc51fffb818cf4b779c7efddb2bd547bd03c836789b8dc1bc000cab"
+  },
+  {
+    "n": 41,
+    "id": "ba6d697b-366b-5c15-adf3-c8ea2d5e8490",
+    "passage": "A historian notes that an ordinance’s repeated renewal does not necessarily show repeated compliance. Reissuing the same prohibition may instead indicate that officials continued to encounter the prohibited behavior. ________, the recurrence of the rule can sometimes be evidence of its limited effectiveness rather than its successful enforcement.",
+    "question": "Which choice completes the text with the most logical transition?",
+    "choices": [
+      "Meanwhile",
+      "Thus",
+      "Nevertheless",
+      "Similarly"
+    ],
+    "content_hash": "c0baa4112079fba4025df17ae34a73f1b524545780ee59e5c79eaa6121b39c96"
+  },
+  {
+    "n": 42,
+    "id": "1cce29cc-f664-58b9-ad4a-fd5f19991f01",
+    "passage": "Astronomers obtained more observations, reducing random uncertainty in the estimated brightness of a star. The extra observations all came from the same instrument, whose calibration might contain a fixed bias. ________, the improved precision did not by itself establish that the brightness estimate was closer to the true value.",
+    "question": "Which choice completes the text with the most logical transition?",
+    "choices": [
+      "For instance",
+      "Likewise",
+      "Consequently",
+      "For comparison"
+    ],
+    "content_hash": "ae3d800f7315d21f138695509c528cf85c454dc9818beb59d830c7fb1cccc989"
+  },
+  {
+    "n": 43,
+    "id": "be95add0-e52e-55cc-a244-b21e7fd0c91c",
+    "passage": "An economist estimates that a subsidy lowered participating firms’ costs. She cautions that lower costs need not translate into lower consumer prices when a firm faces little competition. In the markets she studied, however, several rival firms competed for the same customers. ________, the general caution does not rule out a price reduction in those particular markets.",
+    "question": "Which choice completes the text with the most logical transition?",
+    "choices": [
+      "Conversely",
+      "Regardless",
+      "For example",
+      "Accordingly"
+    ],
+    "content_hash": "41141a75e221a27f99619af2822d0fa6de2790379902d9b1608ff47598fe0426"
+  },
+  {
+    "n": 44,
+    "id": "3163d187-d091-5af4-a7a5-b98f26795305",
+    "passage": "While researching urban heat, a student has taken these notes:\n• A survey compared neighborhoods with different amounts of tree cover.\n• Neighborhoods with more tree cover had lower afternoon temperatures.\n• The survey did not randomly assign tree cover.\n• Building density also differed among neighborhoods.\n• The authors reported an association and recommended further causal research.",
+    "question": "The student wants to summarize the finding without overstating what the survey establishes. Which choice most effectively accomplishes this goal?",
+    "choices": [
+      "The survey established that increasing tree cover lowers temperatures regardless of building density.",
+      "Differences in building density explain the entire relationship between tree cover and temperature.",
+      "Because tree cover was not randomly assigned, the survey identified no relationship between tree cover and temperature.",
+      "Greater tree cover was associated with lower afternoon temperatures, although the survey did not isolate tree cover’s causal effect."
+    ],
+    "content_hash": "24062955a5cb9ff3f68ebf6b650cf8f24a6b57d9c14b449b371aa149312eafa3"
+  },
+  {
+    "n": 45,
+    "id": "6ec72b6e-c3f8-5460-a5e7-3a2c6dba88df",
+    "passage": "While researching a translation, a student has taken these notes:\n• Version A preserves the source text’s sentence order.\n• Version B rearranges sentences to preserve connections that depend on wordplay.\n• Readers rated Version A as easier to compare line by line with the source.\n• Readers rated Version B as conveying the source’s humor more effectively.\n• The study did not rank overall translation quality.",
+    "question": "The student wants to contrast the versions using the reader findings while avoiding an unsupported overall ranking. Which choice most effectively accomplishes this goal?",
+    "choices": [
+      "Readers preferred Version A’s humor because its sentences followed the source order.",
+      "The study found the versions equivalent in overall quality despite their different sentence arrangements.",
+      "Readers found Version A easier to compare line by line, but found Version B more effective at conveying humor; these judgments concerned different qualities.",
+      "Version B was the better translation because readers rated its humor more highly."
+    ],
+    "content_hash": "fbdf00beaaca59344194e8a6dd7c262eaafaa01ba4693eeed0bf620f920858cf"
+  },
+  {
+    "n": 46,
+    "id": "608d32a1-831a-51f6-ad31-fb887fda838e",
+    "passage": "While researching astronomy, a student has taken these notes:\n• Method A estimates a planet’s mass from its gravitational effect on a star.\n• Method B estimates a planet’s size from the fraction of starlight blocked during a transit.\n• Combining mass and size estimates allows researchers to estimate average density.\n• Neither method alone supplies both mass and size.",
+    "question": "The student wants to explain why the methods are complementary. Which choice most effectively uses relevant information from the notes?",
+    "choices": [
+      "Method A is more accurate than Method B because gravitational effects reveal mass directly.",
+      "The methods are complementary because each supplies the same measurements through a different mechanism.",
+      "The methods provide different quantities—mass and size—that together allow an estimate of average density.",
+      "Both methods independently determine average density by observing changes in a star."
+    ],
+    "content_hash": "bf68c971d590f8f37ee269898a82a6e516e5f4485bc43a93ac6e657b3d5a2540"
+  },
+  {
+    "n": 47,
+    "id": "c2576054-7587-55b6-a2f7-e849bb127494",
+    "passage": "The revised model reproduced the observed seasonal ________ however, it failed to explain the unusually rapid changes recorded during individual storms. The researchers therefore regarded its agreement with the seasonal pattern as a partial success rather than a complete explanation.",
+    "question": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+    "choices": [
+      "pattern;",
+      "pattern,",
+      "pattern",
+      "pattern and;"
+    ],
+    "content_hash": "68066e3fca983401a618dec88c3bb8dea1547e573a2e4d8b7f86863e1765c8ca"
+  },
+  {
+    "n": 48,
+    "id": "84b50fdf-dbd3-5ad4-a04a-90ac23c596bc",
+    "passage": "The fragments of ceramic that archaeologists recovered from the deepest ________ contain a mineral absent from the fragments found closer to the surface. This difference may reflect a change in the source of clay used at the settlement.",
+    "question": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+    "choices": [
+      "layer:",
+      "layer",
+      "layer,",
+      "layer;"
+    ],
+    "content_hash": "861977061e05f51030c71c64930b9f7be3ea9687e430021db6a9a92e79d5585a"
+  },
+  {
+    "n": 49,
+    "id": "75b7dee8-13cf-5af4-a043-8f04ddb49487",
+    "passage": "The biologist compared the observations with those of her collaborator, a specialist in marine ________ before concluding that the apparent discrepancy arose from differences in sampling depth. Both researchers had counted the same species but at different points in the water column.",
+    "question": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+    "choices": [
+      "ecology;",
+      "ecology:",
+      "ecology",
+      "ecology,"
+    ],
+    "content_hash": "707a971e98c06f1ae3d79eb58d83f187ec00218e400980fd95ca5bfcd13ad346"
+  },
+  {
+    "n": 50,
+    "id": "f35d7735-9c5f-5154-a0c9-7f7b6cd74827",
+    "passage": "The examination of the manuscript revealed three distinct kinds of ________ revisions to sentence order, corrections to factual details, and changes to the narrator’s descriptions. The editor analyzed each kind separately before proposing a chronology of the author’s revisions.",
+    "question": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+    "choices": [
+      "alteration including:",
+      "alteration:",
+      "alteration;",
+      "alteration, including:"
+    ],
+    "content_hash": "98a13ff9c357b750bcf21d16939a30777f9f4eb7b83f3b20f1aeebdf30563e82"
+  },
+  {
+    "n": 51,
+    "id": "6355b29c-ceb6-50bb-abf9-257aa8643308",
+    "passage": "The relationship between the frequencies recorded at the two stations ________ evidence that the waves originated from a common disturbance. The frequencies themselves differ, but the ratio between them remains nearly constant across the recorded events.",
+    "question": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+    "choices": [
+      "have provided",
+      "are providing",
+      "provides",
+      "provide"
+    ],
+    "content_hash": "0a9be41864be9aa9a65630cc493217b4bb1ab226cb2ff66a9063c795fcc372e7"
+  },
+  {
+    "n": 52,
+    "id": "0dfb5295-da8f-581b-a3b9-3df0f9ea8711",
+    "passage": "The historian’s purpose was to reconstruct the sequence of negotiations, distinguish public statements from private proposals, and ________ the points at which the parties’ positions changed. Her account makes no claim to recover every participant’s unrecorded intentions.",
+    "question": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+    "choices": [
+      "identifying",
+      "identified",
+      "identification of",
+      "identify"
+    ],
+    "content_hash": "b5fcae4f317611e294b60ddcb877fc9a8766db559a3f86c9d259bef6850e56b1"
+  },
+  {
+    "n": 53,
+    "id": "e6c78300-28cd-5a24-aa7d-abda50f5f63f",
+    "passage": "The report compared the methods of several translators, treating the ________ decisions about rhythm separately from their decisions about imagery. This separation allowed the authors to describe different priorities without assuming that all departures from the source served the same purpose.",
+    "question": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+    "choices": [
+      "translators’",
+      "translator’s",
+      "translators",
+      "translator"
+    ],
+    "content_hash": "dfb37ed1522f4fbe3cf5e48e0ba46a71a3829184ef3e6c2674b0f7d17d7775c2"
+  },
+  {
+    "n": 54,
+    "id": "d433b283-683a-5e49-a95c-9b51447f7cb5",
+    "passage": "When the second expedition reached the valley in 1924, the first expedition ________ three seasons documenting its terraces. The second team used those earlier records to distinguish newly exposed structures from features that had already been mapped.",
+    "question": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+    "choices": [
+      "will spend",
+      "spends",
+      "had spent",
+      "has spent"
+    ],
+    "content_hash": "4fd9250efe057742ca4bc9692cf1a8ce1471ff89d933a9ee856dc53a84cea25a"
+  }
+]

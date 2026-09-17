@@ -1,0 +1,53 @@
+{
+  "passed": true,
+  "forms": [
+    {
+      "type": "SAT",
+      "name": "SAT blueprint RW easier, Math easier",
+      "status": "draft",
+      "slots": 98
+    },
+    {
+      "type": "SAT",
+      "name": "SAT blueprint RW easier, Math harder",
+      "status": "draft",
+      "slots": 98
+    },
+    {
+      "type": "SAT",
+      "name": "SAT blueprint RW harder, Math easier",
+      "status": "draft",
+      "slots": 98
+    },
+    {
+      "type": "SAT",
+      "name": "SAT blueprint RW harder, Math harder",
+      "status": "draft",
+      "slots": 98
+    },
+    {
+      "type": "ACT",
+      "name": "Enhanced ACT blueprint",
+      "status": "draft",
+      "slots": 131
+    },
+    {
+      "type": "ACT",
+      "name": "Enhanced ACT blueprint with Science",
+      "status": "draft",
+      "slots": 171
+    },
+    {
+      "type": "ACT",
+      "name": "Enhanced ACT blueprint visual reading",
+      "status": "draft",
+      "slots": 131
+    },
+    {
+      "type": "ACT",
+      "name": "Enhanced ACT blueprint with Science visual reading",
+      "status": "draft",
+      "slots": 171
+    }
+  ]
+}
