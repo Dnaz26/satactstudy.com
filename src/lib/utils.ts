@@ -99,7 +99,7 @@ export const CANONICAL_SITE_URL = 'https://www.prepsatact.com'
 
 export function publicAppUrl(): string {
   const explicit = process.env.NEXT_PUBLIC_APP_URL?.trim().replace(/\/$/, '')
-  if (explicit && !/localhost|127\.0\.0\.1/i.test(explicit)) return explicit
+  if (explicit) return explicit
   const vercel =
     process.env.VERCEL_PROJECT_PRODUCTION_URL ||
     process.env.NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL ||
