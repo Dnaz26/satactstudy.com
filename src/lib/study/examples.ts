@@ -29,7 +29,7 @@ const BANK: Record<string, LessonExampleSet> = {
       { label: 'The lamps, and the riders.', why: 'Names things but has no verb — not complete.' },
     ],
   },
-  'Whole numbers': {
+  'Numerical Identity & Number Systems': {
     yesTitle: 'These ARE whole numbers',
     noTitle: 'These are NOT whole numbers',
     yes: [

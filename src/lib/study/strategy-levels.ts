@@ -179,6 +179,21 @@ function formulaLevels(startIndex: number): StudyLevel[] {
   })
 }
 
+const DESMOS_EXTRA: ReferenceCard[] = [
+  {
+    title: 'Regression: linear, quadratic & exponential',
+    rule: 'Use regression notation to fit a model, then read predictions off it.',
+    steps: ['Enter the data as a table.', 'Type y1 ~ m x1 + b (linear), y1 ~ a x1^2 + b x1 + c, or y1 ~ a b^x1.', 'Read r or R² for fit quality.', 'Use the model for interpolation — and flag extrapolation.'],
+    detail: 'The ~ operator runs the regression; statistics like r and R² appear with it.',
+  },
+  {
+    title: 'Piecewise & absolute-value graphs',
+    rule: 'Graph pieces with curly-brace restrictions and abs() for V shapes.',
+    steps: ['Write each piece with its domain in braces, e.g. {x < 2}.', 'Use abs(x) for absolute-value graphs.', 'Check open vs closed endpoints at the joints.', 'Read roots and extrema off the combined graph.'],
+    detail: 'Restrictions turn one expression into exactly the piece you want drawn.',
+  },
+]
+
 export function buildMathStrategyLevels(startIndex: number): StudyLevel[] {
   const levels: StudyLevel[] = []
   let i = startIndex
@@ -188,6 +203,9 @@ export function buildMathStrategyLevels(startIndex: number): StudyLevel[] {
   }
   for (const card of DESMOS_TRICKS) {
     levels.push(fromCard(i++, 'math', 'Desmos', card, ['desmos', 'graphing']))
+  }
+  for (const card of DESMOS_EXTRA) {
+    levels.push(fromCard(i++, 'math', 'Desmos', card, ['desmos', 'graphing', 'regression']))
   }
   const formulas = formulaLevels(i)
   levels.push(...formulas)

@@ -81,12 +81,12 @@ function oneSentence(text: string, fallback: string): string {
 }
 
 const GUIDED_OVERRIDES: Record<string, Partial<GuidedLesson>> = {
-  'Whole numbers': {
+  'Numerical Identity & Number Systems': {
     whatItIs:
-      'Whole numbers are numbers you count whole objects with. Whole numbers begin at 0 and are not negative numbers, decimals, or fractions.',
-    irlExample: 'Counting numbers can be used to count how many people are in the room.',
+      'Every number has an identity: natural numbers count (1, 2, 3), whole numbers add 0, integers add negatives, rationals are ratios, irrationals like pi never repeat, and all of them live inside the real numbers.',
+    irlExample: 'Sorting players by jersey number uses natural numbers, while a bank balance of -$20 needs integers.',
     breakdown:
-      'Look for a full count you can touch. If you see a minus sign, a decimal point, or a slash like 1/2, it is not a whole number.',
+      'Natural ⊂ Whole ⊂ Integers ⊂ Rational ⊂ Real ⊂ Complex. Irrationals are real but not rational. Classify each number into every set it fits: 5 is all six, -3 skips natural and whole, and √-1 is imaginary.',
     translateExample: '7',
   },
   'Linear functions': {
