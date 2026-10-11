@@ -1,17 +1,31 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
-import { ArrowRight, Check, Menu } from 'lucide-react'
+import { ArrowRight, Sparkles } from 'lucide-react'
 import { createClient } from '@/lib/supabase/server'
 import { BrandMark, BRAND_NAME } from '@/components/brand'
-import { ProductShowcase } from '@/components/landing/product-showcase'
-import { ResearchShowcase } from '@/components/landing/research-showcase'
-import { PLANS } from '@/lib/stripe'
+import { LoggedInProductPreview } from '@/components/landing/logged-in-product-preview'
+import { UniquePillars } from '@/components/landing/unique-pillars'
+import { PlanCards } from '@/components/pricing/plan-cards'
+
+const REVIEWS = [
+  { name: 'Maya R.', role: 'SAT student', quote: 'The live breakdown made functions feel less intimidating because I could see one step at a time instead of staring at a full solution.' },
+  { name: 'Jordan M.', role: 'ACT student', quote: 'Rapid Fire helped me notice when I was rushing. The short review after each miss made the next question feel more manageable.' },
+  { name: 'Elena T.', role: 'SAT and ACT student', quote: 'I liked having my lessons, practice tests, and mistakes in one place. It made it easier to know what to study each day.' },
+  { name: 'Will Ross', role: 'SAT student', quote: 'The daily plan gave me one clear place to start, and the timed questions helped me stop freezing when the clock was moving.' },
+  { name: 'Mayer Goldstien', role: 'ACT student', quote: 'The game questions made practice feel active, while the explanations showed me exactly which step I had missed.' },
+  { name: 'Emily Rice', role: 'SAT student', quote: 'The lesson levels built one idea at a time, so the difficult examples felt connected to something I already understood.' },
+  { name: 'Sienna Russo', role: 'SAT student', quote: 'Chat was useful when I needed a fresh example instead of seeing the same solution written a second time.' },
+  { name: 'Blake Adler', role: 'ACT student', quote: 'Typing Rush and Rapid Fire made short study sessions feel focused enough that I actually returned the next day.' },
+  { name: 'Mark Roberts', role: 'SAT student', quote: 'The score predictor and calendar made my progress visible without making the home screen feel overwhelming.' },
+  { name: 'Jeff Parker', role: 'SAT and ACT student', quote: 'The practice screens felt organized, and repairing missed questions helped me recognize the same trap later.' },
+  { name: 'Anonymous Student', role: 'SAT student', quote: 'Seeing the lesson, timer, and review loop in one place made it easier to keep practicing without deciding what to open next.' },
+]
 
 export const metadata: Metadata = {
   title: `${BRAND_NAME} — Study the way you actually learn`,
   description:
-    'Personalized SAT and ACT practice with Nova. Custom examples, score tracking, nightly plans, Desmos, Rapid Fire — from $10/month.',
+    'Personalized SAT and ACT practice with Nova. Custom examples, score tracking, nightly plans, Desmos, Rapid Fire — from $7.56/month.',
 }
 
 export default async function LandingPage() {
@@ -23,29 +37,25 @@ export default async function LandingPage() {
     <div className="cast-page relative min-h-screen overflow-x-hidden">
       <header className="relative z-30 mx-auto max-w-6xl px-4 pt-5 sm:px-6">
         <div className="cast-nav cast-pill flex items-center justify-between gap-3 px-3 py-2.5 sm:px-4">
-          <BrandMark href="/" />
+          <BrandMark href="/" mark={<img src="/nova-character.png" alt="" className="h-14 w-auto" />} />
           <div className="flex items-center gap-2">
             <Link href="#features" className="hidden px-3 text-sm text-fog hover:text-paper md:inline">
               Features
-            </Link>
-            <Link href="#research" className="hidden px-3 text-sm text-fog hover:text-paper md:inline">
-              Research
             </Link>
             <Link href="/pricing" className="hidden px-3 text-sm text-fog hover:text-paper md:inline">
               Pricing
             </Link>
             <Link
-              href="/signup"
-              className="cast-pill cast-cta inline-flex items-center gap-1.5 px-4 py-2.5 text-sm font-semibold"
+              href="/login"
+              className="cast-pill inline-flex items-center justify-center border border-[var(--line)] bg-white px-4 py-2.5 text-sm font-semibold text-paper transition hover:-translate-y-0.5 hover:border-signal/40"
             >
-              Start free <ArrowRight className="h-4 w-4" />
+              Log in
             </Link>
             <Link
-              href="/login"
-              className="cast-pill inline-flex h-10 w-10 items-center justify-center border border-[var(--line)] bg-white text-paper"
-              aria-label="Log in"
+              href="/signup?trial=1"
+              className="cast-pill cast-cta inline-flex items-center gap-1.5 px-4 py-2.5 text-sm font-semibold"
             >
-              <Menu className="h-4 w-4" />
+              Try now <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
         </div>
@@ -54,9 +64,7 @@ export default async function LandingPage() {
       <main className="cast-hero-fill cast-stage relative z-10 mx-auto flex max-w-5xl flex-col items-center justify-center px-4 pb-16 pt-16 text-center sm:px-6 sm:pt-20">
         <div className="relative z-10 mx-auto max-w-2xl">
           <div className="mb-6 flex items-center justify-center gap-3">
-            <span className="flex h-12 w-12 items-center justify-center rounded-full bg-signal font-display text-xl font-extrabold text-white shadow-[0_12px_28px_rgba(255,92,57,0.32)]">
-              P
-            </span>
+            <img src="/nova-character.png" alt="" className="h-32 w-auto" />
             <p className="font-display text-2xl tracking-tight text-paper sm:text-3xl">{BRAND_NAME}</p>
           </div>
           <h1 className="mt-2 font-display text-[clamp(2.75rem,7.5vw,4.5rem)] leading-[0.96] tracking-tight text-paper">
@@ -71,35 +79,38 @@ export default async function LandingPage() {
               Free diagnostic · no card
             </p>
             <Link
-              href="/signup"
+              href="/signup?trial=1"
               className="cast-pill cast-cta inline-flex items-center justify-center gap-1.5 px-5 py-3 text-sm font-semibold"
             >
-              Start free <ArrowRight className="h-4 w-4" />
+              Try now — 7 days premium <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
         </div>
       </main>
 
-      <section id="features" className="relative z-10 mx-auto max-w-6xl px-4 py-20 sm:px-6">
-        <div className="mb-10 max-w-2xl">
-          <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-signal">Features</p>
-          <h2 className="mt-2 font-display text-4xl tracking-tight text-paper sm:text-5xl">Four systems. Live on screen.</h2>
-          <p className="mt-3 text-[15px] leading-relaxed text-fog">
-            Nova Tutoring, Rapid Fire, Game Mode, and Practice Tests — hover for a closer look, then open a working demo.
-          </p>
+      <section className="relative z-10 mx-auto max-w-7xl px-4 pb-16 sm:px-6">
+        <div className="mx-auto max-w-2xl text-center">
+          <p className="font-mono text-[10px] uppercase tracking-[.2em] text-signal">Sample student stories</p>
+          <h2 className="mt-2 font-display text-4xl tracking-tight text-paper sm:text-5xl">What studying can feel like</h2>
+          <p className="mt-3 text-sm leading-6 text-fog">Illustrative previews showing the kinds of experiences students can have in the product.</p>
         </div>
-        <ProductShowcase />
+        <div className="mt-10 flex snap-x gap-4 overflow-x-auto pb-6">
+          {REVIEWS.map((review, index) => <article key={review.name} className="relative min-w-[285px] snap-start overflow-hidden rounded-[2rem] border border-line bg-white p-6 shadow-[0_18px_45px_rgba(40,24,12,.07)] sm:min-w-[340px]"><div className="text-signal" aria-label="Five star sample rating">★★★★★</div><p className="mt-5 text-[15px] leading-7 text-paper">“{review.quote}”</p><div className="mt-6 flex items-center gap-3 border-t border-line pt-4"><span className="flex h-11 w-11 items-center justify-center rounded-full bg-signal/10 font-display text-signal">{review.name.charAt(0)}</span><div><p className="font-semibold text-paper">{review.name}</p><p className="text-xs text-fog">{review.role}</p></div><span className="ml-auto font-mono text-[8px] uppercase tracking-wider text-fog">Sample {index + 1}</span></div></article>)}
+        </div>
+        <p className="text-center text-[10px] text-fog">These stories are illustrative product-preview examples and are not verified customer testimonials.</p>
       </section>
 
-      <section id="research" className="relative z-10 mx-auto max-w-6xl px-4 py-20 sm:px-6">
-        <div className="mb-10 max-w-2xl">
-          <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-signal">Learning science</p>
-          <h2 className="mt-2 font-display text-4xl tracking-tight text-paper sm:text-5xl">Our Research</h2>
-          <p className="mt-3 text-[15px] leading-relaxed text-fog">
-            A transparent look at the learning principles and modeled outcomes that shape the platform.
-          </p>
+      <section className="relative z-10 mx-auto max-w-7xl px-4 py-12 sm:px-6">
+        <UniquePillars />
+      </section>
+
+      <section id="features" className="relative z-10 mx-auto max-w-6xl px-4 py-20 sm:px-6">
+        <div className="mb-10 text-center">
+          <p className="inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.2em] text-signal"><Sparkles className="h-4 w-4" /> Inside the app</p>
+          <h2 className="mt-2 font-display text-4xl tracking-tight text-paper sm:text-5xl">Product Preview</h2>
+          <p className="mx-auto mt-3 max-w-xl text-[15px] leading-relaxed text-fog">This is the same home screen and planning experience students see after logging in.</p>
         </div>
-        <ResearchShowcase />
+        <LoggedInProductPreview />
       </section>
 
       <section className="relative z-10 mx-auto max-w-6xl px-4 py-16 sm:px-6">
@@ -107,56 +118,15 @@ export default async function LandingPage() {
           <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-signal">Pricing</p>
           <h2 className="mt-2 font-display text-4xl tracking-tight text-paper sm:text-5xl">Pick a plan</h2>
           <p className="mt-3 text-[15px] text-fog">
-            Clear limits. Eight inclusions each. Start on Core or go Plus for the higher daily ceiling.
+            Free sits next to Core. Core is $7.56 a month and Plus is $20 a month, with 3× the daily usage. Each paid card includes a 30% annual option.
           </p>
         </div>
-        <div className="grid gap-5 lg:grid-cols-2">
-          {PLANS.map((plan) => (
-            <div
-              key={plan.name}
-              className={`cast-card flex flex-col p-7 ${plan.hot ? 'ring-2 ring-signal' : ''}`}
-            >
-              <div className="flex items-start justify-between gap-3">
-                <div>
-                  <p className="font-display text-2xl">
-                    {plan.name}
-                    {plan.hot ? <span className="ml-2 font-mono text-[10px] text-signal">MOST CHOSEN</span> : null}
-                  </p>
-                  <p className="mt-2 max-w-sm text-sm leading-relaxed text-fog">{plan.blurb}</p>
-                </div>
-                <div className="text-right">
-                  <p className="font-display text-4xl tracking-tight">${plan.price}</p>
-                  <p className="text-sm text-fog">/ month</p>
-                </div>
-              </div>
-              <ul className="mt-6 space-y-2.5">
-                {plan.bullets.map((item) => (
-                  <li key={item} className="flex items-start gap-2.5 text-sm text-paper">
-                    <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[rgba(34,160,107,0.12)] text-ok">
-                      <Check className="h-3 w-3" aria-hidden="true" />
-                    </span>
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-              <Link
-                href={`/signup?plan=${plan.id}`}
-                className={
-                  plan.hot
-                    ? 'cast-pill cast-cta mt-7 inline-flex items-center justify-center gap-1.5 px-5 py-3 text-sm font-semibold'
-                    : 'cast-pill mt-7 inline-flex items-center justify-center gap-1.5 border border-[var(--line)] bg-white px-5 py-3 text-sm font-semibold'
-                }
-              >
-                Get {plan.name} <ArrowRight className="h-4 w-4" />
-              </Link>
-            </div>
-          ))}
-        </div>
+        <PlanCards destination="signup" />
       </section>
 
       <footer className="relative z-10 border-t border-[var(--line)] px-6 py-8">
         <div className="mx-auto flex max-w-6xl items-center justify-between">
-          <p className="font-display text-sm">{BRAND_NAME}</p>
+          <p className="flex items-center gap-2.5 font-display text-sm"><img src="/nova-character.png" alt="" className="h-14 w-auto" />{BRAND_NAME}</p>
           <div className="flex gap-5 text-sm text-fog">
             <Link href="/pricing" className="hover:text-paper">Pricing</Link>
             <Link href="/login" className="hover:text-paper">Login</Link>

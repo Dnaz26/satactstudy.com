@@ -9,7 +9,7 @@ export type ReviewedItem={
 /** Exact blueprint matching; insufficient bank coverage is a failure, never
  * silently filled with an unrelated skill, another test type, or duplicate. */
 export function assembleExam(type:ExamType,slots:Slot[],bank:ReviewedItem[],exposure:ReadonlyMap<string,number>=new Map()):ReviewedItem[]{
- const used=new Set<string>(),templates=new Set<string>(),subjects=new Map<string,number>(),passages=new Map<string,string>()
+ const used=new Set<string>(),templates=new Set<string>(),subjects=new Map<string,number>(),passages=new Map<string,string>(),satStimuli=new Set<string>()
  const assembled:ReviewedItem[]=[]
  for(const [index,slot] of slots.entries()){
   const candidates=bank.filter(q=>q.examType===type&&q.section===slot.section&&q.domain===slot.domain&&q.skill===slot.skill
@@ -18,7 +18,8 @@ export function assembleExam(type:ExamType,slots:Slot[],bank:ReviewedItem[],expo
    &&(!slot.graphic||q.graphic)&&(!slot.contextual||q.contextual)&&(!slot.modeling||q.modeling)
    &&q.moduleEligibility.some(e=>e.module===slot.module&&e.route===slot.route)
    &&(!slot.passageWords||(q.passageWords!==null&&q.passageWords>=(type==='SAT'?25:slot.passageWords*.8)&&q.passageWords<=(type==='SAT'?150:slot.passageWords*1.2)))
-   &&(!slot.passageGroup||(q.passageGroup===slot.passageGroup&&(!passages.has(slot.passageGroup)||passages.get(slot.passageGroup)===q.passageId))))
+   &&(!slot.passageGroup||(q.passageGroup===slot.passageGroup&&(!passages.has(slot.passageGroup)||passages.get(slot.passageGroup)===q.passageId)))
+   &&(type!=='SAT'||!q.passageId||!satStimuli.has(q.passageId)))
   candidates.sort((a,b)=>(exposure.get(a.id)??0)-(exposure.get(b.id)??0)
     ||(subjects.get(a.subject)??0)-(subjects.get(b.subject)??0)
     ||Math.abs(a.difficultyLevel-slot.difficultyLevel)-Math.abs(b.difficultyLevel-slot.difficultyLevel)||a.id.localeCompare(b.id))
@@ -27,6 +28,7 @@ export function assembleExam(type:ExamType,slots:Slot[],bank:ReviewedItem[],expo
   assembled.push(selected);used.add(selected.id);templates.add(selected.templateHash)
   subjects.set(selected.subject,(subjects.get(selected.subject)??0)+1)
   if(slot.passageGroup&&selected.passageId)passages.set(slot.passageGroup,selected.passageId)
+  if(type==='SAT'&&selected.passageId)satStimuli.add(selected.passageId)
  }
  return assembled
 }

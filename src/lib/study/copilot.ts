@@ -1,4 +1,4 @@
-import type { GuidedLesson } from './lesson-flow'
+import { explanationPassed, type GuidedLesson } from './lesson-flow'
 import type { StudyProblem, StudyRank } from './types'
 
 export type ExplanationGrade = {
@@ -70,7 +70,7 @@ export function gradeExplanationLocally(
     ? `${live.label} — ${live.why}`
     : lesson.translateExample
 
-  if (score >= 85) {
+  if (explanationPassed(score)) {
     return {
       score,
       passed: true,

@@ -47,13 +47,17 @@ export function buildFastTutorContext(
     request.submitted && request.correctAnswer ? `Canonical: ${request.correctAnswer}` : '',
     extras?.masteryOverall != null ? `Mastery: ${Math.round(extras.masteryOverall)}/100` : '',
     memoryBits.length ? `Memory: ${memoryBits.join(' · ')}` : '',
-    trigger === 'wrong_answer' || request.isCorrect === false
+    request.openChat
+      ? 'Task: answer the latest chat message directly; the visual board gives the full worked steps.'
+      : trigger === 'wrong_answer' || request.isCorrect === false
       ? 'Task: 4 easy numbered steps. Grade-6 words. One idea per step. No LaTeX. Fix the mistake pattern.'
       : request.submitted && request.officialExplanation
         ? `Note: ${clip(request.officialExplanation, 180)}`
         : '',
     request.desmosAvailable ? `Desmos: ${classification.mode}` : '',
-    trigger === 'wrong_answer' || request.isCorrect === false
+    request.openChat
+      ? 'Style: one friendly sentence in chat'
+      : trigger === 'wrong_answer' || request.isCorrect === false
       ? 'Style: easy short steps'
       : `Style: ${preferences.methods.join('/')} · ${preferences.explanation_level} · ${preferences.pacing}${preferences.custom_interest ? ` · ${preferences.custom_interest}` : ''}`,
     'Goal: raise score efficiently with real understanding. Next action after teaching.',

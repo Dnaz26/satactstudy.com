@@ -1,0 +1,16 @@
+{
+  "batch": "smart-fill-to-fifty",
+  "generatedAt": "2026-10-06T02:12:44.667Z",
+  "saved": 30,
+  "approvedActiveValidated": 30,
+  "invalidDraftsExcluded": 2,
+  "byTopic": {
+    "Linear functions": 30
+  },
+  "answerSpread": {
+    "D": 5,
+    "A": 12,
+    "B": 7,
+    "C": 6
+  }
+}

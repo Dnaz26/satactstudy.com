@@ -1,7 +1,9 @@
 'use client'
 
+import * as React from 'react'
+import { Strikethrough } from 'lucide-react'
 import { cn } from '@/lib/utils'
-import { officialChoiceLabel } from '@/lib/schema'
+import { displayedChoiceLabel, officialChoiceLabel } from '@/lib/schema'
 import { isStudentProduced } from '@/lib/questions/render'
 import { QuestionPrompt } from './question-prompt'
 import { MathDiagram } from './math-diagram'
@@ -10,7 +12,7 @@ import type { QuestionCalculatorConfig } from '@/types/desmos'
 export type BookletQuestion = {
   id: string
   question_text: string
-  choices: Array<{ key: string; text: string }>
+  choices: Array<{ key: string; text: string; label?: string }>
   correct_answer: string
   difficulty: 'easy' | 'medium' | 'hard'
   topic_id: string | null
@@ -68,6 +70,7 @@ function BookletItem({
   onAnswer,
   onCheck,
   allowCheck = true,
+  comeBack = false,
 }: {
   allowCheck?: boolean
   question: BookletQuestion
@@ -75,12 +78,14 @@ function BookletItem({
   answer: string
   mark?: BookletMark
   focused: boolean
+  comeBack?: boolean
   onFocus: () => void
   onAnswer: (value: string) => void
   onCheck: () => void
 }) {
   const spr = isStudentProduced(question.question_type, question.choices)
   const choices = question.choices ?? []
+  const [struck, setStruck] = React.useState<Set<string>>(new Set())
 
   return (
     <article
@@ -93,6 +98,7 @@ function BookletItem({
     >
       <div className="flex items-start gap-2">
         <span className="mt-0.5 font-mono text-xs font-bold">{number}.</span>
+        {comeBack ? <span className="rounded-full bg-[#fff4e5] px-2 py-0.5 text-[10px] font-extrabold text-[#a15c00]">Come back</span> : null}
         <QuestionPrompt text={question.question_text} className="mb-0 flex-1 text-[13px] leading-5 text-[#1c2740]" />
       </div>
       {allowCheck ? <MathDiagram text={question.question_text} imageUrl={question.image_url} /> : question.image_url ? <MathDiagram text="" imageUrl={question.image_url} /> : null}
@@ -109,37 +115,53 @@ function BookletItem({
         />
       ) : (
         <div className="ml-6 space-y-1.5">
-          {choices.map(({ key, text }) => {
-            const label = officialChoiceLabel(key, question.test_type, number)
+          {choices.map(({ key, text, label: displayLabel }) => {
+            const label = officialChoiceLabel(displayLabel ?? key, question.test_type, number)
             const filled = answer === key
+            const blurred = struck.has(key)
             return (
-              <button
-                key={key}
-                type="button"
-                disabled={Boolean(mark)}
-                onClick={() => {
-                  onFocus()
-                  onAnswer(key)
-                }}
-                className="flex w-full items-start gap-2 text-left text-[13px] leading-5 disabled:opacity-80"
-              >
-                <span
-                  className="test-bubble mt-0.5 shrink-0"
-                  data-filled={filled && !mark ? 'true' : undefined}
-                  data-ok={mark && key === question.correct_answer ? 'true' : undefined}
-                  data-bad={mark && filled && key !== question.correct_answer ? 'true' : undefined}
+              <div key={key} className="flex items-start gap-2">
+                <button
+                  type="button"
+                  disabled={Boolean(mark)}
+                  onClick={() => {
+                    onFocus()
+                    onAnswer(key)
+                  }}
+                  className={cn('flex min-w-0 flex-1 items-start gap-2 text-left text-[13px] leading-5 disabled:opacity-80', blurred && 'blur-[2px] opacity-40 saturate-50')}
                 >
-                  {label}
-                </span>
-                <QuestionPrompt
-                  text={text}
-                  className={cn(
-                    'mb-0 flex-1 text-[13px] leading-5 text-[#1c2740]',
-                    mark && key === question.correct_answer && 'text-ok',
-                    mark && filled && key !== question.correct_answer && 'text-bad'
-                  )}
-                />
-              </button>
+                  <span
+                    className="test-bubble mt-0.5 shrink-0"
+                    data-filled={filled && !mark ? 'true' : undefined}
+                    data-ok={mark && key === question.correct_answer ? 'true' : undefined}
+                    data-bad={mark && filled && key !== question.correct_answer ? 'true' : undefined}
+                  >
+                    {label}
+                  </span>
+                  <QuestionPrompt
+                    text={text}
+                    className={cn(
+                      'mb-0 flex-1 text-[13px] leading-5 text-[#1c2740]',
+                      mark && key === question.correct_answer && 'text-ok',
+                      mark && filled && key !== question.correct_answer && 'text-bad'
+                    )}
+                  />
+                </button>
+                <button
+                  type="button"
+                  aria-label={blurred ? 'Restore choice' : 'Cross out choice'}
+                  aria-pressed={blurred}
+                  onClick={() => setStruck((previous) => {
+                    const next = new Set(previous)
+                    if (next.has(key)) next.delete(key)
+                    else next.add(key)
+                    return next
+                  })}
+                  className={cn('mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-[#1c2740]/20 text-[#1c2740]', blurred && 'bg-[#1c2740] text-white')}
+                >
+                  <Strikethrough className="h-3.5 w-3.5" />
+                </button>
+              </div>
             )
           })}
         </div>
@@ -153,7 +175,7 @@ function BookletItem({
       {mark && (
         <div className="ml-6 text-[12px] leading-5">
           <p className={mark.correct ? 'font-semibold text-ok' : 'font-semibold text-bad'}>
-            {mark.correct ? 'Correct' : `Correct answer: ${officialChoiceLabel(question.correct_answer, question.test_type, number)}`}
+            {mark.correct ? 'Correct' : `Correct answer: ${officialChoiceLabel(displayedChoiceLabel(question.choices, question.correct_answer), question.test_type, number)}`}
           </p>
           {mark.why ? (
             <QuestionPrompt
@@ -179,9 +201,11 @@ export function TestBooklet({
   onCheck,
   allowCheck = true,
   numberOffset = 0,
+  reviewIds,
 }: {
   allowCheck?: boolean
   numberOffset?: number
+  reviewIds?: ReadonlySet<string>
   testType: string
   sectionLabel: string
   questions: BookletQuestion[]
@@ -229,6 +253,7 @@ export function TestBooklet({
                     answer={answers[question.id] ?? ''}
                     mark={marks[question.id]}
                     focused={focusedId === question.id}
+                    comeBack={reviewIds?.has(question.id)}
                     onFocus={() => onFocus(question.id)}
                     onAnswer={(value) => onAnswer(question.id, value)}
                     allowCheck={allowCheck}
@@ -246,6 +271,7 @@ export function TestBooklet({
                     number={number}
                     answer={answers[question.id] ?? ''}
                     mark={marks[question.id]}
+                    comeBack={reviewIds?.has(question.id)}
                     focused={focusedId === question.id}
                     onFocus={() => onFocus(question.id)}
                     onAnswer={(value) => onAnswer(question.id, value)}
@@ -297,7 +323,7 @@ export function AnswerSheet({
                   <span className="truncate font-mono text-[10px]">{answers[question.id] || '—'}</span>
                 ) : (
                   <span className="flex flex-wrap gap-1">
-                    {(question.choices ?? []).map(({ key }) => (
+                    {(question.choices ?? []).map(({ key, label }) => (
                       <span
                         key={key}
                         className="test-bubble"
@@ -305,7 +331,7 @@ export function AnswerSheet({
                         data-ok={mark && key === question.correct_answer ? 'true' : undefined}
                         data-bad={mark && answers[question.id] === key && key !== question.correct_answer ? 'true' : undefined}
                       >
-                        {officialChoiceLabel(key, question.test_type, number)}
+                        {officialChoiceLabel(label ?? key, question.test_type, number)}
                       </span>
                     ))}
                   </span>

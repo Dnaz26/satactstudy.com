@@ -217,3 +217,23 @@ export function normalizeExampleSet(
 export function examplesForLevel(level: StudyLevel): LessonExampleSet {
   return BANK[level.title] ?? fallbackExamples(level)
 }
+
+/** Hand-written yes/no cases for this lesson title, including micro titles. */
+export function bankExamplesForTitle(title: string): LessonExampleSet | null {
+  if (BANK[title]) return BANK[title]
+  const base = title.split(':')[0]?.trim() ?? title
+  if (BANK[base]) return BANK[base]
+  const loose = (text: string) => text
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, ' ')
+    .replace(/\b(a|an|the)\b/g, ' ')
+    .replace(/\b([a-z]{3,})s\b/g, '$1')
+    .replace(/\s+/g, ' ')
+    .trim()
+  const wanted = loose(title)
+  const hit = Object.keys(BANK).find((key) => {
+    const name = loose(key)
+    return name.length >= 6 && (wanted === name || wanted.includes(name))
+  })
+  return hit ? BANK[hit] : null
+}

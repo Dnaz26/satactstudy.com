@@ -1,11 +1,15 @@
 import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
 import { MistakesList, type MistakeRow } from './mistakes-list'
+import { getAccessProfile } from '@/lib/entitlements'
+import { hasActiveTrial, hasPaidAccess } from '@/lib/access'
 
 export default async function MistakesPage() {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect('/login')
+  const access = await getAccessProfile(user.id)
+  if (!hasPaidAccess(access.plan, access.role) && !hasActiveTrial(access.trialEndsAt)) redirect('/pricing?reason=review')
 
   const { data: raw } = await supabase
     .from('attempts')

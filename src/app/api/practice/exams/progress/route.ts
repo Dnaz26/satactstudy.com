@@ -5,6 +5,7 @@ import { awardCoins } from '@/lib/economy/wallet'
 import { dbId } from '@/lib/schema'
 import { z } from 'zod'
 import { recalculateMastery } from '@/lib/practice/recalculate-mastery'
+import { answersMatch } from '@/lib/practice/answers'
 
 const saveSchema = z.object({
   usage: z.object({ tutorUsed: z.record(z.string(), z.boolean()), desmosUsed: z.record(z.string(), z.boolean()) }).optional(),
@@ -57,7 +58,10 @@ export async function PATCH(request: NextRequest) {
         focused_id: prior.assigned_question_ids.slice(start, end).includes(data.focusedId ?? '') ? data.focusedId : prior.focused_id,
         module_seconds_left: Math.min(prior.module_seconds_left ?? [1920,1920,2100,2100][prior.module_index], data.moduleSecondsLeft ?? 0),
         completed_questions: Object.values({ ...(prior.answers as Record<string, string>), ...accepted }).filter(Boolean).length,
-        usage: data.usage ?? prior.usage,
+        usage: {
+          ...(prior.usage && typeof prior.usage === 'object' && !Array.isArray(prior.usage) ? prior.usage : {}),
+          ...(data.usage ?? {}),
+        },
         hint_used: { ...(prior.hint_used as Record<string, boolean>), ...Object.fromEntries(prior.assigned_question_ids.slice(start,end).map(id => [id, Boolean(data.hintUsed?.[id])])) },
         elapsed_seconds: Math.max(prior.elapsed_seconds, data.elapsed ?? 0), updated_at: new Date().toISOString(),
       }).eq('id', prior.id).eq('status', 'in_progress').eq('module_index', prior.module_index).select('id')
@@ -108,22 +112,57 @@ export async function POST(request: NextRequest) {
     }
 
     const { examId, timeSpentSeconds, sessionId } = parsed.data
-    const { data: state } = await supabase.from('user_practice_exams').select('format_version, total_questions').eq('user_id', user.id).eq('exam_id', examId).single()
+    const { data: state } = await supabase
+      .from('user_practice_exams')
+      .select('format_version, total_questions, assigned_question_ids')
+      .eq('user_id', user.id)
+      .eq('exam_id', examId)
+      .single()
     if (!state) return Response.json({ error: 'Exam not started' }, { status: 409 })
     if (state.format_version === 2) {
+      const { data: priorPath } = await supabase
+        .from('user_practice_exams')
+        .select('usage')
+        .eq('user_id', user.id)
+        .eq('exam_id', examId)
+        .maybeSingle()
+      const stored = priorPath?.usage && typeof priorPath.usage === 'object' && !Array.isArray(priorPath.usage)
+        ? (priorPath.usage as { mathModule2Path?: string }).mathModule2Path
+        : null
       const { data: result, error } = await supabase.rpc('complete_sat_exam', {
         p_exam_id: examId, p_answers: parsed.data.answers ?? {}, p_seconds: timeSpentSeconds ?? 0, p_usage: parsed.data.usage ?? {},
       })
       if (error) return Response.json({ error: 'Could not complete exam. Your progress is saved; try again.' }, { status: 409 })
-      const score = result as { correctCount: number; total: number; alreadyCompleted: boolean }
+      const score = result as { correctCount: number; total: number; alreadyCompleted: boolean; mathPath?: string | null }
+      if (stored === 'easier' || stored === 'medium' || stored === 'harder') score.mathPath = stored
       if (!score.alreadyCompleted) {
         await recalculateMastery(supabase, user.id).catch(err => console.error('Exam mastery update failed', err))
       }
       if (!score.alreadyCompleted) await awardCoins(supabase, user.id, 'practice_test', { examId, correctCount: score.correctCount, completedQuestions: score.total })
       return Response.json({ success: true, ...score })
     }
-    const correctCount = Math.min(state.total_questions ?? 100, parsed.data.correctCount ?? 0)
-    const completedQuestions = Math.min(state.total_questions ?? 100, parsed.data.completedQuestions ?? 0)
+    const submitted = parsed.data.answers ?? {}
+    const assignedIds = (state.assigned_question_ids ?? []) as string[]
+    const { data: keyRows, error: keyError } = await supabase
+      .from('questions')
+      .select('id, correct_answer, section_name')
+      .in('id', assignedIds)
+    if (keyError || !keyRows || keyRows.length !== assignedIds.length) {
+      return Response.json({ error: 'Could not score exam' }, { status: 500 })
+    }
+    const sectionCorrect: Record<string, number> = {}
+    let correctCount = 0
+    for (const row of keyRows) {
+      const ok = answersMatch(submitted[row.id] ?? '', row.correct_answer ?? '')
+      if (ok) {
+        correctCount += 1
+        const section = row.section_name ?? 'Unknown'
+        sectionCorrect[section] = (sectionCorrect[section] ?? 0) + 1
+      }
+    }
+    const totalQuestions = state.total_questions ?? assignedIds.length
+    correctCount = Math.min(totalQuestions, correctCount)
+    const completedQuestions = Math.min(totalQuestions, assignedIds.filter(id => submitted[id]?.trim()).length)
 
     const { data: priorExam } = await supabase
       .from('user_practice_exams')
@@ -140,7 +179,7 @@ export async function POST(request: NextRequest) {
         correct_count: correctCount,
         completed_questions: completedQuestions,
         time_spent_seconds: timeSpentSeconds ?? 0,
-        answers: {},
+        answers: submitted,
         marks: {},
         hint_used: {},
         focused_id: null,
@@ -183,7 +222,17 @@ export async function POST(request: NextRequest) {
       balance = coin.balance
     }
 
-    return Response.json({ success: true, coinsAwarded, balance })
+    return Response.json({
+      success: true,
+      correctCount,
+      total: totalQuestions,
+      englishCorrect: sectionCorrect.English ?? 0,
+      mathCorrect: sectionCorrect.Math ?? 0,
+      readingCorrect: sectionCorrect.Reading ?? 0,
+      scienceCorrect: sectionCorrect.Science ?? 0,
+      coinsAwarded,
+      balance,
+    })
   } catch (err) {
     console.error(err)
     return Response.json({ error: 'Internal server error' }, { status: 500 })

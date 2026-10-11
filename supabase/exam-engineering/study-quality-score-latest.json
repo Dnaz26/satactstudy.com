@@ -1,0 +1,56 @@
+{
+  "generatedAt": "2026-10-07T00:15:31.398Z",
+  "method": "Equal weight across the eight study-quality variables. Scores use the live audit after the strict-form insert. A Hard label is not treated as proof of 3-5x difficulty. Template families are not scored as independent coverage or as 5x items. No variable is scored from intention alone.",
+  "sat": 66,
+  "act": 66,
+  "variables": {
+    "SAT": {
+      "topic coverage": 76,
+      "format accuracy": 86,
+      "domain balance": 72,
+      "difficulty strength": 44,
+      "validation quality": 50,
+      "graph/data realism": 55,
+      "adaptive/pacing realism": 78,
+      "duplicate control": 64
+    },
+    "ACT": {
+      "topic coverage": 82,
+      "format accuracy": 84,
+      "domain balance": 68,
+      "difficulty strength": 42,
+      "validation quality": 56,
+      "graph/data realism": 58,
+      "adaptive/pacing realism": 70,
+      "duplicate control": 64
+    }
+  },
+  "evidence": {
+    "questionsAdded": 2226,
+    "activeApproved": 7256,
+    "activeOriginalDistinct": 7251,
+    "exactDuplicateRows": 0,
+    "topicsAt75": 93,
+    "topicsAt100": 4,
+    "topicsBelow75": 0,
+    "totalDistinctDeficitTo75": 0,
+    "totalDistinctDeficitTo100": 2066,
+    "satTopics": 66,
+    "satMedianOriginalDistinct": 75,
+    "actTopics": 27,
+    "actMedianOriginalDistinct": 81,
+    "topicsWith100HardLabeled": 0,
+    "hardLabeledMin": 26,
+    "hardLabeledMedian": 47,
+    "validatedOriginalDistinct": 3654,
+    "validatedShareOfDistinct": 0.504,
+    "actEnglishValidatedDistinct": 133,
+    "actReadingValidatedDistinct": 101,
+    "graphicOriginalDistinct": 617,
+    "satForm": "Strict validated SAT form exam 39: 98 questions, reading 27, english 27, math 44, module 2 easy 22, module 2 hard 22",
+    "actForm": "Strict validated ACT form exam 40: 131 questions, English 50, Math 45, Reading 36, no science section, not adaptive",
+    "satBlueprintFill": "98/98",
+    "actBlueprintFill": "131/131",
+    "limitation": "New items are original and algebraically or passage-fact checked, but most are template families distinguished by a setting, passage, or practice index. That keeps difficulty, graph realism, validation quality, and duplicate control below 95."
+  }
+}

@@ -1,0 +1,81 @@
+{
+  "generatedAt": "2026-10-07T01:32:24.045Z",
+  "batch": "SAT trig step-up 2026-10-06",
+  "built": 8,
+  "inserted": 8,
+  "rescored": 2,
+  "elite": 7,
+  "trueHard": 8,
+  "items": [
+    {
+      "exam": "SAT",
+      "topic": "Trigonometry",
+      "answer": "B",
+      "total": 15,
+      "band": "elite-hard"
+    },
+    {
+      "exam": "SAT",
+      "topic": "Trigonometry",
+      "answer": "C",
+      "total": 16,
+      "band": "elite-hard"
+    },
+    {
+      "exam": "SAT",
+      "topic": "Trigonometry",
+      "answer": "B",
+      "total": 16,
+      "band": "elite-hard"
+    },
+    {
+      "exam": "SAT",
+      "topic": "Right triangles and trigonometry",
+      "answer": "D",
+      "total": 16,
+      "band": "elite-hard"
+    },
+    {
+      "exam": "ACT",
+      "topic": "Trigonometry",
+      "answer": "C",
+      "total": 15,
+      "band": "elite-hard"
+    },
+    {
+      "exam": "ACT",
+      "topic": "Trigonometry",
+      "answer": "C",
+      "total": 15,
+      "band": "elite-hard"
+    },
+    {
+      "exam": "ACT",
+      "topic": "Trigonometry",
+      "answer": "D",
+      "total": 13,
+      "band": "true-hard"
+    },
+    {
+      "exam": "ACT",
+      "topic": "Trigonometry",
+      "answer": "C",
+      "total": 16,
+      "band": "elite-hard"
+    }
+  ],
+  "rescoredItems": [
+    {
+      "difficulty": "Medium",
+      "level": 4,
+      "total": 10,
+      "band": "medium"
+    },
+    {
+      "difficulty": "Easy",
+      "level": 2,
+      "total": 7,
+      "band": "easy"
+    }
+  ]
+}

@@ -9,7 +9,7 @@ import { PayClient } from './pay-client'
 export default async function PayPage({
   searchParams,
 }: {
-  searchParams: Promise<{ plan?: string; promo?: string; updated?: string; session_id?: string }>
+  searchParams: Promise<{ plan?: string; promo?: string; billing?: string; updated?: string; session_id?: string }>
 }) {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
@@ -48,6 +48,7 @@ export default async function PayPage({
   return (
     <PayClient
       plan={plan}
+      billing={params.billing === 'year' ? 'year' : 'month'}
       promo={promo}
       currentPlan={asPlan(profile?.subscription_plan)}
       updateCard={product && !plan}

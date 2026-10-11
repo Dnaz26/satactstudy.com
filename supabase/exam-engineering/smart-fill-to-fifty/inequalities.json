@@ -1,0 +1,16 @@
+{
+  "batch": "smart-fill-to-fifty",
+  "generatedAt": "2026-10-06T02:12:46.105Z",
+  "saved": 27,
+  "approvedActiveValidated": 27,
+  "invalidDraftsExcluded": 2,
+  "byTopic": {
+    "Linear inequalities in one or two variables": 27
+  },
+  "answerSpread": {
+    "C": 6,
+    "A": 10,
+    "B": 4,
+    "D": 7
+  }
+}

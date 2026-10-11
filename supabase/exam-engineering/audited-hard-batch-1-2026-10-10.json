@@ -1,0 +1,61 @@
+{
+  "batch": "Audited hard pool 2026-10-10 batch 1",
+  "generatedAt": "2026-10-10T21:58:35.829Z",
+  "added": [
+    {
+      "id": "6aedf100-a96e-459e-a139-e0ffdc5481c0",
+      "exam": "SAT",
+      "section": "Math",
+      "domain": "Algebra",
+      "topic": "Linear equations in one variable",
+      "rubric_total": 14,
+      "band": "hard"
+    },
+    {
+      "id": "8195c340-3525-4236-945e-21bd57f24d73",
+      "exam": "SAT",
+      "section": "Math",
+      "domain": "Advanced Math",
+      "topic": "Equivalent expressions",
+      "rubric_total": 13,
+      "band": "hard"
+    },
+    {
+      "id": "6bd04d39-983d-4c4c-813e-1c9342b8aede",
+      "exam": "SAT",
+      "section": "Math",
+      "domain": "Advanced Math",
+      "topic": "Nonlinear functions",
+      "rubric_total": 14,
+      "band": "hard"
+    },
+    {
+      "id": "dec70ca8-6be6-4cc2-8b2a-6003c413d47b",
+      "exam": "SAT",
+      "section": "Math",
+      "domain": "Problem-Solving and Data Analysis",
+      "topic": "Percentages",
+      "rubric_total": 13,
+      "band": "hard"
+    },
+    {
+      "id": "2738c372-1950-4c89-bd55-4a8cf02e880c",
+      "exam": "SAT",
+      "section": "Math",
+      "domain": "Geometry and Trigonometry",
+      "topic": "Right triangles and trigonometry",
+      "rubric_total": 13,
+      "band": "hard"
+    },
+    {
+      "id": "19960980-a2f5-489d-ac8c-0c47f91abe93",
+      "exam": "SAT",
+      "section": "Reading and Writing",
+      "domain": "Information and Ideas",
+      "topic": "Inferences",
+      "rubric_total": 15,
+      "band": "elite-hard"
+    }
+  ],
+  "not_a_literal_five_times_multiplier": true
+}

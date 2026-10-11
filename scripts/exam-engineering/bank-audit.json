@@ -1,7 +1,7 @@
 {
-  "auditedAt": "2026-09-16T23:46:27.858Z",
+  "auditedAt": "2026-09-24T21:54:08.464Z",
   "scope": "Entire saved bank, including inactive items",
-  "total": 6542,
+  "total": 6718,
   "summary": {
     "SAT:Math": {
       "total": 2636,
@@ -13,20 +13,20 @@
       "active": 1439,
       "flagged": 1439
     },
-    "ACT:English": {
-      "total": 572,
-      "active": 572,
-      "flagged": 572
-    },
     "ACT:Math": {
-      "total": 1128,
-      "active": 1128,
-      "flagged": 1128
+      "total": 1173,
+      "active": 1173,
+      "flagged": 1173
     },
     "ACT:Reading": {
-      "total": 401,
-      "active": 401,
-      "flagged": 401
+      "total": 482,
+      "active": 482,
+      "flagged": 482
+    },
+    "ACT:English": {
+      "total": 622,
+      "active": 622,
+      "flagged": 622
     },
     "ACT:Science": {
       "total": 312,
@@ -37,6 +37,14 @@
   "automatedPassIsNotIndependentAnswerVerification": true,
   "originalityCorpusCheck": "No licensed comprehensive official-item corpus; no exhaustive similarity claim",
   "exactPromptGroups": [
+    {
+      "fingerprint": "3dbc852e1b994db71366274d1209ebf77441ae096f452291e195bc15cb676268",
+      "ids": [
+        "1d162fcf-322d-4ff6-96a1-f21ee254b41d",
+        "f3000000-0000-0000-0000-000000002325",
+        "f3000000-0000-0000-0000-000000002341"
+      ]
+    },
     {
       "fingerprint": "63ebe56188aef0a6481363ddbda0c9b453e361a9b5301b0a169a68881ad93b02",
       "ids": [
@@ -1075,13 +1083,6 @@
       "ids": [
         "f3000000-0000-0000-0000-000000002324",
         "f3000000-0000-0000-0000-000000002340"
-      ]
-    },
-    {
-      "fingerprint": "3dbc852e1b994db71366274d1209ebf77441ae096f452291e195bc15cb676268",
-      "ids": [
-        "f3000000-0000-0000-0000-000000002325",
-        "f3000000-0000-0000-0000-000000002341"
       ]
     },
     {
@@ -13845,6 +13846,31 @@
   ],
   "numericTemplateGroups": [
     {
+      "fingerprint": "627a00d9c997d4cfe49865fb3adceb73b85dfa9e6eea9fe92ece5faad6b3470d",
+      "ids": [
+        "13b1ea40-074c-4064-be89-72f8cb586836",
+        "bea3623d-4a6d-4fee-8f33-a5dcd0141455"
+      ]
+    },
+    {
+      "fingerprint": "557420d4722d705b37420bb8a245d926ed1a91de92e600fcf09e6699505379ec",
+      "ids": [
+        "1d162fcf-322d-4ff6-96a1-f21ee254b41d",
+        "f3000000-0000-0000-0000-000000002319",
+        "f3000000-0000-0000-0000-000000002321",
+        "f3000000-0000-0000-0000-000000002323",
+        "f3000000-0000-0000-0000-000000002325",
+        "f3000000-0000-0000-0000-000000002327",
+        "f3000000-0000-0000-0000-000000002329",
+        "f3000000-0000-0000-0000-000000002331",
+        "f3000000-0000-0000-0000-000000002333",
+        "f3000000-0000-0000-0000-000000002335",
+        "f3000000-0000-0000-0000-000000002337",
+        "f3000000-0000-0000-0000-000000002339",
+        "f3000000-0000-0000-0000-000000002341"
+      ]
+    },
+    {
       "fingerprint": "9d21ba876cfb7aa804584340804870d35399f4c3e5d9baad03556855c94f7da8",
       "ids": [
         "f3000000-0000-0000-0000-000000000011",
@@ -14523,23 +14549,6 @@
         "f3000000-0000-0000-0000-000000002316",
         "f3000000-0000-0000-0000-000000002317",
         "f3000000-0000-0000-0000-000000002318"
-      ]
-    },
-    {
-      "fingerprint": "557420d4722d705b37420bb8a245d926ed1a91de92e600fcf09e6699505379ec",
-      "ids": [
-        "f3000000-0000-0000-0000-000000002319",
-        "f3000000-0000-0000-0000-000000002321",
-        "f3000000-0000-0000-0000-000000002323",
-        "f3000000-0000-0000-0000-000000002325",
-        "f3000000-0000-0000-0000-000000002327",
-        "f3000000-0000-0000-0000-000000002329",
-        "f3000000-0000-0000-0000-000000002331",
-        "f3000000-0000-0000-0000-000000002333",
-        "f3000000-0000-0000-0000-000000002335",
-        "f3000000-0000-0000-0000-000000002337",
-        "f3000000-0000-0000-0000-000000002339",
-        "f3000000-0000-0000-0000-000000002341"
       ]
     },
     {
@@ -21694,6 +21703,202 @@
   ],
   "repeatedPassageGroups": [
     {
+      "fingerprint": "e4e4a6cc94b4dd88888084bbfcf2c9fc9f54dd221cc0a6dd50fdc578cf781d17",
+      "ids": [
+        "0701beb4-b5d8-454c-aa0e-e5d467bdc4d8",
+        "3aecd0d0-9543-4e3b-81cf-cb1f8df5b5fd",
+        "4607887d-ad4c-4d37-9a25-eb4513c7087e",
+        "5c49e9a8-af9a-4ec7-82c7-50477715d23f",
+        "67719869-d1a0-4560-bf90-a5b135317d6b",
+        "739b251a-4d25-464e-90ed-158f3fc0dbfa",
+        "7abd166c-18e5-4114-87ae-8cbcfc0018e3",
+        "8b9783eb-5001-46ea-a5c3-aede85368fa0",
+        "c131b52c-1692-459c-8e89-e110c0bdf6c1",
+        "cf563daf-d2c2-4344-83ea-b48325a1e54a",
+        "e5c2d9c3-87f7-473d-bfa8-74581bd594ef",
+        "febfad59-7dd8-4234-b7e9-a3bb2521d3a2"
+      ]
+    },
+    {
+      "fingerprint": "ac3d63b6f12f51bbfa87da4339a0d20c046965e9953fbc5223afe25cc452dd90",
+      "ids": [
+        "081188e2-c29a-4cf1-993b-a0e54b42e14a",
+        "3c7844e7-9764-4721-a084-da964d7cc054",
+        "5041ca01-1ef1-452c-8d24-8b651e8002ee",
+        "90ddfe12-aa43-4ce1-a412-8257237b5ad1",
+        "b16d5abf-5bd9-4adc-88ee-15cf735d4f74",
+        "bd4df0b7-8582-4ca7-8a13-cec4fc41f664",
+        "d1205394-8b81-4b37-8d7f-5461ecdd932c",
+        "d7737706-532c-4c71-b168-569f56a1ed0e",
+        "e3536eab-4a73-42a4-b505-eac61c963f7d",
+        "f6998f92-1ac0-43c0-8494-db4ce4472153"
+      ]
+    },
+    {
+      "fingerprint": "5603bb607a22567a3e99be3df020173ffcd462e863a8a4e95fdaedf508e08b71",
+      "ids": [
+        "0955c112-d960-43cf-89e3-e43bdcac6288",
+        "0fa65664-c8d4-4265-99e8-10ce37a6ed0f",
+        "352a2972-dc74-4b14-aed7-62b61f98433f",
+        "77eb3a62-b520-44be-a248-d9246305d12c",
+        "80d637e6-ca2b-4afb-ad80-6e9e7bf04d03",
+        "835b4642-cb1d-4094-bde3-63b9db766155",
+        "9a8d0f0b-f710-4886-8525-3f597bd183cd",
+        "af7fda70-7be2-4a2d-96e5-d283583dba5c",
+        "bd398c19-7fc9-41f1-a35e-3b1318396b73",
+        "d21d8b78-ad27-4d49-91b6-467eafc0e0ea",
+        "e74c851b-ea9b-4c2f-b351-35d9acd97851",
+        "fd4c1a95-cd2f-486f-b15f-507f1cccb105"
+      ]
+    },
+    {
+      "fingerprint": "35381a4561a2e3b8b2ab824f1fcd99d6641586cde86313bd38ddfe0fb43c2f0c",
+      "ids": [
+        "09b27bbd-ac74-4d6c-aaab-9df1fd755a37",
+        "0ed173ca-83af-4ac6-b101-2d5a4324a56e",
+        "0fe59a5e-3ab8-4a20-bd20-938148b67056",
+        "38ca8c23-4f7a-452b-acac-0a08d41cee75",
+        "5eda82c6-b1fe-4678-8e20-d4026b1fb14f",
+        "5f7fa2ae-ac36-44ef-84a5-83ea57785507",
+        "8551bdb6-3e74-4733-bf90-33f03b6d4a75",
+        "9fb51db8-ef36-4d3a-8246-7113b88c2f40",
+        "b760b2cc-e886-451d-92f4-d612bfe58528",
+        "c2806b90-d5b1-4cc1-bbab-abcff9b82a2e",
+        "ead565d7-5f3c-4f94-97ab-15b7c8d77190",
+        "f1d62380-a899-4ab6-9734-0d69010c376a"
+      ]
+    },
+    {
+      "fingerprint": "4a4be8f347451ca200eda8da2c914dab2b2a4e7afd65f64620807365702b0285",
+      "ids": [
+        "0d522473-7ee4-47aa-8274-1f5024ff1484",
+        "1606609f-e675-4710-a87d-5a3d6ebc75f3",
+        "1a3f4555-0845-45cf-a274-37b9fd24e9ca",
+        "2cf070b1-d542-4a80-972f-956fdfafa911",
+        "36d51862-010d-4d08-a418-c73e643ea346",
+        "3aaf555f-f5fd-42d1-a042-aded36e69bcd",
+        "49e50495-3721-440f-805d-1795fc80e0e0",
+        "751b12d9-12fb-4624-b718-65a673136d88",
+        "7d343bf9-59f3-4924-9813-f5aff2557274",
+        "ae47806b-231d-476c-9433-f651d477618c",
+        "cf593fa3-faca-4692-b6cc-3691dd7564da",
+        "d6139412-fe65-46b6-8a20-31b01972eea8"
+      ]
+    },
+    {
+      "fingerprint": "f8eb7dfb137feea55996c527cdf27a6434a1187645e1d61a049c6f3ce8c657ec",
+      "ids": [
+        "19b41854-e205-4dfe-9164-a73c4f164681",
+        "3d7cdbb7-626b-4916-b9f3-2cd8fa971094",
+        "6483c86e-d82f-4232-bbf1-5ba7d215a009",
+        "758a6a1e-75bd-4393-83e5-2b9003a061f1",
+        "7aa7811f-537d-40ff-b259-24e6724daee2",
+        "a8d5fc8a-29ec-46ac-859a-f82cbf4ab108",
+        "c0020173-48e5-45a8-8e48-ae33ea45e3f0",
+        "c42d957a-bc26-4b5d-8ed3-f58792c718e5",
+        "d6c6e56f-2937-4084-acf9-784e5f0f94eb"
+      ]
+    },
+    {
+      "fingerprint": "d03daa3b12e4bf89aa7b0486f3c6c00c6b8ed6fa0673081ed7a9194d74df438b",
+      "ids": [
+        "1cf600da-c9bf-442e-8c68-e5334d1277ab",
+        "4c60cee6-1d2a-44d8-b01b-dcc21ec05763",
+        "5f00f017-a5ff-49f1-a56d-870ff803afd6",
+        "85ec7dc8-2f0b-4ce8-becb-2c8238e715f7",
+        "90f0582b-b038-402b-9d18-468e92f96496",
+        "91e0f22e-7f6c-4cfc-9bbf-ef275ed6ed47",
+        "a0e5a207-174e-4a81-b68b-1046dfcee416",
+        "b2f8981b-769e-4f90-91b1-96d02214ddc8",
+        "d6c62048-cd1e-48a7-92b8-55380b22492d",
+        "def0d549-e0dc-4b3d-b6b0-84d5a12bd243",
+        "ee11fe6f-5cc4-482e-8c24-7e0d2fd190c2",
+        "f19f04a1-91a6-4ce4-9663-59def243735f"
+      ]
+    },
+    {
+      "fingerprint": "19a81e26bc0e805a5db4ea1a188197d7dee67b3d957ddb73994cc77cd94b7b2f",
+      "ids": [
+        "1fedfc59-d958-4215-a1bc-e2d2a6d6f94d",
+        "4594377d-1809-4901-923d-d4d12d97d50b",
+        "4e99835f-deeb-4b80-989a-451066287cd3",
+        "612efcfc-ce7e-4050-a5f0-38e3adb883a6",
+        "7e699ff0-9673-4c97-9330-1197912c539e",
+        "d1b67381-24e5-4bb1-8984-96076433005d",
+        "d5bd7687-e26f-4055-bc73-f46c01cc3104",
+        "e8ca2c91-92f4-4402-a131-ca88cb71d2d0",
+        "f60aa405-02b9-498f-8a55-d3c58a5b9ad9",
+        "fbf047cc-56cd-4d03-8baa-739c168400de"
+      ]
+    },
+    {
+      "fingerprint": "235f3fadb388927bcc8192d1f965ffdfcc14923ea49f8f307c207b11f146e369",
+      "ids": [
+        "20cc729b-6a7d-432f-902e-7a610370a233",
+        "96c5b178-3e13-49ed-91be-26b77e40c11e",
+        "ce37119b-a8ad-4320-bc9e-1bb3ace15b7b",
+        "e25f0755-b2cf-4d80-ac69-cdeef65b1859",
+        "f8675c85-4ff9-4519-9a2c-624ec48ac447"
+      ]
+    },
+    {
+      "fingerprint": "b4c3fe8bbe4e0217d6997f55a5be933861be0d8d44d0664d68e1a84b25d70018",
+      "ids": [
+        "2381b06b-d962-4102-9c0e-107efc9a057c",
+        "2eaa71e6-7f63-4a0f-bbd8-f3623c09513c",
+        "6afeb40e-c481-4b40-81c4-fdae9acc3447",
+        "a56a4572-c300-4580-8783-7d7be51ca121",
+        "b1d5f09f-1069-4771-9041-a643b1e3b9fd",
+        "b3d40797-15a4-4dc4-9df9-eb94d8cc6a0b",
+        "bb42e20c-8043-4f4e-83f1-8fadf4c631dc",
+        "ca515fe8-d234-416c-b995-334cd1f962e7",
+        "cc58690d-7dbf-451a-95da-c678af2724a1",
+        "d549a929-c122-4240-a9a4-d23d774e3492",
+        "d6b60064-f8f1-4741-b7fb-c5345ff3f8a0",
+        "f60dbf8b-0765-48d3-9e44-a01f7b18e4c0"
+      ]
+    },
+    {
+      "fingerprint": "623f3ccc85ceea3f371c0167bd129bc096e12b27466b320465ffbd5bcd5bc23a",
+      "ids": [
+        "34a64ec0-0b57-4881-8a39-49e4a18e4573",
+        "3944d7bc-2a8d-4627-ba86-8355b5b76358",
+        "4380240d-9fcd-4935-afba-f05dba69367f",
+        "68dc113b-90b6-44c4-884a-6194aeb83b87",
+        "78a48526-bc8d-42e7-b16a-0db160e0b644",
+        "80a70539-56eb-44a6-a33c-6cd52725c2c2",
+        "af2306e1-4682-47ab-98b8-7462bb35ebce",
+        "b1933c85-581e-4ba0-a29a-af50c9c32408",
+        "d5298cbf-b847-4d50-87c8-add99c90c026",
+        "f3702f08-ec93-49a3-a61c-0364da59278a"
+      ]
+    },
+    {
+      "fingerprint": "e051d63fc9de254208097853670a67e70da108dc139b506f6f7b120175e03d47",
+      "ids": [
+        "53de05a7-f45f-457a-a5b3-f8cafa33c828",
+        "6320268e-2158-4ce4-8cb7-f0d13581a6be",
+        "6f53ad2c-f28c-4f62-8550-6277fa2d8c7d",
+        "94f4205e-f43f-4409-8df3-e6487bf2a683",
+        "a129eb56-5a73-4fe3-ad4b-c3058faae6d6",
+        "b14c2151-81f6-466f-96fa-94db4e66b899",
+        "caae75b3-d6e2-4db1-91fc-b3a421675b37",
+        "d00e98ab-88e6-4335-b337-e99d649b45e0",
+        "d358f26d-a660-495d-8215-cd33ed40c60f",
+        "f0075492-0180-4aed-a69f-a0262b75c870"
+      ]
+    },
+    {
+      "fingerprint": "8633522f16e29b46a656d99d6c9fcea7e6f5ffd4712df4ad6b6f6b1a4445bd41",
+      "ids": [
+        "7a6848bf-957b-4d65-9c27-e4647be7e9cb",
+        "a4f80a17-fc38-4ea8-b2fa-aa2a72089eee",
+        "afe4b37a-a17b-4dc3-89ca-6dc7272ea061",
+        "c01edc0c-ab45-4a6a-8675-ce86989a8f0e",
+        "f94a7b05-2676-4593-82b0-d557e0a6bdf3"
+      ]
+    },
+    {
       "fingerprint": "b47609a8290b1b990bc67c1ccd111d9d730cec7b111c817e0bb1adbd37f8d35c",
       "ids": [
         "f3000000-0000-0000-0000-000000000049",
@@ -23279,6 +23484,17 @@
       "content_hash": "737ad11f6555e185df63680fa3fa37edb48b71a939a96742c3ba3504760d88af"
     },
     {
+      "question_id": "038287b9-2bce-463c-a021-e0dfb5e1af0e",
+      "test_type": "ACT",
+      "section": "Math",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "a15dbe1c50af8c7665b41755b437099667fc477c4a981755d39edb505cd41d3f"
+    },
+    {
       "question_id": "05141059-5163-56a6-98f9-208e2a340e69",
       "test_type": "SAT",
       "section": "Math",
@@ -23306,6 +23522,28 @@
       "content_hash": "ad95046cf9313f7bbe553a5eda9f96be4939e749889d5116315b4ac1e0b1d76a"
     },
     {
+      "question_id": "0701beb4-b5d8-454c-aa0e-e5d467bdc4d8",
+      "test_type": "ACT",
+      "section": "Reading",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "fb1f43cae409f0165cc3923f4f496d26e17a6e31e3116dfeac26b5f7e12ec012"
+    },
+    {
+      "question_id": "077d9a42-7813-4431-b440-5ce721c2f74d",
+      "test_type": "ACT",
+      "section": "Math",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "ad84725cf6d4fe028b8bce073896a670af4f6d5da8d6b81d4ba09518952965c0"
+    },
+    {
       "question_id": "07c8b68e-738d-5273-a530-293bbd13c316",
       "test_type": "SAT",
       "section": "Math",
@@ -23313,6 +23551,28 @@
       "flags": [],
       "validation_status": "automated_checks_only",
       "content_hash": "79bb6e8b5a844ca0093d1667f05e7dce69a232f1b89bc6c2c8615002a71339d4"
+    },
+    {
+      "question_id": "07e4c214-5921-4c46-be2c-c673e054fdbb",
+      "test_type": "ACT",
+      "section": "Math",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "f86d898446f1a8999f87b5a0b54741f635c13ee9cc2a33ae96299999e9f6a52d"
+    },
+    {
+      "question_id": "081188e2-c29a-4cf1-993b-a0e54b42e14a",
+      "test_type": "ACT",
+      "section": "English",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "c07428740b1bf6cce30b24c26f281d24cd04496f2eececa2a496a4ad4b736502"
     },
     {
       "question_id": "092511ef-e7c9-5358-a225-f9023fc4eefa",
@@ -23324,6 +23584,28 @@
       "content_hash": "70232e51a29f44563221245c5b8c2fec76a7ac5c93ef0f39fabd304cf757cd87"
     },
     {
+      "question_id": "09257257-3fbb-4b6d-acde-faa6aff256e3",
+      "test_type": "ACT",
+      "section": "Math",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "225d92052dc441334b294e8851a4bc430de1ebba9f441be9ddd4a30c869146d0"
+    },
+    {
+      "question_id": "0955c112-d960-43cf-89e3-e43bdcac6288",
+      "test_type": "ACT",
+      "section": "Reading",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "dae3fb17a48c862072b7297b575988e55a17c54e246d4c239643455d597b16b9"
+    },
+    {
       "question_id": "096be00b-3e12-5baf-833c-0649ac4b87e4",
       "test_type": "SAT",
       "section": "Math",
@@ -23331,6 +23613,17 @@
       "flags": [],
       "validation_status": "automated_checks_only",
       "content_hash": "e0faab780ca6035c89349fe8f836b8fa64dffdf880c8cbf5e8e017f107faaef6"
+    },
+    {
+      "question_id": "09b27bbd-ac74-4d6c-aaab-9df1fd755a37",
+      "test_type": "ACT",
+      "section": "Reading",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "8cb51758a0657fcb2730c0e547b20568320685150dba292fec0c6f9f3bba917b"
     },
     {
       "question_id": "09de9565-9603-4678-99ab-e232149060a7",
@@ -23380,6 +23673,17 @@
       "content_hash": "a7c66bfa082bbf112a9ab08dd9dd49763259ecd7084d21cbed5887896da9faef"
     },
     {
+      "question_id": "0d522473-7ee4-47aa-8274-1f5024ff1484",
+      "test_type": "ACT",
+      "section": "Reading",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "b336fe50a012a34bc14aad639c079d9e1cd9fd9fd3b987fb604974d138fc6076"
+    },
+    {
       "question_id": "0dfb5295-da8f-581b-a3b9-3df0f9ea8711",
       "test_type": "SAT",
       "section": "Reading and Writing",
@@ -23398,6 +23702,17 @@
       "content_hash": "9617bc0da263f28dcbc9e9979f050b8043cd8f1d9b27c463d4ec364bb66fb0f8"
     },
     {
+      "question_id": "0ed173ca-83af-4ac6-b101-2d5a4324a56e",
+      "test_type": "ACT",
+      "section": "Reading",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "83d931557e4c8accb6502b49133a935c074ecde80fc5b585fe1f8630d7d9e449"
+    },
+    {
       "question_id": "0f8a6624-28dd-5dd9-8b5b-3a601a60f6c6",
       "test_type": "SAT",
       "section": "Math",
@@ -23405,6 +23720,28 @@
       "flags": [],
       "validation_status": "automated_checks_only",
       "content_hash": "4c179bf952506a9aabd419abb3d05e19d85c6820e19cdc6ed2f5f47ba92cd9d6"
+    },
+    {
+      "question_id": "0fa65664-c8d4-4265-99e8-10ce37a6ed0f",
+      "test_type": "ACT",
+      "section": "Reading",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "7286a6c35c3bd8c0f820ddd6684f7d4dda31ee4938720ba4b7a9e6d1f67d4442"
+    },
+    {
+      "question_id": "0fe59a5e-3ab8-4a20-bd20-938148b67056",
+      "test_type": "ACT",
+      "section": "Reading",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "91c1cde665c6ae59591d0918d687b53401a2088003a8b2c3fd916ee311760fcd"
     },
     {
       "question_id": "0ff1d08e-32a6-5b19-b8f5-1c60d7b0c47f",
@@ -23423,6 +23760,17 @@
       "flags": [],
       "validation_status": "automated_checks_only",
       "content_hash": "a575a73c7f6ee70538b52e6ac51cf3b2cd30cefe5af13dc3c4f610ff3f7d20de"
+    },
+    {
+      "question_id": "1073b1e5-156a-4e87-b6a7-e1ee86e5e358",
+      "test_type": "ACT",
+      "section": "Math",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "02796925be54509f6320c0bb0474816591d90e7039802cdd75953d75500b25a4"
     },
     {
       "question_id": "129f6589-6a41-5813-a0d6-8093a6ac2a17",
@@ -23463,6 +23811,17 @@
       "content_hash": "0bacc163d403382775bf27c5830d1cd439cc582b0259087bff111797f5c20aaa"
     },
     {
+      "question_id": "1606609f-e675-4710-a87d-5a3d6ebc75f3",
+      "test_type": "ACT",
+      "section": "Reading",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "58cadc4b03dbb9e5bcc3e2fd30c10f55c4117576c2289b389cf4ad177a83839f"
+    },
+    {
       "question_id": "169f8230-82fe-50d6-acfc-a89d0ee4283d",
       "test_type": "SAT",
       "section": "Reading and Writing",
@@ -23470,6 +23829,39 @@
       "flags": [],
       "validation_status": "automated_checks_only",
       "content_hash": "1c66c8d30d614aab9c92875f83db0fe79efee8d0980ffc742dbafa4d879b43ab"
+    },
+    {
+      "question_id": "16da5a6b-8f32-419e-9364-7fe232da6b0e",
+      "test_type": "ACT",
+      "section": "Math",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "cb134a2cf70b5b97112b64757b4ec4735a088b90b0cf52fb171936b52af30a5e"
+    },
+    {
+      "question_id": "19b41854-e205-4dfe-9164-a73c4f164681",
+      "test_type": "ACT",
+      "section": "Reading",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "ed88990a402821971a54fd7df4cb843cf904707c5a2edcdfa0f8e6b6f37a086c"
+    },
+    {
+      "question_id": "1a3f4555-0845-45cf-a274-37b9fd24e9ca",
+      "test_type": "ACT",
+      "section": "Reading",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "f5102e9b18b6f5848e5877002702b78883059b48282794a5d3476e92f19a5449"
     },
     {
       "question_id": "1a9b58f7-4599-5cb1-a527-0b608de0fce1",
@@ -23517,6 +23909,50 @@
       "content_hash": "4b708a3c47c027ca3e2075269d1487d81ef6325e3d58090892b19608001bdbb5"
     },
     {
+      "question_id": "1cf600da-c9bf-442e-8c68-e5334d1277ab",
+      "test_type": "ACT",
+      "section": "Reading",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "af3db792692f1e32f568800d1dfa3410ae00632c1bb40da3a649ad4e0acb9b35"
+    },
+    {
+      "question_id": "1d162fcf-322d-4ff6-96a1-f21ee254b41d",
+      "test_type": "ACT",
+      "section": "Math",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "e26b43c431769dd9cd6a66486a59416e2a9af2f530732c02d9d0c98fc9704c19"
+    },
+    {
+      "question_id": "1d1a0543-0eef-4cac-8448-69c876267c7c",
+      "test_type": "ACT",
+      "section": "Math",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "f59927c836dd02e1d8c02d299093307c9873d6cb6916f255abade148c71bbf7a"
+    },
+    {
+      "question_id": "1df1e333-c1c0-4990-8132-19f4cb4e3efd",
+      "test_type": "ACT",
+      "section": "Math",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "a5214eacb051608567eface55e245b23b87c9e138fa325bcfef5f4664e02d804"
+    },
+    {
       "question_id": "1e6bf516-deb8-53e9-a915-03f8f858d7ec",
       "test_type": "SAT",
       "section": "Reading and Writing",
@@ -23553,6 +23989,17 @@
       "content_hash": "29450cec92a9acf4eff19d8569af90ed373d9f15e584658dbae8d11cf1b8c70b"
     },
     {
+      "question_id": "1fedfc59-d958-4215-a1bc-e2d2a6d6f94d",
+      "test_type": "ACT",
+      "section": "English",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "ca15d00a52a11476d0e8f2768821c13760abfe64ea568291287818e51aad232b"
+    },
+    {
       "question_id": "20244afd-81fb-5e09-93b1-dc2fcfb26679",
       "test_type": "SAT",
       "section": "Math",
@@ -23560,6 +24007,17 @@
       "flags": [],
       "validation_status": "automated_checks_only",
       "content_hash": "0451899992938b003ab0ecd931caa5dee879b62dcdcaaa2885fd4df37f1f505a"
+    },
+    {
+      "question_id": "20cc729b-6a7d-432f-902e-7a610370a233",
+      "test_type": "ACT",
+      "section": "English",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "c4d00933c4b078598e3e1dde82022cdcac8ee83ae700d9dd92e021162f1fa683"
     },
     {
       "question_id": "21fd0f29-8010-51af-ba66-247ace14ece4",
@@ -23591,6 +24049,17 @@
       "content_hash": "dd98f7c81232a4a83ce98c64c158b768bf56b7bc24f089a166964d5d2f08dcdd"
     },
     {
+      "question_id": "2381b06b-d962-4102-9c0e-107efc9a057c",
+      "test_type": "ACT",
+      "section": "Reading",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "d2171dcc7cd0b9d96e62bf23935aabac2d6f818934fe9b0a071a41cb59e63edc"
+    },
+    {
       "question_id": "25c8aaf6-9860-44d2-8dc8-8cb3f2428fd6",
       "test_type": "SAT",
       "section": "Math",
@@ -23620,6 +24089,17 @@
       "content_hash": "f07e7e4f48959b8e32f31d9aeef9dc9c802b4ff3a0c6620389296210e71ff980"
     },
     {
+      "question_id": "2cf070b1-d542-4a80-972f-956fdfafa911",
+      "test_type": "ACT",
+      "section": "Reading",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "57abc21ff769da606b0fa449b0a0249236fe46ca150a070d85f695c099b5add4"
+    },
+    {
       "question_id": "2d38354a-5fa1-5620-83bf-3019cf4bb05f",
       "test_type": "SAT",
       "section": "Math",
@@ -23627,6 +24107,28 @@
       "flags": [],
       "validation_status": "automated_checks_only",
       "content_hash": "063dcdef21c393649fa373ecd3c2aa35744c7736454af6f3eb483170492c2b66"
+    },
+    {
+      "question_id": "2eaa71e6-7f63-4a0f-bbd8-f3623c09513c",
+      "test_type": "ACT",
+      "section": "Reading",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "717922a5fd34dcd76d9f73459e0b54e7c6d6d303d9d4abc9fdd370dc8a44e34e"
+    },
+    {
+      "question_id": "2f4e0bcc-4df2-498a-8eea-e16cac706127",
+      "test_type": "ACT",
+      "section": "Math",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "169f1fd61fd28ace6f03a1b7b9694948fe6a469ab282751118baa748943a2a99"
     },
     {
       "question_id": "2f8d31ef-5555-57a2-a3cc-10186a7e24d6",
@@ -23665,6 +24167,39 @@
       "content_hash": "63134d97fc10d0a58d13252d0fed7e108d50fe2d63bbaf115d092d42caefabea"
     },
     {
+      "question_id": "322d9877-66fb-4897-b9d0-67c431d48958",
+      "test_type": "ACT",
+      "section": "Math",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "c576da6bc6b04014da220346082312d64d6382312f461ecbbc50848430208b99"
+    },
+    {
+      "question_id": "34a64ec0-0b57-4881-8a39-49e4a18e4573",
+      "test_type": "ACT",
+      "section": "English",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "16d2b17ab3438c861e2bc6fb2fb3c67962146cf15a696a5ef5d388e3d2ca9880"
+    },
+    {
+      "question_id": "352a2972-dc74-4b14-aed7-62b61f98433f",
+      "test_type": "ACT",
+      "section": "Reading",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "8ce55262f1c57d56773b69dda604b6d236c5947d0a52088d842178f5fa3f028f"
+    },
+    {
       "question_id": "3603b388-1d95-5dae-a965-7b81a818b4e1",
       "test_type": "SAT",
       "section": "Reading and Writing",
@@ -23683,6 +24218,28 @@
       "content_hash": "dee150bb9c998cd740e051bcc9c7c6c80493d942dd92582f03429be024cb0ce5"
     },
     {
+      "question_id": "368a2487-b54f-4583-910a-ec3e7501b8cf",
+      "test_type": "ACT",
+      "section": "Math",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "128f80b5fd145595176386e6c6b21b701b06fa9d1a54fbd07914c0f38830e14e"
+    },
+    {
+      "question_id": "36d51862-010d-4d08-a418-c73e643ea346",
+      "test_type": "ACT",
+      "section": "Reading",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "d699a73590b07fc98283ee7f80d729d7574275487890767c8a1d3d9948d1135b"
+    },
+    {
       "question_id": "376d6f9e-75c1-54ef-acff-bad07c3388a4",
       "test_type": "SAT",
       "section": "Math",
@@ -23690,6 +24247,28 @@
       "flags": [],
       "validation_status": "automated_checks_only",
       "content_hash": "67e14e6d48bd12e383c9d673a4f93267b96eba6f61755d2bbec8e7ce6c41e4ec"
+    },
+    {
+      "question_id": "38ca8c23-4f7a-452b-acac-0a08d41cee75",
+      "test_type": "ACT",
+      "section": "Reading",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "c56cf2ff3377472c13cce7550593bef4b29d2356895efa739fd741a6a205dc93"
+    },
+    {
+      "question_id": "3944d7bc-2a8d-4627-ba86-8355b5b76358",
+      "test_type": "ACT",
+      "section": "English",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "656b2392099e32058ce2057674639ed200026928ff36ccae62998a825e11df3d"
     },
     {
       "question_id": "39f87325-ca0d-5b4e-8fc4-78cae33b1988",
@@ -23710,6 +24289,17 @@
       "content_hash": "1318afb93bba9f660296a0ebbf0d825aa66efe86a0dd516939249a37d5e2c307"
     },
     {
+      "question_id": "3aaf555f-f5fd-42d1-a042-aded36e69bcd",
+      "test_type": "ACT",
+      "section": "Reading",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "26a3c5d1b1078af1996132f40d1c5c3f15b3c631f2227a182f5ebe4b3565d8af"
+    },
+    {
       "question_id": "3ad2658d-7e68-56ee-8e39-ebcecc98cda0",
       "test_type": "SAT",
       "section": "Math",
@@ -23717,6 +24307,28 @@
       "flags": [],
       "validation_status": "automated_checks_only",
       "content_hash": "55df739a27f8b9ff9e0997c87693f0296a45cbed10c8107995aff524b907f90a"
+    },
+    {
+      "question_id": "3aecd0d0-9543-4e3b-81cf-cb1f8df5b5fd",
+      "test_type": "ACT",
+      "section": "Reading",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "a8894d64eb6706866e6fda592ba1d90606f31000843f5211991ba04362b025ec"
+    },
+    {
+      "question_id": "3c7844e7-9764-4721-a084-da964d7cc054",
+      "test_type": "ACT",
+      "section": "English",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "fea05c1b9508ad8300f88b5614ba9cba4ecde0381545089b9a98c57ef1f8d28a"
     },
     {
       "question_id": "3d6d3efd-ca6b-5352-bac6-0e970ce62ff0",
@@ -23728,6 +24340,17 @@
       "content_hash": "d137f083ec989bac84e80f6b0f2b4a635b7d6b7c51b5cc1f970bb5e5477de7b0"
     },
     {
+      "question_id": "3d7cdbb7-626b-4916-b9f3-2cd8fa971094",
+      "test_type": "ACT",
+      "section": "Reading",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "5dabf54828f66e5ea177e04c4212e2365e4ff756cb4e9e9dac0c48ca804d8fa1"
+    },
+    {
       "question_id": "40350bb3-f3c3-5ba7-a06f-bb51103ce6e3",
       "test_type": "SAT",
       "section": "Math",
@@ -23735,6 +24358,17 @@
       "flags": [],
       "validation_status": "automated_checks_only",
       "content_hash": "af7815d846a76faef874e566ec1a3c75aa688679fa58715a93e23770626fdf24"
+    },
+    {
+      "question_id": "4380240d-9fcd-4935-afba-f05dba69367f",
+      "test_type": "ACT",
+      "section": "English",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "3c2c3ecd86fefe409ee5b6bf5186d68606fb06a4f0b61c16dec60fd36ae5c48a"
     },
     {
       "question_id": "43aba8f1-67bd-53dd-a9b6-bf69c09c9cb0",
@@ -23746,6 +24380,17 @@
       "content_hash": "c5c831d2e82ee734de57fb30110ef28cd95de0f2054802124882d56a6622e372"
     },
     {
+      "question_id": "4487ec40-cb9c-422c-8aa6-804c9557a518",
+      "test_type": "ACT",
+      "section": "Math",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "931f9f39b4faf98aeea7b476142b69f847a2a5896238ba1ecf33f96719c03fdf"
+    },
+    {
       "question_id": "45282e0e-7c29-509b-8346-6d10598822fb",
       "test_type": "SAT",
       "section": "Math",
@@ -23753,6 +24398,17 @@
       "flags": [],
       "validation_status": "automated_checks_only",
       "content_hash": "44c1fbaae8f1e93d51b1ff1628cbec6ee6af3f3a88d37779f82b57f2c4fc90f8"
+    },
+    {
+      "question_id": "4594377d-1809-4901-923d-d4d12d97d50b",
+      "test_type": "ACT",
+      "section": "English",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "2bc4e4f57992f274893ddacec830de4b2385b7f7225f44c1473c72673e694575"
     },
     {
       "question_id": "45f84f2d-b385-48c5-9862-ee7684a3bedd",
@@ -23766,6 +24422,17 @@
       "content_hash": "1e95e3528511580e91265c5da7e03804085bc6144ae15c742dcac0e06c032f52"
     },
     {
+      "question_id": "4607887d-ad4c-4d37-9a25-eb4513c7087e",
+      "test_type": "ACT",
+      "section": "Reading",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "e0680ad3d8adc26c2e183618fe10373c3e3ef9eed6752d5a1e03638c5db0c307"
+    },
+    {
       "question_id": "47b863f0-1e92-5e77-8d4a-e6a4ef0a2a0b",
       "test_type": "SAT",
       "section": "Math",
@@ -23773,6 +24440,28 @@
       "flags": [],
       "validation_status": "automated_checks_only",
       "content_hash": "05f1c3078f322e2cfd3070465a67a5f82b50c60bf0df18f2571509428f1bed5b"
+    },
+    {
+      "question_id": "4832e2c1-fc46-474b-b1ad-b8e4eaeaa24b",
+      "test_type": "ACT",
+      "section": "Math",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "c51f4149f78b23bda0bd89a510f2ffec5b31a8a57b209b6562d6599aba677dc1"
+    },
+    {
+      "question_id": "49e50495-3721-440f-805d-1795fc80e0e0",
+      "test_type": "ACT",
+      "section": "Reading",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "07aed9cedab1679149c78f46a78998badbf64140000f138d3443ff046303e862"
     },
     {
       "question_id": "49e6a0df-0685-5100-a285-e10a216f57b2",
@@ -23793,6 +24482,17 @@
       "content_hash": "53fa922d04b55a9b4634f6e1698fe0d05b2a21c3afb63bb361bfd6041dcf40ba"
     },
     {
+      "question_id": "4c60cee6-1d2a-44d8-b01b-dcc21ec05763",
+      "test_type": "ACT",
+      "section": "Reading",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "77c00b8ca1283090f4e77e2963d7e36f07bef4c8bafd277252229c33244c656a"
+    },
+    {
       "question_id": "4cae62e0-298d-4ae6-9a5c-0e6f935d0847",
       "test_type": "SAT",
       "section": "Reading and Writing",
@@ -23805,6 +24505,17 @@
       "content_hash": "a5a25f8b14358e00d6dd6390aa97c174ae26970d6f731fe02b2c0a11753ed307"
     },
     {
+      "question_id": "4cc9aa03-80ff-44a2-97e6-bd53aef078bf",
+      "test_type": "ACT",
+      "section": "Math",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "ad538d48a2ee6d4c6e09c5291bef50b4613732cb460ac07b1113886d59e538a0"
+    },
+    {
       "question_id": "4e4e3ea6-f45e-5d17-9af8-6580284d808d",
       "test_type": "SAT",
       "section": "Math",
@@ -23812,6 +24523,39 @@
       "flags": [],
       "validation_status": "automated_checks_only",
       "content_hash": "811d236e8ec51ff80f3c061dbce5cd7d722c7aff281d75405b07dcea83ff8775"
+    },
+    {
+      "question_id": "4e99835f-deeb-4b80-989a-451066287cd3",
+      "test_type": "ACT",
+      "section": "English",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "2a93db8639788d3dc520f38fa256640d70586c9d1e10c119d7db7a10d10af151"
+    },
+    {
+      "question_id": "5041ca01-1ef1-452c-8d24-8b651e8002ee",
+      "test_type": "ACT",
+      "section": "English",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "ba84a4432ec3448272480c65d6d0be24199c14e0bba62e59bbd1c9d944255621"
+    },
+    {
+      "question_id": "507b4092-9294-48b7-b52e-6eeed3423e8b",
+      "test_type": "ACT",
+      "section": "Math",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "42c09fe9403328092c402abd98fbe4b393396fbd3e7c3d910c4871788e2e7f69"
     },
     {
       "question_id": "50e413bf-7834-51df-88dc-60cba9f9b946",
@@ -23832,6 +24576,28 @@
       "content_hash": "0c873591499974e0cfc69fc51a9ee6877d5b681f7f639463dc296f9dc6bb3be0"
     },
     {
+      "question_id": "52cc702c-a0ab-4444-84c8-35f677d59d15",
+      "test_type": "ACT",
+      "section": "Math",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "370a58aa9641d6f0f1c060531db0f6f20f404c955a954c3081abd59ecd6961ae"
+    },
+    {
+      "question_id": "52e3d8d8-6f32-487c-9d5b-25d2f0ff2398",
+      "test_type": "ACT",
+      "section": "Math",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "1d13d392fbdece81c09f64834b4e5fbe96f2d60bdccc6ac13c596f9669ab6bbd"
+    },
+    {
       "question_id": "534807fb-49e1-584e-a90c-8ddd7553d03f",
       "test_type": "SAT",
       "section": "Math",
@@ -23839,6 +24605,17 @@
       "flags": [],
       "validation_status": "automated_checks_only",
       "content_hash": "17187cfeac8a5a47993da6d485bc95cf81bc721638c445de56d4e55b8276da22"
+    },
+    {
+      "question_id": "53de05a7-f45f-457a-a5b3-f8cafa33c828",
+      "test_type": "ACT",
+      "section": "English",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "e1d66fcc5d6c458a2326deab5c66ac00aa988fa3c3df95f6dcca6a86cfb012b7"
     },
     {
       "question_id": "5552cbb3-b524-44d9-843d-02a3793fd881",
@@ -23852,6 +24629,50 @@
       ],
       "validation_status": "requires_review",
       "content_hash": "d9b1b2455a986a6f4a9a17e3b472c6d524a95cd65deccc60bafd8ca831472c80"
+    },
+    {
+      "question_id": "57b16e3d-4552-4b9e-9300-c4269b226d90",
+      "test_type": "ACT",
+      "section": "Math",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "f5a5e27ba3145e4b62b917f0891585ec1392d32590645a37b1cae66f6559bad2"
+    },
+    {
+      "question_id": "58ed8a02-ce5b-45a8-b4c1-faf37f2b7053",
+      "test_type": "ACT",
+      "section": "Math",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "4916b5e1d1b4e9b074cd945974b48df81f852e24e08fac037a08c6807a5521cb"
+    },
+    {
+      "question_id": "5ba19333-ac31-4a8b-bfa7-43239993f871",
+      "test_type": "ACT",
+      "section": "Math",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "590809497edbcfbeee93a33880d477d9cc4c76233e54ac1df9a72bc1b2b7d0f0"
+    },
+    {
+      "question_id": "5c49e9a8-af9a-4ec7-82c7-50477715d23f",
+      "test_type": "ACT",
+      "section": "Reading",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "3ebda2f853f92e23b596b2a5379894b0266ecc4150a0a3c393adef7f6675a4d4"
     },
     {
       "question_id": "5d587899-341d-50a9-a9cd-0342050c7ea7",
@@ -23881,6 +24702,17 @@
       "content_hash": "4e066049e6a8e4e045f570f851cd29d8928939aaf488ba9fa5e4980a6500c834"
     },
     {
+      "question_id": "5eda82c6-b1fe-4678-8e20-d4026b1fb14f",
+      "test_type": "ACT",
+      "section": "Reading",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "27cd5707fa51a5921fccf882d33bd7ad8f3d33db3e336e219602057353eae02a"
+    },
+    {
       "question_id": "5ee3de66-7dd9-57b7-9d75-386818817922",
       "test_type": "SAT",
       "section": "Math",
@@ -23890,6 +24722,17 @@
       "content_hash": "f8b427c4d68c3330a281aabc635a0cfea6e5963f66109442116089746a7784fc"
     },
     {
+      "question_id": "5f00f017-a5ff-49f1-a56d-870ff803afd6",
+      "test_type": "ACT",
+      "section": "Reading",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "fdb6061c7a2f7afefa269c2710d48f131afa525e6b23cf83bdd647ec4bcc3606"
+    },
+    {
       "question_id": "5f68a040-46ae-5649-82df-21528d0e3495",
       "test_type": "SAT",
       "section": "Math",
@@ -23897,6 +24740,17 @@
       "flags": [],
       "validation_status": "automated_checks_only",
       "content_hash": "c3b5505210eea177537e2e6faaf2f24c73167b02bc33ab90c2ba261b4fa27353"
+    },
+    {
+      "question_id": "5f7fa2ae-ac36-44ef-84a5-83ea57785507",
+      "test_type": "ACT",
+      "section": "Reading",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "64f1aabdbc373fa80db37dfec854a12953492d511e5443447d6895f7b72c2650"
     },
     {
       "question_id": "600526ec-2da9-5111-a928-30bf984bd43a",
@@ -23947,6 +24801,17 @@
       "content_hash": "09c4d91c6e390307942f2249ec3b09ba7516e2941f930d54493e1230e517516f"
     },
     {
+      "question_id": "612efcfc-ce7e-4050-a5f0-38e3adb883a6",
+      "test_type": "ACT",
+      "section": "English",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "277fc5c61760eeb14645a2b3b517697acc4aaba1e5f21172e6fec69c261dad99"
+    },
+    {
       "question_id": "615e2cc5-8670-53f7-99a6-61b07b97b5e1",
       "test_type": "SAT",
       "section": "Math",
@@ -23963,6 +24828,17 @@
       "flags": [],
       "validation_status": "automated_checks_only",
       "content_hash": "2692326c3e7bf36bcc19f4ef3842908f1c13a3d935b615f11f793171b3beacee"
+    },
+    {
+      "question_id": "6320268e-2158-4ce4-8cb7-f0d13581a6be",
+      "test_type": "ACT",
+      "section": "English",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "375ee9200f95a9a8c037edcebd1901e0eda48f67934adc127e5feab57fdf8ead"
     },
     {
       "question_id": "6355b29c-ceb6-50bb-abf9-257aa8643308",
@@ -23990,6 +24866,17 @@
       "flags": [],
       "validation_status": "automated_checks_only",
       "content_hash": "494991db32aea2c3a173d0235786fa78bc4841a4b10a69cd9c3ba8ba6173b774"
+    },
+    {
+      "question_id": "6483c86e-d82f-4232-bbf1-5ba7d215a009",
+      "test_type": "ACT",
+      "section": "Reading",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "f34cb28d99d11c9cad3f47d78ad730dbe540c3b45f19dd463656002894f942c8"
     },
     {
       "question_id": "658b4eca-3d00-47cd-a33a-353c1f9456ac",
@@ -24030,6 +24917,17 @@
       "content_hash": "676fc84d74b49ef9e75871e2079a50426d5b9dd4baa639fa5f3dcfad9a9a90cc"
     },
     {
+      "question_id": "67719869-d1a0-4560-bf90-a5b135317d6b",
+      "test_type": "ACT",
+      "section": "Reading",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "483da0cf4467d05deb4db47e73329fe4555de125f2eeb3b78cc94e9dc75c4d3a"
+    },
+    {
       "question_id": "687e8acd-f9a2-5a33-829e-51bf981a275d",
       "test_type": "SAT",
       "section": "Math",
@@ -24037,6 +24935,28 @@
       "flags": [],
       "validation_status": "automated_checks_only",
       "content_hash": "766f195d4eb59ad35539aace63684bdfb857abf49b4892632e885c1f5ae9c503"
+    },
+    {
+      "question_id": "68dc113b-90b6-44c4-884a-6194aeb83b87",
+      "test_type": "ACT",
+      "section": "English",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "74c1e2f67f17017a38bdd18ea1365b03dd906c28ad78261c414485f6a2d06ec6"
+    },
+    {
+      "question_id": "69e22819-29f8-4025-bdd7-e7f885195a7f",
+      "test_type": "ACT",
+      "section": "Math",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "35543b6b05af57bad158fa51ad863e0cb7ab456c62ff70e1bf87b1735b1bf839"
     },
     {
       "question_id": "6a33a339-a98d-5803-b812-5a8a82a7b527",
@@ -24055,6 +24975,17 @@
       "flags": [],
       "validation_status": "automated_checks_only",
       "content_hash": "04e808123f8f747be4b6c42ee64c8d31fd39c51ff8aab5c230808fc188ceb70e"
+    },
+    {
+      "question_id": "6afeb40e-c481-4b40-81c4-fdae9acc3447",
+      "test_type": "ACT",
+      "section": "Reading",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "cbebd65442678f20ffbae579caa59c24d2631a8c7ba96361ed97d8c2a90871c8"
     },
     {
       "question_id": "6bc6b3d0-f74f-582a-9c11-265afe7bd438",
@@ -24082,6 +25013,17 @@
       "flags": [],
       "validation_status": "automated_checks_only",
       "content_hash": "50ec60eb34fbd43c83290f078c441e997d311a759c9373927c155c6db2933f59"
+    },
+    {
+      "question_id": "6f53ad2c-f28c-4f62-8550-6277fa2d8c7d",
+      "test_type": "ACT",
+      "section": "English",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "7418b3edba18cb165b659371e66a98fc2ad5735bd11a637645388e7945cd1898"
     },
     {
       "question_id": "70fbd3f8-8b84-4190-97b1-f5a9ee796f5a",
@@ -24122,6 +25064,17 @@
       "content_hash": "70f0487a703a9178ff7a3c1d90b80af73d5f283cc3ec55c87b35df9a1426c1ce"
     },
     {
+      "question_id": "739b251a-4d25-464e-90ed-158f3fc0dbfa",
+      "test_type": "ACT",
+      "section": "Reading",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "6f6d4e58f385cd3890da2245305f1cecda15e4740be727c3f51af74d7304a000"
+    },
+    {
       "question_id": "74c4a05e-e74a-55eb-a4bc-fe082b308a85",
       "test_type": "SAT",
       "section": "Reading and Writing",
@@ -24129,6 +25082,28 @@
       "flags": [],
       "validation_status": "automated_checks_only",
       "content_hash": "aa7cf082782bef8b65c04fcc65b7a3cc9caf146f5c28aec4e3ef7dad396ac63f"
+    },
+    {
+      "question_id": "751b12d9-12fb-4624-b718-65a673136d88",
+      "test_type": "ACT",
+      "section": "Reading",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "3a3b8f6705416d6d49d1d0c4d5830299764f10bc9bd296b26fd3749fff435612"
+    },
+    {
+      "question_id": "758a6a1e-75bd-4393-83e5-2b9003a061f1",
+      "test_type": "ACT",
+      "section": "Reading",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "3b00ccd611c865b2af1bb971e0194d56d4d014402cc09a87b86970b118a63f84"
     },
     {
       "question_id": "75b7dee8-13cf-5af4-a043-8f04ddb49487",
@@ -24176,6 +25151,28 @@
       "content_hash": "bddd1a3ef9aa1a9ac0ba2746d30d69396e8f6dd04697a7a32a952f33c0d7c4fc"
     },
     {
+      "question_id": "77eb3a62-b520-44be-a248-d9246305d12c",
+      "test_type": "ACT",
+      "section": "Reading",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "240aaf30614d4085d29b988c356422d8d06ee1ceebaae72c361d64c3b8b4c93c"
+    },
+    {
+      "question_id": "78a48526-bc8d-42e7-b16a-0db160e0b644",
+      "test_type": "ACT",
+      "section": "English",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "507f3c881a7ce5dddf1c2bdaddd92288b67778839bba7f47d4d59a7c944a32f8"
+    },
+    {
       "question_id": "7a4f8d1b-f8b8-5229-ba17-fbd761cc5cee",
       "test_type": "SAT",
       "section": "Math",
@@ -24183,6 +25180,39 @@
       "flags": [],
       "validation_status": "automated_checks_only",
       "content_hash": "c55f007e371ee68983f4644875d7ee162c070526281f8b6f3094f310fb697058"
+    },
+    {
+      "question_id": "7a6848bf-957b-4d65-9c27-e4647be7e9cb",
+      "test_type": "ACT",
+      "section": "English",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "893ed6a8362eec85ae33c26968591000a78aa76a35908fc66d029213dcce0284"
+    },
+    {
+      "question_id": "7aa7811f-537d-40ff-b259-24e6724daee2",
+      "test_type": "ACT",
+      "section": "Reading",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "36bc53218266cb5cc2d0947c2a8a9228439ee1c222244a2729442d63f2d208b5"
+    },
+    {
+      "question_id": "7abd166c-18e5-4114-87ae-8cbcfc0018e3",
+      "test_type": "ACT",
+      "section": "Reading",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "0822fb2c0af1b9c77889f961e9cad96a761041128189af99618bedbc10db8479"
     },
     {
       "question_id": "7b1386f9-2fe9-5974-bd06-40f5943b18fa",
@@ -24203,6 +25233,17 @@
       "content_hash": "b582b8b67db49635b8735c0bd7e1194df478a271e1381e7d29cffea946827141"
     },
     {
+      "question_id": "7caf9bcf-ed4b-405d-99d0-a33dd30fb4a8",
+      "test_type": "ACT",
+      "section": "Math",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "265321a54cc3daacdd7daa82daab80951e08008743ca99443f7528787e6e3c53"
+    },
+    {
       "question_id": "7cb71b32-ae4b-59cf-aa4e-7f55d3c42e06",
       "test_type": "SAT",
       "section": "Reading and Writing",
@@ -24221,6 +25262,17 @@
       "content_hash": "ceaa5a137058e9c153477a22f1c03e7c91b16e07e4555daea87c971492ecd8c2"
     },
     {
+      "question_id": "7d343bf9-59f3-4924-9813-f5aff2557274",
+      "test_type": "ACT",
+      "section": "Reading",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "7375b36f9f7ba18ec416df4a11cec9ce93ba95757d0730f7040e4e5eeb1ce033"
+    },
+    {
       "question_id": "7db81e23-f8da-5986-a27d-9b3bb601887f",
       "test_type": "SAT",
       "section": "Reading and Writing",
@@ -24228,6 +25280,28 @@
       "flags": [],
       "validation_status": "automated_checks_only",
       "content_hash": "ff6cec80e4532fa50811069d74433797d9229c1e8bdf0d1e32a05c3652a122ba"
+    },
+    {
+      "question_id": "7e699ff0-9673-4c97-9330-1197912c539e",
+      "test_type": "ACT",
+      "section": "English",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "439ef61e6c7be80c1a21ad5c95f2dd7134893c2352136a3d9004539c41fd81b9"
+    },
+    {
+      "question_id": "7ed7df90-b69e-4404-a60e-695ec113f7ad",
+      "test_type": "ACT",
+      "section": "Math",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "a879abf8ff689add26cbc2b95d15e8961202b3eed30767c3d22735ea5ef11bed"
     },
     {
       "question_id": "7f746ab9-39a5-5d49-befb-40ab58f3fba0",
@@ -24257,6 +25331,17 @@
       "content_hash": "9b9353971291151bcdf7aceefc6b046a9d2f412fc8a6b91cecc011e010ff6dea"
     },
     {
+      "question_id": "80a70539-56eb-44a6-a33c-6cd52725c2c2",
+      "test_type": "ACT",
+      "section": "English",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "e36fbaadbad40b73a87267b3f001a8cba6dce0cef153217f6fb11c87e4c8cc4d"
+    },
+    {
       "question_id": "80ce227a-c6c7-555d-bd85-97a005722bf4",
       "test_type": "SAT",
       "section": "Math",
@@ -24266,6 +25351,17 @@
       "content_hash": "a95e1eb18202ecb7374cf0e9979c0eefb6a88bdfe662f836124192055f1c3c46"
     },
     {
+      "question_id": "80d637e6-ca2b-4afb-ad80-6e9e7bf04d03",
+      "test_type": "ACT",
+      "section": "Reading",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "dc07ce02738bf442846bdbfbf25e56755f6541dfe42779d690c0be3b599659c6"
+    },
+    {
       "question_id": "81c5b84b-172e-5794-bf5a-138316bb3eac",
       "test_type": "SAT",
       "section": "Math",
@@ -24273,6 +25369,17 @@
       "flags": [],
       "validation_status": "automated_checks_only",
       "content_hash": "8139ee1e06c73480c6920709bead3e68f2788f8000d75161607bf45999477151"
+    },
+    {
+      "question_id": "835b4642-cb1d-4094-bde3-63b9db766155",
+      "test_type": "ACT",
+      "section": "Reading",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "9fa2bc9581e73a302bba0c893d542d72f1fa41c28ecc8158ffab158ea0510983"
     },
     {
       "question_id": "849df99f-1b5c-5e71-9bba-cb8fab7b1f22",
@@ -24302,6 +25409,17 @@
       "content_hash": "31a50e9069246d4b5fb69a9bd698193a0212228499f545a0aa86b202fdab4930"
     },
     {
+      "question_id": "8551bdb6-3e74-4733-bf90-33f03b6d4a75",
+      "test_type": "ACT",
+      "section": "Reading",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "d14374796ebb98598f71f1673e6ac4ad7af91cfc0c45f5a1ed4972e77e07cb1b"
+    },
+    {
       "question_id": "85992b48-6cd6-416a-8c4d-db38bf82463c",
       "test_type": "SAT",
       "section": "Math",
@@ -24311,6 +25429,17 @@
       ],
       "validation_status": "requires_review",
       "content_hash": "c68451a355c7c00872f1df560daab8f487c6b43705d4f594f879ae0fa5f8e179"
+    },
+    {
+      "question_id": "85ec7dc8-2f0b-4ce8-becb-2c8238e715f7",
+      "test_type": "ACT",
+      "section": "Reading",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "a13729aac04dde523478f1d9d453e0a8f24c658281952df9e9c8da9aa09896da"
     },
     {
       "question_id": "877515db-40c3-5a44-afb5-1dcdbe65c39f",
@@ -24342,6 +25471,28 @@
       "content_hash": "9a228062b169081b35e82a78725ea6fdb3d4f69a1284cea3f83248cb8913a393"
     },
     {
+      "question_id": "8b9783eb-5001-46ea-a5c3-aede85368fa0",
+      "test_type": "ACT",
+      "section": "Reading",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "669cb025fcfc449df427df969034ea2d20d2c14dbc1c83513fe9e96cf42a70da"
+    },
+    {
+      "question_id": "8cd864e2-7e53-4d9d-968e-510a6f326931",
+      "test_type": "ACT",
+      "section": "Math",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "6ba9c835358aa5b9460e36cc073d23f3d3a3d6bbe6df55b895c707393bdbc4db"
+    },
+    {
       "question_id": "8ce70ff5-645f-557d-a3b2-7958fabb6b4c",
       "test_type": "SAT",
       "section": "Math",
@@ -24358,6 +25509,28 @@
       "flags": [],
       "validation_status": "automated_checks_only",
       "content_hash": "a7368523a90daa25c639ec2539b5568e9e5b10e4f72946ab8c7214568b837574"
+    },
+    {
+      "question_id": "8d98e406-d134-4c03-b2c4-7a98c9d72081",
+      "test_type": "ACT",
+      "section": "Math",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "517e8cce66c4a29f4fd9a3741ab956d3c90b4c695422b1bb012e17b3190db3bb"
+    },
+    {
+      "question_id": "8e685c81-926b-4d60-97f4-042ac430304a",
+      "test_type": "ACT",
+      "section": "Math",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "a77347324d44347c68a124cdbcf99b80f6a6fe8203c8472023bfba3eee6e7ffe"
     },
     {
       "question_id": "8ec1ac7a-9501-5116-bfea-4c5c5d94ea6d",
@@ -24387,6 +25560,28 @@
       "content_hash": "856bc1225115ec8a42a3f726ffbc468171ce985af32fba8c1ed63094b2b41b3c"
     },
     {
+      "question_id": "90ddfe12-aa43-4ce1-a412-8257237b5ad1",
+      "test_type": "ACT",
+      "section": "English",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "953ba0d5be171efff0aa29888db4cf93be1dc9bcc89bf85d5e55e4c9efe602d0"
+    },
+    {
+      "question_id": "90f0582b-b038-402b-9d18-468e92f96496",
+      "test_type": "ACT",
+      "section": "Reading",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "e7a7e1b107aaa42117da25c95722166da944d30ffcb223c6345581a8c9b90eaf"
+    },
+    {
       "question_id": "91612a9b-f127-5732-b4f4-cc00f89793cc",
       "test_type": "SAT",
       "section": "Math",
@@ -24396,6 +25591,39 @@
       "content_hash": "e7cf9f53c35a87d47de19eb88ceb42cb77627125be95b543d736afa3d9ecef6b"
     },
     {
+      "question_id": "91e0f22e-7f6c-4cfc-9bbf-ef275ed6ed47",
+      "test_type": "ACT",
+      "section": "Reading",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "19136d09a15d2871b955c3b31e64ab3ed824ebd9e4428f774917def0a4eaf776"
+    },
+    {
+      "question_id": "92f541f7-5106-4fe9-af52-01c7b5479eb7",
+      "test_type": "ACT",
+      "section": "Math",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "7cc91dc47cac486238d076b6670f6574483d62ccd249eccd2f5f295657c38dbd"
+    },
+    {
+      "question_id": "94f4205e-f43f-4409-8df3-e6487bf2a683",
+      "test_type": "ACT",
+      "section": "English",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "33d115ffd5970ebaee8b739e7431ae6c36a21744763af6d9092775c7543a2e78"
+    },
+    {
       "question_id": "95769b7f-eeed-55fe-91c2-ddf44340fcda",
       "test_type": "SAT",
       "section": "Math",
@@ -24403,6 +25631,17 @@
       "flags": [],
       "validation_status": "automated_checks_only",
       "content_hash": "08663bb92dd243356a6a0487395e0ccb2db0386534435a906490981e38e3c1e4"
+    },
+    {
+      "question_id": "96c5b178-3e13-49ed-91be-26b77e40c11e",
+      "test_type": "ACT",
+      "section": "English",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "931cc3a098a95c82f9223fe918e3b5594072daa779941d1070c3ce74c7c8c8ed"
     },
     {
       "question_id": "9752cae1-597e-5e08-83b1-a802a6b5f55f",
@@ -24421,6 +25660,17 @@
       "flags": [],
       "validation_status": "automated_checks_only",
       "content_hash": "9e601a2c2050767a4cb92298ee68883689a11464db525816e388fbefe845556d"
+    },
+    {
+      "question_id": "9a8d0f0b-f710-4886-8525-3f597bd183cd",
+      "test_type": "ACT",
+      "section": "Reading",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "e7800fa096e50253d551f7e8cbf25864f391a1840814ee05f2e2d47980c4f96b"
     },
     {
       "question_id": "9d0c4041-bb14-5911-8e53-028a081eb835",
@@ -24459,6 +25709,17 @@
       "content_hash": "04e4815a5ab14a8197845d216956e9a81bd283a91f9de3bb5a73666ba33f9cc4"
     },
     {
+      "question_id": "9fb51db8-ef36-4d3a-8246-7113b88c2f40",
+      "test_type": "ACT",
+      "section": "Reading",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "0955fed267b0e6fb9d02600af7cb8f49098d925c769809bf084105d3a3022511"
+    },
+    {
       "question_id": "a00a1d6a-1b89-5aee-bc83-47879bbab971",
       "test_type": "SAT",
       "section": "Math",
@@ -24477,6 +25738,17 @@
       "content_hash": "f2dfbf1c67940432f1d2bbd7b20c7d1212ece9dac518886605e63c279d06c86f"
     },
     {
+      "question_id": "a0e5a207-174e-4a81-b68b-1046dfcee416",
+      "test_type": "ACT",
+      "section": "Reading",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "8d106af49c303c15916c96982c9fdfea4160a3548c1631ca70ce0236a88b0d65"
+    },
+    {
       "question_id": "a0eb3240-34b4-590f-973b-ae05c5c338a5",
       "test_type": "SAT",
       "section": "Math",
@@ -24484,6 +25756,17 @@
       "flags": [],
       "validation_status": "automated_checks_only",
       "content_hash": "359e012f2982ffd3c60ee4c7c7556bf939df0a061554e9d8b98b3d2c33b2fe3b"
+    },
+    {
+      "question_id": "a129eb56-5a73-4fe3-ad4b-c3058faae6d6",
+      "test_type": "ACT",
+      "section": "English",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "a4ad98a077d855e1ec8e54551d6c47786a065940775ab409cd5d4bf40da1afe3"
     },
     {
       "question_id": "a1394428-44e6-4da1-9b89-52f51870db55",
@@ -24524,6 +25807,17 @@
       "content_hash": "e75c7fa62b3689d844812a8e9b512f15ddb5e80fed373517c6d4a61d3efebb55"
     },
     {
+      "question_id": "a34d5c9c-d6ab-4509-9bd6-571e47324374",
+      "test_type": "ACT",
+      "section": "Math",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "d8f4ddcbdf748c252bc245d6620a64a7961f74dbf121a28daa5dbb0f16c4abca"
+    },
+    {
       "question_id": "a4584994-381a-57e0-a961-d96a7a946b24",
       "test_type": "SAT",
       "section": "Math",
@@ -24531,6 +25825,39 @@
       "flags": [],
       "validation_status": "automated_checks_only",
       "content_hash": "e07005c74aafcf007fc680fdbe92f456af6cc56bf5304670a412d0865a856c2e"
+    },
+    {
+      "question_id": "a4f80a17-fc38-4ea8-b2fa-aa2a72089eee",
+      "test_type": "ACT",
+      "section": "English",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "3d587a16809acf43461c2b0e7578bd31c832b75533bb3c8f9ee8809a894f1b56"
+    },
+    {
+      "question_id": "a56a4572-c300-4580-8783-7d7be51ca121",
+      "test_type": "ACT",
+      "section": "Reading",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "61f7a8858b26fb1f477e48985bd9dd33d97ef5e26acc207485624920d5dae1c7"
+    },
+    {
+      "question_id": "a56bb052-3ad9-47ee-8215-a0e97167f330",
+      "test_type": "ACT",
+      "section": "Math",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "f33a1ca128122e4c0119b1b526aceddb6607a4b5036a0c5d6098c10ab13d02d2"
     },
     {
       "question_id": "a5d6465c-9119-5ce8-ae26-d988ebdd50e5",
@@ -24551,6 +25878,28 @@
       "content_hash": "a77f11bb1cf01379c63329e4f781a030d611e0ebe4a1198a3df169aa4932ef12"
     },
     {
+      "question_id": "a8d5fc8a-29ec-46ac-859a-f82cbf4ab108",
+      "test_type": "ACT",
+      "section": "Reading",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "9473c22da99a5d31d4d7bb1dcdbb90698ee884e5eaa0819d6f22b0df5f45c3e9"
+    },
+    {
+      "question_id": "ac2d35b3-4b3f-4cdf-8e77-fa5def3fce36",
+      "test_type": "ACT",
+      "section": "Math",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "27a66c408cbb7051147137ca5ff80338d4d73f119ec3293cadedc200e2811b5f"
+    },
+    {
       "question_id": "ace27b48-2fc1-5da9-9e84-783ec776161d",
       "test_type": "SAT",
       "section": "Math",
@@ -24558,6 +25907,50 @@
       "flags": [],
       "validation_status": "automated_checks_only",
       "content_hash": "739a52aaed401307ea852232113b817aa3c3bacd93a13f60cda9d9aad1b86e9e"
+    },
+    {
+      "question_id": "ae47806b-231d-476c-9433-f651d477618c",
+      "test_type": "ACT",
+      "section": "Reading",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "69c9329e25a490352239f8791cd5452cd74faa35865f180bd21bd89b9083f96c"
+    },
+    {
+      "question_id": "af2306e1-4682-47ab-98b8-7462bb35ebce",
+      "test_type": "ACT",
+      "section": "English",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "8589d7abab0caa60d09e92ed26d2eead7021217bbb4e2703bcfc46c14ec1211d"
+    },
+    {
+      "question_id": "af7fda70-7be2-4a2d-96e5-d283583dba5c",
+      "test_type": "ACT",
+      "section": "Reading",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "7aacc6b089ba1bd772fa347e363b131f996c0437e225bc66733595b0361e1b02"
+    },
+    {
+      "question_id": "afe4b37a-a17b-4dc3-89ca-6dc7272ea061",
+      "test_type": "ACT",
+      "section": "English",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "9eb0c04fd6577c527fd53cc46a1a58a7326bc6ad15ae768e0feaf6abcc905a53"
     },
     {
       "question_id": "b0ccb059-c0b2-5b2e-b02f-09546d99cd06",
@@ -24569,6 +25962,94 @@
       "content_hash": "664b360905c2cf192527bfba449fa4ba8e61294fb3e22c4955bb91471321c694"
     },
     {
+      "question_id": "b14c2151-81f6-466f-96fa-94db4e66b899",
+      "test_type": "ACT",
+      "section": "English",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "b5a0f726675a206d56721530194e8df389141ebc59b9bdaf0b50fb137a19728e"
+    },
+    {
+      "question_id": "b16d5abf-5bd9-4adc-88ee-15cf735d4f74",
+      "test_type": "ACT",
+      "section": "English",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "edff543e5b1c3f3f3182b25c10d889e805b7f69ad23ae71ee62b11063a7a3d28"
+    },
+    {
+      "question_id": "b184a6c4-9081-4ab7-aa67-e75776e3f7cb",
+      "test_type": "ACT",
+      "section": "Math",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "f0cc3d9b1cc2e6e6427842f7c427591bc6abea51a2370ca48be8272d999278c9"
+    },
+    {
+      "question_id": "b1933c85-581e-4ba0-a29a-af50c9c32408",
+      "test_type": "ACT",
+      "section": "English",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "f2833b55565d6ce4cd52be8b7cabbb7741e0e7769c8578550ffe8b60dec660eb"
+    },
+    {
+      "question_id": "b1d5f09f-1069-4771-9041-a643b1e3b9fd",
+      "test_type": "ACT",
+      "section": "Reading",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "371629e7785af19287b9412c53f917ec0117e7d03dfd433a96de46491364e6e9"
+    },
+    {
+      "question_id": "b215dddb-1aac-491d-adde-6c14d627a9c3",
+      "test_type": "ACT",
+      "section": "Math",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "147e76fd94c8992d5a7a287876135fb617e3552c13d6f14081339423bd20ba51"
+    },
+    {
+      "question_id": "b22e7ee4-0a85-4837-9404-4a9d082ad9e1",
+      "test_type": "ACT",
+      "section": "Math",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "d8dffd7829924c7d1bb5e6595abff87e75047cd88ce82aacc95081eebd4b298c"
+    },
+    {
+      "question_id": "b26c3e3b-8f3e-4f43-92cb-c16b16a85c71",
+      "test_type": "ACT",
+      "section": "Math",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "dc057b998171db573ced5048c8c68360af3582963131c51a6d1d02f05841f461"
+    },
+    {
       "question_id": "b290f90a-348d-5cd2-bb17-0e0a8a2abd3f",
       "test_type": "SAT",
       "section": "Math",
@@ -24576,6 +26057,28 @@
       "flags": [],
       "validation_status": "automated_checks_only",
       "content_hash": "a9b084692a2cc9eef6590ff394e694034dc5c6b33942e0067c9e05f5e66ebd08"
+    },
+    {
+      "question_id": "b2f8981b-769e-4f90-91b1-96d02214ddc8",
+      "test_type": "ACT",
+      "section": "Reading",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "6f2952e60a4195c12e49b154f65f9fde6ceb954b7342dac007a9c2d9b9b68534"
+    },
+    {
+      "question_id": "b3d40797-15a4-4dc4-9df9-eb94d8cc6a0b",
+      "test_type": "ACT",
+      "section": "Reading",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "dcf5322185a347f12d6a19e04a4c1f21944827ab96d64469cf22a49c70ea81f0"
     },
     {
       "question_id": "b47d0d00-a0ae-589c-884b-411d9070ce34",
@@ -24596,6 +26099,17 @@
       "content_hash": "01bb0bc99528a1e1383d31249031c32a00b54760bd307a464d26d846690d95b9"
     },
     {
+      "question_id": "b5078cd8-e5c1-4d48-8d7e-1bd41af152f5",
+      "test_type": "ACT",
+      "section": "Math",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "f6cb7e82f79f6cee26cc2b78de715f03a38426f85f353cfe699cfa9557a5ac99"
+    },
+    {
       "question_id": "b7305fa8-4dc6-54f5-8dbd-a133daadfed4",
       "test_type": "SAT",
       "section": "Math",
@@ -24603,6 +26117,17 @@
       "flags": [],
       "validation_status": "automated_checks_only",
       "content_hash": "2df9f1d8584cf0b95519494ff6bd34984a765f1e690cf16b11dea1f3868c8da2"
+    },
+    {
+      "question_id": "b760b2cc-e886-451d-92f4-d612bfe58528",
+      "test_type": "ACT",
+      "section": "Reading",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "de41566dbe3e5b091c9692f93c80bf6bf55bc2c4a562676cfa0d568d22984453"
     },
     {
       "question_id": "b8b35c78-8a2e-5732-b968-c433865e42f4",
@@ -24621,6 +26146,39 @@
       "flags": [],
       "validation_status": "automated_checks_only",
       "content_hash": "a7c1650ef2f2b6bb272b37261f824a635beb78a75168b841c0b0a63fc66b18b9"
+    },
+    {
+      "question_id": "bb42e20c-8043-4f4e-83f1-8fadf4c631dc",
+      "test_type": "ACT",
+      "section": "Reading",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "3446986ebdf48612368eb63b74da6adfa577a0c00ff63c4c1a122ecac68fc173"
+    },
+    {
+      "question_id": "bd398c19-7fc9-41f1-a35e-3b1318396b73",
+      "test_type": "ACT",
+      "section": "Reading",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "81053b6b60bc5c38d6b645e528774fa630f1168d4657d771cca9aa3d72fde2d4"
+    },
+    {
+      "question_id": "bd4df0b7-8582-4ca7-8a13-cec4fc41f664",
+      "test_type": "ACT",
+      "section": "English",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "60c5a3f411b88ef1a562a34ca8d752571b7d8c345316d63f9a0ba188c07871f8"
     },
     {
       "question_id": "bdcecedd-f7a2-57f8-8d66-7765252bd877",
@@ -24662,6 +26220,39 @@
       "content_hash": "84c93aa607b2964209796e83680bd6fc93e0c0ba8eca32990be53a5147721272"
     },
     {
+      "question_id": "bea3623d-4a6d-4fee-8f33-a5dcd0141455",
+      "test_type": "ACT",
+      "section": "Math",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "2d6e7ab5b8c160a55eb10fd163ad0af0551705e1e35b4152e62f699afef7f261"
+    },
+    {
+      "question_id": "c0020173-48e5-45a8-8e48-ae33ea45e3f0",
+      "test_type": "ACT",
+      "section": "Reading",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "cd98ab3674c1013f7521c5ffbd014920c6d8847d7867be14cafebdaa942e6e52"
+    },
+    {
+      "question_id": "c01edc0c-ab45-4a6a-8675-ce86989a8f0e",
+      "test_type": "ACT",
+      "section": "English",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "dbd10b84c98d247a73c16029a9e97b7bf1708304bd334623750cbc4f6757f760"
+    },
+    {
       "question_id": "c117abfb-30a9-5835-a97a-1ab881d53454",
       "test_type": "SAT",
       "section": "Math",
@@ -24669,6 +26260,17 @@
       "flags": [],
       "validation_status": "automated_checks_only",
       "content_hash": "e93929d2b78296c87721e7828f34e8e03e714531b81e4a5ccd29baaf857f2759"
+    },
+    {
+      "question_id": "c131b52c-1692-459c-8e89-e110c0bdf6c1",
+      "test_type": "ACT",
+      "section": "Reading",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "695e06bfd38ea1bab007c74180266a4a98f86ee57971f2a027b5ac87e0d2b90e"
     },
     {
       "question_id": "c2576054-7587-55b6-a2f7-e849bb127494",
@@ -24689,6 +26291,17 @@
       "content_hash": "09b99f8439146b1e74da84d2f3721c0943f0c2c73796bc7a2c7c8a68014ad323"
     },
     {
+      "question_id": "c2806b90-d5b1-4cc1-bbab-abcff9b82a2e",
+      "test_type": "ACT",
+      "section": "Reading",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "609e07e153bfee61692f17c4efc0b63c04071fca1cae948c92b82b89625102e2"
+    },
+    {
       "question_id": "c3fb7b74-f7b4-590f-ac47-e7e73fec103b",
       "test_type": "SAT",
       "section": "Reading and Writing",
@@ -24707,6 +26320,28 @@
       "content_hash": "e62359143ed582d08a091a257eca0138b065617cd23ccec4bb5d2385cd2ebae2"
     },
     {
+      "question_id": "c42d957a-bc26-4b5d-8ed3-f58792c718e5",
+      "test_type": "ACT",
+      "section": "Reading",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "b0e7e7d83745bd5be08c8b39ad16119c15ff42bf987ce1a58650e6ebce8232e2"
+    },
+    {
+      "question_id": "c484ba2b-6ae1-4845-b359-7da52c7e0f38",
+      "test_type": "ACT",
+      "section": "Math",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "72a9b0bef0b8658b5eed1bb63a00aba1891e18a63c906948d50b8e0d887c5ca0"
+    },
+    {
       "question_id": "c51fd85a-7b18-5d94-bd58-f787f2146ba9",
       "test_type": "SAT",
       "section": "Math",
@@ -24714,6 +26349,17 @@
       "flags": [],
       "validation_status": "automated_checks_only",
       "content_hash": "0217eabcfe1f7c979741511d710a0f9f75b456cce64ccb32ac7cc538bb964f04"
+    },
+    {
+      "question_id": "c594381e-60a3-4766-b050-67750ff3fa69",
+      "test_type": "ACT",
+      "section": "Math",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "306e1c0663002f74485c745b241a3ff476a3974dee6187df5f3a6d2f68754453"
     },
     {
       "question_id": "c62dfabe-c0ab-5a8f-a682-40a0e974be76",
@@ -24761,6 +26407,28 @@
       "content_hash": "f9226057a71060e6dd032873296030a08b315ca6d30cece8b4bb8cc5cc041c0e"
     },
     {
+      "question_id": "ca515fe8-d234-416c-b995-334cd1f962e7",
+      "test_type": "ACT",
+      "section": "Reading",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "adff6d811052d989a67bf18ce1114518111c140e65773b63151e1ad56bfb8c6d"
+    },
+    {
+      "question_id": "caae75b3-d6e2-4db1-91fc-b3a421675b37",
+      "test_type": "ACT",
+      "section": "English",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "b88235b8f9f4a5347c1c39af4af442193041de7e27f63c27af0f06d692ea8c8a"
+    },
+    {
       "question_id": "cae013b5-b60d-55cf-a1b3-12d230fafa2b",
       "test_type": "SAT",
       "section": "Math",
@@ -24779,6 +26447,17 @@
       "content_hash": "a399de81d37db4e979856a68a390f6ec8f5b298493f86497311d8ab07b5c97a4"
     },
     {
+      "question_id": "cc58690d-7dbf-451a-95da-c678af2724a1",
+      "test_type": "ACT",
+      "section": "Reading",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "f04e9ac60739146c25b6980497394935a038725c00b83bf155119e1ddac6c832"
+    },
+    {
       "question_id": "cceedf73-f1c9-57d1-b4b8-1476638afab0",
       "test_type": "SAT",
       "section": "Math",
@@ -24786,6 +26465,17 @@
       "flags": [],
       "validation_status": "automated_checks_only",
       "content_hash": "b46ba06a016c1e63c4bb8a3fbe74050a8aa04d36205d400b5e68a1454990f285"
+    },
+    {
+      "question_id": "ce37119b-a8ad-4320-bc9e-1bb3ace15b7b",
+      "test_type": "ACT",
+      "section": "English",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "c46bd6331416622ea331de02e6bd876ba4b770ae0b3b5f406fa882b5be57c625"
     },
     {
       "question_id": "ce76a58e-913a-5c24-bf18-b550e3a16f43",
@@ -24815,6 +26505,39 @@
       "content_hash": "99c711deb7f794bc17f8b01c75e72010ef233f6b2b29a161b89df5b7c664a47e"
     },
     {
+      "question_id": "cf563daf-d2c2-4344-83ea-b48325a1e54a",
+      "test_type": "ACT",
+      "section": "Reading",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "0e2f0d3fd613730c71235c2c967871011f8eb65b4a390a98a8d5540d764fbc63"
+    },
+    {
+      "question_id": "cf593fa3-faca-4692-b6cc-3691dd7564da",
+      "test_type": "ACT",
+      "section": "Reading",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "f1066dcfa4ec8701e07157bcccc027a04ec3231651ec4383c59e7d69553862a1"
+    },
+    {
+      "question_id": "d00e98ab-88e6-4335-b337-e99d649b45e0",
+      "test_type": "ACT",
+      "section": "English",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "323553af6abef097b03fbcd1bd39b0da3c2f91c53dde4cc9115cbb2c6f15c3f1"
+    },
+    {
       "question_id": "d0fe0488-9fc9-53d7-8bbe-538e7e907890",
       "test_type": "SAT",
       "section": "Math",
@@ -24824,6 +26547,39 @@
       "content_hash": "26c297304fc592c140f93647c9d90445ed1130dda1364582f85a1fcfc85c0df9"
     },
     {
+      "question_id": "d1205394-8b81-4b37-8d7f-5461ecdd932c",
+      "test_type": "ACT",
+      "section": "English",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "97ec9f9c0b78d768a3e2c3afc5e8d34c0aacab6596e6bec7c923b7302852bf3d"
+    },
+    {
+      "question_id": "d1b67381-24e5-4bb1-8984-96076433005d",
+      "test_type": "ACT",
+      "section": "English",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "49fa53dddb2e569b3f2e1302b58a653904d0f544cdf59be54222c0618590f0ee"
+    },
+    {
+      "question_id": "d21d8b78-ad27-4d49-91b6-467eafc0e0ea",
+      "test_type": "ACT",
+      "section": "Reading",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "981ef10c552678b486236e4f6fc26ab70d5a687ff9bc7188d1afcd99983eea5c"
+    },
+    {
       "question_id": "d2a055cf-af6f-5039-aeda-13a97ef7e612",
       "test_type": "SAT",
       "section": "Reading and Writing",
@@ -24831,6 +26587,28 @@
       "flags": [],
       "validation_status": "automated_checks_only",
       "content_hash": "d0bc06952f995ebe2d66ccfbddffda48f61248dce5bfc3e17b9f1f42c2ece5c6"
+    },
+    {
+      "question_id": "d30c9fb4-b535-480f-ba00-1bdd7c708fc9",
+      "test_type": "ACT",
+      "section": "Math",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "1f7372e0af8ebb7c37bf020f943162688ca83a78976627b952c4c3201de3b3ff"
+    },
+    {
+      "question_id": "d358f26d-a660-495d-8215-cd33ed40c60f",
+      "test_type": "ACT",
+      "section": "English",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "7f503cb0015ebbb4e9efeda24e5349394e1c25de5b4db994e1bbdb1a10cada8a"
     },
     {
       "question_id": "d3e1df28-94c7-553a-a26f-ec66d523da47",
@@ -24851,6 +26629,39 @@
       "content_hash": "0509b89dbdb9a36362a4c66d63270efebe78ef3078569d61f43e8f060cd9ffe5"
     },
     {
+      "question_id": "d4b572dc-2ff7-4434-a596-8e4de7386bc0",
+      "test_type": "ACT",
+      "section": "Math",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "8959a4e504857b016d4bf425cda506ab28c9c1bbb61a4116a9e3552508c72dfa"
+    },
+    {
+      "question_id": "d5298cbf-b847-4d50-87c8-add99c90c026",
+      "test_type": "ACT",
+      "section": "English",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "033a5cfed88b839bd71ff6e4e29f521197984895c9cbaad9e464e31f3df11baf"
+    },
+    {
+      "question_id": "d549a929-c122-4240-a9a4-d23d774e3492",
+      "test_type": "ACT",
+      "section": "Reading",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "2d9fa076d851c00b23a7f69d46a3dab64613574e775819a137a9fb6d89028846"
+    },
+    {
       "question_id": "d57f4ba2-4bcb-512d-ae7d-82e1f25e0d39",
       "test_type": "SAT",
       "section": "Reading and Writing",
@@ -24858,6 +26669,72 @@
       "flags": [],
       "validation_status": "automated_checks_only",
       "content_hash": "9d72b7f4565c5d6856ef726094de3674ffb776e3d949825f624d58ab538272b7"
+    },
+    {
+      "question_id": "d5bd7687-e26f-4055-bc73-f46c01cc3104",
+      "test_type": "ACT",
+      "section": "English",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "20e5d6f8f1adaa42edad464b7feffac7809dbf4a0e4eb94f8e9ba0ace2eb856c"
+    },
+    {
+      "question_id": "d6139412-fe65-46b6-8a20-31b01972eea8",
+      "test_type": "ACT",
+      "section": "Reading",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "539f0d44d0813e449b0d6dfca4e17d28b4b403b9dbf876b0503b2d34aa40873a"
+    },
+    {
+      "question_id": "d6b60064-f8f1-4741-b7fb-c5345ff3f8a0",
+      "test_type": "ACT",
+      "section": "Reading",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "a4e240cfd8d077c8a2f5ce61b16f542d0f72cda79f2e750f9408a50c0a25ff09"
+    },
+    {
+      "question_id": "d6c62048-cd1e-48a7-92b8-55380b22492d",
+      "test_type": "ACT",
+      "section": "Reading",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "7b638268a7101808458dcf29c4fdcfca52122f9a930e006573f3360164176952"
+    },
+    {
+      "question_id": "d6c6e56f-2937-4084-acf9-784e5f0f94eb",
+      "test_type": "ACT",
+      "section": "Reading",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "05525cf0b101fc875ca6b42449f8017cc41f5c32a0d4e7a93c56fea126eba689"
+    },
+    {
+      "question_id": "d7737706-532c-4c71-b168-569f56a1ed0e",
+      "test_type": "ACT",
+      "section": "English",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "8ce82646fa356a30e7afebd3a1b2f7b63d74000a6f2d6307582b3b431b832da3"
     },
     {
       "question_id": "d780ef06-b018-5443-b5b1-6a964e857bc9",
@@ -24876,6 +26753,28 @@
       "flags": [],
       "validation_status": "automated_checks_only",
       "content_hash": "dc366418d3dcc0f9bec9a247cd4a449c1b68bf4f7d2e32aac69a05ea3fab5fb3"
+    },
+    {
+      "question_id": "d7b59fae-044e-49d3-9433-5652db908c54",
+      "test_type": "ACT",
+      "section": "Math",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "30e8dba37e3c6f1ee9a2deb9eb030f962c2426057a278f3976125a37d7ed23c0"
+    },
+    {
+      "question_id": "d9c5c3bb-906e-4788-87d9-528633284a10",
+      "test_type": "ACT",
+      "section": "Math",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "53de22077ef01d1fc3f0216f574431ed7d31f8e8110fdce4499dba2b72d74ac1"
     },
     {
       "question_id": "dc2b7636-7691-5b18-b379-7fe85ac51138",
@@ -24923,6 +26822,17 @@
       "content_hash": "33fc9de18aae051302623f3223f8759c7c88f0aef2b43ff32b1335c81b5fdc25"
     },
     {
+      "question_id": "def0d549-e0dc-4b3d-b6b0-84d5a12bd243",
+      "test_type": "ACT",
+      "section": "Reading",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "f52870002c6211efb555a0da797a601e452cd0659e59326fa2c19ac2d3bc482a"
+    },
+    {
       "question_id": "df219c12-7060-50d3-a8ab-c6c51dde588c",
       "test_type": "SAT",
       "section": "Math",
@@ -24941,6 +26851,39 @@
       "content_hash": "144570e599d689a9a1ce116bd4b986e2dc5903cf31107bc2f0388565a2a5e9cf"
     },
     {
+      "question_id": "e20835e3-dd18-4d29-86d7-22fb10cedb65",
+      "test_type": "ACT",
+      "section": "Math",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "a42a33f493e2fe6f4001b5472801faedb9b6de38a6f4252e487746b0c795e4b6"
+    },
+    {
+      "question_id": "e25f0755-b2cf-4d80-ac69-cdeef65b1859",
+      "test_type": "ACT",
+      "section": "English",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "27a7195e4a13fec5a843ea257053d6006eab05e68587fe552671e56a317a2892"
+    },
+    {
+      "question_id": "e2bb271d-cac3-452e-b111-32249f731301",
+      "test_type": "ACT",
+      "section": "Math",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "b52e8ea8f308bea346137cd0ce4431f86a9da6e3d73473e6e76f7b2870d98d01"
+    },
+    {
       "question_id": "e352ecdc-3ac5-5918-a938-5bc7fb0b3de3",
       "test_type": "SAT",
       "section": "Reading and Writing",
@@ -24950,6 +26893,17 @@
       "content_hash": "8dc1fb57073ed4dfce61c784ce2997074cb90968152d0bfd8655adcbb71a47b7"
     },
     {
+      "question_id": "e3536eab-4a73-42a4-b505-eac61c963f7d",
+      "test_type": "ACT",
+      "section": "English",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "28bb8fac9249234816424fbb0b26a02e410ca5cca3226dff70bb26617abe1d49"
+    },
+    {
       "question_id": "e51a7f4b-acdc-5817-a483-1452b4639efe",
       "test_type": "SAT",
       "section": "Math",
@@ -24957,6 +26911,17 @@
       "flags": [],
       "validation_status": "automated_checks_only",
       "content_hash": "bccfd5713950454b95929ce1a1f1ab0f01950e739db35271b77dfab7f6f9f172"
+    },
+    {
+      "question_id": "e5c2d9c3-87f7-473d-bfa8-74581bd594ef",
+      "test_type": "ACT",
+      "section": "Reading",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "6663d11e3ae512c5fa16724869eb3ec4c5dd81c228a397bb88df045bc5d9e3c4"
     },
     {
       "question_id": "e5d36b26-2733-58af-a504-b20bf5bc8bc8",
@@ -24977,6 +26942,17 @@
       "content_hash": "e2c68feccf4353695b2bde9c68ae75b751a5020bcc9ceedb1ad0531068e7f9c3"
     },
     {
+      "question_id": "e74c851b-ea9b-4c2f-b351-35d9acd97851",
+      "test_type": "ACT",
+      "section": "Reading",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "7005f7fa7c1dbfb481de8d64c74778359034669c0236f495cc67d71d7f1f1260"
+    },
+    {
       "question_id": "e8342ce1-e4e3-5082-a1c9-ca88966d4da6",
       "test_type": "SAT",
       "section": "Math",
@@ -24984,6 +26960,28 @@
       "flags": [],
       "validation_status": "automated_checks_only",
       "content_hash": "bbcae270ff9992a4f5277e849d8d9ad209c59845ec07f04bab34fbca0bf5395e"
+    },
+    {
+      "question_id": "e8ca2c91-92f4-4402-a131-ca88cb71d2d0",
+      "test_type": "ACT",
+      "section": "English",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "d36d4f84f1c7d4fa8e2c35de84a8f154a3c22664ed7294d8c8025a3832996b5f"
+    },
+    {
+      "question_id": "ead565d7-5f3c-4f94-97ab-15b7c8d77190",
+      "test_type": "ACT",
+      "section": "Reading",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "340a536e9724cb7d860796ce3354dd345b3698e85b55b844d2362cb41a4ecf62"
     },
     {
       "question_id": "ebd8eaa5-0474-5c4a-891c-aeffd95b6e0a",
@@ -25002,6 +27000,50 @@
       "flags": [],
       "validation_status": "automated_checks_only",
       "content_hash": "2025d1660f269d639d086aab183bc0285000fdda7e7b2fe03abeefeee5c5212b"
+    },
+    {
+      "question_id": "ee11fe6f-5cc4-482e-8c24-7e0d2fd190c2",
+      "test_type": "ACT",
+      "section": "Reading",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "ee111c568ed6ed73f07a1acfb6ed5e8c4d2a3134b4b309e262729ec6b6eb576b"
+    },
+    {
+      "question_id": "f0075492-0180-4aed-a69f-a0262b75c870",
+      "test_type": "ACT",
+      "section": "English",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "2d458a05e7471d994a0a07d29836182bcc71c8c2d5e2a1557c069a90ddf9ac33"
+    },
+    {
+      "question_id": "f19f04a1-91a6-4ce4-9663-59def243735f",
+      "test_type": "ACT",
+      "section": "Reading",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "10b74af4e278047488566f75bbdea5467ef29e551ab64afa8d89416baf24c628"
+    },
+    {
+      "question_id": "f1d62380-a899-4ab6-9734-0d69010c376a",
+      "test_type": "ACT",
+      "section": "Reading",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "0c9f5e205c3cd6a4eb90dc0542dba8c721b24b551de655da47bbf4f700665845"
     },
     {
       "question_id": "f3000000-0000-0000-0000-000000000001",
@@ -97144,6 +99186,17 @@
       "content_hash": "00f2f95d3ec95ca2da01fbb8ed42addd6778e9bdb28c04d0ac022ec0a8a99d6b"
     },
     {
+      "question_id": "f3702f08-ec93-49a3-a61c-0364da59278a",
+      "test_type": "ACT",
+      "section": "English",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "88b04b842a2708437ea4a438970261a50968670dff0e3e46d013a51df675025f"
+    },
+    {
       "question_id": "f3ccc446-b8bd-54da-917a-d0a6d694fefd",
       "test_type": "SAT",
       "section": "Math",
@@ -97169,6 +99222,39 @@
       "flags": [],
       "validation_status": "automated_checks_only",
       "content_hash": "76937635b9f831acda1b590347bca072330f45afd1e9174b595da3f2ed4c9bb9"
+    },
+    {
+      "question_id": "f60aa405-02b9-498f-8a55-d3c58a5b9ad9",
+      "test_type": "ACT",
+      "section": "English",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "9541c3ef04807c4fdb17a2f9df08c76b8fda871ec49fdf708a24748fc2a19bc6"
+    },
+    {
+      "question_id": "f60dbf8b-0765-48d3-9e44-a01f7b18e4c0",
+      "test_type": "ACT",
+      "section": "Reading",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "b4b980cf03f5c8d55a9f519c4789e8f62aa809d504fdd91dde66757a789929b1"
+    },
+    {
+      "question_id": "f6998f92-1ac0-43c0-8494-db4ce4472153",
+      "test_type": "ACT",
+      "section": "English",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "138de80aff5acb864e9f332f80c831d08a09e405b25a61162da3ef0f2bd88c2e"
     },
     {
       "question_id": "f71f8b69-4b5b-4b0c-ba93-9117739603e8",
@@ -97202,6 +99288,17 @@
       "content_hash": "ef868c6af2bfc6fa3c89b8156f7ca22fc7220d52599372d38393d0f0000fc65a"
     },
     {
+      "question_id": "f8675c85-4ff9-4519-9a2c-624ec48ac447",
+      "test_type": "ACT",
+      "section": "English",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "74d7c8ca41267e130eb000c73ec2189afcfc5848422f136e140d04ed95ac7bef"
+    },
+    {
       "question_id": "f8b23a3e-af87-57c6-a4e0-b952a9fdc56f",
       "test_type": "SAT",
       "section": "Reading and Writing",
@@ -97211,6 +99308,17 @@
       "content_hash": "80c0ff7812b76cc66575ab2c60a6de65562be129db2a655e228f5fbf9aa88606"
     },
     {
+      "question_id": "f94a7b05-2676-4593-82b0-d557e0a6bdf3",
+      "test_type": "ACT",
+      "section": "English",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "1ccba418ce7ab98466a13a06c778d95677399f777317f3b07e889f80126bf0bb"
+    },
+    {
       "question_id": "fab65bdc-3dc3-555f-998b-3c4b6484f1a0",
       "test_type": "SAT",
       "section": "Math",
@@ -97218,6 +99326,17 @@
       "flags": [],
       "validation_status": "automated_checks_only",
       "content_hash": "d1b0e56d40ea5844a1573be315ee5c00e979f793601dc5b3a913d0e37279733c"
+    },
+    {
+      "question_id": "fbf047cc-56cd-4d03-8baa-739c168400de",
+      "test_type": "ACT",
+      "section": "English",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "9d98961c3cded2a4c25836d6d5804ba2c0d0176d3cf9b0ad2375127075daf095"
     },
     {
       "question_id": "fc7b2ccd-c7a6-43b9-8ddb-e10a723c3466",
@@ -97232,6 +99351,17 @@
       "content_hash": "225e569ae1f2378aaf39b1f290f0d7e5a291c97863d082d7c8367d1a41d06fb4"
     },
     {
+      "question_id": "fd4c1a95-cd2f-486f-b15f-507f1cccb105",
+      "test_type": "ACT",
+      "section": "Reading",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "79e4f1f0d2a45ad0dd34d1d4585686751ae40e7ba95b4e68c47c005be0f6166f"
+    },
+    {
       "question_id": "fe611d04-43fd-515f-b44f-d0c4690de91e",
       "test_type": "SAT",
       "section": "Math",
@@ -97239,6 +99369,17 @@
       "flags": [],
       "validation_status": "automated_checks_only",
       "content_hash": "fc44e5d604cf7ca49d23c0c08295bd98ab1261132c4243f581efeea8567f7964"
+    },
+    {
+      "question_id": "febfad59-7dd8-4234-b7e9-a3bb2521d3a2",
+      "test_type": "ACT",
+      "section": "Reading",
+      "active": true,
+      "flags": [
+        "originality_provenance_requires_review"
+      ],
+      "validation_status": "requires_review",
+      "content_hash": "a815f72ada526796e011fe548aacf061205f583b6b92cb286e1cad146fecca80"
     },
     {
       "question_id": "ff933d19-66ad-501e-a736-4f4234a77fcd",

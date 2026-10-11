@@ -1,0 +1,17 @@
+{
+  "batch": "Smart Coverage Batch 1 - Algebra and Functions",
+  "generatedAt": "2026-09-30T13:55:57.469Z",
+  "saved": 32,
+  "byTopic": {
+    "Linear Equations": 4,
+    "Systems of Equations": 4,
+    "Function Notation": 6,
+    "Quadratic Functions": 10,
+    "Linear functions": 8
+  },
+  "answerSpread": {
+    "C": 9,
+    "B": 14,
+    "A": 9
+  }
+}

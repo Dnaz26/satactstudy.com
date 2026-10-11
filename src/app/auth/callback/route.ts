@@ -3,6 +3,7 @@ import { createClient } from '@/lib/supabase/server'
 import { hasProductAccess } from '@/lib/access'
 import { resolveRequestOrigin } from '@/lib/auth/redirect'
 import { asPlan } from '@/lib/schema'
+import { premiumTrialEndsAt } from '@/lib/access'
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url)
@@ -37,6 +38,10 @@ export async function GET(request: Request) {
     updated_at: new Date().toISOString(),
   })
 
+  if (next.includes('trial=1')) {
+    await supabase.from('profiles').update({ subscription_plan: 'free', trial_started_at: new Date().toISOString(), trial_ends_at: premiumTrialEndsAt(), updated_at: new Date().toISOString() }).eq('id', user.id)
+  }
+
   const { data: profile } = await supabase
     .from('profiles')
     .select('onboarding_completed, subscription_plan, role, trial_ends_at')
@@ -44,7 +49,7 @@ export async function GET(request: Request) {
     .single()
 
   if (!profile?.onboarding_completed) {
-    return NextResponse.redirect(`${origin}/onboarding`)
+    return NextResponse.redirect(`${origin}${next.startsWith('/onboarding') ? next : '/onboarding'}`)
   }
   if (!hasProductAccess({
     plan: asPlan(profile.subscription_plan),

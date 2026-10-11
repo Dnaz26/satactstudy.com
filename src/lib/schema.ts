@@ -43,6 +43,15 @@ export function asPrimaryTest(value: string | null | undefined): 'SAT' | 'ACT' {
   return value === 'ACT' ? 'ACT' : 'SAT'
 }
 
+export type ExamFocus = 'SAT' | 'ACT' | 'both'
+
+/** SAT or ACT only when the student chose one. Otherwise both exams stay available. */
+export function examFocus(preference: string | null | undefined): ExamFocus {
+  const pref = preference?.trim().toUpperCase()
+  if (pref === 'SAT' || pref === 'ACT') return pref
+  return 'both'
+}
+
 export function closerTest(options: {
   preference?: string | null
   targetScore?: number | null
@@ -71,6 +80,11 @@ export function toDbDifficulty(value: string): 'Easy' | 'Medium' | 'Hard' {
 export interface Choice {
   key: string
   text: string
+  label?: string
+}
+
+export function displayedChoiceLabel(choices: Choice[] | null | undefined, key: string): string {
+  return choices?.find((choice) => choice.key === key)?.label ?? key
 }
 
 const ACT_EVEN: Record<string, string> = { A: 'F', B: 'G', C: 'H', D: 'J', E: 'K' }
@@ -85,6 +99,7 @@ export function officialChoiceLabel(
 }
 
 export function questionChoices(q: {
+  id?: string | null
   choice_a?: string | null
   choice_b?: string | null
   choice_c?: string | null
@@ -98,9 +113,23 @@ export function questionChoices(q: {
     ['D', q.choice_d],
     ['E', q.choice_e],
   ]
-  return raw
+  const choices = raw
     .filter(([, text]) => Boolean(text && text.trim()))
     .map(([key, text]) => ({ key, text: text as string }))
+  if (!q.id || choices.length < 2) return choices
+  // Stable per question: a resumed exam keeps the same visible order and
+  // the canonical keys still work with existing scoring and attempt history.
+  let seed = 2166136261
+  for (const char of q.id) seed = Math.imul(seed ^ char.charCodeAt(0), 16777619) >>> 0
+  const shuffled = [...choices]
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    seed ^= seed << 13
+    seed ^= seed >>> 17
+    seed ^= seed << 5
+    const j = (seed >>> 0) % (i + 1)
+    ;[shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]]
+  }
+  return shuffled.map((choice, index) => ({ ...choice, label: String.fromCharCode(65 + index) }))
 }
 
 export const MISTAKE_TYPE_LABELS: Record<string, string> = {

@@ -15,10 +15,11 @@ test('Digital SAT module counts, timing, order, and numbering boundaries',()=>{
  const shuffled=[...questions].reverse()
  assert.deepEqual(questionsForModule(shuffled,m[2]).map(q=>q.id),ids.slice(54,76))
 })
-test('legacy sessions retain three modules and their saved assignments',()=>{
+test('ACT fixed-form sessions use official English, Math, Reading order',()=>{
  const legacy=buildExamModules(questions,{readingIds:ids.slice(0,25),englishIds:ids.slice(25,50),mathIds:ids.slice(50),formatVersion:1})
- assert.deepEqual(legacy.map(m=>m.questionIds.length),[25,25,48])
- assert.deepEqual(legacy.map(m=>m.seconds),[2100,2700,3600])
+ assert.deepEqual(legacy.map(m=>m.label),['English','Math','Reading'])
+ assert.deepEqual(legacy.map(m=>m.questionIds.length),[25,48,25])
+ assert.deepEqual(legacy.map(m=>m.seconds),[2100,3000,2400])
 })
 test('student responses accept equivalent fractions and decimals without coercing invalid input',()=>{
  assert.ok(answersMatch('3/4','0.75'));assert.ok(answersMatch('7.50','15/2'));assert.ok(answersMatch(' b ','B'))

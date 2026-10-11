@@ -1,0 +1,560 @@
+{
+  "total": 847,
+  "summary": [
+    {
+      "topic": "Boundaries",
+      "added": 41,
+      "answers": {
+        "A": 10,
+        "B": 11,
+        "C": 9,
+        "D": 11
+      },
+      "sample": {
+        "prompt": "Which choice is punctuated correctly?",
+        "answer": "A",
+        "choices": [
+          "The bindery logged the evening count; the apprentices still sealed bin 1.",
+          "The bindery logged the evening count, the apprentices still sealed bin 1.",
+          "The bindery logged the evening count the apprentices still sealed bin 1.",
+          "The bindery logged the evening count, however, the apprentices still sealed bin 1."
+        ]
+      }
+    },
+    {
+      "topic": "Form, Structure, and Sense",
+      "added": 41,
+      "answers": {
+        "C": 9,
+        "D": 14,
+        "A": 12,
+        "B": 6
+      },
+      "sample": {
+        "prompt": "Which choice follows the conventions of Standard English?",
+        "answer": "C",
+        "choices": [
+          "Neither the ledger nor the lamps is packed before the bindery opened.",
+          "Neither the ledger nor the lamps was packed before the bindery opened.",
+          "Neither the ledger nor the lamps were packed before the bindery opened.",
+          "Neither the ledger nor the lamps be packed before the bindery opened."
+        ]
+      }
+    },
+    {
+      "topic": "Text Structure and Purpose",
+      "added": 41,
+      "answers": {
+        "A": 15,
+        "C": 11,
+        "D": 8,
+        "B": 7
+      },
+      "sample": {
+        "prompt": "Record 1: the bindery had been losing work. For two weeks the crew changed only the hinge oil. After that change, the crew saw fewer warped boards.\n\nThe last sentence primarily serves to",
+        "answer": "A",
+        "choices": [
+          "report the result of changing the hinge oil.",
+          "argue that the hinge oil should never be used.",
+          "introduce an unrelated visit to a different shop.",
+          "define the term \"hinge oil\" for a general reader."
+        ]
+      }
+    },
+    {
+      "topic": "Cross-Text Connections",
+      "added": 41,
+      "answers": {
+        "C": 11,
+        "D": 7,
+        "A": 21,
+        "B": 2
+      },
+      "sample": {
+        "prompt": "Text 1, record 1: a specialist argues that fewer warped boards at a bindery happened because of the room temperature.\nText 2: Pieces with the same room temperature did not show fewer warped boards when the crew changed only the hinge oil.\n\nBased on the texts, which choice is best supported?",
+        "answer": "C",
+        "choices": [
+          "Text 2 proves that the room temperature is the only cause of fewer warped boards.",
+          "Text 2 discusses an unrelated problem and does not bear on Text 1.",
+          "Text 2 limits Text 1: the same room temperature did not produce fewer warped boards after the hinge oil changed, so the room temperature may not be the full explanation.",
+          "Text 2 agrees that the room temperature always produces fewer warped boards."
+        ]
+      }
+    },
+    {
+      "topic": "Central Ideas and Details",
+      "added": 33,
+      "answers": {
+        "C": 11,
+        "A": 12,
+        "D": 5,
+        "B": 5
+      },
+      "sample": {
+        "prompt": "Record 1: at the bindery, people expected the room temperature to explain the trouble. The log instead showed that the crew had changed the hinge oil. After that change, the crew saw fewer warped boards. Changing the hinge oil, not the room temperature, came with fewer warped boards.\n\nWhich choice states the main idea of the passage?",
+        "answer": "C",
+        "choices": [
+          "People expected the room temperature to explain the trouble.",
+          "The bindery keeps a log.",
+          "Changing the hinge oil, not the room temperature, came with fewer warped boards.",
+          "The log showed that the crew had changed the hinge oil."
+        ]
+      }
+    },
+    {
+      "topic": "Command of Evidence — Textual",
+      "added": 33,
+      "answers": {
+        "A": 12,
+        "D": 4,
+        "B": 7,
+        "C": 10
+      },
+      "sample": {
+        "prompt": "The bindery opens before sunrise. Volunteers sign the paper log. Record 1 says the crew changed only the hinge oil before they saw fewer warped boards. Last year's labels remain in the closet.\n\nWhich sentence from the passage most directly supports the claim that the crew changed only the hinge oil?",
+        "answer": "A",
+        "choices": [
+          "Record 1 says the crew changed only the hinge oil before they saw fewer warped boards.",
+          "The bindery opens before sunrise.",
+          "Volunteers sign the paper log.",
+          "Last year's labels remain in the closet."
+        ]
+      }
+    },
+    {
+      "topic": "Command of Evidence — Quantitative",
+      "added": 33,
+      "answers": {
+        "D": 9,
+        "B": 6,
+        "C": 11,
+        "A": 7
+      },
+      "sample": {
+        "prompt": "Record 1 flaw checks:\nbindery: 4 flaws in 30 checks\nsmithy: 7 flaws in 44 checks\nmap depot: 5 flaws in 58 checks\n\nWhich claim is true?",
+        "answer": "D",
+        "choices": [
+          "The bindery had the highest flaw rate: 4 out of 30.",
+          "The map depot had the highest flaw rate: 5 out of 58.",
+          "The smithy had the lowest flaw rate: 7 out of 44.",
+          "The smithy had the highest flaw rate: 7 out of 44."
+        ]
+      }
+    },
+    {
+      "topic": "Inferences",
+      "added": 33,
+      "answers": {
+        "C": 8,
+        "A": 15,
+        "D": 4,
+        "B": 6
+      },
+      "sample": {
+        "prompt": "Record 1: a bindery compared two weeks. In both weeks, the room temperature stayed the same. The only change was the hinge oil. During the week with that change, the crew recorded fewer warped boards.\n\nWhich choice is best supported by the passage?",
+        "answer": "C",
+        "choices": [
+          "The room temperature explains fewer warped boards.",
+          "The comparison shows that nothing at the bindery changed.",
+          "The comparison links fewer warped boards to the hinge oil, because the room temperature did not change.",
+          "The hinge oil stayed the same in both weeks."
+        ]
+      }
+    },
+    {
+      "topic": "Rhetorical Synthesis",
+      "added": 2,
+      "answers": {
+        "B": 1,
+        "C": 1
+      },
+      "sample": {
+        "prompt": "A student wants to emphasize both that the bindery's new paste cost less and that the drying time stayed the same. Notes:\n- The new paste cost less than the old paste.\n- Drying time stayed at 2 hours.\n- One apprentice preferred the old smell.\n\nWhich choice best accomplishes the goal?",
+        "answer": "B",
+        "choices": [
+          "One apprentice preferred the old smell, so the new paste should be rejected.",
+          "The new paste cost less, and the drying time stayed at 2 hours.",
+          "The new paste cost less than the old paste.",
+          "The drying time stayed at 2 hours, but the new paste cost more."
+        ]
+      }
+    },
+    {
+      "topic": "Linear equations in one variable",
+      "added": 34,
+      "answers": {
+        "B": 7,
+        "C": 12,
+        "D": 7,
+        "A": 8
+      },
+      "sample": {
+        "prompt": "What value of x satisfies 3x + 1 = x + 5?",
+        "answer": "B",
+        "choices": [
+          "-2",
+          "2",
+          "3",
+          "1"
+        ]
+      }
+    },
+    {
+      "topic": "Linear functions",
+      "added": 30,
+      "answers": {
+        "D": 5,
+        "A": 12,
+        "B": 7,
+        "C": 6
+      },
+      "sample": {
+        "prompt": "The function f is defined by f(x) = 2x. What is f(1)?",
+        "answer": "D",
+        "choices": [
+          "4",
+          "3",
+          "0",
+          "2"
+        ]
+      }
+    },
+    {
+      "topic": "Linear equations in two variables",
+      "added": 30,
+      "answers": {
+        "A": 12,
+        "B": 6,
+        "D": 7,
+        "C": 5
+      },
+      "sample": {
+        "prompt": "A line passes through (0, 2) and (2, 6). What is the slope of the line?",
+        "answer": "A",
+        "choices": [
+          "2",
+          "1",
+          "3",
+          "4"
+        ]
+      }
+    },
+    {
+      "topic": "Systems of two linear equations in two variables",
+      "added": 29,
+      "answers": {
+        "D": 11,
+        "A": 9,
+        "C": 4,
+        "B": 5
+      },
+      "sample": {
+        "prompt": "What ordered pair (x, y) satisfies both 2x + y = 5 and x + 3y = 5?",
+        "answer": "D",
+        "choices": [
+          "(1, 2)",
+          "(2, 2)",
+          "(3, 1)",
+          "(2, 1)"
+        ]
+      }
+    },
+    {
+      "topic": "Linear inequalities in one or two variables",
+      "added": 27,
+      "answers": {
+        "C": 6,
+        "A": 10,
+        "B": 4,
+        "D": 7
+      },
+      "sample": {
+        "prompt": "What is the greatest integer x that satisfies 2x + 1 < 9?",
+        "answer": "C",
+        "choices": [
+          "5",
+          "2",
+          "3",
+          "4"
+        ]
+      }
+    },
+    {
+      "topic": "Equivalent expressions",
+      "added": 21,
+      "answers": {
+        "D": 8,
+        "C": 7,
+        "A": 5,
+        "B": 1
+      },
+      "sample": {
+        "prompt": "Which expression is equivalent to (x + 2)(x + 5)?",
+        "answer": "D",
+        "choices": [
+          "x^2 + 10x + 7",
+          "x^2 + 2x + 5",
+          "x^2 + 7x + 12",
+          "x^2 + 7x + 10"
+        ]
+      }
+    },
+    {
+      "topic": "Nonlinear equations in one variable and systems of equations in two variables",
+      "added": 31,
+      "answers": {
+        "B": 8,
+        "C": 9,
+        "D": 8,
+        "A": 6
+      },
+      "sample": {
+        "prompt": "What is the greater solution of (x - 1)(x - 3) = 0?",
+        "answer": "B",
+        "choices": [
+          "0",
+          "3",
+          "1",
+          "4"
+        ]
+      }
+    },
+    {
+      "topic": "Nonlinear functions",
+      "added": 22,
+      "answers": {
+        "C": 9,
+        "A": 11,
+        "D": 2
+      },
+      "sample": {
+        "prompt": "The function f is defined by f(x) = (x - 1)^2 + 2. What is the minimum value of f?",
+        "answer": "C",
+        "choices": [
+          "3",
+          "1",
+          "2",
+          "-2"
+        ]
+      }
+    },
+    {
+      "topic": "Ratios, rates, proportional relationships, and units",
+      "added": 33,
+      "answers": {
+        "A": 6,
+        "C": 7,
+        "B": 9,
+        "D": 11
+      },
+      "sample": {
+        "prompt": "A delivery from the bindery travels 24 miles in 2 hours at a constant speed. What is the speed in miles per hour?",
+        "answer": "A",
+        "choices": [
+          "12",
+          "24",
+          "2",
+          "14"
+        ]
+      }
+    },
+    {
+      "topic": "Percentages",
+      "added": 17,
+      "answers": {
+        "B": 3,
+        "A": 5,
+        "C": 3,
+        "D": 6
+      },
+      "sample": {
+        "prompt": "A bindery order has 80 items, and 10% of them need a reprint. How many items need a reprint?",
+        "answer": "B",
+        "choices": [
+          "18",
+          "8",
+          "10",
+          "80"
+        ]
+      }
+    },
+    {
+      "topic": "One-variable data: distributions and measures of center and spread",
+      "added": 33,
+      "answers": {
+        "A": 15,
+        "D": 7,
+        "C": 6,
+        "B": 5
+      },
+      "sample": {
+        "prompt": "A bindery recorded these five counts: 4, 5, 5, 6, 25. What is the median?",
+        "answer": "A",
+        "choices": [
+          "5",
+          "4",
+          "9",
+          "25"
+        ]
+      }
+    },
+    {
+      "topic": "Two-variable data: models and scatterplots",
+      "added": 34,
+      "answers": {
+        "A": 8,
+        "B": 7,
+        "C": 9,
+        "D": 10
+      },
+      "sample": {
+        "prompt": "On a scatterplot for a bindery, two points on the fitted line are (1, 5) and (3, 9). What is the slope of the fitted line?",
+        "answer": "A",
+        "choices": [
+          "2",
+          "1",
+          "5",
+          "3"
+        ]
+      }
+    },
+    {
+      "topic": "Probability and conditional probability",
+      "added": 34,
+      "answers": {
+        "A": 14,
+        "D": 10,
+        "B": 1,
+        "C": 9
+      },
+      "sample": {
+        "prompt": "A drawer at the bindery has 2 red tags and 3 blue tags. One tag is drawn at random. What is the probability it is red?",
+        "answer": "A",
+        "choices": [
+          "2/5",
+          "2/3",
+          "1/3",
+          "3/5"
+        ]
+      }
+    },
+    {
+      "topic": "Inference from sample statistics and margin of error",
+      "added": 34,
+      "answers": {
+        "D": 9,
+        "C": 7,
+        "B": 6,
+        "A": 12
+      },
+      "sample": {
+        "prompt": "A random sample of 80 records from the bindery gave an estimate of 42% with a margin of error of 3 percentage points. What is the lower bound of the interval, in percent?",
+        "answer": "D",
+        "choices": [
+          "45",
+          "36",
+          "42",
+          "39"
+        ]
+      }
+    },
+    {
+      "topic": "Evaluating statistical claims: observational studies and experiments",
+      "added": 34,
+      "answers": {
+        "A": 15,
+        "C": 10,
+        "B": 4,
+        "D": 5
+      },
+      "sample": {
+        "prompt": "Record 1: at one bindery, workers were randomly assigned to use hinge oil or not. The assigned group had fewer curled pages. Workers were not randomly selected from other sites. Which conclusion is best supported?",
+        "answer": "A",
+        "choices": [
+          "The assignment supports a cause-and-effect link between hinge oil and fewer curled pages for these workers, not a generalization to every bindery.",
+          "The study supports only a generalization about every bindery, not a cause-and-effect link.",
+          "The study shows hinge oil had no relationship to fewer curled pages.",
+          "The result shows every bindery would have fewer curled pages if it used hinge oil."
+        ]
+      }
+    },
+    {
+      "topic": "Area and volume",
+      "added": 34,
+      "answers": {
+        "D": 8,
+        "B": 5,
+        "C": 6,
+        "A": 15
+      },
+      "sample": {
+        "prompt": "A rectangular sign at the bindery is 12 by 8. A border 1 unit thick is removed on all four sides. What is the area of the inner rectangle?",
+        "answer": "D",
+        "choices": [
+          "77",
+          "40",
+          "96",
+          "60"
+        ]
+      }
+    },
+    {
+      "topic": "Lines, angles, and triangles",
+      "added": 34,
+      "answers": {
+        "D": 6,
+        "B": 5,
+        "C": 11,
+        "A": 12
+      },
+      "sample": {
+        "prompt": "A triangle on a bindery brace has two angles of 30° and 40°. What is the third angle, in degrees?",
+        "answer": "D",
+        "choices": [
+          "180",
+          "90",
+          "70",
+          "110"
+        ]
+      }
+    },
+    {
+      "topic": "Right triangles and trigonometry",
+      "added": 35,
+      "answers": {
+        "B": 5,
+        "A": 14,
+        "D": 7,
+        "C": 9
+      },
+      "sample": {
+        "prompt": "A right triangle at the bindery has legs 3 and 4. What is the hypotenuse?",
+        "answer": "B",
+        "choices": [
+          "6",
+          "5",
+          "7",
+          "12"
+        ]
+      }
+    },
+    {
+      "topic": "Circles",
+      "added": 3,
+      "answers": {
+        "C": 2,
+        "D": 1
+      },
+      "sample": {
+        "prompt": "A circle painted at the bindery has equation (x - 1)^2 + (y + 2)^2 = 9. What is the radius?",
+        "answer": "C",
+        "choices": [
+          "6",
+          "9",
+          "3",
+          "1"
+        ]
+      }
+    }
+  ]
+}

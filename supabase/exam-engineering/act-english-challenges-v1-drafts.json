@@ -1,0 +1,882 @@
+[
+  {
+    "title": "The Echo of Studio B",
+    "passage": "When the radio station donated its archives to the university, [1]the sound archivist, who had spent years restoring wax cylinders, found herself drawn to a different challenge.[/1] The station’s early broadcasts from the 1920s survived only as paper scripts and a few photographs. [2]She wanted to know how those broadcasts actually sounded to listeners at home, so she began by measuring the dimensions of the original studio, which had been converted into a storage room decades earlier.[/2] The room’s current state, however, [3]was bearing little resemblance to its former self, with acoustic tiles covering the walls and a dropped ceiling.[/3] [4]The archivist’s meticulous approach was admirable, but her reliance on archival documents alone would not reveal the studio’s sonic character.[/4] She needed to reconstruct the space’s reverberation, [5]a task that required both historical research and modern acoustic modeling software.[/5] [6]By comparing the original blueprints with the station’s maintenance logs, she determined that the walls had been covered in heavy velvet curtains during broadcasts.[/6] These curtains absorbed high frequencies, giving the announcer’s voice a warm, intimate quality that later, tiled studios lacked. [7]The archivist’s reconstruction, which she presented as a series of audio clips, allowed listeners to hear the past as it was heard, not just as it was read.[/7] [8]The project was not without its critics, however, some of whom argued that any reconstruction was inherently speculative.[/8] [9]She acknowledged these concerns but pointed out that her model was based on measurable data, not guesswork, and that even an imperfect reconstruction could illuminate how technology shapes the human voice.[/9] In the end, her work [10]demonstrated that sound, no less than text, can be a primary source for historians.[/10]",
+    "questions": [
+      {
+        "prompt": "Which choice best maintains the sentence’s grammatical structure and clarity at [1]?",
+        "choices": {
+          "A": "the sound archivist, who had spent years restoring wax cylinders, found herself drawn to a different challenge.",
+          "B": "the sound archivist, having spent years restoring wax cylinders, found herself drawn to a different challenge.",
+          "C": "the sound archivist who had spent years restoring wax cylinders found herself drawn to a different challenge.",
+          "D": "the sound archivist, who had spent years restoring wax cylinders found herself drawn to a different challenge."
+        },
+        "answer": "A",
+        "explanation": "Choice A correctly uses a nonrestrictive relative clause set off by commas, preserving the sentence’s clarity and grammatical integrity. Choice B changes the meaning by implying the archivist’s years of restoration directly caused her to find the challenge, rather than simply providing background. Choice C removes necessary commas around a nonrestrictive clause, making it appear restrictive and altering the emphasis. Choice D omits the closing comma, creating a comma splice-like error and confusing the sentence structure.",
+        "distractorRationales": {
+          "A": "Correct: nonrestrictive clause properly punctuated.",
+          "B": "Changes meaning by suggesting causation rather than background.",
+          "C": "Removes commas, making a nonrestrictive clause restrictive.",
+          "D": "Missing comma after 'cylinders' creates a punctuation error."
+        }
+      },
+      {
+        "prompt": "At [2], which choice best organizes the paragraph by linking the archivist’s goal to her first action?",
+        "choices": {
+          "A": "She wanted to know how those broadcasts actually sounded to listeners at home, so she began by measuring the dimensions of the original studio, which had been converted into a storage room decades earlier.",
+          "B": "She wanted to know how those broadcasts actually sounded to listeners at home; she began by measuring the dimensions of the original studio, which had been converted into a storage room decades earlier.",
+          "C": "She wanted to know how those broadcasts actually sounded to listeners at home. She began by measuring the dimensions of the original studio, which had been converted into a storage room decades earlier.",
+          "D": "She wanted to know how those broadcasts actually sounded to listeners at home, she began by measuring the dimensions of the original studio, which had been converted into a storage room decades earlier."
+        },
+        "answer": "A",
+        "explanation": "Choice A uses a comma and coordinating conjunction 'so' to clearly show the causal relationship between her goal and her first action, which is the most logical organizational link. Choice B uses a semicolon, which suggests a weaker connection and does not explicitly mark causation. Choice C separates the ideas into two sentences, losing the causal link and making the organization less cohesive. Choice D creates a comma splice, which is grammatically incorrect.",
+        "distractorRationales": {
+          "A": "Correct: 'so' clearly links goal and action.",
+          "B": "Semicolon weakens the causal relationship.",
+          "C": "Two sentences lose the explicit causal connection.",
+          "D": "Comma splice is ungrammatical."
+        }
+      },
+      {
+        "prompt": "Which choice best expresses the contrast between the room’s past and present at [3]?",
+        "choices": {
+          "A": "was bearing little resemblance to its former self, with acoustic tiles covering the walls and a dropped ceiling.",
+          "B": "bore little resemblance to its former self, with acoustic tiles covering the walls and a dropped ceiling.",
+          "C": "bears little resemblance to its former self, with acoustic tiles covering the walls and a dropped ceiling.",
+          "D": "had borne little resemblance to its former self, with acoustic tiles covering the walls and a dropped ceiling."
+        },
+        "answer": "B",
+        "explanation": "Choice B uses the simple past tense 'bore,' which correctly describes a state that existed when the archivist examined the room. Choice A uses the past progressive 'was bearing,' which is awkward and implies an ongoing action rather than a state. Choice C uses the present tense 'bears,' which is inconsistent with the past-tense narrative. Choice D uses the past perfect 'had borne,' which incorrectly suggests the resemblance ended before another past event.",
+        "distractorRationales": {
+          "A": "Past progressive is awkward for a state.",
+          "B": "Correct: simple past fits the narrative.",
+          "C": "Present tense clashes with past narration.",
+          "D": "Past perfect implies an unnecessary earlier time frame."
+        }
+      },
+      {
+        "prompt": "At [4], which choice best maintains the passage’s formal, analytical style and tone?",
+        "choices": {
+          "A": "The archivist’s meticulous approach was admirable, but her reliance on archival documents alone would not reveal the studio’s sonic character.",
+          "B": "The archivist’s meticulous approach was admirable, but her reliance on archival documents alone wouldn’t reveal the studio’s sonic character.",
+          "C": "The archivist’s meticulous approach was admirable, but her reliance on archival documents alone couldn’t reveal the studio’s sonic character.",
+          "D": "The archivist’s meticulous approach was admirable, but her reliance on archival documents alone was not going to reveal the studio’s sonic character."
+        },
+        "answer": "A",
+        "explanation": "Choice A uses the formal contraction-free 'would not,' which matches the passage’s analytical tone. Choice B uses the contraction 'wouldn’t,' which is less formal. Choice C uses 'couldn’t,' which is also contracted and slightly shifts the meaning from a logical impossibility to a lack of ability. Choice D uses the wordy 'was not going to,' which is less concise and less formal.",
+        "distractorRationales": {
+          "A": "Correct: formal, precise, and concise.",
+          "B": "Contraction is too informal.",
+          "C": "Contraction and slight meaning shift.",
+          "D": "Wordy and informal."
+        }
+      },
+      {
+        "prompt": "Which choice best develops the topic by explaining the archivist’s next step at [5]?",
+        "choices": {
+          "A": "a task that required both historical research and modern acoustic modeling software.",
+          "B": "a task that required both historical research and modern acoustic modeling software, which she had used before.",
+          "C": "a task that required both historical research and modern acoustic modeling software, and she was eager to begin.",
+          "D": "a task that required both historical research and modern acoustic modeling software, a combination she found intriguing."
+        },
+        "answer": "A",
+        "explanation": "Choice A provides a clear, concise explanation of what the reconstruction entailed, directly developing the topic. Choice B adds unnecessary information about her prior experience, which does not advance the topic. Choice C adds her eagerness, which is irrelevant to the technical task. Choice D adds her personal reaction, which is also irrelevant to the topic development.",
+        "distractorRationales": {
+          "A": "Correct: directly explains the task.",
+          "B": "Irrelevant detail about prior use.",
+          "C": "Irrelevant emotional reaction.",
+          "D": "Irrelevant personal comment."
+        }
+      },
+      {
+        "prompt": "At [6], which choice best uses sentence structure to clarify the archivist’s method?",
+        "choices": {
+          "A": "By comparing the original blueprints with the station’s maintenance logs, she determined that the walls had been covered in heavy velvet curtains during broadcasts.",
+          "B": "Comparing the original blueprints with the station’s maintenance logs, she determined that the walls had been covered in heavy velvet curtains during broadcasts.",
+          "C": "She compared the original blueprints with the station’s maintenance logs, she determined that the walls had been covered in heavy velvet curtains during broadcasts.",
+          "D": "By comparing the original blueprints with the station’s maintenance logs, the walls had been covered in heavy velvet curtains during broadcasts, she determined."
+        },
+        "answer": "A",
+        "explanation": "Choice A uses a participial phrase correctly modifying 'she,' clearly showing the method by which she determined the fact. Choice B omits 'By,' making the phrase less clearly a method. Choice C creates a comma splice. Choice D misplaces the modifier, making 'the walls' seem to be doing the comparing.",
+        "distractorRationales": {
+          "A": "Correct: clear modifier and logical structure.",
+          "B": "Less clear method; missing 'By'.",
+          "C": "Comma splice.",
+          "D": "Misplaced modifier."
+        }
+      },
+      {
+        "prompt": "Which choice best achieves concision and clarity at [7]?",
+        "choices": {
+          "A": "The archivist’s reconstruction, which she presented as a series of audio clips, allowed listeners to hear the past as it was heard, not just as it was read.",
+          "B": "The archivist’s reconstruction, presented as a series of audio clips, allowed listeners to hear the past as it was heard, not just as it was read.",
+          "C": "The archivist’s reconstruction, which she presented as a series of audio clips, allowed listeners to hear the past as it was heard, not just as it was read about.",
+          "D": "The archivist’s reconstruction, which she presented as a series of audio clips, allowed listeners to hear the past as it was heard, not just as it was read, which was important."
+        },
+        "answer": "B",
+        "explanation": "Choice B reduces the relative clause to a participial phrase, improving concision without changing meaning. Choice A is wordier with 'which she presented.' Choice C adds 'about,' which is unnecessary and slightly awkward. Choice D adds a redundant clause 'which was important,' which is wordy and vague.",
+        "distractorRationales": {
+          "A": "Wordier than necessary.",
+          "B": "Correct: concise and clear.",
+          "C": "Unnecessary 'about'.",
+          "D": "Redundant and wordy addition."
+        }
+      },
+      {
+        "prompt": "At [8], which choice best uses punctuation to clarify the sentence’s structure?",
+        "choices": {
+          "A": "The project was not without its critics, however, some of whom argued that any reconstruction was inherently speculative.",
+          "B": "The project was not without its critics; however, some of whom argued that any reconstruction was inherently speculative.",
+          "C": "The project was not without its critics, however; some of whom argued that any reconstruction was inherently speculative.",
+          "D": "The project was not without its critics, however some of whom argued that any reconstruction was inherently speculative."
+        },
+        "answer": "A",
+        "explanation": "Choice A correctly uses commas to set off the conjunctive adverb 'however' and introduces the relative clause 'some of whom' with a comma. Choice B incorrectly uses a semicolon before 'however' and then a comma, creating a fragment. Choice C misplaces the semicolon after 'however,' also creating a fragment. Choice D omits the comma after 'however,' making the sentence run together.",
+        "distractorRationales": {
+          "A": "Correct: proper comma usage.",
+          "B": "Semicolon creates a fragment.",
+          "C": "Semicolon after 'however' creates a fragment.",
+          "D": "Missing comma after 'however'."
+        }
+      },
+      {
+        "prompt": "Which choice best develops the topic by explaining the archivist’s response to critics at [9]?",
+        "choices": {
+          "A": "She acknowledged these concerns but pointed out that her model was based on measurable data, not guesswork, and that even an imperfect reconstruction could illuminate how technology shapes the human voice.",
+          "B": "She acknowledged these concerns but pointed out that her model was based on measurable data, not guesswork, and that even an imperfect reconstruction could illuminate how technology shapes the human voice, which is a fascinating topic.",
+          "C": "She acknowledged these concerns but pointed out that her model was based on measurable data, not guesswork, and that even an imperfect reconstruction could illuminate how technology shapes the human voice, a point she had made before.",
+          "D": "She acknowledged these concerns but pointed out that her model was based on measurable data, not guesswork, and that even an imperfect reconstruction could illuminate how technology shapes the human voice, and she was right."
+        },
+        "answer": "A",
+        "explanation": "Choice A clearly and concisely states her response, developing the topic of the value of her work. Choice B adds an unnecessary comment about the topic’s fascination. Choice C adds a redundant note about having made the point before. Choice D adds an unnecessary assertion that she was right, which is subjective and does not develop the topic.",
+        "distractorRationales": {
+          "A": "Correct: focused and relevant.",
+          "B": "Irrelevant comment.",
+          "C": "Redundant detail.",
+          "D": "Subjective and unnecessary."
+        }
+      },
+      {
+        "prompt": "Which choice best maintains grammatical consistency and precise meaning at [10]?",
+        "choices": {
+          "A": "demonstrated that sound, no less than text, can be a primary source for historians.",
+          "B": "demonstrated that sound, no less than text, can be a primary source for historians to use.",
+          "C": "demonstrated that sound, no less than text, can be a primary source for historians, which it is.",
+          "D": "demonstrated that sound, no less than text, can be a primary source for historians, as well as text."
+        },
+        "answer": "A",
+        "explanation": "Choice A is grammatically precise and concise, clearly stating that sound can be a primary source. Choice B adds 'to use,' which is redundant. Choice C adds a redundant and awkward relative clause 'which it is.' Choice D adds 'as well as text,' which is redundant because text is already mentioned.",
+        "distractorRationales": {
+          "A": "Correct: concise and precise.",
+          "B": "Redundant 'to use'.",
+          "C": "Redundant and awkward clause.",
+          "D": "Redundant repetition of 'text'."
+        }
+      }
+    ]
+  },
+  {
+    "title": "The Alchemy of Ash",
+    "passage": "For decades, ceramic artist Mira Okonkwo has been [1] fascinated by a historic ash glaze that shifts from olive green to deep crimson during firing.[/1] This transformation, known as a reduction reaction, occurs when the kiln's oxygen supply is deliberately restricted. [2] The glaze's color change is dramatic; it results from the interaction of iron oxide with carbon monoxide.[/2] As the temperature climbs above 1,200 degrees Celsius, the iron compounds in the glaze begin to [3] reduce, they lose oxygen atoms and form new molecular structures.[/3] [4] Okonkwo's meticulous approach to firing has earned her international acclaim, yet her studio practice remains deeply rooted in traditional Japanese techniques.[/4] She adjusts the kiln's damper every fifteen minutes, [5] carefully monitoring the flame's color, which indicates the oxygen level, and the pyrometric cones, which measure heat work.[/5] [6] Because the glaze's final hue depends on a precise sequence of reduction and oxidation cycles, Okonkwo must orchestrate each firing like a conductor leading an orchestra.[/6] [7] She has experimented with many variables, such as clay body composition, glaze thickness, and cooling rate, to understand why some firings yield crimson while others produce muddy brown.[/7] [8] The most striking results, however, occur when she introduces a brief oxidation period just before the kiln reaches peak temperature.[/8] [9] This technique, which she calls \"the breath,\" allows the iron crystals to mature and reflect light in a way that produces the coveted crimson.[/9] [10] Okonkwo's work demonstrates that mastering a historic glaze requires both scientific rigor and artistic intuition.[/10]",
+    "questions": [
+      {
+        "prompt": "Which choice best punctuates the sentence at [1]?",
+        "choices": {
+          "A": "fascinated by a historic ash glaze that shifts from olive green to deep crimson during firing.",
+          "B": "fascinated by a historic ash glaze, that shifts from olive green to deep crimson during firing.",
+          "C": "fascinated by a historic ash glaze; that shifts from olive green to deep crimson during firing.",
+          "D": "fascinated by a historic ash glaze that shifts from olive green to deep crimson during firing,"
+        },
+        "answer": "A",
+        "explanation": "Choice A correctly uses a restrictive relative clause with no comma before 'that' and ends the sentence with a period. Choice B incorrectly inserts a comma before a restrictive clause. Choice C uses a semicolon incorrectly, separating a dependent clause. Choice D ends with a comma, creating a comma splice with the following sentence.",
+        "distractorRationales": {
+          "A": "Correct: restrictive 'that' clause needs no comma, and period ends the sentence.",
+          "B": "Comma before 'that' is wrong because the clause is essential to identify the glaze.",
+          "C": "Semicolon cannot separate a main clause from a dependent 'that' clause.",
+          "D": "Comma at end creates a run-on with the next sentence."
+        }
+      },
+      {
+        "prompt": "Which choice best organizes the information at [2] to connect logically with the preceding sentence?",
+        "choices": {
+          "A": "The glaze's color change is dramatic; it results from the interaction of iron oxide with carbon monoxide.",
+          "B": "The glaze's color change is dramatic, but it results from the interaction of iron oxide with carbon monoxide.",
+          "C": "The glaze's color change is dramatic; for example, it results from the interaction of iron oxide with carbon monoxide.",
+          "D": "The glaze's color change is dramatic, so it results from the interaction of iron oxide with carbon monoxide."
+        },
+        "answer": "A",
+        "explanation": "Choice A uses a semicolon to link two closely related independent clauses, clearly stating the cause of the color change. Choice B uses 'but' to suggest contrast, which is illogical. Choice C adds 'for example,' implying the interaction is an instance rather than the cause. Choice D uses 'so,' incorrectly suggesting the dramatic quality causes the interaction.",
+        "distractorRationales": {
+          "A": "Correct: semicolon joins related ideas; cause-effect is clear.",
+          "B": "'But' wrongly signals contrast.",
+          "C": "'For example' misrepresents the relationship; the interaction is the cause, not an example.",
+          "D": "'So' reverses causation."
+        }
+      },
+      {
+        "prompt": "Which choice best corrects the grammar and usage error at [3]?",
+        "choices": {
+          "A": "reduce, they lose oxygen atoms and form new molecular structures.",
+          "B": "reduce; they lose oxygen atoms and form new molecular structures.",
+          "C": "reduce, losing oxygen atoms and forming new molecular structures.",
+          "D": "reduce, they lose oxygen atoms, and form new molecular structures."
+        },
+        "answer": "C",
+        "explanation": "Choice C uses a participial phrase to correctly modify the subject 'iron compounds' and avoids a comma splice. Choice A is a comma splice. Choice B uses a semicolon, but the second clause is not independent because 'they' lacks a clear antecedent? Actually 'they' refers to iron compounds, but the semicolon is grammatically possible; however, the participial phrase is more concise and precise. Choice D adds an unnecessary comma before 'and' and still creates a comma splice? Actually D has two independent clauses joined by comma and 'and'? No, 'they lose... and form...' is a compound predicate; the comma before 'and' is incorrect. C is best.",
+        "distractorRationales": {
+          "A": "Comma splice between 'reduce' and 'they lose'.",
+          "B": "Semicolon is grammatically possible but less concise and clear than participial phrase.",
+          "C": "Correct: participial phrase modifies 'iron compounds' and avoids splice.",
+          "D": "Incorrect comma before 'and' in a compound predicate; also comma splice? Actually 'reduce, they lose' is a splice."
+        }
+      },
+      {
+        "prompt": "Which choice best maintains the style and tone of the passage at [4]?",
+        "choices": {
+          "A": "Okonkwo's meticulous approach to firing has earned her international acclaim, yet her studio practice remains deeply rooted in traditional Japanese techniques.",
+          "B": "Okonkwo's meticulous approach to firing has earned her international acclaim, but her studio practice remains deeply rooted in traditional Japanese techniques.",
+          "C": "Okonkwo's meticulous approach to firing has earned her international acclaim; her studio practice remains deeply rooted in traditional Japanese techniques.",
+          "D": "Okonkwo's meticulous approach to firing has earned her international acclaim, and her studio practice remains deeply rooted in traditional Japanese techniques."
+        },
+        "answer": "A",
+        "explanation": "Choice A uses 'yet' to convey a nuanced contrast between acclaim and traditional roots, fitting the reflective tone. Choice B's 'but' is less elegant and slightly more abrupt. Choice C's semicolon lacks the connective nuance. Choice D's 'and' suggests addition rather than contrast, weakening the rhetorical point.",
+        "distractorRationales": {
+          "A": "Correct: 'yet' provides sophisticated contrast matching tone.",
+          "B": "'But' is grammatically fine but less nuanced.",
+          "C": "Semicolon loses the concessive relationship.",
+          "D": "'And' fails to signal contrast."
+        }
+      },
+      {
+        "prompt": "Which choice best develops the topic at [5] by clarifying how Okonkwo monitors the firing?",
+        "choices": {
+          "A": "carefully monitoring the flame's color, which indicates the oxygen level, and the pyrometric cones, which measure heat work.",
+          "B": "carefully monitoring the flame's color, which indicates the oxygen level, and the pyrometric cones, that measure heat work.",
+          "C": "carefully monitoring the flame's color, which indicates the oxygen level; and the pyrometric cones, which measure heat work.",
+          "D": "carefully monitoring the flame's color, which indicates the oxygen level, and the pyrometric cones, which measure heat work,"
+        },
+        "answer": "A",
+        "explanation": "Choice A correctly uses parallel 'which' clauses and ends with a period. Choice B uses 'that' after a comma, which is incorrect for a nonrestrictive clause. Choice C incorrectly places a semicolon before 'and.' Choice D ends with a comma, creating a run-on with the next sentence.",
+        "distractorRationales": {
+          "A": "Correct: parallel structure and proper punctuation.",
+          "B": "'That' cannot follow a comma in a nonrestrictive clause.",
+          "C": "Semicolon before 'and' is wrong.",
+          "D": "Comma at end creates splice."
+        }
+      },
+      {
+        "prompt": "Which choice best improves the sentence structure at [6]?",
+        "choices": {
+          "A": "Because the glaze's final hue depends on a precise sequence of reduction and oxidation cycles, Okonkwo must orchestrate each firing like a conductor leading an orchestra.",
+          "B": "The glaze's final hue depends on a precise sequence of reduction and oxidation cycles, Okonkwo must orchestrate each firing like a conductor leading an orchestra.",
+          "C": "Because the glaze's final hue depends on a precise sequence of reduction and oxidation cycles; Okonkwo must orchestrate each firing like a conductor leading an orchestra.",
+          "D": "The glaze's final hue depends on a precise sequence of reduction and oxidation cycles, so Okonkwo must orchestrate each firing like a conductor leading an orchestra."
+        },
+        "answer": "A",
+        "explanation": "Choice A uses a subordinate clause to establish cause-effect clearly and correctly. Choice B is a comma splice. Choice C incorrectly uses a semicolon after a dependent clause. Choice D uses 'so' but lacks the causal subordination that emphasizes the dependency.",
+        "distractorRationales": {
+          "A": "Correct: subordinate clause properly punctuated.",
+          "B": "Comma splice between independent clauses.",
+          "C": "Semicolon cannot follow a dependent clause.",
+          "D": "Grammatically correct but less effective in showing dependency."
+        }
+      },
+      {
+        "prompt": "Which choice best achieves concision and clarity at [7]?",
+        "choices": {
+          "A": "She has experimented with many variables, such as clay body composition, glaze thickness, and cooling rate, to understand why some firings yield crimson while others produce muddy brown.",
+          "B": "She has experimented with many variables, such as clay body composition, glaze thickness, and cooling rate, to understand why some firings yield crimson while others produce muddy brown results.",
+          "C": "She has experimented with many variables, including clay body composition, glaze thickness, and cooling rate, in order to understand why some firings yield crimson while others produce muddy brown.",
+          "D": "She has experimented with many variables, such as clay body composition, glaze thickness, and cooling rate, to understand why some firings yield crimson while others produce muddy brown color."
+        },
+        "answer": "A",
+        "explanation": "Choice A is concise and clear, using 'such as' and ending with 'muddy brown.' Choice B adds redundant 'results.' Choice C uses wordy 'in order to.' Choice D adds unnecessary 'color.'",
+        "distractorRationales": {
+          "A": "Correct: concise and idiomatic.",
+          "B": "'Results' is redundant.",
+          "C": "'In order to' is wordy.",
+          "D": "'Color' is unnecessary."
+        }
+      },
+      {
+        "prompt": "Which choice best punctuates the sentence at [8]?",
+        "choices": {
+          "A": "The most striking results, however, occur when she introduces a brief oxidation period just before the kiln reaches peak temperature.",
+          "B": "The most striking results however occur when she introduces a brief oxidation period just before the kiln reaches peak temperature.",
+          "C": "The most striking results, however occur when she introduces a brief oxidation period just before the kiln reaches peak temperature.",
+          "D": "The most striking results however, occur when she introduces a brief oxidation period just before the kiln reaches peak temperature."
+        },
+        "answer": "A",
+        "explanation": "Choice A correctly sets off the conjunctive adverb 'however' with commas. Choice B omits commas. Choice C has only one comma after 'however.' Choice D places the comma after 'however' instead of before.",
+        "distractorRationales": {
+          "A": "Correct: 'however' is parenthetical and needs commas on both sides.",
+          "B": "Missing commas around 'however'.",
+          "C": "Missing comma before 'however'.",
+          "D": "Comma misplaced after 'however'."
+        }
+      },
+      {
+        "prompt": "Which choice best develops the topic at [9] by explaining the significance of 'the breath'?",
+        "choices": {
+          "A": "This technique, which she calls \"the breath,\" allows the iron crystals to mature and reflect light in a way that produces the coveted crimson.",
+          "B": "This technique, which she calls \"the breath,\" allows the iron crystals to mature and reflect light in a way that produces the coveted crimson color.",
+          "C": "This technique, she calls \"the breath,\" allows the iron crystals to mature and reflect light in a way that produces the coveted crimson.",
+          "D": "This technique, which she calls \"the breath,\" allows the iron crystals to mature and reflect light in a way that produces the coveted crimson,"
+        },
+        "answer": "A",
+        "explanation": "Choice A correctly uses a nonrestrictive clause and ends with a period. Choice B adds redundant 'color.' Choice C omits 'which,' creating a comma splice. Choice D ends with a comma, causing a run-on.",
+        "distractorRationales": {
+          "A": "Correct: proper punctuation and concise.",
+          "B": "'Color' is redundant.",
+          "C": "Missing 'which' creates a splice.",
+          "D": "Comma at end creates splice."
+        }
+      },
+      {
+        "prompt": "Which choice best corrects the grammar and usage error at [10]?",
+        "choices": {
+          "A": "Okonkwo's work demonstrates that mastering a historic glaze requires both scientific rigor and artistic intuition.",
+          "B": "Okonkwo's work demonstrates that mastering a historic glaze requires both scientific rigor and artistic intuition alike.",
+          "C": "Okonkwo's work demonstrates that mastering a historic glaze requires both scientific rigor as well as artistic intuition.",
+          "D": "Okonkwo's work demonstrates that mastering a historic glaze requires both scientific rigor and artistic intuition too."
+        },
+        "answer": "A",
+        "explanation": "Choice A correctly uses the correlative conjunction 'both...and.' Choice B adds redundant 'alike.' Choice C incorrectly pairs 'both' with 'as well as.' Choice D adds unnecessary 'too.'",
+        "distractorRationales": {
+          "A": "Correct: standard 'both...and' construction.",
+          "B": "'Alike' is redundant.",
+          "C": "'Both...as well as' is ungrammatical.",
+          "D": "'Too' is redundant."
+        }
+      }
+    ]
+  },
+  {
+    "title": "Moths Under Streetlights",
+    "passage": "Dr. Lena Ortiz, an urban ecologist, spent her summer tracking moth migrations across the illuminated streets of Phoenix. [1]The city’s artificial lights, which glow throughout the night, disrupt the moths’ natural navigation, they become disoriented and exhausted.[/1] To measure this effect, Lena placed ultraviolet traps along a three-mile corridor, from a dark park to a busy commercial district. [2]She collected thousands of moths each week, but the data revealed an unexpected pattern: the moths were not simply flying toward the brightest light; they were following a network of dimmer, interconnected sources.[/2] [3]This finding suggests that light pollution’s impact is more complex than previously thought.[/3] [4]The results, which were surprising, challenged the assumption that moths are drawn only to the brightest beacon.[/4] [5]Lena’s research, which she conducted over two years, has important implications for urban planning, it suggests that reducing light pollution could help preserve moth populations.[/5] [6]By modifying streetlights to emit less ultraviolet light, cities can reduce moth mortality without sacrificing safety.[/6] [7]The study, which was published in a journal, showed that moths are essential pollinators for many plants, including night-blooming flowers.[/7] [8]Lena hopes her work will encourage city officials to adopt lighting ordinances that protect these nocturnal insects.[/8] [9]The moths’ migration patterns, which vary by species, also affect the timing of pollination for various crops.[/9] [10]Lena’s team plans to expand their research to other cities, they want to see if the same patterns hold.[/10]",
+    "questions": [
+      {
+        "prompt": "Which choice best replaces the underlined portion at [1] to correct the punctuation error?",
+        "choices": {
+          "A": "The city’s artificial lights, which glow throughout the night, disrupt the moths’ natural navigation, they become disoriented and exhausted.",
+          "B": "The city’s artificial lights, which glow throughout the night, disrupt the moths’ natural navigation; they become disoriented and exhausted.",
+          "C": "The city’s artificial lights, which glow throughout the night, disrupt the moths’ natural navigation, and they become disoriented and exhausted.",
+          "D": "The city’s artificial lights, which glow throughout the night, disrupt the moths’ natural navigation they become disoriented and exhausted."
+        },
+        "answer": "B",
+        "explanation": "The original sentence contains a comma splice: two independent clauses joined only by a comma. Choice B correctly uses a semicolon to separate the clauses. Choice A repeats the comma splice. Choice C uses a comma plus 'and,' which is grammatically acceptable but less precise than a semicolon because it implies a tighter causal relationship than the sentence intends. Choice D lacks any punctuation between the clauses, creating a fused sentence.",
+        "distractorRationales": {
+          "A": "Comma splice: two independent clauses joined only by a comma.",
+          "B": "Correct: semicolon properly separates independent clauses.",
+          "C": "Comma plus 'and' is grammatical but less precise; the semicolon better reflects the logical break.",
+          "D": "Fused sentence: no punctuation between independent clauses."
+        }
+      },
+      {
+        "prompt": "At [2], which choice best organizes the information to follow the paragraph’s logic?",
+        "choices": {
+          "A": "She collected thousands of moths each week, but the data revealed an unexpected pattern: the moths were not simply flying toward the brightest light; they were following a network of dimmer, interconnected sources.",
+          "B": "She collected thousands of moths each week, and the data revealed an unexpected pattern: the moths were not simply flying toward the brightest light; they were following a network of dimmer, interconnected sources.",
+          "C": "She collected thousands of moths each week; the data revealed an unexpected pattern: the moths were not simply flying toward the brightest light, they were following a network of dimmer, interconnected sources.",
+          "D": "She collected thousands of moths each week. The data revealed an unexpected pattern: the moths were not simply flying toward the brightest light; they were following a network of dimmer, interconnected sources."
+        },
+        "answer": "A",
+        "explanation": "The paragraph contrasts the initial expectation (moths drawn to brightest light) with the surprising finding (they follow dimmer networks). Choice A uses 'but' to signal this contrast, which is the most logical transition. Choice B uses 'and,' which fails to convey the unexpected nature of the pattern. Choice C uses a semicolon before 'the data revealed,' which is grammatical but lacks the contrastive transition. Choice D separates the clauses into two sentences, losing the explicit contrast and making the relationship less clear.",
+        "distractorRationales": {
+          "A": "Correct: 'but' appropriately signals the contrast between expectation and finding.",
+          "B": "'and' does not convey the unexpected contrast.",
+          "C": "Semicolon is grammatical but lacks the contrastive transition needed.",
+          "D": "Two sentences lose the explicit contrast and weaken the logical flow."
+        }
+      },
+      {
+        "prompt": "At [3], which choice best corrects the grammatical error?",
+        "choices": {
+          "A": "This finding suggests that light pollution’s impact is more complex than previously thought.",
+          "B": "This finding suggests that light pollution’s impact is more complex than previously thought was.",
+          "C": "This finding suggests that light pollution’s impact is more complex than previously thought it was.",
+          "D": "This finding suggests that light pollution’s impact is more complex than previously thought to be."
+        },
+        "answer": "A",
+        "explanation": "The original sentence is grammatically correct and concise. Choice B adds 'was' unnecessarily, creating an awkward comparison. Choice C adds 'it was,' which is redundant. Choice D adds 'to be,' which is wordy and unidiomatic in this context. Choice A is the most concise and grammatically sound.",
+        "distractorRationales": {
+          "A": "Correct: concise and grammatically standard.",
+          "B": "Unnecessary 'was' makes the comparison awkward.",
+          "C": "Redundant 'it was' adds no meaning.",
+          "D": "Wordy and unidiomatic 'to be'."
+        }
+      },
+      {
+        "prompt": "At [4], which choice best maintains the style and tone of the passage?",
+        "choices": {
+          "A": "The results, which were surprising, challenged the assumption that moths are drawn only to the brightest beacon.",
+          "B": "The results, surprising, challenged the assumption that moths are drawn only to the brightest beacon.",
+          "C": "The results challenged the assumption that moths are drawn only to the brightest beacon.",
+          "D": "The results, which were quite surprising, challenged the assumption that moths are drawn only to the brightest beacon."
+        },
+        "answer": "C",
+        "explanation": "The passage maintains a formal, scientific tone. Choice C is concise and direct, fitting the tone. Choice A uses a wordy relative clause ('which were surprising') that adds little. Choice B uses an awkward appositive ('surprising') that is less formal. Choice D adds 'quite,' which is informal and unnecessary. Choice C is the most stylistically appropriate.",
+        "distractorRationales": {
+          "A": "Wordy relative clause weakens concision.",
+          "B": "Awkward appositive and less formal.",
+          "C": "Correct: concise and formal, matching the passage’s tone.",
+          "D": "Informal 'quite' and wordy."
+        }
+      },
+      {
+        "prompt": "At [5], which choice best develops the topic of the paragraph?",
+        "choices": {
+          "A": "Lena’s research, which she conducted over two years, has important implications for urban planning, it suggests that reducing light pollution could help preserve moth populations.",
+          "B": "Lena’s research, which she conducted over two years, has important implications for urban planning: it suggests that reducing light pollution could help preserve moth populations.",
+          "C": "Lena’s research, which she conducted over two years, has important implications for urban planning; it suggests that reducing light pollution could help preserve moth populations.",
+          "D": "Lena’s research, which she conducted over two years, has important implications for urban planning. It suggests that reducing light pollution could help preserve moth populations."
+        },
+        "answer": "B",
+        "explanation": "The sentence introduces a general claim (important implications) and then specifies it (reducing light pollution could help preserve moth populations). A colon is the best punctuation to introduce this explanation. Choice A uses a comma splice. Choice C uses a semicolon, which suggests a weaker connection than the explanatory relationship. Choice D uses a period, which separates the explanation too sharply. Choice B is the most effective for topic development.",
+        "distractorRationales": {
+          "A": "Comma splice: two independent clauses joined by comma.",
+          "B": "Correct: colon properly introduces the explanation.",
+          "C": "Semicolon suggests a weaker connection than the explanatory relationship.",
+          "D": "Period separates the explanation too sharply."
+        }
+      },
+      {
+        "prompt": "At [6], which choice best corrects the sentence structure?",
+        "choices": {
+          "A": "By modifying streetlights to emit less ultraviolet light, cities can reduce moth mortality without sacrificing safety.",
+          "B": "By modifying streetlights to emit less ultraviolet light, moth mortality can be reduced by cities without sacrificing safety.",
+          "C": "Modifying streetlights to emit less ultraviolet light, cities can reduce moth mortality without sacrificing safety.",
+          "D": "By modifying streetlights to emit less ultraviolet light, cities can reduce moth mortality, without sacrificing safety."
+        },
+        "answer": "A",
+        "explanation": "The original sentence is correct: the introductory phrase 'By modifying streetlights...' clearly modifies 'cities.' Choice B creates a dangling modifier because 'moth mortality' cannot modify streetlights. Choice C changes 'By modifying' to 'Modifying,' which is less precise but still grammatical; however, it slightly alters the meaning. Choice D adds an unnecessary comma before 'without,' which disrupts the flow. Choice A is the best as written.",
+        "distractorRationales": {
+          "A": "Correct: clear modifier and proper punctuation.",
+          "B": "Dangling modifier: 'moth mortality' cannot modify streetlights.",
+          "C": "Less precise; 'Modifying' is less clear than 'By modifying'.",
+          "D": "Unnecessary comma before 'without'."
+        }
+      },
+      {
+        "prompt": "At [7], which choice best improves concision and clarity?",
+        "choices": {
+          "A": "The study, which was published in a journal, showed that moths are essential pollinators for many plants, including night-blooming flowers.",
+          "B": "The study, published in a journal, showed that moths are essential pollinators for many plants, including night-blooming flowers.",
+          "C": "The study, which was published in a journal, showed that moths are essential pollinators for many plants, including night-blooming flowers, which bloom at night.",
+          "D": "The study, which was published in a journal, showed that moths are essential pollinators for many plants, including night-blooming flowers, and this is important."
+        },
+        "answer": "B",
+        "explanation": "Choice B removes the unnecessary relative clause 'which was,' making the sentence more concise. Choice A is wordy. Choice C adds a redundant clause ('which bloom at night') since 'night-blooming' already conveys that. Choice D adds an unnecessary comment ('and this is important'). Choice B is the most concise and clear.",
+        "distractorRationales": {
+          "A": "Wordy relative clause 'which was'.",
+          "B": "Correct: concise and clear.",
+          "C": "Redundant 'which bloom at night'.",
+          "D": "Unnecessary addition 'and this is important'."
+        }
+      },
+      {
+        "prompt": "At [8], which choice best corrects the punctuation?",
+        "choices": {
+          "A": "Lena hopes her work will encourage city officials to adopt lighting ordinances that protect these nocturnal insects.",
+          "B": "Lena hopes her work will encourage city officials to adopt lighting ordinances, that protect these nocturnal insects.",
+          "C": "Lena hopes her work will encourage city officials to adopt lighting ordinances; that protect these nocturnal insects.",
+          "D": "Lena hopes her work will encourage city officials to adopt lighting ordinances: that protect these nocturnal insects."
+        },
+        "answer": "A",
+        "explanation": "The original sentence is correct: 'that protect these nocturnal insects' is a restrictive clause modifying 'ordinances' and should not be preceded by punctuation. Choice B incorrectly adds a comma before 'that,' which is not done with restrictive clauses. Choice C uses a semicolon, which is incorrect. Choice D uses a colon, which is also incorrect. Choice A is the best as written.",
+        "distractorRationales": {
+          "A": "Correct: no punctuation before restrictive clause.",
+          "B": "Incorrect comma before restrictive 'that'.",
+          "C": "Incorrect semicolon before 'that'.",
+          "D": "Incorrect colon before 'that'."
+        }
+      },
+      {
+        "prompt": "At [9], which choice best develops the topic of the passage?",
+        "choices": {
+          "A": "The moths’ migration patterns, which vary by species, also affect the timing of pollination for various crops.",
+          "B": "The moths’ migration patterns, which vary by species, also affect the timing of pollination for various crops, which is important for agriculture.",
+          "C": "The moths’ migration patterns, which vary by species, also affect the timing of pollination for various crops, and this is a key finding.",
+          "D": "The moths’ migration patterns, which vary by species, also affect the timing of pollination for various crops, which is a crucial point."
+        },
+        "answer": "A",
+        "explanation": "The sentence provides a relevant detail about the broader impact of moth migration. Choice A is concise and directly develops the topic. Choice B adds a redundant clause ('which is important for agriculture') that is unnecessary. Choice C adds 'and this is a key finding,' which is wordy and informal. Choice D adds 'which is a crucial point,' which is also redundant. Choice A is the most effective.",
+        "distractorRationales": {
+          "A": "Correct: concise and relevant topic development.",
+          "B": "Redundant 'which is important for agriculture'.",
+          "C": "Wordy and informal 'and this is a key finding'.",
+          "D": "Redundant 'which is a crucial point'."
+        }
+      },
+      {
+        "prompt": "At [10], which choice best corrects the grammatical error?",
+        "choices": {
+          "A": "Lena’s team plans to expand their research to other cities, they want to see if the same patterns hold.",
+          "B": "Lena’s team plans to expand their research to other cities; they want to see if the same patterns hold.",
+          "C": "Lena’s team plans to expand their research to other cities, and they want to see if the same patterns hold.",
+          "D": "Lena’s team plans to expand their research to other cities they want to see if the same patterns hold."
+        },
+        "answer": "B",
+        "explanation": "The original sentence contains a comma splice. Choice B correctly uses a semicolon to separate the independent clauses. Choice A repeats the comma splice. Choice C uses a comma plus 'and,' which is grammatical but less precise than a semicolon. Choice D lacks punctuation, creating a fused sentence. Choice B is the best correction.",
+        "distractorRationales": {
+          "A": "Comma splice: two independent clauses joined by comma.",
+          "B": "Correct: semicolon properly separates independent clauses.",
+          "C": "Comma plus 'and' is grammatical but less precise.",
+          "D": "Fused sentence: no punctuation between clauses."
+        }
+      }
+    ]
+  },
+  {
+    "title": "The Annotated Atlas",
+    "passage": "When historian Elena Marchetti first examined the 1587 edition of a Renaissance atlas, she expected to find the usual signs of wear. Instead, she discovered that a previous owner had [1] made hundreds of handwritten corrections to the maps, some in ink, others in pencil.[/1] These annotations, she realized, were not random defacements but a systematic critique of the atlas's geographical claims. [2] The corrections often contradicted the printed text, and they seemed to come from someone with firsthand knowledge of the regions depicted.[/2] Marchetti spent months comparing the annotations with other sources. She found that the corrector had access to unpublished travel accounts and had even corresponded with merchants who sailed to the Americas. [3] The corrector's identity remains unknown, but their notes reveal a sophisticated understanding of cartographic projection.[/3] In one instance, the corrector redrew the coastline of Brazil, [4] which was a significant improvement over the original, and added a note about a dangerous reef.[/4] Marchetti argues that these corrections show how early modern readers did not passively accept printed authority. [5] They actively engaged with texts, challenging and revising them.[/5] This view has gained traction among historians of science. [6] Marchetti's findings, which she presented at a conference last year, have been well received.[/6] However, some scholars question whether the corrections were made by a single individual. [7] The handwriting varies slightly from page to page, suggesting that multiple people may have contributed to the annotations.[/7] Marchetti acknowledges this possibility but maintains that the corrections share a consistent methodology. [8] She notes that the same symbols for rivers and mountains appear throughout, and the same abbreviations for latitude and longitude.[/8] [9] The atlas, now housed in a university library, is too fragile for frequent handling, so Marchetti has created a digital facsimile that allows researchers to study the annotations without damaging the original.[/9] Her work has inspired a new project to catalog handwritten corrections in other early printed books. [10] These corrections, she argues, are not marginalia but evidence of a vibrant intellectual culture that treated books as works in progress.[/10]",
+    "questions": [
+      {
+        "prompt": "Which choice best sets up the contrast between the historian's expectations and what she actually found?",
+        "choices": {
+          "A": "made hundreds of handwritten corrections to the maps, some in ink, others in pencil.",
+          "B": "made hundreds of handwritten corrections to the maps; some in ink, others in pencil.",
+          "C": "made hundreds of handwritten corrections to the maps some in ink, others in pencil.",
+          "D": "made hundreds of handwritten corrections to the maps, some in ink others in pencil."
+        },
+        "answer": "A",
+        "explanation": "Choice A correctly uses a comma to separate the independent clause from the participial phrase 'some in ink, others in pencil,' which is a parenthetical elaboration. Choice B incorrectly uses a semicolon, which should separate independent clauses. Choice C omits the comma, creating a run-on. Choice D omits the comma between 'ink' and 'others,' disrupting the parallel structure.",
+        "distractorRationales": {
+          "A": "Correct. The comma properly introduces the explanatory phrase.",
+          "B": "Semicolon is used incorrectly to separate a dependent phrase.",
+          "C": "Missing comma creates a fused sentence.",
+          "D": "Missing comma between 'ink' and 'others' breaks the parallel list."
+        }
+      },
+      {
+        "prompt": "Which choice most logically introduces the evidence that the annotations were a systematic critique?",
+        "choices": {
+          "A": "The corrections often contradicted the printed text, and they seemed to come from someone with firsthand knowledge of the regions depicted.",
+          "B": "The corrections often contradicted the printed text, but they seemed to come from someone with firsthand knowledge of the regions depicted.",
+          "C": "The corrections often contradicted the printed text, so they seemed to come from someone with firsthand knowledge of the regions depicted.",
+          "D": "The corrections often contradicted the printed text, for they seemed to come from someone with firsthand knowledge of the regions depicted."
+        },
+        "answer": "A",
+        "explanation": "Choice A uses 'and' to logically connect two observations that together support the idea of a systematic critique. Choice B uses 'but,' which suggests contrast rather than addition. Choice C uses 'so,' implying causation that is not supported. Choice D uses 'for,' which introduces a reason but is less direct than 'and' in this context.",
+        "distractorRationales": {
+          "A": "Correct. 'And' appropriately adds a second piece of evidence.",
+          "B": "'But' wrongly signals contrast.",
+          "C": "'So' wrongly implies the contradiction caused the firsthand knowledge.",
+          "D": "'For' is awkward and less logical than 'and'."
+        }
+      },
+      {
+        "prompt": "Which choice best maintains the sentence's focus on the corrector's expertise?",
+        "choices": {
+          "A": "The corrector's identity remains unknown, but their notes reveal a sophisticated understanding of cartographic projection.",
+          "B": "The corrector's identity remains unknown, and their notes reveal a sophisticated understanding of cartographic projection.",
+          "C": "The corrector's identity remains unknown; their notes reveal a sophisticated understanding of cartographic projection.",
+          "D": "The corrector's identity remains unknown, their notes reveal a sophisticated understanding of cartographic projection."
+        },
+        "answer": "A",
+        "explanation": "Choice A uses 'but' to contrast the unknown identity with the revealed expertise, which is the point of the sentence. Choice B uses 'and,' which fails to highlight the contrast. Choice C uses a semicolon, which is grammatically correct but lacks the logical contrast. Choice D is a comma splice.",
+        "distractorRationales": {
+          "A": "Correct. 'But' emphasizes the contrast between unknown identity and known expertise.",
+          "B": "'And' does not convey the contrast.",
+          "C": "Semicolon is grammatically correct but misses the contrast.",
+          "D": "Comma splice."
+        }
+      },
+      {
+        "prompt": "Which choice best expresses the significance of the redrawn coastline without awkwardness?",
+        "choices": {
+          "A": "which was a significant improvement over the original, and added a note about a dangerous reef.",
+          "B": "a significant improvement over the original, and added a note about a dangerous reef.",
+          "C": "which was a significant improvement over the original and added a note about a dangerous reef.",
+          "D": "a significant improvement over the original and added a note about a dangerous reef."
+        },
+        "answer": "C",
+        "explanation": "Choice C correctly uses 'which' to refer to the redrawn coastline and omits the unnecessary comma before 'and' because the two verbs are part of the same relative clause. Choice A incorrectly places a comma before 'and,' creating a compound predicate error. Choice B omits 'which,' making the phrase a dangling modifier. Choice D omits 'which' and the comma, also creating a dangling modifier.",
+        "distractorRationales": {
+          "A": "Comma before 'and' incorrectly separates compound predicate.",
+          "B": "Missing 'which' creates a dangling modifier.",
+          "C": "Correct. 'Which' clearly refers to the coastline, and no comma is needed before 'and'.",
+          "D": "Missing 'which' creates a dangling modifier."
+        }
+      },
+      {
+        "prompt": "Which choice most effectively develops the idea that readers actively engaged with texts?",
+        "choices": {
+          "A": "They actively engaged with texts, challenging and revising them.",
+          "B": "They actively engaged with texts, and challenged and revised them.",
+          "C": "They actively engaged with texts; challenging and revising them.",
+          "D": "They actively engaged with texts challenging and revising them."
+        },
+        "answer": "A",
+        "explanation": "Choice A uses a participial phrase 'challenging and revising them' to illustrate how readers engaged. Choice B uses 'and' unnecessarily, creating a compound verb that is less fluid. Choice C uses a semicolon incorrectly before a participial phrase. Choice D lacks punctuation, creating a run-on.",
+        "distractorRationales": {
+          "A": "Correct. Participial phrase smoothly elaborates on 'engaged'.",
+          "B": "'And' makes the sentence clunky and less focused.",
+          "C": "Semicolon incorrectly separates a dependent phrase.",
+          "D": "Missing punctuation creates a run-on."
+        }
+      },
+      {
+        "prompt": "Which choice best combines the two sentences to emphasize the reception of Marchetti's findings?",
+        "choices": {
+          "A": "Marchetti's findings, which she presented at a conference last year, have been well received.",
+          "B": "Marchetti's findings, she presented at a conference last year, have been well received.",
+          "C": "Marchetti's findings, presented at a conference last year, have been well received.",
+          "D": "Marchetti's findings, which she presented at a conference last year and have been well received."
+        },
+        "answer": "A",
+        "explanation": "Choice A correctly uses a nonrestrictive relative clause 'which she presented at a conference last year' to modify 'findings.' Choice B is a comma splice. Choice C reduces the clause to a participial phrase, which is grammatically correct but less precise about who presented. Choice D is a fragment and illogical.",
+        "distractorRationales": {
+          "A": "Correct. Relative clause clearly modifies 'findings'.",
+          "B": "Comma splice.",
+          "C": "Participial phrase is acceptable but less clear about the agent.",
+          "D": "Fragment and illogical."
+        }
+      },
+      {
+        "prompt": "Which choice most clearly and concisely presents the evidence of multiple contributors?",
+        "choices": {
+          "A": "The handwriting varies slightly from page to page, suggesting that multiple people may have contributed to the annotations.",
+          "B": "The handwriting varies slightly from page to page, which suggests that multiple people may have contributed to the annotations.",
+          "C": "The handwriting varies slightly from page to page; suggesting that multiple people may have contributed to the annotations.",
+          "D": "The handwriting varies slightly from page to page, and suggests that multiple people may have contributed to the annotations."
+        },
+        "answer": "A",
+        "explanation": "Choice A uses a participial phrase 'suggesting...' to concisely indicate the implication. Choice B uses 'which' unnecessarily, adding a word. Choice C uses a semicolon incorrectly before a participial phrase. Choice D uses 'and suggests,' which incorrectly makes 'handwriting' the subject of 'suggests' and is less concise.",
+        "distractorRationales": {
+          "A": "Correct. Participial phrase is concise and clear.",
+          "B": "'Which' is unnecessary and wordy.",
+          "C": "Semicolon incorrectly separates a dependent phrase.",
+          "D": "'And suggests' is awkward and changes meaning."
+        }
+      },
+      {
+        "prompt": "Which choice best maintains parallel structure and clarity in the list of consistent features?",
+        "choices": {
+          "A": "She notes that the same symbols for rivers and mountains appear throughout, and the same abbreviations for latitude and longitude.",
+          "B": "She notes that the same symbols for rivers and mountains appear throughout, and the same abbreviations for latitude and longitude are used.",
+          "C": "She notes that the same symbols for rivers and mountains appear throughout, and that the same abbreviations for latitude and longitude appear.",
+          "D": "She notes that the same symbols for rivers and mountains appear throughout, and the same abbreviations for latitude and longitude appear."
+        },
+        "answer": "C",
+        "explanation": "Choice C uses parallel 'that' clauses: 'that the same symbols... appear' and 'that the same abbreviations... appear.' Choice A lacks a verb for the second item. Choice B adds 'are used,' breaking parallelism. Choice D omits 'that' before the second clause, making it less parallel.",
+        "distractorRationales": {
+          "A": "Second item lacks a verb.",
+          "B": "Breaks parallelism with 'are used'.",
+          "C": "Correct. Parallel 'that' clauses.",
+          "D": "Missing 'that' reduces parallelism."
+        }
+      },
+      {
+        "prompt": "Which choice most effectively develops the paragraph by explaining the significance of the digital facsimile?",
+        "choices": {
+          "A": "The atlas, now housed in a university library, is too fragile for frequent handling, so Marchetti has created a digital facsimile that allows researchers to study the annotations without damaging the original.",
+          "B": "The atlas, now housed in a university library, is too fragile for frequent handling, but Marchetti has created a digital facsimile that allows researchers to study the annotations without damaging the original.",
+          "C": "The atlas, now housed in a university library, is too fragile for frequent handling; Marchetti has created a digital facsimile that allows researchers to study the annotations without damaging the original.",
+          "D": "The atlas, now housed in a university library, is too fragile for frequent handling, Marchetti has created a digital facsimile that allows researchers to study the annotations without damaging the original."
+        },
+        "answer": "A",
+        "explanation": "Choice A uses 'so' to show the logical consequence: because the atlas is fragile, Marchetti created a facsimile. Choice B uses 'but,' which suggests contrast rather than cause. Choice C uses a semicolon, which is grammatically correct but lacks the causal link. Choice D is a comma splice.",
+        "distractorRationales": {
+          "A": "Correct. 'So' clearly indicates cause and effect.",
+          "B": "'But' wrongly signals contrast.",
+          "C": "Semicolon is grammatically correct but misses the causal relationship.",
+          "D": "Comma splice."
+        }
+      },
+      {
+        "prompt": "Which choice best concludes the passage by reinforcing the main argument about early modern readers?",
+        "choices": {
+          "A": "These corrections, she argues, are not marginalia but evidence of a vibrant intellectual culture that treated books as works in progress.",
+          "B": "These corrections, she argues, are not marginalia, but evidence of a vibrant intellectual culture that treated books as works in progress.",
+          "C": "These corrections, she argues, are not marginalia; but evidence of a vibrant intellectual culture that treated books as works in progress.",
+          "D": "These corrections, she argues, are not marginalia but evidence of a vibrant intellectual culture, that treated books as works in progress."
+        },
+        "answer": "A",
+        "explanation": "Choice A correctly uses 'not... but' without a comma before 'but' and no comma before 'that.' Choice B incorrectly inserts a comma before 'but' in a 'not... but' construction. Choice C uses a semicolon incorrectly before 'but.' Choice D incorrectly places a comma before 'that,' which should not be separated from its clause.",
+        "distractorRationales": {
+          "A": "Correct. Proper 'not... but' construction and no comma before 'that'.",
+          "B": "Unnecessary comma before 'but'.",
+          "C": "Semicolon incorrectly used before 'but'.",
+          "D": "Comma incorrectly separates 'that' clause."
+        }
+      }
+    ]
+  },
+  {
+    "title": "The Tide Gauge at Otter Point",
+    "passage": "For nearly forty years, the mechanical tide gauge at Otter Point recorded the Pacific's slow breathing, its brass drum turning once every twenty-four hours. [1]When the station was decommissioned in 1987, the instrument was left in place, and salt air began to do what salt air does.[/1] By the time engineer Mara Ellison arrived, the gears had seized and the clockwork drive was a solid knot of corrosion.\n\n[2]Mara had spent a decade repairing automated sensors in laboratories, where a malfunction announced itself on a screen. Here, the failure was silent and total.[/2] She began by photographing every component before touching it, a habit that would prove essential. [3]The drum, the pen arm, and the float assembly were each removed, labeled, and packed in foam.[/3]\n\nRestoring the gauge required more than replacement parts. [4]The original brass fittings had been machined by hand, and no catalog offered equivalents; Mara spent weeks at a lathe, learning the tolerances the nineteenth-century makers had taken for granted.[/4] [5]She also studied the station's logbooks, which revealed that the gauge had been recalibrated after a 1964 earthquake, a detail that explained the unusual wear on one gear tooth.[/5]\n\n[6]Months later, the drum turned again, and the pen traced its first line across fresh paper.[/6] [7]The gauge, which had been silent for decades, was once more recording the tide.[/7] Mara stood on the bluff and watched the ocean, [8]which had been rising and falling without interruption, indifferent to whether anyone was measuring it.[/8] [9]The station, she realized, was not merely a machine but a promise that someone would keep paying attention.[/9] [10]She closed the case and locked it, knowing the tide would not wait for her to return.[/10]",
+    "questions": [
+      {
+        "prompt": "Which choice best sets up the passage by punctuating the sentence at [1] correctly?",
+        "choices": {
+          "A": "When the station was decommissioned in 1987, the instrument was left in place, and salt air began to do what salt air does.",
+          "B": "When the station was decommissioned in 1987 the instrument was left in place, and salt air began to do what salt air does.",
+          "C": "When the station was decommissioned in 1987, the instrument was left in place and salt air began to do what salt air does.",
+          "D": "When the station was decommissioned in 1987; the instrument was left in place, and salt air began to do what salt air does."
+        },
+        "answer": "A",
+        "explanation": "The introductory dependent clause must be followed by a comma, and the two independent clauses joined by 'and' require the comma before the conjunction.",
+        "distractorRationales": {
+          "A": "Correct: comma after the introductory clause and before 'and' joining two independent clauses.",
+          "B": "Missing comma after the introductory dependent clause.",
+          "C": "Missing comma before 'and' joining two independent clauses.",
+          "D": "Semicolon incorrectly separates a dependent clause from its main clause."
+        }
+      },
+      {
+        "prompt": "At [2], which choice most effectively introduces the contrast that the paragraph develops?",
+        "choices": {
+          "A": "Mara had spent a decade repairing automated sensors in laboratories, where a malfunction announced itself on a screen. Here, the failure was silent and total.",
+          "B": "Mara had spent a decade repairing automated sensors in laboratories, where a malfunction announced itself on a screen, here the failure was silent and total.",
+          "C": "Mara had spent a decade repairing automated sensors in laboratories, where a malfunction announced itself on a screen; and here, the failure was silent and total.",
+          "D": "Mara had spent a decade repairing automated sensors in laboratories, where a malfunction announced itself on a screen, but here the failure was silent and total."
+        },
+        "answer": "A",
+        "explanation": "The two sentences set up a clean contrast between laboratory work and the silent failure at Otter Point.",
+        "distractorRationales": {
+          "A": "Correct: the period creates a sharp contrast between the two settings.",
+          "B": "Comma splice joins two independent clauses.",
+          "C": "Semicolon followed by 'and' is nonstandard and unnecessary.",
+          "D": "'But' weakens the contrast and makes the second clause less independent in effect."
+        }
+      },
+      {
+        "prompt": "At [3], which choice best maintains the sentence's grammatical and rhetorical coherence?",
+        "choices": {
+          "A": "The drum, the pen arm, and the float assembly were each removed, labeled, and packed in foam.",
+          "B": "The drum, the pen arm, and the float assembly was each removed, labeled, and packed in foam.",
+          "C": "The drum, the pen arm, and the float assembly, each removed, labeled, and packed in foam.",
+          "D": "The drum, the pen arm, and the float assembly were each removed, labeled, and packed in foam, respectively."
+        },
+        "answer": "A",
+        "explanation": "The plural subject takes 'were,' and the parallel verbs 'removed, labeled, and packed' are correct.",
+        "distractorRationales": {
+          "A": "Correct: plural verb and parallel construction.",
+          "B": "Singular verb 'was' does not agree with the compound subject.",
+          "C": "Creates a fragment with no main verb.",
+          "D": "'Respectively' is redundant and illogical here."
+        }
+      },
+      {
+        "prompt": "At [4], which choice best fits the passage's reflective, precise tone?",
+        "choices": {
+          "A": "The original brass fittings had been machined by hand, and no catalog offered equivalents; Mara spent weeks at a lathe, learning the tolerances the nineteenth-century makers had taken for granted.",
+          "B": "The original brass fittings had been machined by hand, and no catalog offered equivalents, Mara spent weeks at a lathe, learning the tolerances the nineteenth-century makers had taken for granted.",
+          "C": "The original brass fittings had been machined by hand; and no catalog offered equivalents; Mara spent weeks at a lathe, learning the tolerances the nineteenth-century makers had taken for granted.",
+          "D": "The original brass fittings had been machined by hand and no catalog offered equivalents, so Mara spent weeks at a lathe, learning the tolerances the nineteenth-century makers had taken for granted."
+        },
+        "answer": "A",
+        "explanation": "The semicolon correctly separates the two independent clauses, and the tone remains measured and precise.",
+        "distractorRationales": {
+          "A": "Correct: semicolon joins independent clauses; tone is controlled.",
+          "B": "Comma splice between independent clauses.",
+          "C": "Semicolon plus 'and' is nonstandard and overpunctuated.",
+          "D": "Removing the comma after 'hand' creates a confusing compound predicate."
+        }
+      },
+      {
+        "prompt": "At [5], which choice best develops the paragraph's point about the value of historical records?",
+        "choices": {
+          "A": "She also studied the station's logbooks, which revealed that the gauge had been recalibrated after a 1964 earthquake, a detail that explained the unusual wear on one gear tooth.",
+          "B": "She also studied the station's logbooks, which revealed that the gauge had been recalibrated after a 1964 earthquake, a detail that explained the unusual wear on one gear tooth, which was interesting.",
+          "C": "She also studied the station's logbooks, and they revealed that the gauge had been recalibrated after a 1964 earthquake, and a detail explained the unusual wear on one gear tooth.",
+          "D": "She also studied the station's logbooks; they revealed that the gauge had been recalibrated after a 1964 earthquake, a detail that explained the unusual wear on one gear tooth."
+        },
+        "answer": "A",
+        "explanation": "The sentence clearly connects the logbook discovery to the mechanical evidence, advancing the paragraph's argument.",
+        "distractorRationales": {
+          "A": "Correct: the detail is integrated logically and concisely.",
+          "B": "The trailing 'which was interesting' adds empty commentary.",
+          "C": "Repetitive 'and' clauses weaken the cause-effect link.",
+          "D": "The semicolon is grammatical but makes the second clause feel detached and less integrated."
+        }
+      },
+      {
+        "prompt": "At [6], which choice best structures the sentence to emphasize the restoration's completion?",
+        "choices": {
+          "A": "Months later, the drum turned again, and the pen traced its first line across fresh paper.",
+          "B": "Months later the drum turned again and the pen traced its first line across fresh paper.",
+          "C": "Months later, the drum turned again and the pen traced its first line across fresh paper.",
+          "D": "Months later; the drum turned again, and the pen traced its first line across fresh paper."
+        },
+        "answer": "A",
+        "explanation": "The comma after the introductory phrase and the comma before 'and' correctly mark the two independent clauses.",
+        "distractorRationales": {
+          "A": "Correct: both required commas are present.",
+          "B": "Missing comma after the introductory phrase.",
+          "C": "Missing comma before 'and' joining independent clauses.",
+          "D": "Semicolon after an introductory phrase is incorrect."
+        }
+      },
+      {
+        "prompt": "At [7], which choice is most concise and clear while preserving the meaning?",
+        "choices": {
+          "A": "The gauge, which had been silent for decades, was once more recording the tide.",
+          "B": "The gauge, which had been silent for decades, was once more recording the tide again.",
+          "C": "The gauge, which had been silent for decades, was once more recording the tide, as it had been before.",
+          "D": "The gauge, which had been silent for decades, was once more recording the tide, which it had not done for decades."
+        },
+        "answer": "A",
+        "explanation": "The sentence is concise and clear, with no redundant modifiers.",
+        "distractorRationales": {
+          "A": "Correct: concise and clear.",
+          "B": "'Once more' and 'again' are redundant.",
+          "C": "'As it had been before' is wordy and unnecessary.",
+          "D": "Repeats the idea of silence for decades."
+        }
+      },
+      {
+        "prompt": "At [8], which choice best punctuates the sentence while preserving its reflective meaning?",
+        "choices": {
+          "A": "which had been rising and falling without interruption, indifferent to whether anyone was measuring it.",
+          "B": "which had been rising and falling without interruption indifferent to whether anyone was measuring it.",
+          "C": "which had been rising and falling without interruption; indifferent to whether anyone was measuring it.",
+          "D": "which had been rising and falling without interruption, and indifferent to whether anyone was measuring it."
+        },
+        "answer": "A",
+        "explanation": "The comma correctly sets off the adjective phrase 'indifferent to whether anyone was measuring it.'",
+        "distractorRationales": {
+          "A": "Correct: comma separates the descriptive phrase.",
+          "B": "Missing comma creates a run-on modifier.",
+          "C": "Semicolon incorrectly separates a modifier from its clause.",
+          "D": "'And' makes the phrase ungrammatical and awkward."
+        }
+      },
+      {
+        "prompt": "At [9], which choice best develops the passage's central idea about stewardship?",
+        "choices": {
+          "A": "The station, she realized, was not merely a machine but a promise that someone would keep paying attention.",
+          "B": "The station, she realized, was not merely a machine but a promise that someone would keep paying attention, which was a nice thought.",
+          "C": "The station, she realized, was not merely a machine, but a promise that someone would keep paying attention.",
+          "D": "The station, she realized, was not merely a machine but a promise that someone would keep paying attention to it."
+        },
+        "answer": "A",
+        "explanation": "The sentence articulates the passage's theme of stewardship without unnecessary commentary.",
+        "distractorRationales": {
+          "A": "Correct: the idea is developed clearly and concisely.",
+          "B": "'Which was a nice thought' weakens the serious tone.",
+          "C": "The comma before 'but' is unnecessary and interrupts the correlative construction.",
+          "D": "'To it' is redundant and slightly awkward."
+        }
+      },
+      {
+        "prompt": "At [10], which choice best maintains grammatical accuracy and the passage's closing tone?",
+        "choices": {
+          "A": "She closed the case and locked it, knowing the tide would not wait for her to return.",
+          "B": "She closed the case and locked it, knowing the tide would not wait for her to return, and she left.",
+          "C": "She closed the case and locked it, knowing the tide would not wait for her to return, and she walked away.",
+          "D": "She closed the case and locked it, knowing the tide would not wait for her to return, and then she went home."
+        },
+        "answer": "A",
+        "explanation": "The sentence is grammatically sound and ends the passage with a resonant, understated image.",
+        "distractorRationales": {
+          "A": "Correct: concise and tonally consistent.",
+          "B": "'And she left' is redundant and weakens the ending.",
+          "C": "'And she walked away' is unnecessary and less precise.",
+          "D": "'And then she went home' is mundane and undercuts the reflective close."
+        }
+      }
+    ]
+  }
+]

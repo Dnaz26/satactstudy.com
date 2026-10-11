@@ -1,0 +1,19 @@
+{
+  "batch": "Smart Coverage Batch 6 - SAT Craft and Conventions",
+  "generatedAt": "2026-10-01T02:47:44.026Z",
+  "saved": 32,
+  "approvedActiveValidated": 32,
+  "invalidDraftsExcluded": 2,
+  "byTopic": {
+    "Boundaries": 8,
+    "Form, Structure, and Sense": 8,
+    "Text Structure and Purpose": 8,
+    "Cross-Text Connections": 8
+  },
+  "answerSpread": {
+    "B": 12,
+    "A": 9,
+    "C": 8,
+    "D": 3
+  }
+}

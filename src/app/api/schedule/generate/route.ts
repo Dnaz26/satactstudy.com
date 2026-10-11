@@ -1,5 +1,7 @@
 import { NextRequest } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
+import { hasProductAccess } from '@/lib/access'
+import { getAccessProfile } from '@/lib/entitlements'
 import { generateStudyPlan, type ScheduleInput } from '@/lib/schedule'
 import { MIN_TOPIC_QUESTIONS } from '@/lib/constants'
 import { ensureTopicQuestionCount } from '@/lib/questions/expand-topic'
@@ -20,7 +22,10 @@ const TYPE_MAP: Record<string, string> = {
   review: 'mistake_review',
   timed: 'timed_practice',
   vocabulary: 'vocabulary',
-    test: 'timed_practice',
+  test: 'timed_practice',
+  lesson: 'lesson',
+  rapid_fire: 'rapid_fire',
+  game: 'game',
 }
 
 export async function POST(request: NextRequest) {
@@ -80,6 +85,8 @@ export async function POST(request: NextRequest) {
       .eq('correct', false)
 
     const normalizedType = testType === 'Both' || testType === 'both' ? 'both' : testType
+    const access = await getAccessProfile(user.id)
+    const fullAccess = hasProductAccess({ plan: access.plan, role: access.role, trialEndsAt: access.trialEndsAt })
 
     const plans = generateStudyPlan({
       userId: user.id,
@@ -93,6 +100,7 @@ export async function POST(request: NextRequest) {
       mediumTopics: medium,
       strongTopics: strong,
       hasMistakes: (mistakeCount ?? 0) > 0,
+      access: fullAccess ? 'full' : 'free',
     })
 
     let saved = 0

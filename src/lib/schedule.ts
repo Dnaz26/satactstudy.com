@@ -13,6 +13,7 @@ export interface ScheduleInput {
   mediumTopics: TopicPriority[]
   strongTopics: TopicPriority[]
   hasMistakes: boolean
+  access?: 'free' | 'full'
 }
 
 export interface TopicPriority {
@@ -23,7 +24,7 @@ export interface TopicPriority {
 }
 
 export interface DailyTask {
-  taskType: 'practice' | 'review' | 'vocabulary' | 'timed' | 'test'
+  taskType: 'practice' | 'review' | 'vocabulary' | 'timed' | 'test' | 'lesson' | 'rapid_fire' | 'game'
   topicId: string | null
   topicName: string | null
   durationMinutes: number
@@ -86,6 +87,86 @@ function fitToMinutes(tasks: DailyTask[], daily: number): DailyTask[] {
   return scaled
 }
 
+const WEEKDAY_NAMES = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+
+function weekdayName(date: Date): string {
+  return WEEKDAY_NAMES[date.getDay()]
+}
+
+function listedDay(date: Date, availableDays: string[]): boolean {
+  const name = weekdayName(date).toLowerCase()
+  return availableDays.some((day) => day.toLowerCase() === name)
+}
+
+function freeWeekDates(weekStart: Date, availableDays: string[]): Date[] {
+  const chosen: Date[] = []
+  for (let offset = 0; offset < 7; offset += 1) {
+    const date = addDays(weekStart, offset)
+    if (listedDay(date, availableDays)) chosen.push(date)
+  }
+  const pool = chosen.length ? chosen : WEEKDAY_NAMES.slice(1, 6).map((name) => {
+    const index = WEEKDAY_NAMES.indexOf(name)
+    return addDays(weekStart, index === 0 ? 6 : index - 1)
+  })
+  const days = pool.slice(0, 5)
+  if (days.length >= 5) return days
+  for (const name of ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']) {
+    if (days.length >= 5) break
+    const index = WEEKDAY_NAMES.indexOf(name)
+    const date = addDays(weekStart, index - 1)
+    const key = format(date, 'yyyy-MM-dd')
+    if (!days.some((item) => format(item, 'yyyy-MM-dd') === key)) days.push(date)
+  }
+  return days.sort((a, b) => a.getTime() - b.getTime())
+}
+
+function generateFreeStudyPlan(input: ScheduleInput, today: Date, totalDays: number): DailyPlan[] {
+  const available = input.availableDays.length
+    ? input.availableDays
+    : ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']
+  const allTopics = [...input.weakTopics, ...input.mediumTopics, ...input.strongTopics]
+  const plans: DailyPlan[] = []
+  let cursor = new Date(today)
+  const end = addDays(today, totalDays)
+  let weekIndex = 0
+  while (cursor < end) {
+    const weekday = cursor.getDay()
+    const mondayOffset = weekday === 0 ? -6 : 1 - weekday
+    const weekStart = addDays(cursor, mondayOffset)
+    const dates = freeWeekDates(weekStart, available).filter((date) => date >= today && date < end)
+    dates.forEach((date, index) => {
+      const weak = pickTopic(input.weakTopics, weekIndex + index, allTopics)
+      const next = pickTopic(input.mediumTopics, weekIndex + index, allTopics) ?? weak
+      const review = task('review', 8, null, input.hasMistakes ? 'Review misses' : 'Review notes')
+      review.questionCount = 2
+      let focus: DailyTask
+      if (index === 0) {
+        focus = task('lesson', 15, weak, weak?.topicName ?? 'Weekly lesson')
+        focus.questionCount = null
+      } else if (index === 1) {
+        focus = task('rapid_fire', 10, weak, 'Rapid Fire')
+        focus.questionCount = 5
+      } else if (index === 2) {
+        focus = task('game', 10, weak, 'Game practice')
+        focus.questionCount = 5
+      } else {
+        focus = task('practice', 16, index === 3 ? weak : next, index === 3 ? weak?.topicName ?? 'Short practice' : next?.topicName ?? 'Short practice')
+        focus.questionCount = 8
+      }
+      const tasks = [focus, review]
+      plans.push({
+        date: format(date, 'yyyy-MM-dd'),
+        tasks,
+        totalMinutes: tasks.reduce((sum, item) => sum + item.durationMinutes, 0),
+      })
+    })
+    cursor = addDays(weekStart, 7)
+    weekIndex += 1
+    if (weekIndex > 12) break
+  }
+  return plans
+}
+
 export function generateStudyPlan(input: ScheduleInput): DailyPlan[] {
   const today = new Date()
   today.setHours(0, 0, 0, 0)
@@ -93,6 +174,7 @@ export function generateStudyPlan(input: ScheduleInput): DailyPlan[] {
   const totalDays = Math.max(14, Math.min(60, Math.ceil((testDate.getTime() - today.getTime()) / 86400000)))
   const daily = Math.max(15, input.dailyMinutes || 30)
   const allTopics = [...input.weakTopics, ...input.mediumTopics, ...input.strongTopics]
+  if (input.access === 'free') return generateFreeStudyPlan(input, today, totalDays)
   const plans: DailyPlan[] = []
 
   for (let i = 0; i < totalDays; i++) {

@@ -9,50 +9,79 @@ import { CHECKOUT_PROMO, isCheckoutPromo } from '@/lib/plans'
 import { redeemPendingPromo, redeemPromoCode } from '@/lib/promo'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { Companion } from '@/components/ui/companion'
+import { NovaCharacter } from '@/components/study/nova-character'
 import { AiTutorPanel } from '@/components/ui/ai-tutor-panel'
+import { AnswerSheet, TestBooklet, type BookletMark } from '@/components/practice/test-booklet'
+import {
+  DIAGNOSTIC_QUESTIONS,
+  SAT_ACT_DIFFERENCES,
+  diagnosticSatScore,
+  satToAct,
+} from '@/lib/onboarding/diagnostic'
 import { cn } from '@/lib/utils'
-import { Check, ChevronRight, CalendarDays, MessageCircleHeart, ClipboardList } from 'lucide-react'
+import { Check, ChevronRight, ChevronLeft, CalendarDays, MessageCircleHeart, HelpCircle } from 'lucide-react'
 
-type TestType = 'SAT' | 'ACT' | 'both'
-type StudyDay = 'Monday' | 'Tuesday' | 'Wednesday' | 'Thursday' | 'Friday' | 'Saturday' | 'Sunday'
+type ExamHistory = 'SAT' | 'ACT' | 'Both' | 'None'
+type PlannedExam = 'SAT' | 'ACT' | 'Not sure yet'
 type Phase = 'questions' | 'schedule' | 'practice' | 'tutor' | 'unlock'
 
+type StepId =
+  | 'name'
+  | 'age'
+  | 'history'
+  | 'planned'
+  | 'method'
+  | 'struggle'
+  | 'source'
+  | 'target'
+  | 'minutes'
+  | 'prior'
+  | 'diagnostic'
+  | 'results'
+
+const STUDY_METHODS = ['Self-study', 'School class', 'Prep course', 'Private tutor', "Didn't really study"]
+const PRIOR_METHODS = ['Practice tests', 'Prep book', 'Online videos', 'Tutor or class', "Didn't study much"]
+const STRUGGLES = ['Math', 'English', 'Reading']
+const SOURCES = ['TikTok', 'Google Search', 'AI Recommendation', 'Instagram', 'From a friend', 'YouTube', 'Other']
 const STUDY_TIMES = [15, 30, 45, 60, 90, 120]
-const START_TIMES = ['06:00', '07:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00']
-const GRADES = ['9', '10', '11', '12', 'College', 'Other']
-const GOALS = ['First SAT/ACT', 'Score jump', 'Scholarship', 'Retake']
-const PREP = ['None', 'A little', 'A class', 'A tutor']
-const FOCUS = ['Math', 'English', 'Both']
-const WEAK = ['Algebra', 'Geometry', 'Reading', 'Grammar', 'Science', 'Timing']
-const ALL_DAYS: StudyDay[] = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
-const DAY_SHORT: Record<StudyDay, string> = {
-  Monday: 'Mon', Tuesday: 'Tue', Wednesday: 'Wed', Thursday: 'Thu',
-  Friday: 'Fri', Saturday: 'Sat', Sunday: 'Sun',
-}
 
 interface OnboardingData {
   fullName: string
-  testType: TestType | null
+  age: string
+  examHistory: ExamHistory | null
+  plannedExam: PlannedExam | null
+  studyMethod: string
+  struggleAreas: string[]
+  discoverySource: string
   targetScore: number | null
-  testDate: string
-  hasTakenPractice: boolean | null
-  baselineScore: number | null
-  gradeLevel: string
-  schoolName: string
-  focusSection: string
-  weakestAreas: string[]
-  testGoal: string
-  priorPrep: string
   dailyMinutes: number | null
-  studyStartTime: string
-  availableDays: StudyDay[]
+  priorStudyMethod: string
 }
 
 interface ScheduleDay {
   date: string
   title: string
   minutes: number
+}
+
+function effectiveTargetTest(data: OnboardingData): 'SAT' | 'ACT' {
+  if (data.examHistory === 'ACT') return 'ACT'
+  if (data.examHistory === 'None') {
+    if (data.plannedExam === 'ACT') return 'ACT'
+    return 'SAT'
+  }
+  if (data.examHistory === 'SAT' || data.examHistory === 'Both') return 'SAT'
+  return 'SAT'
+}
+
+function visibleSteps(data: OnboardingData): StepId[] {
+  const steps: StepId[] = ['name', 'age', 'history']
+  if (data.examHistory === 'None') steps.push('planned')
+  if (data.examHistory && data.examHistory !== 'None') steps.push('method')
+  steps.push('struggle', 'source', 'target', 'minutes')
+  if (data.examHistory && data.examHistory !== 'None') steps.push('prior')
+  steps.push('diagnostic', 'results')
+  return steps
 }
 
 function OnboardingInner() {
@@ -65,7 +94,7 @@ function OnboardingInner() {
       ? phaseParam
       : 'questions',
   )
-  const [step, setStep] = React.useState(0)
+  const [stepIndex, setStepIndex] = React.useState(0)
   const [processing, setProcessing] = React.useState(false)
   const [schedulePreview, setSchedulePreview] = React.useState<ScheduleDay[]>([])
   const [promoCode, setPromoCode] = React.useState('')
@@ -73,23 +102,36 @@ function OnboardingInner() {
   const [promoError, setPromoError] = React.useState('')
   const [tutorOpen, setTutorOpen] = React.useState(false)
   const [tutorUsed, setTutorUsed] = React.useState(0)
+  const [showDifferences, setShowDifferences] = React.useState(false)
+
   const [data, setData] = React.useState<OnboardingData>({
     fullName: '',
-    testType: null,
+    age: '',
+    examHistory: null,
+    plannedExam: null,
+    studyMethod: '',
+    struggleAreas: [],
+    discoverySource: '',
     targetScore: null,
-    testDate: '',
-    hasTakenPractice: null,
-    baselineScore: null,
-    gradeLevel: '',
-    schoolName: '',
-    focusSection: '',
-    weakestAreas: [],
-    testGoal: '',
-    priorPrep: '',
     dailyMinutes: null,
-    studyStartTime: '19:00',
-    availableDays: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+    priorStudyMethod: '',
   })
+
+  // Diagnostic state — same TestBooklet + AnswerSheet components as the practice test.
+  const [diagAnswers, setDiagAnswers] = React.useState<Record<string, string>>({})
+  const [diagMarks, setDiagMarks] = React.useState<Record<string, BookletMark>>({})
+  const [diagFocused, setDiagFocused] = React.useState<string | null>(DIAGNOSTIC_QUESTIONS[0]?.id ?? null)
+  const [diagSubmitted, setDiagSubmitted] = React.useState(false)
+
+  const steps = visibleSteps(data)
+  const step: StepId = steps[Math.min(stepIndex, steps.length - 1)] ?? 'name'
+
+  const diagCorrect = React.useMemo(() => {
+    if (!diagSubmitted) return null
+    return DIAGNOSTIC_QUESTIONS.filter((q) => diagMarks[q.id]?.correct).length
+  }, [diagSubmitted, diagMarks])
+  const diagSat = diagCorrect == null ? null : diagnosticSatScore(diagCorrect)
+  const diagAct = diagSat == null ? null : satToAct(diagSat)
 
   React.useEffect(() => {
     if (phaseParam === 'tutor' || phaseParam === 'practice' || phaseParam === 'schedule' || phaseParam === 'unlock') {
@@ -125,50 +167,57 @@ function OnboardingInner() {
     })
   }, [])
 
-  const questionSteps = 15
+  // Keep step index in range when conditional steps appear/disappear.
+  React.useEffect(() => {
+    setStepIndex((i) => Math.min(i, visibleSteps(data).length - 1))
+  }, [data.examHistory])
+
   const progress = phase === 'questions'
-    ? ((step + 1) / questionSteps) * 70
+    ? ((stepIndex + 1) / steps.length) * 70
     : phase === 'schedule'
-      ? 75
+      ? 78
       : phase === 'practice'
-        ? 82
+        ? 84
         : phase === 'tutor'
-          ? 90
+          ? 92
           : 98
 
-  function nextStep() {
-    if (step < questionSteps - 1) setStep(step + 1)
+  function goNext() {
+    setStepIndex((i) => Math.min(i + 1, steps.length - 1))
+  }
+  function goBack() {
+    setStepIndex((i) => Math.max(i - 1, 0))
   }
 
   function getScoreRange(): [number, number] {
-    if (data.testType === 'ACT') return [1, 36]
+    if (effectiveTargetTest(data) === 'ACT') return [1, 36]
     return [400, 1600]
   }
-
   function getDefaultTarget(): number {
-    if (data.testType === 'ACT') return 30
+    if (effectiveTargetTest(data) === 'ACT') return 30
     return 1400
   }
 
-  function toggleDay(day: StudyDay) {
+  function toggleStruggle(item: string) {
     setData((prev) => ({
       ...prev,
-      availableDays: prev.availableDays.includes(day)
-        ? prev.availableDays.filter((d) => d !== day)
-        : [...prev.availableDays, day],
+      struggleAreas: prev.struggleAreas.includes(item)
+        ? prev.struggleAreas.filter((d) => d !== item)
+        : [...prev.struggleAreas, item],
     }))
   }
 
-  function toggleWeak(item: string) {
-    setData((prev) => ({
-      ...prev,
-      weakestAreas: prev.weakestAreas.includes(item)
-        ? prev.weakestAreas.filter((d) => d !== item)
-        : [...prev.weakestAreas, item],
-    }))
+  function examLabel(): string {
+    if (data.examHistory === 'Both') return 'SAT / ACT'
+    if (data.examHistory === 'SAT' || data.examHistory === 'ACT') return data.examHistory
+    if (data.examHistory === 'None') {
+      if (data.plannedExam === 'Not sure yet' || !data.plannedExam) return 'SAT / ACT'
+      return data.plannedExam
+    }
+    return 'SAT / ACT'
   }
 
-  async function saveProfileDraft() {
+  async function saveProfileDraft(opts?: { diagnosticCorrect?: number; diagnosticSat?: number; diagnosticAct?: number }) {
     const supabase = createClient()
     const { data: { user } } = await supabase.auth.getUser()
     if (!user) {
@@ -176,25 +225,90 @@ function OnboardingInner() {
       return null
     }
 
-    await supabase.from('profiles').update({
+    const ageNum = data.age.trim() === '' ? null : Number(data.age.trim())
+    const validAge = ageNum != null && Number.isFinite(ageNum) && ageNum >= 5 && ageNum <= 120 ? Math.round(ageNum) : null
+    const targetTest = effectiveTargetTest(data)
+    const testPreference = data.examHistory === 'Both'
+      ? 'Both'
+      : data.examHistory === 'None'
+        ? (data.plannedExam === 'Not sure yet' || !data.plannedExam ? 'Both' : data.plannedExam)
+        : data.examHistory
+
+    const fullPayload: Record<string, unknown> = {
       full_name: data.fullName.trim() || null,
-      test_preference: data.testType === 'both' ? 'Both' : data.testType,
-      target_score: data.targetScore,
-      current_estimated_score: data.baselineScore,
-      test_date: data.testDate || null,
+      test_preference: testPreference,
+      target_score: data.targetScore ?? getDefaultTarget(),
+      current_estimated_score: opts?.diagnosticSat ?? diagSat ?? null,
       study_minutes_per_day: data.dailyMinutes,
-      study_start_time: data.studyStartTime,
-      study_days: data.availableDays,
-      grade_level: data.gradeLevel || null,
-      school_name: data.schoolName.trim() || null,
-      focus_section: data.focusSection || null,
-      weakest_areas: data.weakestAreas,
-      test_goal: data.testGoal || null,
-      prior_prep: data.priorPrep || null,
+      study_days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+      focus_section: data.struggleAreas.length === 1 ? data.struggleAreas[0] : data.struggleAreas.length > 1 ? 'Both' : null,
+      weakest_areas: data.struggleAreas,
+      prior_prep: data.studyMethod || data.priorStudyMethod || null,
+      test_goal: data.discoverySource || null,
+      // New survey columns (see supabase/migrations/202609200001_onboarding_survey.sql).
+      age: validAge,
+      exam_history: data.examHistory,
+      planned_exam: data.plannedExam,
+      study_method: data.studyMethod || null,
+      struggle_areas: data.struggleAreas,
+      discovery_source: data.discoverySource || null,
+      prior_study_method: data.priorStudyMethod || null,
+      diagnostic_sat: opts?.diagnosticSat ?? diagSat,
+      diagnostic_act: opts?.diagnosticAct ?? diagAct,
+      diagnostic_correct: opts?.diagnosticCorrect ?? diagCorrect,
+      diagnostic_completed: diagSubmitted ? true : undefined,
       updated_at: new Date().toISOString(),
-    }).eq('id', user.id)
+    }
+    void targetTest
+
+    const tryUpdate = async (payload: Record<string, unknown>) => {
+      // Strip undefined so we never overwrite with undefined.
+      const clean: Record<string, unknown> = {}
+      for (const [k, v] of Object.entries(payload)) {
+        if (v !== undefined) clean[k] = v
+      }
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      return supabase.from('profiles').update(clean as any).eq('id', user.id)
+    }
+
+    let res = await tryUpdate(fullPayload)
+    if (res.error && /column .* does not exist|schema cache/i.test(res.error.message)) {
+      // Fallback for DBs where the survey migration hasn't been applied yet.
+      const legacyPayload: Record<string, unknown> = {
+        full_name: fullPayload.full_name,
+        test_preference: fullPayload.test_preference,
+        target_score: fullPayload.target_score,
+        current_estimated_score: fullPayload.current_estimated_score,
+        study_minutes_per_day: fullPayload.study_minutes_per_day,
+        study_days: fullPayload.study_days,
+        focus_section: fullPayload.focus_section,
+        weakest_areas: fullPayload.weakest_areas,
+        prior_prep: fullPayload.prior_prep,
+        test_goal: fullPayload.test_goal,
+        diagnostic_completed: fullPayload.diagnostic_completed,
+        updated_at: fullPayload.updated_at,
+      }
+      res = await tryUpdate(legacyPayload)
+    }
+    if (res.error) throw res.error
 
     return user
+  }
+
+  function submitDiagnostic() {
+    const marks: Record<string, BookletMark> = {}
+    for (const q of DIAGNOSTIC_QUESTIONS) {
+      const given = (diagAnswers[q.id] ?? '').trim().toUpperCase()
+      const correct = given !== '' && given === q.correct_answer.toUpperCase()
+      marks[q.id] = { correct }
+    }
+    setDiagMarks(marks)
+    setDiagSubmitted(true)
+    const correctCount = DIAGNOSTIC_QUESTIONS.filter((q) => marks[q.id]?.correct).length
+    const sat = diagnosticSatScore(correctCount)
+    const act = satToAct(sat)
+    void saveProfileDraft({ diagnosticCorrect: correctCount, diagnosticSat: sat, diagnosticAct: act }).catch(() => undefined)
+    void fetch('/api/onboarding/diagnostic-done', { method: 'POST' }).catch(() => undefined)
   }
 
   async function buildScheduleAndContinue() {
@@ -203,20 +317,21 @@ function OnboardingInner() {
       const user = await saveProfileDraft()
       if (!user) return
 
-      const testDate = data.testDate || new Date(Date.now() + 90 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10)
+      const testDate = new Date(Date.now() + 90 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10)
       const targetScore = data.targetScore ?? getDefaultTarget()
       const dailyMinutes = data.dailyMinutes ?? 30
+      const testType = effectiveTargetTest(data)
 
       await fetch('/api/schedule/generate', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           testDate,
-          testType: data.testType ?? 'SAT',
+          testType,
           targetScore,
-          baselineScore: data.baselineScore,
+          baselineScore: diagSat,
           dailyMinutes,
-          availableDays: data.availableDays,
+          availableDays: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
         }),
       })
 
@@ -250,7 +365,7 @@ function OnboardingInner() {
         )
       } else {
         setSchedulePreview(
-          data.availableDays.slice(0, 5).map((day, i) => ({
+          ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'].map((day, i) => ({
             date: day,
             title: i % 2 === 0 ? 'Topic practice' : 'Review + tutor',
             minutes: dailyMinutes,
@@ -345,14 +460,20 @@ function OnboardingInner() {
           ? `Ask Nova up to ${ONBOARDING_TRIAL.aiChats} times (${Math.max(0, ONBOARDING_TRIAL.aiChats - tutorUsed)} left).`
           : phase === 'unlock'
             ? 'Enter DN126 for free access, RHS for 2 weeks free + special pricing, or continue to paywall.'
-            : 'One screen at a time.'
+            : step === 'diagnostic'
+              ? 'Diagnostic: 10 hard questions — 3 Reading, 3 Math, 4 Grammar.'
+              : step === 'results'
+                ? 'Here is where you stand right now.'
+                : 'One screen at a time.'
+
+  const diagFilled = DIAGNOSTIC_QUESTIONS.filter((q) => (diagAnswers[q.id] ?? '').trim() !== '').length
 
   return (
     <div className="flex min-h-screen flex-col px-5 py-5">
       <div className="mb-4">
         <div className="mb-2 flex items-center justify-between">
           <span className="text-sm text-fog">
-            {phase === 'questions' ? `Step ${step + 1} of ${questionSteps}` : phase === 'schedule' ? 'Your schedule' : phase === 'practice' ? 'Try practice' : phase === 'tutor' ? 'Try tutoring' : 'Unlock'}
+            {phase === 'questions' ? `Step ${stepIndex + 1} of ${steps.length}` : phase === 'schedule' ? 'Your schedule' : phase === 'practice' ? 'Try practice' : phase === 'tutor' ? 'Try tutoring' : 'Unlock'}
           </span>
           <span className="text-sm text-fog">{Math.round(progress)}%</span>
         </div>
@@ -361,170 +482,206 @@ function OnboardingInner() {
         </div>
       </div>
 
-      <div className="mx-auto flex w-full max-w-md flex-1 flex-col">
-        <Companion compact mode={phase === 'unlock' ? 'success' : 'studying'} message={companionMessage} />
+      <div className={cn('mx-auto flex w-full flex-1 flex-col', step === 'diagnostic' ? 'max-w-6xl' : 'max-w-4xl')}>
+        <div className="relative mb-5 overflow-hidden rounded-[2rem] border-2 border-[#e5e5e5] bg-[linear-gradient(135deg,#f4ffe9,#eef9ff)] p-4 shadow-[0_6px_0_#e5e5e5] sm:p-5">
+          <div className="absolute right-4 top-3 font-mono text-[9px] font-black uppercase tracking-[.18em] text-[#58cc02]">AI onboarding · live</div>
+          <div className="flex items-center gap-4">
+            <NovaCharacter mood={processing ? 'think' : phase === 'unlock' || step === 'results' ? 'cheer' : 'talk'} size="sm" />
+            <div className="min-w-0 flex-1">
+              <p className="text-xs font-black uppercase tracking-widest text-[#1cb0f6]">Nova is {processing ? 'thinking' : step === 'results' ? 'ready with your results' : 'learning about you'}</p>
+              <p className="mt-2 font-display text-xl leading-snug text-[#3c3c3c]">{companionMessage}</p>
+              <div className="mt-3 flex gap-1.5" aria-label={processing ? 'Nova is analyzing' : 'Nova is ready'}>{[0,1,2,3,4].map((dot)=><span key={dot} className={`h-2 rounded-full transition-all ${dot <= Math.min(4, Math.floor(progress/20)) ? 'w-8 bg-[#58cc02]' : 'w-2 bg-[#d7d7d7]'}`} />)}</div>
+              {step === 'results' && diagSat != null ? <p className="mt-3 inline-flex rounded-full bg-white px-4 py-2 text-sm font-black text-[#3c3c3c] shadow-sm">Analysis complete: SAT {diagSat} · ACT {diagAct}</p> : null}
+            </div>
+          </div>
+        </div>
 
-        <div className="mt-4 flex flex-1 flex-col">
+        <div className="flex flex-1 flex-col">
           {phase === 'questions' && (
             <>
-              {step === 0 && (
-                <StepScreen title="What should Nova call you?" description="This name shows on your home screen.">
+              {step === 'name' && (
+                <StepScreen title="Enter your name" description="This name shows on your home screen.">
                   <Input value={data.fullName} onChange={(e) => setData({ ...data, fullName: e.target.value })} placeholder="Your name" />
-                  <Button onClick={nextStep} className="mt-4 w-full" disabled={!data.fullName.trim()}>
+                  <Button onClick={goNext} className="mt-4 w-full" disabled={!data.fullName.trim()}>
                     Continue <ChevronRight className="ml-1 h-5 w-5" />
                   </Button>
                 </StepScreen>
               )}
 
-              {step === 1 && (
-                <StepScreen title="Which test are you preparing for?" description="We'll customize your study plan accordingly.">
-                  <div className="grid flex-1 grid-cols-1 gap-2 sm:grid-cols-3">
-                    {(['SAT', 'ACT', 'both'] as TestType[]).map((t) => (
-                      <Choice key={t} tall selected={data.testType === t} onClick={() => { setData({ ...data, testType: t, targetScore: null }); nextStep() }}>
-                        {t === 'both' ? 'Both' : t}
-                      </Choice>
-                    ))}
+              {step === 'age' && (
+                <StepScreen title="Enter your age" description="So we can tune pacing and recommendations.">
+                  <Input
+                    value={data.age}
+                    onChange={(e) => setData({ ...data, age: e.target.value.replace(/[^0-9]/g, '').slice(0, 3) })}
+                    placeholder="Your age"
+                    inputMode="numeric"
+                  />
+                  <div className="mt-4 flex gap-2">
+                    <Button variant="outline" onClick={goBack} className="shrink-0">
+                      <ChevronLeft className="h-4 w-4" /> Back
+                    </Button>
+                    <Button
+                      onClick={goNext}
+                      className="w-full"
+                      disabled={(() => {
+                        const n = Number(data.age)
+                        return !(data.age.trim() !== '' && Number.isFinite(n) && n >= 5 && n <= 120)
+                      })()}
+                    >
+                      Continue <ChevronRight className="ml-1 h-5 w-5" />
+                    </Button>
                   </div>
                 </StepScreen>
               )}
 
-              {step === 2 && data.testType && (
-                <StepScreen title="What's your target score?" description={data.testType === 'ACT' ? 'ACT range: 1–36' : 'SAT range: 400–1600'}>
+              {step === 'history' && (
+                <StepScreen title="Have you taken the SAT or ACT before?" description="Pick the option that fits you best.">
+                  <div className="grid flex-1 grid-cols-1 gap-2 sm:grid-cols-2">
+                    {(['SAT', 'ACT', 'Both', 'None'] as ExamHistory[]).map((t) => (
+                      <Choice key={t} tall selected={data.examHistory === t} onClick={() => { setData({ ...data, examHistory: t, plannedExam: null }); }}>
+                        {t === 'None' ? 'None yet' : t}
+                      </Choice>
+                    ))}
+                  </div>
+                  <div className="mt-4 flex gap-2">
+                    <Button variant="outline" onClick={goBack} className="shrink-0">
+                      <ChevronLeft className="h-4 w-4" /> Back
+                    </Button>
+                    <Button onClick={goNext} className="w-full" disabled={!data.examHistory}>
+                      Continue <ChevronRight className="ml-1 h-4 w-4" />
+                    </Button>
+                  </div>
+                </StepScreen>
+              )}
+
+              {step === 'planned' && (
+                <StepScreen title="Which exam are you planning to take?" description="Not sure? Tap the ? to see the differences.">
+                  <div className="mb-2 flex items-center justify-end">
+                    <button
+                      type="button"
+                      onClick={() => setShowDifferences((v) => !v)}
+                      className="inline-flex items-center gap-1 text-sm text-fog hover:text-paper"
+                      aria-label="What is the difference between SAT and ACT?"
+                    >
+                      <HelpCircle className="h-4 w-4" /> ?
+                    </button>
+                  </div>
+                  {showDifferences && (
+                    <div className="neu mb-3 space-y-2 p-3 text-sm text-fog">
+                      {SAT_ACT_DIFFERENCES.map((line) => (
+                        <p key={line}>{line}</p>
+                      ))}
+                    </div>
+                  )}
+                  <div className="grid flex-1 grid-cols-1 gap-2 sm:grid-cols-3">
+                    {(['SAT', 'ACT', 'Not sure yet'] as PlannedExam[]).map((t) => (
+                      <Choice key={t} tall selected={data.plannedExam === t} onClick={() => setData({ ...data, plannedExam: t })}>
+                        {t}
+                      </Choice>
+                    ))}
+                  </div>
+                  <div className="mt-4 flex gap-2">
+                    <Button variant="outline" onClick={goBack} className="shrink-0">
+                      <ChevronLeft className="h-4 w-4" /> Back
+                    </Button>
+                    <Button onClick={goNext} className="w-full" disabled={!data.plannedExam}>
+                      Continue <ChevronRight className="ml-1 h-4 w-4" />
+                    </Button>
+                  </div>
+                </StepScreen>
+              )}
+
+              {step === 'method' && (
+                <StepScreen
+                  title={`How did you study for the ${data.examHistory === 'Both' ? 'SAT / ACT' : data.examHistory}?`}
+                  description="Pick the closest option."
+                >
+                  <div className="grid flex-1 grid-cols-1 gap-2 sm:grid-cols-2">
+                    {STUDY_METHODS.map((item) => (
+                      <Choice key={item} tall selected={data.studyMethod === item} onClick={() => setData({ ...data, studyMethod: item })}>
+                        {item}
+                      </Choice>
+                    ))}
+                  </div>
+                  <div className="mt-4 flex gap-2">
+                    <Button variant="outline" onClick={goBack} className="shrink-0">
+                      <ChevronLeft className="h-4 w-4" /> Back
+                    </Button>
+                    <Button onClick={goNext} className="w-full" disabled={!data.studyMethod}>
+                      Continue <ChevronRight className="ml-1 h-4 w-4" />
+                    </Button>
+                  </div>
+                </StepScreen>
+              )}
+
+              {step === 'struggle' && (
+                <StepScreen title="What do you struggle in?" description="Pick every area that slows you down.">
+                  <div className="grid flex-1 grid-cols-1 gap-2 sm:grid-cols-3">
+                    {STRUGGLES.map((item) => (
+                      <Choice key={item} tall selected={data.struggleAreas.includes(item)} onClick={() => toggleStruggle(item)}>
+                        {item}
+                      </Choice>
+                    ))}
+                  </div>
+                  <div className="mt-4 flex gap-2">
+                    <Button variant="outline" onClick={goBack} className="shrink-0">
+                      <ChevronLeft className="h-4 w-4" /> Back
+                    </Button>
+                    <Button onClick={goNext} className="w-full" disabled={data.struggleAreas.length === 0}>
+                      Continue <ChevronRight className="ml-1 h-4 w-4" />
+                    </Button>
+                  </div>
+                </StepScreen>
+              )}
+
+              {step === 'source' && (
+                <StepScreen title="How did you find us?" description="This helps us know which marketing is working.">
+                  <div className="grid flex-1 grid-cols-1 gap-2 sm:grid-cols-2">
+                    {SOURCES.map((item) => (
+                      <Choice key={item} tall selected={data.discoverySource === item} onClick={() => setData({ ...data, discoverySource: item })}>
+                        {item}
+                      </Choice>
+                    ))}
+                  </div>
+                  <div className="mt-4 flex gap-2">
+                    <Button variant="outline" onClick={goBack} className="shrink-0">
+                      <ChevronLeft className="h-4 w-4" /> Back
+                    </Button>
+                    <Button onClick={goNext} className="w-full" disabled={!data.discoverySource}>
+                      Continue <ChevronRight className="ml-1 h-4 w-4" />
+                    </Button>
+                  </div>
+                </StepScreen>
+              )}
+
+              {step === 'target' && (
+                <StepScreen
+                  title={`What do you want to get on the ${examLabel()}?`}
+                  description={effectiveTargetTest(data) === 'ACT' ? 'ACT range: 1–36' : 'SAT range: 400–1600'}
+                >
                   <div className="flex flex-1 flex-col justify-center">
                     <div className="text-center font-display text-3xl">{data.targetScore ?? getDefaultTarget()}</div>
                     <input
                       type="range"
                       min={getScoreRange()[0]}
                       max={getScoreRange()[1]}
-                      step={data.testType === 'ACT' ? 1 : 10}
+                      step={effectiveTargetTest(data) === 'ACT' ? 1 : 10}
                       value={data.targetScore ?? getDefaultTarget()}
                       onChange={(e) => setData({ ...data, targetScore: Number(e.target.value) })}
                       className="mt-5 h-2 w-full accent-[#ff6b57]"
                     />
                   </div>
-                  <Button onClick={nextStep} className="mt-4 w-full">Continue <ChevronRight className="ml-1 h-4 w-4" /></Button>
-                </StepScreen>
-              )}
-
-              {step === 3 && (
-                <StepScreen title="When is your test?" description="We'll build a schedule that fits your timeline.">
-                  <input
-                    type="date"
-                    value={data.testDate}
-                    min={new Date().toISOString().split('T')[0]}
-                    onChange={(e) => setData({ ...data, testDate: e.target.value })}
-                    className="h-11 w-full rounded-2xl neu-inset px-4 text-sm text-paper focus:outline-none focus:ring-2 focus:ring-signal/40"
-                  />
-                  <Button onClick={nextStep} className="mt-4 w-full" disabled={!data.testDate}>Continue <ChevronRight className="ml-1 h-5 w-5" /></Button>
-                  <button onClick={nextStep} className="mt-3 w-full text-sm text-fog hover:text-paper">Skip — I don&apos;t have a date yet</button>
-                </StepScreen>
-              )}
-
-              {step === 4 && (
-                <StepScreen title="Have you taken a practice test?" description="This sets your starting projected score.">
-                  <div className="grid flex-1 grid-cols-1 gap-2 sm:grid-cols-2">
-                    {[{ label: 'Yes, I have', value: true }, { label: 'No, not yet', value: false }].map(({ label, value }) => (
-                      <Choice key={String(value)} tall selected={data.hasTakenPractice === value} onClick={() => { setData({ ...data, hasTakenPractice: value }); nextStep() }}>
-                        {label}
-                      </Choice>
-                    ))}
+                  <div className="mt-4 flex gap-2">
+                    <Button variant="outline" onClick={goBack} className="shrink-0">
+                      <ChevronLeft className="h-4 w-4" /> Back
+                    </Button>
+                    <Button onClick={goNext} className="w-full">Continue <ChevronRight className="ml-1 h-4 w-4" /></Button>
                   </div>
                 </StepScreen>
               )}
 
-              {step === 5 && (
-                <StepScreen title="What was your practice score?" description="Skip if you have not taken one yet.">
-                  <div className="flex flex-1 flex-col justify-center">
-                    <div className="text-center font-display text-3xl">{data.baselineScore ?? getDefaultTarget()}</div>
-                    <input
-                      type="range"
-                      min={getScoreRange()[0]}
-                      max={getScoreRange()[1]}
-                      step={data.testType === 'ACT' ? 1 : 10}
-                      value={data.baselineScore ?? getDefaultTarget()}
-                      onChange={(e) => setData({ ...data, baselineScore: Number(e.target.value) })}
-                      className="mt-5 h-2 w-full accent-[#ff6b57]"
-                    />
-                  </div>
-                  <Button onClick={nextStep} className="mt-4 w-full">Continue <ChevronRight className="ml-1 h-4 w-4" /></Button>
-                  <button onClick={nextStep} className="mt-3 w-full text-sm text-fog hover:text-paper">Skip</button>
-                </StepScreen>
-              )}
-
-              {step === 6 && (
-                <StepScreen title="What grade are you in?" description="So the plan matches your year.">
-                  <div className="grid flex-1 grid-cols-2 gap-2 sm:grid-cols-3">
-                    {GRADES.map((grade) => (
-                      <Choice key={grade} selected={data.gradeLevel === grade} onClick={() => setData({ ...data, gradeLevel: grade })}>
-                        {grade}
-                      </Choice>
-                    ))}
-                  </div>
-                  <Button onClick={nextStep} className="mt-4 w-full" disabled={!data.gradeLevel}>Continue <ChevronRight className="ml-1 h-5 w-5" /></Button>
-                </StepScreen>
-              )}
-
-              {step === 7 && (
-                <StepScreen title="School name" description="Optional, but useful if a teacher shares a code later.">
-                  <Input value={data.schoolName} onChange={(e) => setData({ ...data, schoolName: e.target.value })} placeholder="School" />
-                  <Button onClick={nextStep} className="mt-4 w-full">Continue <ChevronRight className="ml-1 h-4 w-4" /></Button>
-                </StepScreen>
-              )}
-
-              {step === 8 && (
-                <StepScreen title="What should we focus on?" description="Nova will weight your plan toward this.">
-                  <div className="grid flex-1 grid-cols-1 gap-2 sm:grid-cols-3">
-                    {FOCUS.map((item) => (
-                      <Choice key={item} tall selected={data.focusSection === item} onClick={() => setData({ ...data, focusSection: item })}>
-                        {item}
-                      </Choice>
-                    ))}
-                  </div>
-                  <Button onClick={nextStep} className="mt-4 w-full" disabled={!data.focusSection}>Continue <ChevronRight className="ml-1 h-5 w-5" /></Button>
-                </StepScreen>
-              )}
-
-              {step === 9 && (
-                <StepScreen title="Where do you feel weakest?" description="Pick every area that slows you down.">
-                  <div className="grid flex-1 grid-cols-2 gap-2 sm:grid-cols-3">
-                    {WEAK.map((item) => (
-                      <Choice key={item} selected={data.weakestAreas.includes(item)} onClick={() => toggleWeak(item)}>
-                        {item}
-                      </Choice>
-                    ))}
-                  </div>
-                  <Button onClick={nextStep} className="mt-4 w-full">Continue <ChevronRight className="ml-1 h-4 w-4" /></Button>
-                </StepScreen>
-              )}
-
-              {step === 10 && (
-                <StepScreen title="Why are you taking this test?" description="This changes how Nova talks to you.">
-                  <div className="grid flex-1 grid-cols-1 gap-2 sm:grid-cols-2">
-                    {GOALS.map((item) => (
-                      <Choice key={item} tall selected={data.testGoal === item} onClick={() => setData({ ...data, testGoal: item })}>
-                        {item}
-                      </Choice>
-                    ))}
-                  </div>
-                  <Button onClick={nextStep} className="mt-4 w-full" disabled={!data.testGoal}>Continue <ChevronRight className="ml-1 h-5 w-5" /></Button>
-                </StepScreen>
-              )}
-
-              {step === 11 && (
-                <StepScreen title="How much prep have you done?" description="So Nova starts at the right level.">
-                  <div className="grid flex-1 grid-cols-1 gap-2 sm:grid-cols-2">
-                    {PREP.map((item) => (
-                      <Choice key={item} tall selected={data.priorPrep === item} onClick={() => setData({ ...data, priorPrep: item })}>
-                        {item}
-                      </Choice>
-                    ))}
-                  </div>
-                  <Button onClick={nextStep} className="mt-4 w-full" disabled={!data.priorPrep}>Continue <ChevronRight className="ml-1 h-5 w-5" /></Button>
-                </StepScreen>
-              )}
-
-              {step === 12 && (
-                <StepScreen title="How long can you study each day?" description="Be realistic — consistency beats marathon sessions.">
+              {step === 'minutes' && (
+                <StepScreen title="How long do you plan to study per night?" description="Be realistic — consistency beats marathon sessions.">
                   <div className="grid flex-1 grid-cols-2 gap-2 sm:grid-cols-3">
                     {STUDY_TIMES.map((t) => (
                       <Choice key={t} selected={data.dailyMinutes === t} onClick={() => setData({ ...data, dailyMinutes: t })}>
@@ -532,39 +689,145 @@ function OnboardingInner() {
                       </Choice>
                     ))}
                   </div>
-                  <Button onClick={nextStep} className="mt-4 w-full" disabled={!data.dailyMinutes}>Continue <ChevronRight className="ml-1 h-5 w-5" /></Button>
+                  <div className="mt-4 flex gap-2">
+                    <Button variant="outline" onClick={goBack} className="shrink-0">
+                      <ChevronLeft className="h-4 w-4" /> Back
+                    </Button>
+                    <Button onClick={goNext} className="w-full" disabled={!data.dailyMinutes}>
+                      Continue <ChevronRight className="ml-1 h-4 w-4" />
+                    </Button>
+                  </div>
                 </StepScreen>
               )}
 
-              {step === 13 && (
-                <StepScreen title="What time do you study?" description="Home and Plan will lock to this window.">
-                  <div className="grid flex-1 grid-cols-2 gap-2 sm:grid-cols-4">
-                    {START_TIMES.map((t) => (
-                      <Choice key={t} selected={data.studyStartTime === t} onClick={() => setData({ ...data, studyStartTime: t })}>
-                        {t}
+              {step === 'prior' && (
+                <StepScreen title="How did you study before finding us?" description="Pick the resource you used most.">
+                  <div className="grid flex-1 grid-cols-1 gap-2 sm:grid-cols-2">
+                    {PRIOR_METHODS.map((item) => (
+                      <Choice key={item} tall selected={data.priorStudyMethod === item} onClick={() => setData({ ...data, priorStudyMethod: item })}>
+                        {item}
                       </Choice>
                     ))}
                   </div>
-                  <Button onClick={nextStep} className="mt-4 w-full">Continue <ChevronRight className="ml-1 h-4 w-4" /></Button>
+                  <div className="mt-4 flex gap-2">
+                    <Button variant="outline" onClick={goBack} className="shrink-0">
+                      <ChevronLeft className="h-4 w-4" /> Back
+                    </Button>
+                    <Button onClick={goNext} className="w-full" disabled={!data.priorStudyMethod}>
+                      Continue <ChevronRight className="ml-1 h-4 w-4" />
+                    </Button>
+                  </div>
                 </StepScreen>
               )}
 
-              {step === 14 && (
-                <StepScreen title="Which days can you study?" description="Select every day that works — then see your schedule.">
-                  <div className="grid flex-1 grid-cols-2 gap-2 sm:grid-cols-4">
-                    {ALL_DAYS.map((day) => {
-                      const selected = data.availableDays.includes(day)
-                      return (
-                        <Choice key={day} selected={selected} onClick={() => toggleDay(day)}>
-                          {selected && <Check className="absolute right-3 top-3 h-5 w-5" />}
-                          {DAY_SHORT[day]}
-                        </Choice>
-                      )
-                    })}
+              {step === 'diagnostic' && (
+                <div className="flex flex-1 flex-col">
+                  <h2 className="mb-1 text-xl font-bold text-paper">Quick diagnostic — where do you stand?</h2>
+                  <p className="mb-4 text-sm text-fog">
+                    10 hard questions: 1 reading passage + 3 questions, 3 math, 4 grammar. Same answer sheet as the practice test.
+                    Fill every bubble, then submit.
+                  </p>
+                  <div className="grid gap-3 lg:grid-cols-[minmax(0,1fr)_min(220px,34vw)]">
+                    <TestBooklet
+                      testType="SAT"
+                      sectionLabel="Diagnostic"
+                      questions={DIAGNOSTIC_QUESTIONS}
+                      answers={diagAnswers}
+                      marks={diagSubmitted ? diagMarks : {}}
+                      focusedId={diagFocused}
+                      onFocus={(id) => {
+                        setDiagFocused(id)
+                        document.getElementById(`q-${id}`)?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+                      }}
+                      onAnswer={(id, value) => {
+                        if (diagSubmitted) return
+                        setDiagAnswers((prev) => ({ ...prev, [id]: value }))
+                        setDiagFocused(id)
+                      }}
+                      onCheck={() => undefined}
+                      allowCheck={false}
+                    />
+                    <div className="sticky top-2 h-fit space-y-3 self-start">
+                      <AnswerSheet
+                        questions={DIAGNOSTIC_QUESTIONS}
+                        answers={diagAnswers}
+                        marks={diagSubmitted ? diagMarks : {}}
+                        focusedId={diagFocused}
+                        onJump={(id) => {
+                          setDiagFocused(id)
+                          document.getElementById(`q-${id}`)?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+                        }}
+                      />
+                      <p className="text-sm text-fog">{diagFilled}/10 answered</p>
+                    </div>
                   </div>
-                  <Button onClick={() => void buildScheduleAndContinue()} className="mt-4 w-full" loading={processing} disabled={data.availableDays.length === 0}>
-                    {processing ? 'Building…' : 'See my schedule'}
-                  </Button>
+                  <div className="mt-4 flex gap-2">
+                    <Button variant="outline" onClick={goBack} className="shrink-0">
+                      <ChevronLeft className="h-4 w-4" /> Back
+                    </Button>
+                    {!diagSubmitted ? (
+                      <Button onClick={submitDiagnostic} className="w-full" disabled={diagFilled < 10}>
+                        Submit diagnostic
+                      </Button>
+                    ) : (
+                      <Button onClick={goNext} className="w-full">
+                        See my projected score <ChevronRight className="ml-1 h-4 w-4" />
+                      </Button>
+                    )}
+                  </div>
+                  {!diagSubmitted && diagFilled < 10 && (
+                    <p className="mt-2 text-sm text-fog">Answer all 10 to unlock your projected score.</p>
+                  )}
+                </div>
+              )}
+
+              {step === 'results' && (
+                <StepScreen
+                  title="Where you stand right now"
+                  description="Each correct answer is worth 120 points, starting from 400."
+                >
+                  <div className="neu space-y-3 p-4 text-center">
+                    <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-fog">
+                      Diagnostic: {diagCorrect ?? 0}/10 correct
+                    </p>
+                    <p className="font-display text-5xl text-paper">{diagSat ?? diagnosticSatScore(0)}</p>
+                    <p className="text-sm text-fog">Projected SAT score</p>
+                    <div className="rounded-xl neu-sm px-3 py-2">
+                      <p className="text-sm text-paper">
+                        That is about a <span className="font-bold">{diagAct ?? satToAct(diagSat ?? 400)}</span> on the ACT.
+                      </p>
+                      <p className="mt-1 text-xs text-fog">
+                        SAT 400–1600 · ACT 1–36. Your baseline is saved and your study plan will target the gap to your goal
+                        of {data.targetScore ?? getDefaultTarget()} on the {examLabel()}.
+                      </p>
+                    </div>
+                    {diagSubmitted && (
+                      <div className="grid grid-cols-10 gap-1 pt-1">
+                        {DIAGNOSTIC_QUESTIONS.map((q) => (
+                          <span
+                            key={q.id}
+                            className={cn(
+                              'flex h-7 items-center justify-center rounded-lg font-mono text-xs font-bold',
+                              diagMarks[q.id]?.correct ? 'bg-ok/20 text-ok' : 'bg-bad/15 text-bad',
+                            )}
+                          >
+                            {diagMarks[q.id]?.correct ? '✓' : '×'}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                  <div className="mt-4 flex gap-2">
+                    <Button variant="outline" onClick={goBack} className="shrink-0">
+                      <ChevronLeft className="h-4 w-4" /> Back
+                    </Button>
+                    <Button onClick={() => void buildScheduleAndContinue()} className="w-full" loading={processing} disabled={!diagSubmitted}>
+                      {processing ? 'Building…' : 'See my schedule'}
+                    </Button>
+                  </div>
+                  {!diagSubmitted && (
+                    <p className="mt-2 text-sm text-fog">Go back and submit the diagnostic first.</p>
+                  )}
                 </StepScreen>
               )}
             </>
@@ -587,34 +850,21 @@ function OnboardingInner() {
                   </div>
                 ))}
               </div>
-              <Button onClick={() => setPhase('practice')} className="mt-4 w-full">
+              <Button onClick={() => setPhase('tutor')} className="mt-4 w-full">
                 Continue <ChevronRight className="ml-1 h-4 w-4" />
               </Button>
             </StepScreen>
           )}
 
           {phase === 'practice' && (
-            <StepScreen title="5-question practice" description="Same booklet UI as the product. Score them, then come back.">
+            <StepScreen title="Diagnostic complete" description="You already finished the 10-question diagnostic.">
               <div className="neu flex flex-col gap-3 p-4">
-                <div className="flex items-center gap-2 text-signal">
-                  <ClipboardList className="h-4 w-4" />
-                  <span className="font-mono text-[10px] uppercase tracking-[0.16em]">Diagnostic</span>
-                </div>
                 <p className="text-sm text-fog">
-                  {ONBOARDING_TRIAL.questions} questions · mixed difficulty · full answer sheet + Nova
+                  Projected SAT {diagSat ?? '—'} · about ACT {diagAct ?? '—'}. Continue to tutoring.
                 </p>
-                <Button
-                  className="w-full"
-                  onClick={() => {
-                    const testType = data.testType === 'ACT' ? 'ACT' : 'SAT'
-                    router.push(`/onboarding/practice?testType=${testType}&count=5&from=onboarding`)
-                  }}
-                >
-                  Start practice
+                <Button className="w-full" onClick={() => setPhase('tutor')}>
+                  Continue
                 </Button>
-                <button type="button" className="text-sm text-fog hover:text-paper" onClick={() => setPhase('tutor')}>
-                  Skip for now
-                </button>
               </div>
             </StepScreen>
           )}
@@ -736,6 +986,7 @@ function Choice({
         selected ? 'neu-raised text-white' : 'neu-sm text-paper'
       )}
     >
+      {selected && <Check className="absolute right-3 top-3 h-5 w-5" />}
       {children}
     </button>
   )

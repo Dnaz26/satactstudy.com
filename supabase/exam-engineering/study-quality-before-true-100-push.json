@@ -1,0 +1,79 @@
+{
+  "generatedAt": "2026-10-07T00:51:06.841Z",
+  "reached100": false,
+  "reached98": false,
+  "sat": 73,
+  "act": 71,
+  "overall": 72,
+  "method": "Equal weight across eight variables. Counts come from topic-coverage-after-elite-push.json. A Hard label is not treated as 3-5x difficulty. The difficulty rubric median on active items is 6 out of 18, including items labeled Hard. No variable is scored from intention.",
+  "variables": {
+    "SAT": {
+      "topic coverage": 58,
+      "format accuracy": 88,
+      "domain balance": 74,
+      "difficulty strength": 61,
+      "validation quality": 72,
+      "graph/data realism": 72,
+      "adaptive/pacing realism": 76,
+      "duplicate control": 86
+    },
+    "ACT": {
+      "topic coverage": 64,
+      "format accuracy": 86,
+      "domain balance": 72,
+      "difficulty strength": 60,
+      "validation quality": 52,
+      "graph/data realism": 72,
+      "adaptive/pacing realism": 73,
+      "duplicate control": 86
+    }
+  },
+  "evidence": {
+    "questionsAdded": 40,
+    "frameCopiesDeactivated": 7818,
+    "oneStepSkillSetRowsDeactivated": 88,
+    "twoTankRowsDeactivated": 53,
+    "exactDuplicateExtrasDeactivated": 9,
+    "totalDeactivated": 7968,
+    "activeApproved": 3990,
+    "activeOriginalDistinct": 3985,
+    "exactDuplicateRows": 0,
+    "topicsAt100": 0,
+    "topicsBelow100": 93,
+    "topicsAt75": 4,
+    "topicsWith100HardLabeled": 0,
+    "validatedOriginalDistinct": 2581,
+    "validatedShareOfDistinct": 0.648,
+    "satValidatedShare": 0.715,
+    "actValidatedShare": 0.523,
+    "graphicOriginalDistinct": 509,
+    "actEnglishValidatedDistinct": 133,
+    "actReadingValidatedDistinct": 134,
+    "difficultyRubric": {
+      "scale": "0 to 18 from steps, abstraction, hidden setup, concept mixing, a default distractor point, graph language, passage length, choice length, and time pressure",
+      "activeScored": 3999,
+      "median": 6,
+      "hardLabeled": 2845,
+      "hardLabeledMedian": 6,
+      "twelveOrHigher": 1,
+      "conclusion": "The rubric does not show a 3-5x harder bank. Most Hard labels still score like medium items."
+    },
+    "nearDuplicateReduction": "Families over the 2-copy cap fell from 978 to 40. Largest family fell from 85 to 11. The 40 remaining families are protected strict-exam items.",
+    "preambleRepair": "106 mismatched scene lines were removed. 501 could not be removed because the repaired text would duplicate an existing fingerprint.",
+    "satForm": "98/98",
+    "actForm": "131/131",
+    "actScienceForm": "Exam 41 exists, 40/40, all referenced questions active.",
+    "tutoring": "Lesson stages now end with a check the student can answer. The lesson prompt orders the five problems easy, medium, hard, very hard, and a final challenge. This does not by itself make the practice pool 3-5x harder."
+  },
+  "below95": [
+    "topic coverage",
+    "format accuracy",
+    "domain balance",
+    "difficulty strength",
+    "validation quality",
+    "graph/data realism",
+    "adaptive/pacing realism",
+    "duplicate control"
+  ],
+  "whyNot100": "Cutting repeated frames lowered the counts that had been holding coverage, validation share, and graphic totals up. The strict SAT and ACT forms still fill, and a 40-question science form now exists, but the remaining bank is not deep enough, not validated enough, and not hard enough on the rubric to score 95 on any variable."
+}

@@ -15,15 +15,15 @@ export function NovaCharacter({
   className,
 }: {
   mood?: NovaMood
-  size?: 'md' | 'lg'
+  size?: 'sm' | 'md' | 'lg'
   className?: string
 }) {
   const talking = mood === 'talk'
   const pointing = mood === 'point'
   const cheer = mood === 'cheer'
   const think = mood === 'think'
-  const w = size === 'lg' ? 168 : 118
-  const h = size === 'lg' ? 280 : 196
+  const w = size === 'lg' ? 168 : size === 'md' ? 118 : 72
+  const h = size === 'lg' ? 280 : size === 'md' ? 196 : 120
   const uid = React.useId().replace(/:/g, '')
 
   const g = {

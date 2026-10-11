@@ -1,0 +1,65 @@
+{
+  "generatedAt": "2026-10-07T00:31:03.427Z",
+  "reached100": false,
+  "method": "Equal weight across eight variables. Counts come from the live audit in topic-coverage-after-final-push.json. A Hard label is not treated as proof of 3-5x difficulty. Repeated reasoning frames are not scored as independent elite items. No variable is scored from intention alone.",
+  "sat": 77,
+  "act": 75,
+  "variables": {
+    "SAT": {
+      "topic coverage": 92,
+      "format accuracy": 88,
+      "domain balance": 74,
+      "difficulty strength": 62,
+      "validation quality": 70,
+      "graph/data realism": 72,
+      "adaptive/pacing realism": 76,
+      "duplicate control": 80
+    },
+    "ACT": {
+      "topic coverage": 92,
+      "format accuracy": 84,
+      "domain balance": 70,
+      "difficulty strength": 60,
+      "validation quality": 72,
+      "graph/data realism": 72,
+      "adaptive/pacing realism": 70,
+      "duplicate control": 80
+    }
+  },
+  "evidence": {
+    "questionsInserted": 5954,
+    "templateCopiesDeactivated": 1292,
+    "netActiveIncrease": 4662,
+    "totalQuestionRows": 16488,
+    "activeApproved": 11918,
+    "activeOriginalDistinct": 11913,
+    "exactDuplicateRows": 0,
+    "topicsAt100": 93,
+    "topicsBelow100": 0,
+    "topicsWith100HardLabeled": 93,
+    "hardLabeledMinimum": 100,
+    "validatedOriginalDistinct": 8316,
+    "validatedShareOfDistinct": 0.698,
+    "graphicOriginalDistinct": 1902,
+    "actEnglishValidatedDistinct": 570,
+    "actReadingValidatedDistinct": 393,
+    "newBatchSignatureGroups": 5954,
+    "newBatchExtraCopiesBeyondOneSignature": 0,
+    "relaxedAboveSimilarity08": 2,
+    "satForm": "Exam 39 still 98/98 with reading 27, english 27, math 44, easier module 2 22, harder module 2 22. All referenced questions remain active.",
+    "actForm": "Exam 40 still 131/131 with English 50, Math 45, Reading 36, not adaptive. Optional Science was not given its own exam row because the catalog has no science section array.",
+    "satBlueprintFill": "98/98",
+    "actBlueprintFill": "131/131",
+    "limitation": "Every topic now has at least 100 distinct originals and at least 100 hard-labeled questions. The new items were checked algebraically or against passage counts, and each has a unique number-stripped signature because the opening scene changes. They still reuse a small set of reasoning frames, so difficulty is not 3-5x a real SAT or ACT, and validation of the older unvalidated bank was not flipped."
+  },
+  "below95": [
+    "topic coverage",
+    "format accuracy",
+    "domain balance",
+    "difficulty strength",
+    "validation quality",
+    "graph/data realism",
+    "adaptive/pacing realism",
+    "duplicate control"
+  ]
+}

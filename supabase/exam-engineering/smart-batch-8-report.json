@@ -1,0 +1,19 @@
+{
+  "batch": "Smart Coverage Batch 8 - SAT Data Analysis",
+  "generatedAt": "2026-10-01T02:52:33.978Z",
+  "saved": 32,
+  "approvedActiveValidated": 32,
+  "invalidDraftsExcluded": 2,
+  "byTopic": {
+    "Evaluating statistical claims: observational studies and experiments": 8,
+    "Inference from sample statistics and margin of error": 8,
+    "Probability and conditional probability": 8,
+    "Two-variable data: models and scatterplots": 8
+  },
+  "answerSpread": {
+    "A": 8,
+    "B": 8,
+    "C": 8,
+    "D": 8
+  }
+}

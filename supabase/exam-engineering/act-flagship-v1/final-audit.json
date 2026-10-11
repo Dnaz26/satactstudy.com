@@ -1,0 +1,112 @@
+{
+ "form": "ACT Flagship v1",
+ "spec_version": "enhanced-act-2026",
+ "status": "review",
+ "before": {
+  "title": "ACT Practice Test 1",
+  "exam_number": 37,
+  "total": 131,
+  "findings": 70,
+  "duplicate_stem_groups": 22,
+  "known_bad_items": 11,
+  "reading_units": 3,
+  "science": 0,
+  "quarantine": "title-prefixed, row preserved"
+ },
+ "after": {
+  "exam_number": 38,
+  "total": 131,
+  "operational": 108,
+  "english": {
+   "total": 50,
+   "scored": 40,
+   "units": [
+    10,
+    10,
+    10,
+    5,
+    5,
+    10
+   ]
+  },
+  "math": {
+   "total": 45,
+   "scored": 41,
+   "levels": "L1-L7 ramp"
+  },
+  "reading": {
+   "total": 36,
+   "scored": 27,
+   "units": [
+    9,
+    9,
+    9,
+    9
+   ]
+  },
+  "field_test": 23,
+  "timers": {
+   "English": 2100,
+   "Math": 3000,
+   "Reading": 2400
+  }
+ },
+ "gates": {
+  "counts_timing_units": "pass",
+  "blueprint_bands": "pass (NQ 12.2% noted)",
+  "validator_131": "pass",
+  "fingerprints_unique": "pass",
+  "siblings_adjudicated": "pass (1 group)",
+  "regression_fixtures_11_11": "pass",
+  "span_integrity_50": "pass",
+  "evidence_maps_36": "pass",
+  "leakage_131": "pass",
+  "emr_composite": "pass",
+  "science_separation": "pass",
+  "stem_documented": "pass",
+  "quarantine_reversible": "pass",
+  "rls_preserved": "pass",
+  "lint": "pass",
+  "typecheck": "pass",
+  "unit_tests_76": "pass",
+  "build": "pass",
+  "browser_e2e": "UNMEASURED (no browser tooling)",
+  "authenticated_clickthrough": "UNMEASURED (no test credentials)",
+  "independent_review": "UNMEASURED (provider unreachable)",
+  "empirical_calibration": "UNMEASURED (n=0)",
+  "key_balance": "pass",
+  "sibling_groups": "pass (0 groups)",
+  "math_ramp_ordered": "pass",
+  "key_autocorrelation_periods_234": "pass",
+  "key_lag4_rate_at_chance": "pass"
+ },
+ "score": {
+  "measured_subtotal": 85,
+  "capped_final": 59,
+  "cap_reasons": [
+   "browser E2E missing",
+   "psychometrics unmeasured"
+  ],
+  "hundred_claimed": false
+ },
+ "commands_run": [
+  "npm test",
+  "npm run build",
+  "npx eslint <touched paths>",
+  "tsx e2e_flagship.ts (data-path harness)",
+  "baseline_audit.py",
+  "assemble_flagship.py --commit"
+ ],
+ "db_writes": {
+  "questions": 104,
+  "passages": 16,
+  "exam_item_metadata": 131,
+  "exam_bank_reviews": 104,
+  "practice_exams": 1,
+  "exam_engineering_forms": 1,
+  "quarantine_retitles": 1,
+  "demo_user_reset": 1,
+  "deletes": 0
+ },
+ "revision": 7
+}

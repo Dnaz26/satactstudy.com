@@ -1,0 +1,18 @@
+{
+  "batch": "Smart Coverage Batch 4 - SAT Geometry and Trigonometry",
+  "generatedAt": "2026-10-01T02:41:30.175Z",
+  "saved": 32,
+  "approvedActiveValidated": 32,
+  "invalidDraftsExcluded": 2,
+  "byTopic": {
+    "Area and volume": 11,
+    "Lines, angles, and triangles": 11,
+    "Right triangles and trigonometry": 10
+  },
+  "answerSpread": {
+    "B": 9,
+    "C": 7,
+    "D": 6,
+    "A": 10
+  }
+}

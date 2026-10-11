@@ -1,0 +1,16 @@
+{
+  "batch": "smart-fill-to-fifty",
+  "generatedAt": "2026-10-06T02:12:50.986Z",
+  "saved": 34,
+  "approvedActiveValidated": 34,
+  "invalidDraftsExcluded": 2,
+  "byTopic": {
+    "Evaluating statistical claims: observational studies and experiments": 34
+  },
+  "answerSpread": {
+    "A": 15,
+    "C": 10,
+    "B": 4,
+    "D": 5
+  }
+}

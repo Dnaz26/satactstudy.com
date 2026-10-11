@@ -1,0 +1,75 @@
+{
+  "generatedAt": "2026-10-07T00:52:08.915Z",
+  "applied": true,
+  "method": "Exact normalized prompt, question type, and sorted choices. The highest-scoring active original copy stays active. Ties keep the lowest id. Other copies are set inactive and are not deleted.",
+  "duplicateGroups": 9,
+  "kept": 9,
+  "deactivated": 9,
+  "sample": [
+    {
+      "id": "32548cff-5540-41dd-8bfa-343cccbc38f5",
+      "topic": "Statistics and Data",
+      "copies": 2,
+      "score": 145
+    },
+    {
+      "id": "867357d9-af5f-4614-b991-d6ed4daab1ee",
+      "topic": "Statistics and Data",
+      "copies": 2,
+      "score": 145
+    },
+    {
+      "id": "0cf580dd-ec33-449f-8fda-6accc8554b81",
+      "topic": "Statistics and Data",
+      "copies": 2,
+      "score": 145
+    },
+    {
+      "id": "1d5b17b3-eac7-4418-86c7-6186c3d339e4",
+      "topic": "Statistics and Data",
+      "copies": 2,
+      "score": 145
+    },
+    {
+      "id": "46f61569-7836-4d54-ad2f-ff40d7b12317",
+      "topic": "Exponents and Radicals",
+      "copies": 2,
+      "score": 130
+    },
+    {
+      "id": "28f2e246-0958-4eb2-82b9-5576f418af71",
+      "topic": "Angles and Lines",
+      "copies": 2,
+      "score": 145
+    },
+    {
+      "id": "111d67ea-a8cc-47c0-89d7-c2a90df231ea",
+      "topic": "Angles and Lines",
+      "copies": 2,
+      "score": 145
+    },
+    {
+      "id": "d3d3d20c-bbc1-4f60-80cb-f06947d3c17f",
+      "topic": "Triangles",
+      "copies": 2,
+      "score": 145
+    },
+    {
+      "id": "1bec3652-6fd9-45dc-b9f9-60bc2ace3419",
+      "topic": "Integer Properties",
+      "copies": 2,
+      "score": 145
+    }
+  ],
+  "deactivatedIds": [
+    "4dad03e3-b74f-4f52-8dc3-1a84755d59c5",
+    "880f0c18-71c0-4c39-a00e-c2e7cb4a862b",
+    "4d153f23-13e0-44f3-8675-84015ddfbe66",
+    "ad68fad1-c348-45ea-988c-b8fb849ad9ea",
+    "de0f2372-0eae-4d2c-aeb9-9f62a2cec70a",
+    "eff45a19-7da9-4191-a801-5e5d2bc19e2e",
+    "cdefec41-6d00-4ea6-ba0a-b5323feb1d1f",
+    "d7fd61b5-76c0-49aa-85bb-d07ea518f02b",
+    "9047e44a-601a-4d79-8df4-42ea083732a3"
+  ]
+}

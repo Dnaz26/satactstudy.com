@@ -1,0 +1,298 @@
+[
+  [
+    {
+      "topic": "Inference",
+      "prompt": "The passage's account of the ants' midday foraging most strongly suggests that the colony's survival depends on which of the following trade-offs?",
+      "choices": {
+        "A": "Accepting intense heat in exchange for a reduced risk of predation",
+        "B": "Foraging in cooler hours in exchange for navigating with fewer landmarks",
+        "C": "Using polarized light for direction in exchange for relying on an internal clock for distance",
+        "D": "Traveling shorter distances in exchange for avoiding the need for a step counter"
+      },
+      "answer": "A",
+      "explanation": "The passage states that by midday the surface climbs past sixty degrees Celsius, and the lizards and spiders that would hunt the ants have retreated underground. It adds that the colony trades burning ground for safety, sending foragers out precisely when nothing else dares to move. This directly supports a trade-off of heat exposure for reduced predation. B is wrong because the passage says the ants choose the most punishing hour, not cooler hours. C is wrong because the passage rejects an internal clock for distance and supports a step counter. D is wrong because the ants make trips of up to a hundred meters and the passage does not say they shorten trips to avoid counting steps.",
+      "distractorRationales": {
+        "A": "Correct. The passage explicitly describes the colony trading burning ground for safety when predators are underground.",
+        "B": "Incorrect. The passage says the ants choose the most punishing hour, not cooler hours.",
+        "C": "Incorrect. The passage says direction comes from polarized light but distance comes from a step counter, not an internal clock.",
+        "D": "Incorrect. The passage does not claim the ants shorten trips to avoid counting steps; it says they make trips up to a hundred meters."
+      }
+    },
+    {
+      "topic": "Main Idea and Details",
+      "prompt": "Which statement best captures the relationship between the stilt-and-stump experiment and the rival group's objection?",
+      "choices": {
+        "A": "The experiment's results were reinterpreted by the rival group as evidence that stilts cause panic rather than alter measurement.",
+        "B": "The rival group's objection was that the experiment failed to control for travel time, which the original team then corrected.",
+        "C": "The experiment proved that ants use polarized light, which the rival group had denied.",
+        "D": "The rival group argued that the experiment's results were due to heat, and the original team agreed and revised their conclusion."
+      },
+      "answer": "A",
+      "explanation": "The passage states that a rival group argued that the stilts might have changed the ants' behavior rather than their measuring—that stilts made the ants panic and run recklessly, while stumps made them cautious. This is a reinterpretation of the experiment's results. B is wrong because the passage says travel time was held essentially equal, and the rival objection was not about travel time. C is wrong because the rival group did not deny polarized light; they questioned the step-counter interpretation. D is wrong because the original team refuted the heat objection with shaded trials, not agreed with it.",
+      "distractorRationales": {
+        "A": "Correct. The rival group proposed that stilts caused panic, not a change in measurement.",
+        "B": "Incorrect. Travel time was held equal, and the rival objection was not about travel time.",
+        "C": "Incorrect. The rival group did not deny polarized light; they challenged the step-counter explanation.",
+        "D": "Incorrect. The original team refuted the heat objection with shaded trials; they did not agree with it."
+      }
+    },
+    {
+      "topic": "Vocabulary in Context",
+      "prompt": "As used in the passage, the word 'vector' most nearly refers to:",
+      "choices": {
+        "A": "the direction and distance of the ant's homeward path",
+        "B": "the angle of polarized light in the sky",
+        "C": "the number of steps taken by the ant",
+        "D": "the speed at which the ant travels"
+      },
+      "answer": "A",
+      "explanation": "In the passage, after describing the stilt-walkers' looping searches, the author writes: 'The vector was intact; only its length was wrong.' This indicates that the vector includes both direction and length (distance). The context of navigation home supports this. B is wrong because polarized light provides direction, but the vector is the homeward path itself, not the light pattern. C is wrong because the number of steps is the odometer reading, not the vector. D is wrong because speed is not the focus; the passage discusses distance and direction.",
+      "distractorRationales": {
+        "A": "Correct. The vector is the homeward path with both direction and distance, as shown by 'only its length was wrong.'",
+        "B": "Incorrect. Polarized light gives direction, but the vector is the ant's homeward path, not the light pattern.",
+        "C": "Incorrect. The number of steps is the odometer reading, not the vector.",
+        "D": "Incorrect. Speed is not the focus; the passage discusses distance and direction."
+      }
+    },
+    {
+      "topic": "Author Purpose",
+      "prompt": "The author includes the detail that stilt-walkers 'still searched systematically once past the nest, sweeping in the same tightening loops as normal ants' primarily to:",
+      "choices": {
+        "A": "show that the ants' navigational error was in distance, not in the search behavior itself",
+        "B": "prove that ants use polarized light to determine direction",
+        "C": "demonstrate that ants can learn to adjust their step count when given stilts",
+        "D": "argue that the rival group's panic explanation is correct"
+      },
+      "answer": "A",
+      "explanation": "The passage uses this detail to refute the rival claim that stilts made ants panic. The author writes: 'Panic does not search in loops. The vector was intact; only its length was wrong.' This shows the ants' search behavior remained normal, but their distance estimate was off. B is wrong because polarized light is discussed earlier and is not the purpose of this detail. C is wrong because the passage does not say ants adjust their step count; it says the odometer is in the legs. D is wrong because the detail is used to refute the panic explanation, not support it.",
+      "distractorRationales": {
+        "A": "Correct. The systematic loops show the search behavior was normal, so the error was in distance, not panic.",
+        "B": "Incorrect. Polarized light is discussed earlier and is not the purpose of this detail.",
+        "C": "Incorrect. The passage does not say ants adjust their step count; it says the odometer is in the legs.",
+        "D": "Incorrect. The detail is used to refute the panic explanation, not support it."
+      }
+    }
+  ],
+  [
+    {
+      "topic": "Inference",
+      "prompt": "The detail that the folder sits unopened on the truck seat by Thursday evening most strongly implies that",
+      "choices": {
+        "A": "Ellis has decided to reject the developer's offer without telling Ray.",
+        "B": "Ray has avoided revisiting the financial details after his earlier refusal to engage with them.",
+        "C": "the brothers have agreed to postpone any discussion until the offer expires on Friday.",
+        "D": "Ellis forgot to bring the folder to the orchard on Thursday morning."
+      },
+      "answer": "B",
+      "explanation": "The folder contains the debts and the developer's offer. At noon on Monday, Ray 'nodded at the numbers without really seeing them' and redirected the conversation to grafting. By Thursday evening, the folder remains unopened on the truck seat where Ellis left it at lunch, indicating Ray has not looked at it again. This supports B. A is unsupported because Ellis never states a decision, and the passage says the decision is still waiting. C is wrong because the agreement was to decide Friday, but the folder's being unopened shows avoidance, not a mutual agreement to postpone. D is wrong because Ellis deliberately left it at lunch, not forgot it.",
+      "distractorRationales": {
+        "A": "Ellis never expresses a decision; the passage ends with the decision still pending, so this overstates.",
+        "B": "Correct: Ray's earlier avoidance of the numbers is mirrored by the folder remaining unopened.",
+        "C": "The Friday deadline is mentioned, but the unopened folder suggests avoidance, not a joint decision to delay.",
+        "D": "The text says Ellis left it at lunch, implying intention, not forgetfulness."
+      }
+    },
+    {
+      "topic": "Main Idea and Details",
+      "prompt": "Which pair of details best supports the idea that the brothers' conflict is about more than money?",
+      "choices": {
+        "A": "Ellis arrives in city shoes and carries a thermos; Ray notices the dew before it becomes rain.",
+        "B": "The father planted Honeycrisp when it was a gamble; the mother kept the books in pencil.",
+        "C": "Ellis counts rows aloud as they work; Ray listens to his brother's breathing instead.",
+        "D": "Ray tells the grafting story; Ellis says a tree is not a bank account."
+      },
+      "answer": "D",
+      "explanation": "The grafting story symbolizes Ray's belief in patience, union, and the orchard's living value, while Ellis's retort 'a tree is not a bank account' reduces the orchard to a financial asset. Together they show the brothers' deeper disagreement about what the land means, not just its price. A contrasts city and country but does not directly show the conflict's depth. B provides family history but not the brothers' opposing views. C shows their different temperaments but not the core values clash.",
+      "distractorRationales": {
+        "A": "These details establish setting and character but do not directly reveal the brothers' values conflict.",
+        "B": "This background explains the orchard's origin but not the brothers' current disagreement.",
+        "C": "This shows a contrast in focus but not the fundamental disagreement about the orchard's meaning.",
+        "D": "Correct: the grafting story and Ellis's reply encapsulate their opposing views of the orchard."
+      }
+    },
+    {
+      "topic": "Vocabulary in Context",
+      "prompt": "In the context of the passage, the word 'arithmetic' most nearly means",
+      "choices": {
+        "A": "the mathematical calculations involved in selling the land.",
+        "B": "the emotional cost of the brothers' inability to argue openly.",
+        "C": "the precise counting of rows and bushels during the harvest.",
+        "D": "the financial debts that the folder contains."
+      },
+      "answer": "B",
+      "explanation": "The phrase 'the arithmetic of it, his brother's columns on one side and thirty Septembers on the other' follows the observation that they 'had run out of volume years ago.' Here 'arithmetic' refers to the cold, unspoken tally of their disagreement—Ellis's financial columns versus Ray's decades of Septembers—not literal math. A and D focus on finances, but the context emphasizes emotional distance. C is too literal and refers to earlier counting, not this metaphorical use.",
+      "distractorRationales": {
+        "A": "The word is used metaphorically, not to describe actual calculations for the sale.",
+        "B": "Correct: it captures the emotional ledger of their silent conflict.",
+        "C": "The counting of rows is a separate, literal activity earlier in the passage.",
+        "D": "The debts are part of the folder, but 'arithmetic' here refers to the brothers' emotional standoff."
+      }
+    },
+    {
+      "topic": "Author Purpose",
+      "prompt": "The author includes the detail that the limb on row thirty-one 'gave way with a crack like a snapping bone' primarily to",
+      "choices": {
+        "A": "foreshadow the eventual sale of the orchard to the developer.",
+        "B": "emphasize the physical danger of working in the orchard without enough help.",
+        "C": "symbolize the breaking point in the brothers' relationship and the orchard's neglect.",
+        "D": "illustrate Ray's superior knowledge of the trees compared to Ellis."
+      },
+      "answer": "C",
+      "explanation": "The limb breaks because it is 'heavy with fruit nobody had thinned in June,' indicating neglect. The simile 'like a snapping bone' gives it a visceral, bodily quality, mirroring the brothers' strained relationship. Ellis uses it to argue the place needs more hands; Ray insists it has the same hands as ever. The detail thus symbolizes both the orchard's decline and the fracture between the brothers. A is too specific about the sale. B is a surface reading. D is not supported; both brothers react to the limb.",
+      "distractorRationales": {
+        "A": "The limb's fall does not directly foreshadow the sale; the decision remains open.",
+        "B": "While it shows a hazard, the symbolic weight points to relationship and neglect.",
+        "C": "Correct: the broken limb mirrors the broken communication and the orchard's need.",
+        "D": "Ray does not demonstrate superior knowledge here; the focus is on the symbolic break."
+      }
+    }
+  ],
+  [
+    {
+      "topic": "Inference",
+      "prompt": "The architect's statement that 'A town can afford its memory or its future' most nearly implies that:",
+      "choices": {
+        "A": "The town must choose between preserving the Orpheum and pursuing economic development.",
+        "B": "The town's financial resources are insufficient to support both historical preservation and new business growth.",
+        "C": "The architect believes the town's memory is more important than its future.",
+        "D": "The town's future depends on demolishing the Orpheum to attract a grocery chain."
+      },
+      "answer": "A",
+      "explanation": "The architect's statement is a metaphorical way of saying the town faces a binary choice: either restore the Orpheum (memory) or demolish it for a parking lot (future). The passage presents these as competing options, and the architect's refusal to choose underscores the either/or nature. Choice B is too narrow: the statement is not just about financial insufficiency but about a fundamental trade-off. Choice C is incorrect because the architect does not express a preference; she says her drawings 'could not choose.' Choice D is too specific; the future could involve other development, not necessarily a grocery chain.",
+      "distractorRationales": {
+        "A": "Correct. The statement encapsulates the conflict between preservation and development.",
+        "B": "Incorrect. While cost is a factor, the statement is about a choice, not just affordability.",
+        "C": "Incorrect. The architect remains neutral and does not prioritize memory over future.",
+        "D": "Incorrect. The grocery chain is one proposed future, but the statement is broader."
+      }
+    },
+    {
+      "topic": "Author Purpose",
+      "prompt": "The author's inclusion of the detail that the plaster molds were 'labeled in a hand no one alive recognizes' primarily serves to:",
+      "choices": {
+        "A": "Emphasize the passage of time and the loss of connection to the Orpheum's original era.",
+        "B": "Suggest that the molds are of little value because their labels are illegible.",
+        "C": "Highlight the preservationists' lack of expertise in historical restoration.",
+        "D": "Indicate that the molds were recently placed in the basement by unknown persons."
+      },
+      "answer": "A",
+      "explanation": "The detail about the unrecognizable handwriting underscores how much time has passed and how the people who created and used the molds are gone, reinforcing the theme of memory and loss. It does not imply the molds are worthless (B), nor does it criticize the preservationists (C) or suggest recent placement (D).",
+      "distractorRationales": {
+        "A": "Correct. The unrecognizable hand symbolizes the distance between the present and the past.",
+        "B": "Incorrect. The molds' value is in their existence, not their labels.",
+        "C": "Incorrect. The preservationists are not portrayed as lacking expertise.",
+        "D": "Incorrect. The molds are original and were thought destroyed in 1974."
+      }
+    },
+    {
+      "topic": "Vocabulary in Context",
+      "prompt": "As used in the passage, the word 'fabric' most nearly means:",
+      "choices": {
+        "A": "The physical materials and structural elements of the building.",
+        "B": "A woven cloth used in the theater's costumes.",
+        "C": "The overall design and architectural style of the Orpheum.",
+        "D": "The historical significance and cultural value of the building."
+      },
+      "answer": "A",
+      "explanation": "In context, 'historic fabric' refers to the building's original materials—plaster, paint, woodwork—as stated in the sentence. Choice B is a literal meaning not intended here. Choice C is too broad; fabric refers to materials, not style. Choice D is abstract; the passage specifies physical elements.",
+      "distractorRationales": {
+        "A": "Correct. The passage explicitly lists 'its plaster, its paint, its patient woodwork' as the historic fabric.",
+        "B": "Incorrect. This is a literal definition not applicable to the context.",
+        "C": "Incorrect. Design and style are not the same as physical fabric.",
+        "D": "Incorrect. Historical significance is a result, not the fabric itself."
+      }
+    },
+    {
+      "topic": "Main Idea and Details",
+      "prompt": "Which of the following best describes the role of the architect in the passage?",
+      "choices": {
+        "A": "She provides a definitive recommendation that resolves the dispute.",
+        "B": "She uncovers information that complicates the debate but refuses to take sides.",
+        "C": "She supports the preservationists by confirming the building's historic value.",
+        "D": "She supports the council by emphasizing the high cost of restoration."
+      },
+      "answer": "B",
+      "explanation": "The architect's report reveals both positive and negative findings for both sides, and she declines to deliver a verdict, thus complicating the debate without choosing a side. Choice A is false because she refuses to recommend. Choices C and D are partial; she supports neither side exclusively.",
+      "distractorRationales": {
+        "A": "Incorrect. She explicitly declines to deliver a verdict.",
+        "B": "Correct. Her findings are mixed and she remains neutral.",
+        "C": "Incorrect. She also confirms the facade is a slipcover and fabric is worse than claimed.",
+        "D": "Incorrect. She also confirms the roof is sounder than claimed."
+      }
+    }
+  ],
+  [
+    {
+      "topic": "Inference",
+      "prompt": "The passage suggests that the archival work mentioned in the second paragraph is most likely to result in which of the following?",
+      "choices": {
+        "A": "A revised understanding of how many stars form in visible-light nurseries.",
+        "B": "The discovery of new infrared arrays in older observatories.",
+        "C": "A confirmation that the Ember Veil is younger than its surroundings.",
+        "D": "The identification of K-7 as a triple-star system."
+      },
+      "answer": "A",
+      "explanation": "The second paragraph states that older visible-light surveys 'may have missed half their tenants' and that this possibility is 'sending archivists back to decades of supposedly finished catalogs.' This implies that the archival work could lead to a revised understanding of star counts in those nurseries. Choice B is incorrect because the passage does not mention discovering new arrays in older observatories; the new array is on a mountaintop. Choice C is incorrect because the youth of the Ember Veil is one of two possibilities mentioned, not a result of archival work. Choice D is incorrect because the K-7 dispute is separate and not linked to the archival work.",
+      "distractorRationales": {
+        "A": "Correct. The passage links missed tenants in visible-light surveys to archivists re-examining catalogs, implying a revised star count.",
+        "B": "Incorrect. The passage does not mention discovering new infrared arrays in older observatories; the new array is described as recently switched on.",
+        "C": "Incorrect. The passage presents the Veil's possible youth as a hypothesis, not as an outcome of archival research.",
+        "D": "Incorrect. The K-7 dispute is discussed later and is not connected to the archival work in the second paragraph."
+      }
+    },
+    {
+      "topic": "Vocabulary in Context",
+      "prompt": "As used in the passage, the word 'census' most nearly means:",
+      "choices": {
+        "A": "a count of objects in a region",
+        "B": "a formal government survey",
+        "C": "a detailed spectral analysis",
+        "D": "a theoretical model of star formation"
+      },
+      "answer": "A",
+      "explanation": "In the second paragraph, 'census' refers to the team's count of protostars: 'The team counted more than twice as many protostars as every estimate had predicted, a census so lopsided...' Thus, it means a count of objects. Choice B is incorrect because the context is astronomical, not governmental. Choice C is incorrect because spectral analysis is mentioned later but is not the meaning of 'census' here. Choice D is incorrect because a census is an observational count, not a theoretical model.",
+      "distractorRationales": {
+        "A": "Correct. The passage uses 'census' to describe the tally of protostars observed.",
+        "B": "Incorrect. The term is used in an astronomical context, not a governmental one.",
+        "C": "Incorrect. Spectral analysis is a different technique mentioned later, not the meaning of 'census'.",
+        "D": "Incorrect. A census is an empirical count, not a theoretical model."
+      }
+    },
+    {
+      "topic": "Author Purpose",
+      "prompt": "The author includes the detail about Jupiter's faint warmth primarily to:",
+      "choices": {
+        "A": "draw a parallel between brown dwarfs and a familiar planetary body",
+        "B": "argue that Jupiter should be reclassified as a brown dwarf",
+        "C": "explain why brown dwarfs are invisible to infrared arrays",
+        "D": "contrast the formation of brown dwarfs with that of true stars"
+      },
+      "answer": "A",
+      "explanation": "In the fifth paragraph, the author states that brown dwarfs glow 'only from the heat of their own contraction — the same faint warmth our own Jupiter gives off for the same reason, writ larger.' This analogy helps readers understand brown dwarfs by comparing them to Jupiter. Choice B is incorrect because the passage does not suggest reclassifying Jupiter. Choice C is incorrect because brown dwarfs are detected by infrared arrays, not invisible to them. Choice D is incorrect because the comparison is about heat, not formation contrast.",
+      "distractorRationales": {
+        "A": "Correct. The Jupiter comparison clarifies the nature of brown dwarfs by linking them to a familiar object.",
+        "B": "Incorrect. The passage does not propose reclassifying Jupiter; it only uses Jupiter as an analogy.",
+        "C": "Incorrect. Brown dwarfs are observed by the infrared array; the passage says they were previously invisible because no one could see them, but the array now detects them.",
+        "D": "Incorrect. The comparison is about the heat emitted, not about contrasting formation processes."
+      }
+    },
+    {
+      "topic": "Main Idea and Details",
+      "prompt": "Which of the following best describes the relationship between the K-7 dispute and the brown dwarf findings as presented in the passage?",
+      "choices": {
+        "A": "Both involve objects that are difficult to classify and require further observation.",
+        "B": "Both are resolved by the same upcoming upgrade to the infrared array.",
+        "C": "Both challenge the idea that the Ember Veil is younger than its surroundings.",
+        "D": "Both depend on the three-beat flicker pattern observed in the nursery."
+      },
+      "answer": "A",
+      "explanation": "The K-7 dispute involves uncertainty over whether it is a single massive star or three ordinary stars, and the brown dwarfs are 'failed stars' that blur the line between stars and planets. Both cases involve classification challenges and require further data (sharper eyes for K-7, spectra for brown dwarfs). Choice B is incorrect because the array's second wing is specifically mentioned as potentially settling K-7, not the brown dwarf findings. Choice C is incorrect because neither dispute directly challenges the Veil's age; the protostar count does. Choice D is incorrect because the flicker pattern applies only to K-7, not brown dwarfs.",
+      "distractorRationales": {
+        "A": "Correct. Both the K-7 dispute and brown dwarf findings involve ambiguous objects that need more observation to classify.",
+        "B": "Incorrect. The second wing is only mentioned in connection with K-7, not brown dwarfs.",
+        "C": "Incorrect. The age of the Veil is a separate issue raised by the protostar count, not by K-7 or brown dwarfs.",
+        "D": "Incorrect. The flicker pattern is unique to K-7 and is not mentioned in relation to brown dwarfs."
+      }
+    }
+  ]
+]

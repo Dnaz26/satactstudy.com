@@ -7,6 +7,7 @@ import { TutorRichText } from '@/components/practice/question-prompt'
 import { cn } from '@/lib/utils'
 import type { LessonExample, LessonExampleSet } from '@/lib/study/examples'
 import type { LessonStepId } from '@/lib/study/lesson-flow'
+import type { BoardExample } from '@/lib/study/teach-beats'
 
 function sameLabel(a: string, b: string): boolean {
   return a.trim().toLowerCase() === b.trim().toLowerCase()
@@ -18,12 +19,15 @@ export function TeachingBoard({
   focusLabel,
   focusSide,
   stepId,
+  board,
   className,
 }: {
   examples: LessonExampleSet
   focusLabel?: string
   focusSide?: 'yes' | 'no' | 'equation'
   stepId: LessonStepId
+  /** Whiteboard example for the current beat — takes precedence over the pool. */
+  board?: BoardExample | null
   className?: string
 }) {
   const showBoard = stepId === 'yesExamples' || stepId === 'noExamples'
@@ -52,7 +56,7 @@ export function TeachingBoard({
     return 0
   }, [chipPool, focusLabel])
 
-  if (!showBoard) return null
+  if (!showBoard) return board?.lines?.length ? <Whiteboard board={board} className={className} /> : null
 
   const activeChip = chipPool[activeIndex] ?? null
   const crossed = stepId === 'noExamples'
@@ -115,6 +119,112 @@ export function TeachingBoard({
             ))}
           </div>
         )}
+      </div>
+    </div>
+  )
+}
+
+function escapeRegExp(s: string): string {
+  return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+}
+
+/** Board math with Nova's current marks spotlighted (highlighter style). */
+function HighlightedLine({ line, targets }: { line: string; targets?: string[] }) {
+  const clean = (targets ?? []).map((t) => t.trim()).filter(Boolean).sort((a, b) => b.length - a.length)
+  if (!clean.length) return <TutorRichText text={line} className="text-inherit" />
+  const pattern = new RegExp(`(${clean.map(escapeRegExp).join('|')})`, 'g')
+  const chunks = line.split(pattern)
+  const targetSet = new Set(clean)
+  return (
+    <span>
+      {chunks.map((chunk, i) =>
+        targetSet.has(chunk) ? (
+          <mark key={i} className="rounded-md bg-amber-300/90 px-1 text-[#1d4ed8] ring-2 ring-amber-500">
+            {chunk}
+          </mark>
+        ) : (
+          <span key={i}>{chunk}</span>
+        ),
+      )}
+    </span>
+  )
+}
+
+/**
+ * Nova's whiteboard — ONE example with the ONE annotation she is making
+ * right now. Her speech bubble lectures; this board shows the work, with
+ * the exact symbols she is talking about spotlighted.
+ */
+function Whiteboard({ board, className }: { board: BoardExample; className?: string }) {
+  const boardKey = `${board.lines.join(' | ')} || ${board.note ?? ''} || ${(board.highlight ?? []).join(',')}`
+  const isProof = /✓/.test(board.note ?? '')
+  return (
+    <div
+      className={cn(
+        'overflow-hidden rounded-[1.75rem] border border-black/10 bg-[linear-gradient(180deg,#ffffff_0%,#f4f8ff_100%)] p-5 shadow-[0_18px_0_rgba(0,0,0,0.05)] sm:p-7',
+        className,
+      )}
+    >
+      <div className="mb-3 flex items-center gap-2">
+        <span className="flex gap-1.5" aria-hidden>
+          <span className="h-2.5 w-2.5 rounded-full bg-[#ff5c39]" />
+          <span className="h-2.5 w-2.5 rounded-full bg-[#1d4ed8]" />
+          <span className="h-2.5 w-2.5 rounded-full bg-[#059669]" />
+        </span>
+        <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-fog">
+          Whiteboard · Nova is writing
+        </p>
+      </div>
+      <div
+        className="rounded-[1.35rem] bg-white px-4 py-6 shadow-[inset_0_0_0_1px_rgba(0,0,0,0.06)] sm:px-6"
+        style={{
+          backgroundImage:
+            'linear-gradient(rgba(29,78,216,0.07) 1px, transparent 1px), linear-gradient(90deg, rgba(29,78,216,0.07) 1px, transparent 1px)',
+          backgroundSize: '28px 28px',
+        }}
+      >
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={boardKey}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.3 }}
+            className="space-y-4"
+          >
+            <div className="space-y-2 text-center">
+              {board.lines.map((line) => (
+                <p
+                  key={line}
+                  className="font-display text-3xl font-bold tracking-tight text-[#1d4ed8] sm:text-4xl"
+                >
+                  <HighlightedLine line={line} targets={board.highlight} />
+                </p>
+              ))}
+            </div>
+            {board.note && (
+              <motion.div
+                initial={{ opacity: 0, y: 8, rotate: -0.4 }}
+                animate={{ opacity: 1, y: 0, rotate: 0.4 }}
+                transition={{ duration: 0.25, delay: 0.35 }}
+                className={cn(
+                  'mx-auto max-w-md rounded-2xl border px-3.5 py-2.5 text-left text-[15px] font-medium leading-snug',
+                  isProof
+                    ? 'border-emerald-300 bg-emerald-50 text-emerald-900'
+                    : 'border-amber-200 bg-amber-50 text-[#7c4a12]',
+                )}
+              >
+                <TutorRichText text={board.note} className="text-inherit" />
+              </motion.div>
+            )}
+          </motion.div>
+        </AnimatePresence>
+      </div>
+      <div className="mx-auto mt-3 flex h-2 w-40 items-center justify-center gap-1.5" aria-hidden>
+        <span className="h-2 w-10 rounded-full bg-[#ff5c39]/70" />
+        <span className="h-2 w-10 rounded-full bg-[#1d4ed8]/70" />
+        <span className="h-2 w-10 rounded-full bg-[#059669]/70" />
+        <span className="h-2 w-10 rounded-full bg-black/20" />
       </div>
     </div>
   )

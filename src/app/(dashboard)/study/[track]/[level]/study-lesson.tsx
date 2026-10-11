@@ -9,17 +9,17 @@ import { TutorRichText } from '@/components/practice/question-prompt'
 import { cn } from '@/lib/utils'
 import {
   buildGuidedLesson,
-  BUILD_PASS_SCORE,
   CREATE_PASS_SCORE,
   CREATE_SAVE_SCORE,
   EXPLAIN_PASS_SCORE,
   LESSON_STEPS,
   PRACTICE_DIFFICULTY_LADDER,
+  understandingCheck,
   type GuidedLesson,
   type LessonStepId,
 } from '@/lib/study/lesson-flow'
 import { buildTeachBeats, isNearDuplicate, type TeachMood } from '@/lib/study/teach-beats'
-import { gradeBuildTranslationLocally, pickPracticeQuestion } from '@/lib/study/copilot'
+import { pickPracticeQuestion } from '@/lib/study/copilot'
 import { type StudyLevel, type StudyProblem, type StudyRank, type StudyTrack } from '@/lib/study/levels'
 import { StudyTimer } from '@/components/ui/study-timer'
 import { NovaCharacter } from '@/components/study/nova-character'
@@ -87,16 +87,13 @@ export function StudyLesson({
   const advanceTimer = React.useRef<number | null>(null)
   const saveTimer = React.useRef<number | null>(null)
 
-  // Build / translate
-  const [buildText, setBuildText] = React.useState('')
-  const [buildResult, setBuildResult] = React.useState<{
-    score: number
-    passed: boolean
-    feedback: string
-  } | null>(null)
+  // Understanding check (multiple choice)
+  const [checkChoice, setCheckChoice] = React.useState('')
+  const [checkLocked, setCheckLocked] = React.useState(false)
 
   // Explain-back
   const [explainText, setExplainText] = React.useState('')
+  const [explainTypedNote, setExplainTypedNote] = React.useState(false)
   const [explainBusy, setExplainBusy] = React.useState(false)
   const [explainResult, setExplainResult] = React.useState<{
     score: number
@@ -113,6 +110,7 @@ export function StudyLesson({
   const [currentQ, setCurrentQ] = React.useState<StudyProblem | null>(null)
   const [choice, setChoice] = React.useState('')
   const [checked, setChecked] = React.useState(false)
+  const [stageTaught, setStageTaught] = React.useState(false)
   const usedPrompts = React.useRef<Set<string>>(new Set())
 
   // Create
@@ -134,6 +132,8 @@ export function StudyLesson({
     feedback: string
   } | null>(null)
 
+  const checkQuestion = React.useMemo(() => understandingCheck(lesson), [lesson])
+  const checkCorrect = checkLocked && checkChoice === checkQuestion.answer
   const beats = React.useMemo(() => buildTeachBeats(lesson, stepId), [lesson, stepId])
   const beat = beats[Math.min(beatIndex, Math.max(0, beats.length - 1))]
   const isAgentStep = AGENT_STEPS.includes(stepId)
@@ -146,7 +146,7 @@ export function StudyLesson({
   const line = lockedSay.current[stepId] ?? beat?.say ?? `Let's learn ${lesson.title} together.`
   const mood: TeachMood = teaching
     ? (beat?.mood ?? 'talk')
-    : buildResult && !buildResult.passed
+    : checkLocked && !checkCorrect
       ? 'think'
       : explainResult && !explainResult.passed
       ? 'think'
@@ -161,8 +161,9 @@ export function StudyLesson({
 
   const stepMeta = LESSON_STEPS.find((s) => s.id === stepId) ?? LESSON_STEPS[0]
   const stepNumber = LESSON_STEPS.findIndex((s) => s.id === stepId) + 1
-  const showExampleBoard = stepId === 'yesExamples' || stepId === 'noExamples'
+  const showExampleBoard = stepId === 'yesExamples' || stepId === 'noExamples' || Boolean(beat?.board)
   const ladderDifficulty: StudyRank = PRACTICE_DIFFICULTY_LADDER[Math.min(ladderIndex, PRACTICE_DIFFICULTY_LADDER.length - 1)] ?? 'easy'
+  const practiceStage = lesson.stages[Math.min(ladderIndex, lesson.stages.length - 1)]
 
   // Agent-only progress tracking (never rendered as a student checklist).
   React.useEffect(() => {
@@ -172,13 +173,13 @@ export function StudyLesson({
       if (prior) completedSteps.current.add(prior.id)
     }
     if (isAgentStep && !teaching) completedSteps.current.add(stepId)
-    if (stepId === 'build' && buildResult?.passed) completedSteps.current.add('build')
+    if (stepId === 'build' && checkCorrect) completedSteps.current.add('build')
     if (stepId === 'explainBack' && explainResult?.passed) completedSteps.current.add('explainBack')
     if (stepId === 'practice' && correctStreak >= PRACTICE_DIFFICULTY_LADDER.length) {
       completedSteps.current.add('practice')
     }
     if (createResult?.passed) completedSteps.current.add('create')
-  }, [stepId, teaching, isAgentStep, buildResult?.passed, explainResult?.passed, correctStreak, createResult?.passed])
+  }, [stepId, teaching, isAgentStep, checkCorrect, explainResult?.passed, correctStreak, createResult?.passed])
 
   React.useEffect(() => {
     let cancelled = false
@@ -259,7 +260,9 @@ export function StudyLesson({
     }
     setBeatIndex(0)
     setExplainResult(null)
-    setBuildResult(null)
+    setExplainTypedNote(false)
+    setCheckChoice('')
+    setCheckLocked(false)
     setChoice('')
     setChecked(false)
     if (spokenSteps.current.has(stepId)) {
@@ -326,9 +329,10 @@ export function StudyLesson({
     const data = await res.json() as { problems?: StudyProblem[] }
     const pool = (data.problems?.length ? data.problems : lesson.problems)
     setPracticePool(pool)
-    usedPrompts.current = new Set()
+    usedPrompts.current = new Set([checkQuestion.prompt])
     setLadderIndex(0)
     setCorrectStreak(0)
+    setStageTaught(false)
     loadNextPracticeQuestion(pool, PRACTICE_DIFFICULTY_LADDER[0] ?? 'easy')
   }
 
@@ -378,19 +382,12 @@ export function StudyLesson({
     }
   }
 
-  function submitBuild() {
-    if (buildText.trim().length < 8 || buildResult?.passed) return
-    const graded = gradeBuildTranslationLocally(buildText.trim(), lesson)
-    setBuildResult({
-      score: graded.score,
-      passed: graded.passed,
-      feedback: graded.feedback,
-    })
-    if (graded.passed) {
+  function submitCheck() {
+    if (!checkChoice || checkLocked || checkCorrect) return
+    setCheckLocked(true)
+    if (checkChoice === checkQuestion.answer) {
       completedSteps.current.add('build')
       window.setTimeout(() => goNextStep(), 900)
-    } else {
-      setBuildText('')
     }
   }
 
@@ -450,6 +447,7 @@ export function StudyLesson({
         }
         const nextLadder = ladderIndex + 1
         setLadderIndex(nextLadder)
+        setStageTaught(false)
         loadNextPracticeQuestion(
           practicePool.length ? practicePool : lesson.problems,
           PRACTICE_DIFFICULTY_LADDER[nextLadder] ?? 'hard',
@@ -457,6 +455,7 @@ export function StudyLesson({
         return
       }
       // Same difficulty, new question
+      setStageTaught(false)
       loadNextPracticeQuestion(
         practicePool.length ? practicePool : lesson.problems,
         ladderDifficulty,
@@ -596,7 +595,11 @@ export function StudyLesson({
                   key={`${stepId}-${beatIndex}-${line.slice(0, 24)}`}
                   initial={{ opacity: 0, y: 6 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="min-h-[4.5rem] text-lg leading-relaxed text-paper sm:text-xl"
+                  onCopy={stepId === 'explainBack' ? (event) => event.preventDefault() : undefined}
+                  className={cn(
+                    'min-h-[4.5rem] text-lg leading-relaxed text-paper sm:text-xl',
+                    stepId === 'explainBack' && 'select-none',
+                  )}
                 >
                   {isAgentStep ? displayed : line}
                   {isAgentStep && !typed && (
@@ -615,6 +618,7 @@ export function StudyLesson({
           focusLabel={beat?.focusLabel}
           focusSide={beat?.focusSide}
           stepId={stepId}
+          board={beat?.board}
         />
       )}
 
@@ -630,39 +634,54 @@ export function StudyLesson({
         {stepId === 'build' && (
           <div className="space-y-4">
             <p className="text-lg text-paper">
-              Nova built this example:{' '}
-              <span className="font-semibold text-signal">
-                <TutorRichText text={lesson.translateExample} className="text-inherit" />
-              </span>
+              Which choice shows you understand <span className="font-semibold text-signal">{lesson.title}</span>?
             </p>
-            <p className="text-base text-fog">
-              Translate it — what does each part mean, and what would you analyze first?
-              Need <span className="font-semibold text-paper">{BUILD_PASS_SCORE}+</span> / 100.
+            <p className="text-2xl leading-snug text-paper sm:text-3xl">
+              <TutorRichText text={checkQuestion.prompt} className="text-inherit" />
             </p>
-            <textarea
-              value={buildText}
-              onChange={(e) => setBuildText(e.target.value)}
-              rows={4}
-              disabled={Boolean(buildResult?.passed)}
-              placeholder="Translate the example in your own words…"
-              className="w-full resize-none rounded-2xl border border-line bg-white px-4 py-4 text-lg leading-relaxed text-paper outline-none focus:border-signal"
-            />
-            {buildResult && (
+            <div className="grid gap-3">
+              {checkQuestion.choices.map((item) => (
+                <button
+                  key={item.key}
+                  type="button"
+                  onClick={() => !checkLocked && setCheckChoice(item.key)}
+                  className={cn(
+                    'rounded-2xl border px-5 py-4 text-left text-lg transition',
+                    checkChoice === item.key ? 'border-signal bg-signal text-white' : 'border-line bg-white',
+                    checkLocked && item.key === checkQuestion.answer && 'border-emerald-500 bg-emerald-50 text-paper',
+                    checkLocked && checkChoice === item.key && item.key !== checkQuestion.answer && 'border-rose-400 bg-rose-50 text-paper',
+                  )}
+                >
+                  <span className="mr-3 font-mono text-xs">{item.key}</span>
+                  <TutorRichText text={item.text} className="text-inherit" />
+                </button>
+              ))}
+            </div>
+            {checkLocked && (
               <div className={cn(
                 'rounded-2xl border px-4 py-4',
-                buildResult.passed ? 'border-emerald-300 bg-emerald-50' : 'border-signal/30 bg-[rgba(255,92,57,0.08)]',
+                checkCorrect ? 'border-emerald-300 bg-emerald-50' : 'border-rose-300 bg-rose-50',
               )}>
-                <p className="font-display text-2xl text-paper">{buildResult.score} / 100</p>
-                <p className="mt-2 text-base text-paper">{buildResult.feedback}</p>
+                <p className="text-lg text-paper">{checkCorrect ? 'Yes — that follows the rule.' : 'Not that one. Look at the rule again.'}</p>
+                <p className="mt-2 text-base text-paper">
+                  <TutorRichText text={checkQuestion.explain} className="text-inherit" />
+                </p>
               </div>
             )}
-            {!buildResult?.passed && (
+            {!checkLocked && (
+              <Button className="h-14 w-full text-base" onClick={submitCheck} disabled={!checkChoice}>
+                Lock in
+              </Button>
+            )}
+            {checkLocked && !checkCorrect && (
               <Button
                 className="h-14 w-full text-base"
-                onClick={submitBuild}
-                disabled={buildText.trim().length < 8}
+                onClick={() => {
+                  setCheckLocked(false)
+                  setCheckChoice('')
+                }}
               >
-                Score my translation
+                Try again
               </Button>
             )}
           </div>
@@ -670,18 +689,56 @@ export function StudyLesson({
 
         {stepId === 'explainBack' && (
           <div className="space-y-4">
-            <p className="text-lg text-paper">
+            <p className="select-none text-lg text-paper" onCopy={(event) => event.preventDefault()}>
               Explain <span className="font-semibold text-signal">{lesson.title}</span> in your own words.
-              Need <span className="font-semibold">{EXPLAIN_PASS_SCORE}+</span> / 100 to move on.
+              Type it yourself. Pasting is turned off.
+              Need a score <span className="font-semibold">above {EXPLAIN_PASS_SCORE}</span> / 100 to move on.
             </p>
             <textarea
               value={explainText}
-              onChange={(e) => setExplainText(e.target.value)}
+              onChange={(event) => {
+                const next = event.target.value
+                if (next.length > explainText.length + 1) {
+                  setExplainTypedNote(true)
+                  return
+                }
+                setExplainTypedNote(false)
+                setExplainText(next)
+              }}
+              onPaste={(event) => {
+                event.preventDefault()
+                setExplainTypedNote(true)
+              }}
+              onDrop={(event) => {
+                event.preventDefault()
+                setExplainTypedNote(true)
+              }}
+              onBeforeInput={(event) => {
+                const inputType = event.nativeEvent instanceof InputEvent ? event.nativeEvent.inputType : ''
+                if (inputType === 'insertFromPaste' || inputType === 'insertFromDrop' || inputType === 'insertReplacementText') {
+                  event.preventDefault()
+                  setExplainTypedNote(true)
+                }
+              }}
+              onKeyDown={(event) => {
+                const pasteKey = event.key.toLowerCase() === 'v' && (event.metaKey || event.ctrlKey)
+                if (pasteKey || (event.shiftKey && event.key === 'Insert')) {
+                  event.preventDefault()
+                  setExplainTypedNote(true)
+                }
+              }}
+              onContextMenu={(event) => event.preventDefault()}
               rows={4}
               disabled={explainBusy || Boolean(explainResult?.passed)}
+              autoCorrect="off"
+              autoCapitalize="off"
+              spellCheck={false}
               placeholder="Type what this idea means, like you are teaching a friend…"
               className="w-full resize-none rounded-2xl border border-line bg-white px-4 py-4 text-lg leading-relaxed text-paper outline-none focus:border-signal"
             />
+            {explainTypedNote && (
+              <p className="text-sm font-semibold text-signal">Type your explanation yourself. Pasting is turned off.</p>
+            )}
             {explainResult && (
               <div className={cn(
                 'rounded-2xl border px-4 py-4',
@@ -694,7 +751,7 @@ export function StudyLesson({
                     {explainResult.missed[0] && (
                       <p className="mt-2 text-sm text-fog">Missing: {explainResult.missed[0]}</p>
                     )}
-                    <p className="mt-2 text-sm text-paper">
+                    <p className="mt-2 select-none text-sm text-paper" onCopy={(event) => event.preventDefault()}>
                       Live example: <TutorRichText text={explainResult.liveExample} className="text-inherit" />
                     </p>
                     <p className="mt-2 text-xs font-semibold uppercase tracking-wide text-signal">Try again with that piece included.</p>
@@ -718,10 +775,41 @@ export function StudyLesson({
         {stepId === 'practice' && (
           <div className="space-y-5">
             <p className="font-mono text-xs uppercase tracking-[0.16em] text-fog">
-              Correct {correctStreak} / {PRACTICE_DIFFICULTY_LADDER.length} · {ladderDifficulty}
+              Mastered {correctStreak} / {PRACTICE_DIFFICULTY_LADDER.length} · {practiceStage?.level ?? ladderDifficulty}
             </p>
-            {currentQ ? (
+            {!stageTaught && practiceStage ? (
+              <div className="space-y-5 rounded-3xl border border-signal/25 bg-[rgba(255,92,57,0.06)] p-5 sm:p-6">
+                <div>
+                  <p className="font-mono text-xs uppercase tracking-[0.16em] text-signal">Learn before the question</p>
+                  <h2 className="mt-2 font-display text-2xl text-paper">{practiceStage.title}</h2>
+                </div>
+                <div>
+                  <p className="text-xs font-semibold uppercase tracking-wide text-fog">New things being added</p>
+                  <div className="mt-2 flex flex-wrap gap-2">
+                    {practiceStage.newSkills.map((skill) => (
+                      <span key={skill} className="rounded-full border border-line bg-white px-3 py-1.5 text-sm font-semibold text-paper">
+                        {skill}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+                <p className="text-lg leading-relaxed text-paper">{practiceStage.explanation}</p>
+                <div className="space-y-3">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-fog">Worked examples</p>
+                  {practiceStage.workedExamples.map((example, index) => (
+                    <div key={`${index}-${example}`} className="rounded-2xl border border-line bg-white px-4 py-3 text-base text-paper">
+                      <span className="mr-2 font-mono text-xs text-signal">{index + 1}</span>
+                      <TutorRichText text={example} className="text-inherit" />
+                    </div>
+                  ))}
+                </div>
+                <Button className="h-14 w-full text-base" onClick={() => setStageTaught(true)}>
+                  I understand — give me the quick check
+                </Button>
+              </div>
+            ) : currentQ ? (
               <>
+                <p className="text-sm font-semibold text-signal">Quick mastery check: use only the ideas taught above.</p>
                 <p className="text-2xl leading-snug text-paper sm:text-3xl">
                   <TutorRichText text={currentQ.prompt} className="text-inherit" />
                 </p>

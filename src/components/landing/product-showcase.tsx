@@ -2,20 +2,23 @@
 
 import * as React from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { Calculator, CheckCircle2, LockKeyhole, MessageCircle, RotateCcw, Timer, UserRound, X } from 'lucide-react'
+import { BookOpenCheck, Calculator, CheckCircle2, FileCheck2, Flame, Gamepad2, GraduationCap, LockKeyhole, MessageCircle, MessageSquareText, RotateCcw, Sparkles, Timer, UserRound } from 'lucide-react'
 import { TestBooklet, type BookletMark, type BookletQuestion } from '@/components/practice/test-booklet'
 import { TeachingBoard } from '@/components/study/equation-board'
 import { NovaCharacter } from '@/components/study/nova-character'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 
-type FeatureId = 'tutoring' | 'rapid' | 'games' | 'practice'
+type FeatureId = 'sat' | 'act' | 'tutoring' | 'rapid' | 'games' | 'chat' | 'review'
 
 const FEATURES: Array<{ id: FeatureId; title: string; blurb: string }> = [
-  { id: 'tutoring', title: 'Tutoring', blurb: 'Learn with the animated Nova pencil coach.' },
-  { id: 'rapid', title: 'Rapid Fire', blurb: 'Answer timed questions with instant feedback.' },
-  { id: 'games', title: 'Game', blurb: 'Play first, then use questions to unlock another run.' },
-  { id: 'practice', title: 'Practice Test', blurb: 'Use the real booklet with Desmos beside it.' },
+  { id: 'sat', title: 'Practice SAT', blurb: 'Build focus with realistic digital modules, timing, and tools.' },
+  { id: 'act', title: 'Practice ACT', blurb: 'Build stamina with full timed sections and ACT pacing.' },
+  { id: 'tutoring', title: 'Tutoring', blurb: 'Build understanding through small lessons and guided examples.' },
+  { id: 'rapid', title: 'Rapid Fire', blurb: 'Build speed by making accurate choices under a timer.' },
+  { id: 'games', title: 'Game', blurb: 'Build consistency by earning play through completed questions.' },
+  { id: 'chat', title: 'Chat Mode', blurb: 'Build confidence by asking questions and seeing each step live.' },
+  { id: 'review', title: 'Review', blurb: 'Build memory by correcting mistakes and trying related questions.' },
 ]
 
 const PRACTICE_QUESTIONS: BookletQuestion[] = [
@@ -86,13 +89,18 @@ function TutoringDemo({ onComplete }: { onComplete: () => void }) {
   )
 }
 
-function PracticeDemo({ onComplete }: { onComplete: () => void }) {
+function SatPracticeDemo({ onComplete }: { onComplete: () => void }) {
+  const [answer, setAnswer] = React.useState<string | null>(null)
+  return <DemoFrame><div className="mx-auto max-w-4xl overflow-hidden rounded-[1.5rem] border border-[#c9cdd2] bg-white shadow-[0_20px_55px_rgba(15,23,42,.12)]"><div className="flex items-center justify-between border-b border-[#c9cdd2] bg-[#f5f7f8] px-5 py-3"><div><p className="font-semibold text-[#172b4d]">Math · Module 1</p><p className="text-[11px] text-[#5e6c84]">Question 1 of 22</p></div><div className="rounded border border-[#aeb7c2] bg-white px-4 py-2 font-mono text-sm text-[#172b4d]">34:18</div></div><div className="grid min-h-[420px] md:grid-cols-2"><div className="border-b border-[#c9cdd2] p-7 md:border-b-0 md:border-r"><p className="text-[15px] leading-7 text-[#172b4d]">A quadratic function is defined by <strong>f(x) = x² − 4x + 1</strong>. What is the value of f(3) − f(1)?</p><div className="mt-6 rounded-lg border border-[#d5d9de] bg-[#fafbfc] p-4 text-xs text-[#5e6c84]">Use the built-in Desmos calculator when it helps, or solve directly.</div></div><div className="p-6"><div className="mb-4 flex items-center justify-between text-xs text-[#5e6c84]"><span>Mark for review</span><span>ABC</span></div><div className="space-y-3">{[['A','−4'],['B','−2'],['C','0'],['D','2']].map(([key,value]) => <button key={key} onClick={() => setAnswer(key)} className={cn('flex w-full items-center gap-3 rounded-lg border px-4 py-3 text-left transition', answer === key ? 'border-[#276ef1] bg-[#eef4ff]' : 'border-[#b8c0c9] hover:border-[#276ef1]')}><span className="flex h-7 w-7 items-center justify-center rounded-full border border-current text-xs font-semibold">{key}</span><span className="text-sm text-[#172b4d]">{value}</span></button>)}</div></div></div><div className="flex items-center justify-between border-t border-[#c9cdd2] bg-[#f5f7f8] px-5 py-3"><button className="rounded border border-[#aeb7c2] bg-white px-4 py-2 text-xs text-[#172b4d]">Desmos</button><button onClick={onComplete} disabled={!answer} className="rounded bg-[#276ef1] px-5 py-2 text-xs font-semibold text-white disabled:opacity-40">Next</button></div></div></DemoFrame>
+}
+
+function ActPracticeDemo({ onComplete }: { onComplete: () => void }) {
   const [answers, setAnswers] = React.useState<Record<string, string>>({})
   const [marks, setMarks] = React.useState<Record<string, BookletMark>>({})
   const [focusedId, setFocusedId] = React.useState<string | null>(PRACTICE_QUESTIONS[0].id)
   const passed = Object.values(marks).some((mark) => mark.correct)
   return (
-    <DemoFrame><div className="space-y-4"><div className="grid min-h-[520px] gap-4 lg:grid-cols-[minmax(0,1.35fr)_minmax(280px,.65fr)]"><div className="max-h-[520px] overflow-y-auto"><TestBooklet testType="SAT" sectionLabel="Math · Module 1" questions={PRACTICE_QUESTIONS} answers={answers} marks={marks} focusedId={focusedId} onFocus={setFocusedId} onAnswer={(id, value) => setAnswers((current) => ({ ...current, [id]: value }))} onCheck={(id) => setMarks((current) => ({ ...current, [id]: { correct: answers[id] === PRACTICE_QUESTIONS.find((question) => question.id === id)?.correct_answer } }))} /></div><div className="overflow-hidden rounded-2xl border border-line bg-white"><div className="flex items-center justify-between border-b border-line px-4 py-3"><span className="inline-flex items-center gap-2 text-sm font-medium text-paper"><Calculator className="h-4 w-4 text-signal" /> Desmos</span><span className="font-mono text-[10px] uppercase tracking-[0.14em] text-fog">Live side tool</span></div><div className="relative h-[330px] bg-[#fafafa]" style={{ backgroundImage: 'linear-gradient(rgba(20,20,20,.06) 1px, transparent 1px), linear-gradient(90deg, rgba(20,20,20,.06) 1px, transparent 1px)', backgroundSize: '24px 24px' }}><span className="absolute inset-x-0 top-1/2 h-px bg-black/30" /><span className="absolute inset-y-0 left-1/2 w-px bg-black/30" /><svg viewBox="0 0 300 220" className="absolute inset-0 h-full w-full" aria-label="Graph of a quadratic"><path d="M20 190 Q150 -20 280 190" fill="none" stroke="#ff5c39" strokeWidth="4" /></svg></div><div className="space-y-2 p-4"><p className="font-mono text-[10px] uppercase tracking-[0.14em] text-fog">Expression 1</p><p className="rounded-xl bg-panel-2 px-3 py-2 font-mono text-sm text-paper">y = x² − 4x + 1</p><p className="text-xs leading-5 text-fog">Graph, calculate, and answer without leaving the test.</p></div></div></div><UnlockRow unlocked={passed} requirement="Choose an answer and check it correctly to complete the demo." onNext={onComplete} label="Back to features" /></div></DemoFrame>
+    <DemoFrame><div className="space-y-4"><div className="grid min-h-[520px] gap-4 lg:grid-cols-[minmax(0,1.35fr)_minmax(280px,.65fr)]"><div className="max-h-[520px] overflow-y-auto"><TestBooklet testType="ACT" sectionLabel="ACT Math · 45 questions" questions={PRACTICE_QUESTIONS} answers={answers} marks={marks} focusedId={focusedId} onFocus={setFocusedId} onAnswer={(id, value) => setAnswers((current) => ({ ...current, [id]: value }))} onCheck={(id) => setMarks((current) => ({ ...current, [id]: { correct: answers[id] === PRACTICE_QUESTIONS.find((question) => question.id === id)?.correct_answer } }))} /></div><div className="rounded-2xl border border-line bg-white p-5"><p className="font-mono text-[10px] uppercase tracking-[.15em] text-fog">ACT answer document</p><div className="mt-5 grid grid-cols-4 gap-3">{PRACTICE_QUESTIONS.map((question,index) => <div key={question.id} className="text-center"><p className="font-mono text-[9px] text-fog">{index+1}</p><div className="mt-2 flex flex-wrap justify-center gap-1">{['A','B','C','D'].map((key) => <span key={key} className={cn('flex h-6 w-6 items-center justify-center rounded-full border text-[8px]', answers[question.id] === key ? 'border-paper bg-paper text-white' : 'border-line text-fog')}>{key}</span>)}</div></div>)}</div><p className="mt-6 text-xs leading-5 text-fog">The ACT keeps its paper-and-bubble pacing while your answers save automatically.</p></div></div><UnlockRow unlocked={passed} requirement="Choose an answer and check it correctly to complete the demo." onNext={onComplete} label="Back to features" /></div></DemoFrame>
   )
 }
 
@@ -195,50 +203,69 @@ function FeatureMiniScreen({ id }: { id: FeatureId }) {
     <span className="absolute left-5 top-16 h-12 w-1.5 rounded-full bg-white shadow-[0_0_12px_white] transition-transform duration-500 group-hover:translate-y-7 group-focus-visible:translate-y-7" /><span className="absolute right-5 top-24 h-12 w-1.5 rounded-full bg-signal shadow-[0_0_14px_#ff5c39] transition-transform duration-500 group-hover:-translate-y-10 group-focus-visible:-translate-y-10" /><span className="absolute left-1/2 top-1/2 h-3 w-3 rounded-full bg-white shadow-[0_0_16px_white] transition-transform duration-500 group-hover:translate-x-10 group-hover:-translate-y-8 group-focus-visible:translate-x-10 group-focus-visible:-translate-y-8" />
     <span className="absolute bottom-3 left-1/2 -translate-x-1/2 rounded-full border border-white/10 bg-white/5 px-3 py-1 font-mono text-[9px] text-white/70">CLEAR 5 TO REPLAY</span>
   </div>
+  if (id === 'chat') return <div className="mt-6 grid h-44 grid-cols-[.9fr_1.1fr] gap-2 overflow-hidden rounded-2xl border border-line bg-[#f7f3ee] p-2">
+    <div className="space-y-2 rounded-xl bg-white p-3 shadow-sm"><span className="font-mono text-[8px] uppercase tracking-wider text-signal">Chat with Nova</span><div className="rounded-xl rounded-br-sm bg-signal px-2 py-2 text-[9px] text-white">Show me how functions work.</div><div className="rounded-xl rounded-bl-sm bg-panel-2 px-2 py-2 text-[9px] leading-4 text-paper">Let&apos;s build one together.</div></div>
+    <div className="rounded-xl bg-white p-3 shadow-sm"><p className="font-mono text-[8px] uppercase text-fog">Agent writing live</p><p className="mt-4 text-xs font-semibold text-paper"><span className="border-b-2 border-signal">f(3)</span> = 2(3) + 5</p><p className="mt-3 rounded-lg border border-signal/25 bg-signal/5 p-2 text-[9px] leading-4 text-paper">Replace x with 3, then multiply before adding.</p></div>
+  </div>
+  if (id === 'review') return <div className="mt-6 h-44 overflow-hidden rounded-2xl border border-line bg-[#fffdfa] p-4">
+    <div className="flex items-center justify-between"><span className="font-mono text-[9px] uppercase tracking-wider text-fog">Mistake review</span><span className="rounded-full bg-emerald-100 px-2 py-1 text-[8px] font-semibold text-emerald-700">1 repaired</span></div><p className="mt-3 text-xs font-semibold text-paper">Why did this answer miss?</p><div className="mt-3 space-y-2"><div className="rounded-lg border border-rose-200 bg-rose-50 px-3 py-2 text-[9px] text-rose-700">You changed the sign but not the inequality.</div><div className="rounded-lg border border-emerald-200 bg-emerald-50 px-3 py-2 text-[9px] text-emerald-700">Flip the inequality only when multiplying or dividing by a negative.</div></div>
+  </div>
+  if (id === 'act') return <div className="mt-6 h-44 overflow-hidden rounded-2xl border border-line bg-[#f7f3ee] p-3">
+    <div className="flex items-center justify-between border-b border-line pb-2"><span className="font-mono text-[8px] uppercase text-fog">ACT English · 14/50</span><span className="font-mono text-[8px] text-signal">24:18</span></div><div className="mt-3 grid grid-cols-[1.2fr_.8fr] gap-3"><p className="text-[9px] leading-4 text-paper">The archive preserved the maps, <span className="border-b-2 border-signal">which were cataloged</span> during the winter survey.</p><div className="space-y-1">{['NO CHANGE', 'that was cataloged', 'cataloging', 'they cataloged'].map((answer, index) => <div key={answer} className="rounded border border-line px-2 py-1 text-[8px] text-fog">{String.fromCharCode(65 + index)} · {answer}</div>)}</div></div>
+  </div>
   return <div className="mt-6 grid h-44 grid-cols-[1.18fr_.82fr] gap-2 overflow-hidden rounded-2xl border border-line bg-[#f7f3ee] p-2">
     <div className="rounded-xl bg-white p-3 shadow-sm"><div className="flex items-center justify-between"><span className="font-mono text-[8px] uppercase text-fog">SAT Math · 1/22</span><span className="h-2 w-8 rounded-full bg-signal/20" /></div><p className="mt-3 text-[10px] leading-4 text-paper">If f(x) = x² − 4x + 1, what is f(3) − f(1)?</p><div className="mt-2 grid grid-cols-2 gap-1">{['A −4', 'B −2', 'C 0', 'D 2'].map((answer) => <span key={answer} className="rounded border border-line px-1.5 py-1 text-[8px] text-fog">{answer}</span>)}</div></div>
     <div className="relative overflow-hidden rounded-xl bg-white" style={{ backgroundImage: 'linear-gradient(rgba(20,20,20,.07) 1px, transparent 1px), linear-gradient(90deg, rgba(20,20,20,.07) 1px, transparent 1px)', backgroundSize: '12px 12px' }}><span className="absolute left-2 top-2 z-10 rounded-full bg-white px-2 py-1 font-mono text-[8px] text-signal shadow">Desmos</span><svg viewBox="0 0 120 130" className="absolute inset-0 h-full w-full"><path d="M5 115 Q60 -30 115 115" fill="none" stroke="#ff5c39" strokeWidth="3" className="transition-[stroke-width] duration-300 group-hover:[stroke-width:5] group-focus-visible:[stroke-width:5]" /></svg></div>
   </div>
 }
 
-function FeatureCard({ feature, preview = false, onClick }: { feature: (typeof FEATURES)[number]; preview?: boolean; onClick?: () => void }) {
+function FeatureCard({ feature, preview = false, active = false, onClick }: { feature: (typeof FEATURES)[number]; preview?: boolean; active?: boolean; onClick?: () => void }) {
   const Comp = onClick ? motion.button : motion.div
+  const Icon = feature.id === 'sat' ? FileCheck2
+    : feature.id === 'act' ? BookOpenCheck
+      : feature.id === 'tutoring' ? GraduationCap
+        : feature.id === 'rapid' ? Flame
+          : feature.id === 'games' ? Gamepad2
+            : feature.id === 'chat' ? MessageSquareText
+              : RotateCcw
   return (
-    <Comp aria-label={onClick ? `Open ${feature.title}` : undefined} whileHover={onClick ? { y: -5, scale: 1.01 } : undefined} whileTap={onClick ? { scale: .985 } : undefined} onClick={onClick} className={cn('group relative overflow-hidden rounded-[1.75rem] border border-line bg-white p-4 text-left shadow-[0_16px_35px_rgba(40,24,12,0.07)]', preview && 'mx-auto min-h-[290px] w-full max-w-3xl p-6')}>
-      <div className="absolute -right-16 -top-16 h-48 w-48 rounded-full bg-signal/10 blur-3xl" />
-      <div className="relative flex h-full flex-col">
-        <FeatureMiniScreen id={feature.id} />
-        {onClick && <span className="sr-only">Open {feature.title}</span>}
-      </div>
-      {preview && <motion.span key={feature.id} className="absolute inset-x-0 bottom-0 h-1.5 origin-left bg-signal" initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: 3, ease: 'linear' }} />}
+    <Comp title={feature.title} aria-label={onClick ? `Preview ${feature.title}` : undefined} aria-pressed={active} whileHover={onClick ? { y: -3, scale: 1.05 } : undefined} whileTap={onClick ? { scale: .94 } : undefined} onClick={onClick} className={cn('group relative flex h-14 w-14 items-center justify-center rounded-full border transition sm:h-16 sm:w-16', active ? 'border-signal bg-signal text-white shadow-[0_14px_30px_rgba(255,92,57,.3)]' : 'border-line bg-white text-fog shadow-[0_8px_22px_rgba(40,24,12,.06)] hover:border-signal/40 hover:text-signal', preview && 'mx-auto')}>
+      <Icon className="h-5 w-5 sm:h-6 sm:w-6" />
+      {active && <motion.span layoutId="feature-tab-dot" className="absolute -bottom-2 h-1.5 w-6 rounded-full bg-signal" />}
+      <span className="sr-only">{feature.title}: {feature.blurb}</span>
     </Comp>
   )
 }
 
 export function ProductShowcase() {
-  const [phase, setPhase] = React.useState<'preview' | 'choose'>('preview')
-  const [previewIndex, setPreviewIndex] = React.useState(0)
-  const [selected, setSelected] = React.useState<FeatureId | null>(null)
-
-  React.useEffect(() => {
-    if (phase !== 'preview') return
-    const timer = window.setTimeout(() => {
-      if (previewIndex === FEATURES.length - 1) setPhase('choose')
-      else setPreviewIndex((current) => current + 1)
-    }, 3000)
-    return () => window.clearTimeout(timer)
-  }, [phase, previewIndex])
-
-  const closeDemo = () => setSelected(null)
-  const demo = selected === 'tutoring' ? <TutoringDemo onComplete={closeDemo} />
-    : selected === 'rapid' ? <RapidDemo onComplete={closeDemo} />
-      : selected === 'games' ? <GamesDemo onComplete={closeDemo} />
-        : selected === 'practice' ? <PracticeDemo onComplete={closeDemo} />
+  const [selected, setSelected] = React.useState<FeatureId>('sat')
+  const closeDemo = () => setSelected('sat')
+  const activeFeature = selected
+  const demo = activeFeature === 'tutoring' ? <TutoringDemo onComplete={closeDemo} />
+    : activeFeature === 'rapid' ? <RapidDemo onComplete={closeDemo} />
+      : activeFeature === 'games' ? <GamesDemo onComplete={closeDemo} />
+        : activeFeature === 'chat' ? <CustomizeDemo onComplete={closeDemo} />
+          : activeFeature === 'review' ? <RapidDemo onComplete={closeDemo} />
+            : activeFeature === 'sat' ? <SatPracticeDemo onComplete={closeDemo} />
+              : activeFeature === 'act' ? <ActPracticeDemo onComplete={closeDemo} />
           : null
 
-  if (phase === 'preview') {
-    return <div><AnimatePresence mode="wait"><motion.div key={FEATURES[previewIndex].id} initial={{ opacity: 0, x: 70, scale: .96, filter: 'blur(6px)' }} animate={{ opacity: 1, x: 0, scale: 1, filter: 'blur(0px)' }} exit={{ opacity: 0, x: -70, scale: .97, filter: 'blur(6px)' }} transition={{ duration: .48, ease: [0.22, 1, 0.36, 1] }}><FeatureCard feature={FEATURES[previewIndex]} preview /></motion.div></AnimatePresence><div className="mt-4 flex justify-center gap-2">{FEATURES.map((feature, index) => <span key={feature.id} className={cn('h-1.5 rounded-full transition-all', index === previewIndex ? 'w-8 bg-signal' : 'w-4 bg-black/10')} />)}</div></div>
-  }
+  return <div className="space-y-5">
+    <div className="relative overflow-hidden rounded-[2rem] bg-ink p-2 shadow-[0_24px_70px_rgba(40,24,12,0.12)] sm:p-3">
+      <div className="absolute left-1/2 top-3 z-20 -translate-x-1/2 rounded-full bg-white/90 px-4 py-2 text-xs font-semibold text-paper shadow-lg">
+        <span className="inline-flex items-center gap-2"><Sparkles className="h-4 w-4 text-signal" /> {FEATURES.find((feature) => feature.id === activeFeature)?.title} demo</span>
+      </div>
+      <AnimatePresence mode="wait">
+        <motion.div key={activeFeature} initial={{ opacity: 0, y: 18, filter: 'blur(8px)' }} animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }} exit={{ opacity: 0, y: -18, filter: 'blur(8px)' }} transition={{ duration: .35 }}>
+          {demo}
+        </motion.div>
+      </AnimatePresence>
+    </div>
 
-  return <><div className="grid gap-5 sm:grid-cols-2">{FEATURES.map((feature) => <FeatureCard key={feature.id} feature={feature} onClick={() => setSelected(feature.id)} />)}</div><AnimatePresence>{selected && <motion.div className="fixed inset-0 z-[100] flex items-center justify-center bg-paper/55 p-3 backdrop-blur-md sm:p-6" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onMouseDown={(event) => { if (event.target === event.currentTarget) closeDemo() }}><motion.div role="dialog" aria-modal="true" aria-label={`${FEATURES.find((feature) => feature.id === selected)?.title} demo`} className="relative max-h-[94vh] w-full max-w-6xl overflow-y-auto rounded-[2rem] bg-ink shadow-[0_36px_100px_rgba(20,12,8,.28)]" initial={{ y: 36, scale: .96 }} animate={{ y: 0, scale: 1 }} exit={{ y: 24, scale: .97 }} transition={{ type: 'spring', stiffness: 240, damping: 25 }}><button type="button" onClick={closeDemo} className="sticky right-4 top-4 z-50 float-right mr-4 mt-4 flex h-10 w-10 items-center justify-center rounded-full border border-line bg-white text-paper shadow-lg" aria-label="Close feature demo"><X className="h-5 w-5" /></button><div className="clear-both p-2 sm:p-3">{demo}</div></motion.div></motion.div>}</AnimatePresence></>
+    <div className="flex items-center justify-center">
+      <div className="inline-flex flex-wrap items-center justify-center gap-3 rounded-full border border-line bg-white/90 px-4 py-3 shadow-[0_18px_45px_rgba(40,24,12,0.08)] backdrop-blur sm:gap-4 sm:px-6">
+        {FEATURES.map((feature) => <FeatureCard key={feature.id} feature={feature} active={activeFeature === feature.id} onClick={() => setSelected(feature.id)} />)}
+      </div>
+    </div>
+  </div>
 }

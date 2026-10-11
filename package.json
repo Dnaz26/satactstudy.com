@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "test": "npx --yes tsx --test src/lib/tutor/output.test.ts src/lib/tutor/context.test.ts src/lib/tutor/prompt.test.ts src/lib/tutor/router.test.ts src/lib/desmos/strategies/detect.test.ts src/lib/questions/fingerprint.test.ts src/lib/questions/render.test.ts src/lib/practice/modules.test.ts src/lib/practice/blueprints.test.ts src/lib/practice/assembly.test.ts"
+    "test": "npx --yes tsx --test src/lib/tutor/output.test.ts src/lib/tutor/context.test.ts src/lib/tutor/prompt.test.ts src/lib/tutor/router.test.ts src/lib/desmos/strategies/detect.test.ts src/lib/questions/fingerprint.test.ts src/lib/questions/render.test.ts src/lib/practice/modules.test.ts src/lib/practice/blueprints.test.ts src/lib/practice/assembly.test.ts src/lib/practice/complexity.test.ts src/lib/act-scale.test.ts src/lib/assessment/assessment.test.ts src/lib/assessment/flagship.test.ts src/lib/assessment/classify.test.ts src/lib/assessment/sat-scale.test.ts src/lib/study/lesson-flow.test.ts && node --test scripts/exam-engineering/product-rubric.test.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.9.1",

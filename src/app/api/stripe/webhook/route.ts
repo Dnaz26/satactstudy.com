@@ -2,6 +2,7 @@ import { NextRequest } from 'next/server'
 import type Stripe from 'stripe'
 import { createServiceClient } from '@/lib/supabase/server'
 import { CHECKOUT_PROMO } from '@/lib/plans'
+import { addStudyCredits } from '@/lib/economy/credits'
 import { grantPaidPlan } from '@/lib/stripe-fulfill'
 import { getStripe, isPaidPlanId, planFromPriceId, rhsCouponId, type PaidPlanId } from '@/lib/stripe'
 
@@ -67,6 +68,13 @@ export async function POST(request: NextRequest) {
       case 'checkout.session.completed': {
         const session = event.data.object as Stripe.Checkout.Session
         const userId = session.metadata?.supabase_user_id
+        if (userId && session.metadata?.purpose === 'credits' && checkoutReady(session)) {
+          const credits = Number(session.metadata.credits)
+          if (Number.isFinite(credits) && credits > 0) {
+            await addStudyCredits(supabase, userId, credits, session.id)
+          }
+          break
+        }
         const plan = isPaidPlanId(session.metadata?.plan) ? session.metadata.plan : null
 
         if (!userId || !plan || !checkoutReady(session)) break
@@ -123,6 +131,26 @@ export async function POST(request: NextRequest) {
           updated_at: new Date().toISOString(),
         }, { onConflict: 'stripe_subscription_id' })
 
+        break
+      }
+
+      case 'account.updated': {
+        const account = event.data.object as Stripe.Account
+        await supabase.from('study_payout_accounts').update({
+          payouts_enabled: Boolean(account.payouts_enabled),
+          details_submitted: Boolean(account.details_submitted),
+          updated_at: new Date().toISOString(),
+        }).eq('stripe_account_id', account.id)
+        break
+      }
+
+      case 'transfer.reversed': {
+        const transfer = event.data.object as Stripe.Transfer
+        await supabase.from('study_payouts').update({
+          status: 'failed',
+          failure_reason: 'Transfer reversed',
+          updated_at: new Date().toISOString(),
+        }).eq('stripe_transfer_id', transfer.id)
         break
       }
 

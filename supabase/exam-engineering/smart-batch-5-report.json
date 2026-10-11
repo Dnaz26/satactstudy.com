@@ -1,0 +1,19 @@
+{
+  "batch": "Smart Coverage Batch 5 - SAT Information and Ideas",
+  "generatedAt": "2026-10-01T02:43:45.229Z",
+  "saved": 32,
+  "approvedActiveValidated": 32,
+  "invalidDraftsExcluded": 2,
+  "byTopic": {
+    "Central Ideas and Details": 8,
+    "Inferences": 8,
+    "Command of Evidence — Textual": 8,
+    "Command of Evidence — Quantitative": 8
+  },
+  "answerSpread": {
+    "C": 10,
+    "B": 11,
+    "D": 3,
+    "A": 8
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "batch": "Smart Coverage Batch 3 - SAT Problem-Solving and Data Analysis",
+  "generatedAt": "2026-10-01T02:33:33.406Z",
+  "saved": 32,
+  "approvedActiveValidated": 32,
+  "invalidDraftsExcluded": 2,
+  "byTopic": {
+    "Inference from sample statistics and margin of error": 6,
+    "Two-variable data: models and scatterplots": 6,
+    "Evaluating statistical claims: observational studies and experiments": 5,
+    "Probability and conditional probability": 5,
+    "One-variable data: distributions and measures of center and spread": 5,
+    "Ratios, rates, proportional relationships, and units": 5
+  },
+  "answerSpread": {
+    "B": 8,
+    "C": 9,
+    "A": 8,
+    "D": 7
+  }
+}

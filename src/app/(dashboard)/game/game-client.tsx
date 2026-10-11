@@ -1,49 +1,62 @@
 'use client'
 
 import * as React from 'react'
+import { createPortal } from 'react-dom'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import { QuestionPrompt } from '@/components/practice/question-prompt'
 import { LoadingSpinner } from '@/components/ui/loading-spinner'
 import {
-  CATEGORY_LABEL,
   GAME_MODES,
   RESPAWN_CORRECT_NEEDED,
-  type GameCategory,
-  type GameId,
   type GameMode,
 } from '@/lib/game/modes'
+import { LANGUAGE_KEY, t, isUiLanguage } from '@/lib/i18n'
 import { cleanQuestionText } from '@/lib/questions/clean-text'
-import { officialChoiceLabel } from '@/lib/schema'
+import { displayedChoiceLabel, officialChoiceLabel, type ExamFocus } from '@/lib/schema'
 import { cn } from '@/lib/utils'
 import type { BookletQuestion } from '@/components/practice/test-booklet'
 
-const CATEGORIES: GameCategory[] = ['arcade', 'action']
-
-export function GameClient({ testType }: { testType: 'SAT' | 'ACT' }) {
-  const [modeId, setModeId] = React.useState<GameId | null>(null)
+export function GameClient({ testType, examFocus }: { testType?: 'SAT' | 'ACT'; examFocus?: ExamFocus; premium?: boolean }) {
+  const focus: ExamFocus = examFocus ?? testType ?? 'both'
+  const [style, setStyle] = React.useState<'SAT' | 'ACT'>(focus === 'ACT' ? 'ACT' : 'SAT')
+  const router = useRouter()
+  const searchParams = useSearchParams()
+  const playId = searchParams.get('play')
+  const mode = GAME_MODES.find((game) => game.id === playId) ?? null
+  const [language, setLanguage] = React.useState('en')
   const [iframeKey, setIframeKey] = React.useState(0)
   const [locked, setLocked] = React.useState(false)
   const [quiz, setQuiz] = React.useState<BookletQuestion[]>([])
   const [quizIndex, setQuizIndex] = React.useState(0)
   const [correctNeeded, setCorrectNeeded] = React.useState(RESPAWN_CORRECT_NEEDED)
+  const [requiredTotal, setRequiredTotal] = React.useState(RESPAWN_CORRECT_NEEDED)
   const [choice, setChoice] = React.useState('')
   const [quizMark, setQuizMark] = React.useState<'ok' | 'bad' | null>(null)
   const [quizLoading, setQuizLoading] = React.useState(false)
   const iframeRef = React.useRef<HTMLIFrameElement>(null)
-  const mode = modeId ? GAME_MODES.find((g) => g.id === modeId) ?? null : null
-  const cleared = RESPAWN_CORRECT_NEEDED - correctNeeded
-  const progress = cleared / RESPAWN_CORRECT_NEEDED
+  const modeIdRef = React.useRef(mode?.id ?? null)
+  modeIdRef.current = mode?.id ?? null
+  React.useEffect(() => {
+    try {
+      const saved = window.localStorage.getItem(LANGUAGE_KEY)
+      if (isUiLanguage(saved)) setLanguage(saved)
+    } catch { /* ignore */ }
+  }, [])
+  const cleared = requiredTotal - correctNeeded
+  const progress = cleared / requiredTotal
 
-  const openLockQuiz = React.useCallback(async () => {
+  const openLockQuiz = React.useCallback(async (needed = RESPAWN_CORRECT_NEEDED) => {
     setLocked(true)
-    setCorrectNeeded(RESPAWN_CORRECT_NEEDED)
+    setRequiredTotal(needed)
+    setCorrectNeeded(needed)
     setQuizIndex(0)
     setChoice('')
     setQuizMark(null)
     setQuizLoading(true)
     try {
       const res = await fetch(
-        `/api/practice/questions?testType=${testType}&count=${Math.max(12, RESPAWN_CORRECT_NEEDED * 3)}&difficulty=mixed`,
+        `/api/practice/questions?testType=${style}&count=${Math.max(12, needed * 3)}&difficulty=mixed`,
       )
       const data = (await res.json()) as { questions?: BookletQuestion[] }
       setQuiz(data.questions ?? [])
@@ -52,13 +65,27 @@ export function GameClient({ testType }: { testType: 'SAT' | 'ACT' }) {
     } finally {
       setQuizLoading(false)
     }
-  }, [testType])
+  }, [style])
+
+  const seenStyle = React.useRef(style)
+  React.useEffect(() => {
+    if (seenStyle.current === style) return
+    seenStyle.current = style
+    if (!locked) return
+    void openLockQuiz(requiredTotal)
+  }, [style, locked, openLockQuiz, requiredTotal])
+
+  const openedAt = React.useRef(0)
+  React.useEffect(() => { openedAt.current = Date.now() }, [playId])
 
   React.useEffect(() => {
     function onMessage(event: MessageEvent) {
       const data = event.data as { type?: string } | null
       if (!data || typeof data !== 'object') return
-      if (data.type === 'shrimpy-lose') void openLockQuiz()
+      const frame = iframeRef.current?.contentWindow
+      if (frame && event.source !== frame) return
+      if (data.type === 'shrimpy-level' && modeIdRef.current === 'typing-rush') void openLockQuiz(3)
+      else if (data.type === 'shrimpy-lose' && Date.now() - openedAt.current > 800) void openLockQuiz()
     }
     window.addEventListener('message', onMessage)
     return () => window.removeEventListener('message', onMessage)
@@ -70,6 +97,7 @@ export function GameClient({ testType }: { testType: 'SAT' | 'ACT' }) {
     setChoice('')
     setQuizMark(null)
     setQuizIndex(0)
+    setRequiredTotal(RESPAWN_CORRECT_NEEDED)
     setCorrectNeeded(RESPAWN_CORRECT_NEEDED)
     setIframeKey((k) => k + 1)
     iframeRef.current?.contentWindow?.postMessage({ type: 'shrimpy-unlock' }, '*')
@@ -97,41 +125,32 @@ export function GameClient({ testType }: { testType: 'SAT' | 'ACT' }) {
 
   function leaveGame() {
     if (locked) return
-    setModeId(null)
     setLocked(false)
     setQuiz([])
     setChoice('')
     setQuizMark(null)
     setIframeKey(0)
+    router.push('/game')
+  }
+
+  function openGame(id: string) {
+    setIframeKey((k) => k + 1)
+    setLocked(false)
+    router.push(`/game?play=${id}`)
   }
 
   if (mode) {
-    return (
-      <div className="fixed inset-0 z-[80] flex flex-col bg-[#fffaf7]">
-        <div
-          className="pointer-events-none absolute inset-0"
-          style={{
-            background:
-              'radial-gradient(900px 520px at 50% -8%, #ffffff 0%, transparent 58%), radial-gradient(720px 420px at 8% 40%, rgba(255, 92, 57, 0.10), transparent 55%), radial-gradient(640px 380px at 92% 30%, rgba(255, 212, 200, 0.45), transparent 50%)',
-          }}
-        />
-
-        <div className="relative z-10 flex h-14 shrink-0 items-center justify-between gap-3 border-b border-[rgba(201,68,36,0.12)] bg-white/75 px-5 backdrop-blur-md">
-          <button
-            type="button"
-            onClick={leaveGame}
-            disabled={locked}
-            className="text-sm text-fog transition hover:text-paper disabled:opacity-40"
-          >
-            ← Games
-          </button>
-          <h2 className="font-display text-lg text-paper">{mode.title}</h2>
-          <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-fog">
-            {CATEGORY_LABEL[mode.category]}
-          </span>
-        </div>
-
-        <div className="relative z-10 min-h-0 flex-1">
+    const screen = (
+      <div className="fixed inset-0 z-[100] flex h-[100dvh] w-screen flex-col bg-black">
+        <button
+          type="button"
+          onClick={leaveGame}
+          disabled={locked}
+          className="absolute right-4 top-4 z-20 rounded-full bg-black/70 px-4 py-2 text-sm font-black text-white disabled:opacity-40"
+        >
+          ← Games
+        </button>
+        <div className="min-h-0 flex-1">
           {!locked && (
             <iframe
               key={`${mode.id}-${iframeKey}`}
@@ -169,7 +188,7 @@ export function GameClient({ testType }: { testType: 'SAT' | 'ACT' }) {
                         </p>
                         <h3 className="mt-1 font-display text-3xl text-paper">Answer to keep playing</h3>
                         <p className="mt-1 text-sm text-fog">
-                          Get {RESPAWN_CORRECT_NEEDED} correct. {correctNeeded} remaining.
+                          Get {requiredTotal} correct. {correctNeeded} remaining.
                         </p>
                       </div>
                       <div className="relative mx-auto flex h-20 w-20 shrink-0 items-center justify-center sm:mx-0">
@@ -190,13 +209,13 @@ export function GameClient({ testType }: { testType: 'SAT' | 'ACT' }) {
                         <div className="text-center">
                           <p className="font-display text-xl text-paper">{cleared}</p>
                           <p className="font-mono text-[9px] uppercase tracking-wider text-fog">
-                            / {RESPAWN_CORRECT_NEEDED}
+                            / {requiredTotal}
                           </p>
                         </div>
                       </div>
                     </div>
                     <div className="mt-4 flex gap-1.5">
-                      {Array.from({ length: RESPAWN_CORRECT_NEEDED }).map((_, i) => (
+                      {Array.from({ length: requiredTotal }).map((_, i) => (
                         <span
                           key={i}
                           className={cn(
@@ -217,9 +236,30 @@ export function GameClient({ testType }: { testType: 'SAT' | 'ACT' }) {
 
                     {!quizLoading && quiz[quizIndex] && (
                       <>
-                        <div className="rounded-2xl bg-[#fffaf7] px-5 py-5 sm:px-6 sm:py-6">
+                        {focus === 'both' && (
+                          <div className="mb-3 flex gap-2">
+                            {(['SAT', 'ACT'] as const).map((exam) => (
+                              <button
+                                key={exam}
+                                type="button"
+                                onClick={() => {
+                                  if (exam === style) return
+                                  setStyle(exam)
+                                  setQuiz([])
+                                  setQuizIndex(0)
+                                  setChoice('')
+                                  setQuizMark(null)
+                                }}
+                                className={cn('rounded-full px-3 py-1 text-xs font-extrabold', style === exam ? 'bg-[#1cb0f6] text-white' : 'bg-[#f3f3f3] text-[#555]')}
+                              >
+                                {exam}
+                              </button>
+                            ))}
+                          </div>
+                        )}
+                        <div className={cn('rounded-2xl px-5 py-5 sm:px-6 sm:py-6', style === 'ACT' ? 'border border-[#f0d7b0] bg-[#fff8ee]' : 'border border-[#d5deea] bg-white')}>
                           <p className="mb-3 font-mono text-[10px] uppercase tracking-[0.18em] text-fog">
-                            {testType} · Question {quizIndex + 1}
+                            {style} style · Question {quizIndex + 1}
                           </p>
                           <QuestionPrompt
                             text={cleanQuestionText(quiz[quizIndex].question_text)}
@@ -255,7 +295,7 @@ export function GameClient({ testType }: { testType: 'SAT' | 'ACT' }) {
                                     showBad && 'bg-[#ffe8e0] text-signal',
                                   )}
                                 >
-                                  {item.key}
+                                  {officialChoiceLabel(item.label ?? item.key, style, quizIndex + 1)}
                                 </span>
                                 <QuestionPrompt
                                   as="span"
@@ -281,7 +321,7 @@ export function GameClient({ testType }: { testType: 'SAT' | 'ACT' }) {
                           >
                             {quizMark === 'ok'
                               ? 'Correct — keep going.'
-                              : `Incorrect · ${officialChoiceLabel(quiz[quizIndex].correct_answer, testType, quizIndex + 1)}`}
+                              : `Incorrect · ${officialChoiceLabel(displayedChoiceLabel(quiz[quizIndex].choices, quiz[quizIndex].correct_answer), style, quizIndex + 1)}`}
                           </p>
                         )}
 
@@ -308,69 +348,38 @@ export function GameClient({ testType }: { testType: 'SAT' | 'ACT' }) {
         </div>
       </div>
     )
+    return typeof document === 'undefined' ? screen : createPortal(screen, document.body)
   }
 
   return (
-    <div className="mx-auto flex w-full max-w-5xl flex-col gap-8 pb-12 pt-2">
+    <div className="mx-auto flex w-full max-w-6xl flex-col gap-6 pb-12 pt-2">
       <div>
-        <h1 className="font-display text-4xl text-paper sm:text-5xl">Games</h1>
-        <p className="mt-2 max-w-2xl text-fog">
-          Four neon arenas. Lose a run, clear five {testType} questions, then jump back in.
-        </p>
+        <p className="max-w-2xl text-base font-bold text-[#777]">{t(language, 'gamesBody')}</p>
       </div>
-
-      {CATEGORIES.map((category) => {
-        const games = GAME_MODES.filter((g) => g.category === category)
-        if (!games.length) return null
-        return (
-          <section key={category} className="space-y-3">
-            <h2 className="font-mono text-xs uppercase tracking-[0.2em] text-fog">
-              {CATEGORY_LABEL[category]}
-            </h2>
-            <div className="grid gap-4 sm:grid-cols-2">
-              {games.map((game) => (
-                <GameCard
-                  key={game.id}
-                  game={game}
-                  onPlay={() => {
-                    setModeId(game.id)
-                    setIframeKey((k) => k + 1)
-                    setLocked(false)
-                  }}
-                />
-              ))}
-            </div>
-          </section>
-        )
-      })}
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {GAME_MODES.map((game) => (
+          <GameCard key={game.id} game={game} playLabel={t(language, 'play')} onPlay={() => openGame(game.id)} />
+        ))}
+      </div>
     </div>
   )
 }
 
-function GameCard({ game, onPlay }: { game: GameMode; onPlay: () => void }) {
+function GameCard({ game, playLabel, onPlay }: { game: GameMode; playLabel: string; onPlay: () => void }) {
   return (
     <button
       type="button"
       onClick={onPlay}
-      className="group overflow-hidden rounded-[1.5rem] border border-[rgba(201,68,36,0.12)] bg-white text-left shadow-[0_16px_40px_rgba(40,24,12,0.06)] transition hover:-translate-y-0.5 hover:shadow-[0_22px_50px_rgba(40,24,12,0.1)]"
+      className="group relative overflow-hidden rounded-[1.75rem] text-left shadow-[0_14px_0_#111827] transition hover:-translate-y-1"
     >
-      <div className="relative aspect-[16/10] overflow-hidden bg-[#0b1220]">
+      <div className="relative aspect-[4/5] overflow-hidden bg-[#070b16]">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={game.cover}
-          alt=""
-          className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]"
-        />
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#070b16]/50 to-transparent" />
-      </div>
-      <div className="space-y-2 p-4">
-        <div className="flex items-center justify-between gap-2">
-          <h3 className="font-display text-xl text-paper">{game.title}</h3>
-          <span className="rounded-full bg-[#fff5f0] px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.14em] text-signal">
-            Play
-          </span>
+        <img src={game.cover} alt="" className="h-full w-full object-cover transition duration-500 group-hover:scale-105" />
+        <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black via-black/70 to-transparent p-4 pt-16">
+          <h3 className="font-display text-3xl text-white">{game.title}</h3>
+          <p className="mt-1 text-sm font-semibold text-white/80">{game.blurb}</p>
+          <span className="mt-3 inline-flex rounded-full bg-white px-4 py-1.5 text-xs font-black uppercase tracking-[0.14em] text-black">{playLabel}</span>
         </div>
-        <p className="text-sm leading-relaxed text-fog">{game.blurb}</p>
       </div>
     </button>
   )

@@ -12,6 +12,12 @@ test('assembly refuses wrong test, unreviewed items, missing skills and duplicat
  assert.throws(()=>assembleExam('SAT',slots,bank.map(q=>({...q,templateHash:'same'}))))
  assert.throws(()=>assembleExam('SAT',slots,bank.map(q=>({...q,skill:'unrelated'}))))
 })
+test('digital SAT refuses a second question on a stimulus already used in the form',()=>{
+ const slot={...satModuleSlots('Reading and Writing',1,'common')[0]}
+ const item=(id:string):ReviewedItem=>({...slot,id,examType:'SAT',passageId:'same-text',passageGroup:null,subject:'harbor',
+  templateHash:id,validationStatus:'validated',independentSolution:true,originalAuthorship:true,moduleEligibility:[{module:1,route:'common'}]})
+ assert.throws(()=>assembleExam('SAT',[slot,slot],[item('a'),item('b')]))
+})
 test('fidelity cannot pass unknown categories, low critical categories, or a95 average',()=>{
  const make=(score:number|null)=>Object.fromEntries(FIDELITY_VARIABLES.map(name=>[name,{score,weight:1,applicable:name!=='ACT pacing — ACT',evidence:'test evidence',basis:score===null?'unmeasured':'measured'}])) as Record<string,FidelityMeasure>
  assert.equal(fidelityAudit('SAT',make(null)).similarityScore,null)

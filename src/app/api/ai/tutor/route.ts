@@ -18,11 +18,12 @@ const contextSchema = z.object({
   selectedAnswer: z.string().optional(),
   correctAnswer: z.string().optional(),
   choices: z.array(z.object({ key: z.string(), text: z.string() })).max(6).optional(),
-  officialExplanation: z.string().max(600).optional().nullable(),
+  officialExplanation: z.string().max(4000).optional().nullable(),
   submitted: z.boolean().optional(),
   isCorrect: z.boolean().optional(),
   desmosAvailable: z.boolean().optional(),
   desmosSummary: z.string().optional(),
+  openChat: z.boolean().optional(),
 })
 
 const bodySchema = z.object({

@@ -69,7 +69,7 @@ export const CHAT_CHECKLIST = [
   { id: 'yesExamples', label: 'Correct examples + why they work' },
   { id: 'noExamples', label: 'Incorrect examples / traps + why they fail' },
   { id: 'identifyCorrect', label: '3 fresh correct-or-incorrect multiple-choice checks' },
-  { id: 'miniExam', label: '3-question mini exam, easy to medium to hard, multi-step' },
+  { id: 'miniExam', label: '5-rung mastery ladder with teaching bridges and prerequisite checks' },
   { id: 'create', label: 'Student creates an SAT/ACT question + analysis' },
 ] as const
 
@@ -104,7 +104,7 @@ export function inferChecklistProgress(
   if (/\b(correct|good example|this works|follows the rule|works because)\b/.test(t)) next.yesExamples = true
   if (/\b(incorrect|trap|not |fails|wrong because|common mistake)\b/.test(t)) next.noExamples = true
   if (/\b(correct or incorrect|is this correct|is this right|true or false|identify)\b/.test(t)) next.identifyCorrect = true
-  if (/\b(mini exam|easy medium hard|easy .* medium .* hard|multi step|step 1 .* step 2|advanced)\b/.test(t)) next.miniExam = true
+  if (/\b(mini exam|mastery ladder|prerequisite check|easy .* medium .* hard|multi step|step 1 .* step 2|advanced)\b/.test(t)) next.miniExam = true
   if (/\b(create|write your own|build a question|your analysis|your own sat|your own act)\b/.test(t)) next.create = true
 
   return next

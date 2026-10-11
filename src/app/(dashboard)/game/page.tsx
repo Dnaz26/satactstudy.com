@@ -1,7 +1,9 @@
+import { Suspense } from 'react'
 import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
-import { closerTest } from '@/lib/schema'
+import { examFocus } from '@/lib/schema'
 import { GameClient } from './game-client'
+import { hasActiveTrial, hasPaidAccess } from '@/lib/access'
 
 export default async function GamePage() {
   const supabase = await createClient()
@@ -10,15 +12,10 @@ export default async function GamePage() {
 
   const { data: profile } = await supabase
     .from('profiles')
-    .select('test_preference, target_score, test_date')
+    .select('test_preference, target_score, test_date, subscription_plan, role, trial_ends_at')
     .eq('id', user.id)
     .single()
 
-  const testType = closerTest({
-    preference: profile?.test_preference,
-    targetScore: profile?.target_score,
-    testDate: profile?.test_date,
-  })
-
-  return <GameClient testType={testType} />
+  const premium = hasPaidAccess(profile?.subscription_plan, profile?.role) || hasActiveTrial(profile?.trial_ends_at)
+  return <Suspense fallback={null}><GameClient examFocus={examFocus(profile?.test_preference)} premium={premium} /></Suspense>
 }

@@ -4,7 +4,7 @@ import * as React from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { cn } from '@/lib/utils'
-import { BrandMark, BRAND_NAME } from '@/components/brand'
+import { BrandMark, BRAND_NAME, ScorePaper } from '@/components/brand'
 import {
   LayoutDashboard,
   BookOpen,
@@ -140,9 +140,7 @@ export function SidebarBrandTrigger() {
       aria-label="Open Prep SAT ACT navigation"
       aria-haspopup="true"
     >
-      <span className="relative flex h-9 w-9 items-center justify-center rounded-full bg-signal text-white shadow-[0_10px_22px_rgba(255,92,57,0.28)]">
-        <span className="font-display text-base font-extrabold uppercase tracking-tight">P</span>
-      </span>
+      <ScorePaper />
       <span className="leading-none">
         <span className="block font-display text-[15px] tracking-tight text-paper">{BRAND_NAME}</span>
         <span className="mt-0.5 block font-mono text-[9px] uppercase tracking-[0.18em] text-fog">Study OS</span>

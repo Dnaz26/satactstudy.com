@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-label="Document">
+  <g transform="translate(78 18) scale(7.4)">
+    <path d="M4 0 H28 L44 16 V60 H4 Z" fill="#1a73e8"/>
+    <path d="M28 0 H44 V16 Z" fill="#8ab4f8"/>
+    <rect x="10" y="26" width="16" height="3.2" rx="1.6" fill="#ffffff"/>
+    <rect x="10" y="33.5" width="24" height="3.2" rx="1.6" fill="#ffffff"/>
+    <rect x="10" y="41" width="14" height="3.2" rx="1.6" fill="#ffffff"/>
+    <rect x="10" y="48.5" width="20" height="3.2" rx="1.6" fill="#ffffff"/>
+  </g>
+</svg>

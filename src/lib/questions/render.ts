@@ -132,13 +132,111 @@ export function splitNumericFractions(value: string): MathPart[] {
   return parts.length ? parts : [{ kind: 'text', value }]
 }
 
+function matchingOpen(value: string, closeAt: number): number {
+  let depth = 0
+  for (let i = closeAt; i >= 0; i--) {
+    if (value[i] === ')') depth++
+    else if (value[i] === '(') {
+      depth--
+      if (depth === 0) return i
+    }
+  }
+  return -1
+}
+
+function matchingClose(value: string, openAt: number): number {
+  let depth = 0
+  for (let i = openAt; i < value.length; i++) {
+    if (value[i] === '(') depth++
+    else if (value[i] === ')') {
+      depth--
+      if (depth === 0) return i
+    }
+  }
+  return -1
+}
+
+/** A slash with a parenthesized side is one stacked fraction, not a diagonal slash. */
+function findGroupedDivision(value: string): { start: number; end: number; num: string; den: string } | null {
+  for (let i = 0; i < value.length; i++) {
+    if (value[i] !== '/') continue
+    let leftEnd = i - 1
+    while (leftEnd >= 0 && value[leftEnd] === ' ') leftEnd--
+    let rightStart = i + 1
+    while (rightStart < value.length && value[rightStart] === ' ') rightStart++
+    if (leftEnd < 0 || rightStart >= value.length) continue
+
+    let start = -1
+    let num = ''
+    let leftGrouped = false
+    if (value[leftEnd] === ')') {
+      const open = matchingOpen(value, leftEnd)
+      if (open < 0) continue
+      start = open
+      num = value.slice(open + 1, leftEnd)
+      leftGrouped = true
+    } else if (/\d/.test(value[leftEnd])) {
+      let j = leftEnd
+      while (j >= 0 && /\d/.test(value[j])) j--
+      start = j + 1
+      num = value.slice(start, leftEnd + 1)
+    } else {
+      continue
+    }
+
+    let end = -1
+    let den = ''
+    let rightGrouped = false
+    if (value[rightStart] === '(') {
+      const close = matchingClose(value, rightStart)
+      if (close < 0) continue
+      end = close + 1
+      den = value.slice(rightStart + 1, close)
+      rightGrouped = true
+    } else if (/\d/.test(value[rightStart]) || (value[rightStart] === '-' && /\d/.test(value[rightStart + 1] ?? ''))) {
+      let j = rightStart
+      if (value[j] === '-') j++
+      while (j < value.length && /\d/.test(value[j])) j++
+      end = j
+      den = value.slice(rightStart, end)
+    } else {
+      continue
+    }
+
+    if (!leftGrouped && !rightGrouped) continue
+    return { start, end, num, den }
+  }
+  return null
+}
+
+function withoutEmptyText(parts: MathPart[]): MathPart[] {
+  return parts.filter((part) => part.kind !== 'text' || part.value.length > 0)
+}
+
+/** Stacks numeric slashes and parenthesized divisions such as (3/4−2/5)/(7/10+1/6). */
+export function splitDisplayFractions(value: string): MathPart[] {
+  const found = findGroupedDivision(value)
+  if (!found) return splitNumericFractions(value)
+  let before = value.slice(0, found.start)
+  let after = value.slice(found.end)
+  if (before.endsWith('(') && after.startsWith(')')) {
+    before = before.slice(0, -1)
+    after = after.slice(1)
+  }
+  return withoutEmptyText([
+    ...splitDisplayFractions(before),
+    { kind: 'frac', num: splitDisplayFractions(found.num), den: splitDisplayFractions(found.den) },
+    ...splitDisplayFractions(after),
+  ])
+}
+
 export function parseMath(input: string): MathPart[] {
   const parts: MathPart[] = []
   let i = 0
   let buf = ''
   const flush = () => {
     if (!buf) return
-    parts.push(...splitNumericFractions(replaceSymbols(buf)))
+    parts.push(...splitDisplayFractions(replaceSymbols(buf)))
     buf = ''
   }
 

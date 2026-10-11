@@ -21,6 +21,7 @@ import {
 const bodySchema = z.object({
   plan: z.enum(['lite', 'starter', 'core', 'plus', 'pro', 'elite']).optional(),
   promo: z.string().optional(),
+  billing: z.enum(['month', 'year']).optional(),
   updateCard: z.boolean().optional(),
   embedded: z.boolean().optional(),
 })
@@ -94,13 +95,14 @@ export async function POST(request: NextRequest) {
         return Response.json({ error: 'Choose a plan' }, { status: 400 })
       }
       const oneTime = isOneTimePlan(chosen)
-      const rhs = isCheckoutPromo(parsed.data.promo) && !oneTime
+      const yearly = parsed.data.billing === 'year'
+      const rhs = isCheckoutPromo(parsed.data.promo) && !oneTime && !yearly
       const coupon = rhsCouponId()
       if (!oneTime && !priceIdForPlan(chosen) && chosen !== 'core' && chosen !== 'plus') {
         return Response.json({ error: 'Plan not configured' }, { status: 400 })
       }
       const mode = oneTime ? 'payment' : 'subscription'
-      const line_items = [checkoutLineItem(chosen, rhs && !coupon)]
+      const line_items = [checkoutLineItem(chosen, rhs && !coupon, yearly ? 'year' : 'month')]
       const discounts = checkoutPromoDiscounts(rhs ? CHECKOUT_PROMO.code : undefined)
       const metadata = {
         supabase_user_id: user.id,

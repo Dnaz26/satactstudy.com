@@ -1,0 +1,17 @@
+{
+  "batch": "Smart Coverage Batch 7 - SAT Advanced Math",
+  "generatedAt": "2026-10-01T02:47:44.899Z",
+  "saved": 32,
+  "approvedActiveValidated": 32,
+  "invalidDraftsExcluded": 2,
+  "byTopic": {
+    "Equivalent expressions": 20,
+    "Nonlinear functions": 12
+  },
+  "answerSpread": {
+    "A": 10,
+    "B": 6,
+    "C": 8,
+    "D": 8
+  }
+}

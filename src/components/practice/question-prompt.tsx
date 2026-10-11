@@ -1,6 +1,6 @@
 'use client'
 
-import { applyLatexSymbols, renderPromptSegments, splitNumericFractions, type MathPart } from '@/lib/questions/render'
+import { applyLatexSymbols, renderPromptSegments, splitDisplayFractions, type MathPart } from '@/lib/questions/render'
 
 function MathNodes({ parts }: { parts: MathPart[] }) {
   return (
@@ -15,11 +15,12 @@ function MathNodes({ parts }: { parts: MathPart[] }) {
           )
         }
         return (
-          <span key={index} className="mx-1 inline-flex flex-col items-center align-middle text-[0.85em] leading-none">
-            <span className="border-b border-current px-1 pb-0.5">
+          <span key={index} className="mx-[0.2em] inline-block align-middle text-center leading-none">
+            <span className="block px-[0.35em] pb-[0.18em] leading-tight">
               <MathNodes parts={part.num} />
             </span>
-            <span className="px-1 pt-0.5">
+            <span className="block border-t-2 border-current" aria-hidden />
+            <span className="block px-[0.35em] pt-[0.18em] leading-tight">
               <MathNodes parts={part.den} />
             </span>
           </span>
@@ -48,7 +49,7 @@ export function QuestionPrompt({
           </span>
         ) : (
           <span key={index} className="text-inherit">
-            <MathNodes parts={splitNumericFractions(applyLatexSymbols(segment.value))} />
+            <MathNodes parts={splitDisplayFractions(applyLatexSymbols(segment.value))} />
           </span>
         ),
       )}

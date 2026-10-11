@@ -2,16 +2,19 @@
 
 import * as React from 'react'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { SectionKicker } from '@/components/brand'
 import { redeemPromoCode } from '@/lib/promo'
 import { GoogleButton } from '@/components/auth/google-button'
+import { premiumTrialEndsAt } from '@/lib/access'
 
-export default function SignupPage() {
+function SignupPageContent() {
   const router = useRouter()
+  const searchParams = useSearchParams()
+  const startingTrial = searchParams.get('trial') === '1'
 
   const [name, setName] = React.useState('')
   const [email, setEmail] = React.useState('')
@@ -75,6 +78,7 @@ export default function SignupPage() {
         id: data.user.id,
         email: data.user.email ?? email.trim(),
         full_name: name.trim(),
+        ...(startingTrial ? { subscription_plan: 'free', trial_started_at: new Date().toISOString(), trial_ends_at: premiumTrialEndsAt() } : {}),
       })
 
       if (promoCode.trim()) {
@@ -114,7 +118,7 @@ export default function SignupPage() {
       <h2 className="mt-2 font-display text-2xl text-paper">Create account</h2>
       <p className="mb-8 mt-1 text-sm text-fog">A code skips payment. Otherwise you pay next.</p>
 
-      <GoogleButton next="/onboarding" label="Continue with Google" />
+      <GoogleButton next={startingTrial ? '/onboarding?trial=1' : '/onboarding'} label="Continue with Google" />
       <p className="my-4 text-center font-mono text-[10px] uppercase tracking-[0.16em] text-fog">or email</p>
 
       <form onSubmit={handleSignup} className="space-y-4">
@@ -168,5 +172,13 @@ export default function SignupPage() {
         <Link href="/login" className="text-signal hover:underline">Log in</Link>
       </p>
     </div>
+  )
+}
+
+export default function SignupPage() {
+  return (
+    <React.Suspense fallback={<div className="text-center text-sm text-fog">Loading signup…</div>}>
+      <SignupPageContent />
+    </React.Suspense>
   )
 }

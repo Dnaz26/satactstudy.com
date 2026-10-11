@@ -1,0 +1,16 @@
+{
+  "batch": "smart-fill-to-fifty",
+  "generatedAt": "2026-10-06T02:12:47.976Z",
+  "saved": 33,
+  "approvedActiveValidated": 33,
+  "invalidDraftsExcluded": 2,
+  "byTopic": {
+    "Ratios, rates, proportional relationships, and units": 33
+  },
+  "answerSpread": {
+    "A": 6,
+    "C": 7,
+    "B": 9,
+    "D": 11
+  }
+}

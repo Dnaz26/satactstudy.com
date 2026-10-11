@@ -10,6 +10,14 @@ export function isPaidPlanId(value: string | null | undefined): value is PaidPla
   return PAID_PLAN_IDS.includes((value ?? '').trim().toLowerCase() as PaidPlanId)
 }
 
+export type BillingInterval = 'month' | 'year'
+
+export const ANNUAL_SAVE_PERCENT = 30
+
+export function annualChargeDollars(monthly: number): number {
+  return Math.round(monthly * 12 * (1 - ANNUAL_SAVE_PERCENT / 100) * 100) / 100
+}
+
 export type PlanInfo = {
   name: string
   price: number
@@ -22,25 +30,32 @@ export type PlanInfo = {
   once?: boolean
 }
 
+export const FREE_PLAN = {
+  name: 'Free',
+  price: 0,
+  blurb: 'Start with a weekly lesson, short practice, and no practice exams.',
+  bullets: PLAN_FEATURES.free,
+} as const
+
 export const PLANS: PlanInfo[] = [
   {
     name: 'Core',
     price: PLAN_PRICES.core,
     promoPrice: PLAN_PROMO_PRICES.core,
     id: 'core',
-    line: `${PLAN_LIMITS.core.questions_per_day} questions/day · ${PLAN_LIMITS.core.ai_chats_per_day} AI chats/day`,
-    blurb: 'Daily practice + Nova tutoring for serious prep without overload.',
+    line: '1 lesson a day · 4 Nova chats a day',
+    blurb: '$7.56 billed every month. Pay annually on this card to save 30%.',
     bullets: PLAN_FEATURES.core,
+    hot: true,
   },
   {
     name: 'Plus',
     price: PLAN_PRICES.plus,
     promoPrice: PLAN_PROMO_PRICES.plus,
     id: 'plus',
-    line: `${PLAN_LIMITS.plus.questions_per_day} questions/day · ${PLAN_LIMITS.plus.ai_chats_per_day} AI chats/day`,
-    blurb: 'Higher caps, full analytics, and vocabulary for students chasing big jumps.',
+    line: '3× Core daily usage',
+    blurb: '$20 billed every month, with 3× the daily usage of the $7.56 plan.',
     bullets: PLAN_FEATURES.plus,
-    hot: true,
   },
 ]
 
@@ -102,6 +117,7 @@ export function displayPrice(plan: PlanInfo, promo: boolean): number {
 export function checkoutLineItem(
   plan: PaidPlanId,
   promo = false,
+  interval: BillingInterval = 'month',
 ): Stripe.Checkout.SessionCreateParams.LineItem {
   if (isOneTimePlan(plan)) {
     return {
@@ -118,6 +134,24 @@ export function checkoutLineItem(
   }
 
   const info = planInfo(plan)
+  if (plan === 'core' || plan === 'plus') {
+    const yearly = interval === 'year'
+    const dollars = yearly ? annualChargeDollars(info.price) : promo ? (info.promoPrice ?? info.price) : info.price
+    return {
+      quantity: 1,
+      price_data: {
+        currency: 'usd',
+        unit_amount: Math.round(dollars * 100),
+        recurring: { interval: yearly ? 'year' : 'month' },
+        product_data: {
+          name: info.name,
+          description: yearly
+            ? `${info.line}. $${dollars.toFixed(2)} billed once a year, 30% off monthly.`
+            : info.line,
+        },
+      },
+    }
+  }
   const configured = priceIdForPlan(plan)
   const coupon = rhsCouponId()
   if (configured && !(promo && !coupon)) {

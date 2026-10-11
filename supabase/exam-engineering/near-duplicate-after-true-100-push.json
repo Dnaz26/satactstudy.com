@@ -1,0 +1,17 @@
+{
+  "generatedAt": "2026-10-07T01:03:00.540Z",
+  "activeRowsScanned": 4025,
+  "familiesOverCap": 40,
+  "largestFamily": 11,
+  "redundantCopiesStillDeactivatable": 0,
+  "keptPerTopicFrame": 2,
+  "exactDuplicateRows": 0,
+  "newBatchCreatedAFamilyOverCap": false,
+  "reasonRemainingFamiliesStay": "The 40 families over the 2-copy cap are inside protected strict exams 39 and 40. They are repeated restoration-log and planner-equation frames. This pass did not add copies of those frames and did not delete protected exam items.",
+  "comparedWithCleanup": {
+    "familiesOverCapBeforeCleanup": 978,
+    "largestFamilyBeforeCleanup": 85,
+    "familiesOverCapNow": 40,
+    "largestFamilyNow": 11
+  }
+}

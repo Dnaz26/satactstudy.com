@@ -1,0 +1,55 @@
+{
+  "generatedAt": "2026-10-07T00:50:29.712Z",
+  "skillSetOneStep": {
+    "matched": 0,
+    "deactivated": 0
+  },
+  "tankTemplates": {
+    "matched": 0,
+    "deactivated": 0
+  },
+  "preambleStripped": 106,
+  "preambleSkippedForFingerprintClash": 501,
+  "scienceQuestionsInserted": 40,
+  "scienceExamNumber": 41,
+  "scienceExamAlreadyPresent": false,
+  "strictExams": [
+    {
+      "examNumber": 39,
+      "title": "Strict validated SAT form",
+      "totalQuestions": 98,
+      "questionIds": 98,
+      "reading": 27,
+      "english": 27,
+      "math": 44,
+      "mathModule1": 22,
+      "mathModule2Easy": 22,
+      "mathModule2Hard": 22
+    },
+    {
+      "examNumber": 40,
+      "title": "Strict validated ACT form",
+      "totalQuestions": 131,
+      "questionIds": 131,
+      "reading": 36,
+      "english": 50,
+      "math": 45,
+      "mathModule1": 0,
+      "mathModule2Easy": 0,
+      "mathModule2Hard": 0
+    },
+    {
+      "examNumber": 41,
+      "title": "Strict validated ACT Science form",
+      "totalQuestions": 40,
+      "questionIds": 40,
+      "reading": 0,
+      "english": 0,
+      "math": 0,
+      "mathModule1": 0,
+      "mathModule2Easy": 0,
+      "mathModule2Hard": 0
+    }
+  ],
+  "inactiveQuestionsReferencedByStrictExams": 0
+}

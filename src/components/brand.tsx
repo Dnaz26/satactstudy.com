@@ -4,12 +4,23 @@ import { cn } from '@/lib/utils'
 export const BRAND_NAME = 'Prep SAT ACT'
 export const BRAND_SHORT = 'Prep'
 
-export function BrandMark({ compact = false, href = '/' }: { compact?: boolean; href?: string }) {
+export function ScorePaper({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 48 64" className={cn('h-14 w-11 shrink-0', className)} aria-hidden>
+      <path d="M4 0 H28 L44 16 V60 H4 Z" fill="#1a73e8" />
+      <path d="M28 0 H44 V16 Z" fill="#8ab4f8" />
+      <rect x="10" y="26" width="16" height="3.2" rx="1.6" fill="#ffffff" />
+      <rect x="10" y="33.5" width="24" height="3.2" rx="1.6" fill="#ffffff" />
+      <rect x="10" y="41" width="14" height="3.2" rx="1.6" fill="#ffffff" />
+      <rect x="10" y="48.5" width="20" height="3.2" rx="1.6" fill="#ffffff" />
+    </svg>
+  )
+}
+
+export function BrandMark({ compact = false, href = '/', mark }: { compact?: boolean; href?: string; mark?: React.ReactNode }) {
   return (
     <Link href={href} className="flex items-center gap-2.5 focus-ring">
-      <span className="relative flex h-9 w-9 items-center justify-center rounded-full bg-signal text-white shadow-[0_10px_22px_rgba(255,92,57,0.28)]">
-        <span className="font-display text-base font-extrabold uppercase tracking-tight">P</span>
-      </span>
+      {mark ?? <ScorePaper />}
       {!compact && (
         <span className="leading-none">
           <span className="block font-display text-[15px] tracking-tight text-paper">{BRAND_NAME}</span>

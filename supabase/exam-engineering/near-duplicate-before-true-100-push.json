@@ -1,0 +1,29 @@
+{
+  "generatedAt": "2026-10-07T00:51:06.841Z",
+  "method": "Group active questions by topic and a frame key. The key strips the mismatched opening scene, replaces numbers with #, strips a fixed scenery lexicon, and keeps the first 180 letters. Families larger than 2 copies were redundant. Protected SAT exam 39 and ACT exam 40 ids were never deactivated.",
+  "before": {
+    "activeRowsScanned": 11918,
+    "familiesOverCap": 978,
+    "largestFamily": 85,
+    "redundantCopiesDeactivated": 7818,
+    "keptPerTopicFrame": 2
+  },
+  "followUp": {
+    "skillSetOneStepRowsDeactivated": 88,
+    "twoTankTemplateRowsDeactivated": 53,
+    "exactNormalizedExtrasDeactivated": 9,
+    "note": "The 88 skill-set rows and 53 two-tank rows were the copies still active after the frame cap. The 9 exact extras appeared when stripped scene lines normalized to an existing question. None of those 9 were on exams 39, 40, or 41."
+  },
+  "after": {
+    "activeRowsScanned": 3990,
+    "familiesOverCap": 40,
+    "largestFamily": 11,
+    "redundantCopiesStillDeactivatable": 0,
+    "reasonRemainingFamiliesStay": "The remaining over-cap families are inside the protected strict exams, mostly repeated restoration-log and planner-equation frames from the strict-form build. They were not deleted."
+  },
+  "reduction": {
+    "familiesOverCap": "978 to 40",
+    "largestFamily": "85 to 11",
+    "rowsDeactivated": 7968
+  }
+}

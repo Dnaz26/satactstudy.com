@@ -4,7 +4,7 @@ import { createClient } from '@/lib/supabase/server'
 import { denyIfUnpaid } from '@/lib/entitlements'
 import { callAI } from '@/lib/ai'
 import { getLevel } from '@/lib/study/levels'
-import { buildGuidedLesson, EXPLAIN_PASS_SCORE } from '@/lib/study/lesson-flow'
+import { buildGuidedLesson, explanationPassed } from '@/lib/study/lesson-flow'
 import { gradeExplanationLocally } from '@/lib/study/copilot'
 
 const bodySchema = z.object({
@@ -41,7 +41,7 @@ export async function POST(request: NextRequest) {
         {
           role: 'system',
           content:
-            'Score a student explanation of an SAT/ACT topic. Reply JSON only: {"score":0-100,"feedback":"one short sentence","missed":["what they forgot"],"liveExample":"one concrete example with why"}. Be fair. Easy words. If they capture the core idea in their own words, score 85+. Never paste the official definition word-for-word as feedback.',
+            'Score a student explanation of an SAT/ACT topic. Reply JSON only: {"score":0-100,"feedback":"one short sentence","missed":["what they forgot"],"liveExample":"one concrete example with why"}. Be fair. Easy words. If they capture the core idea in their own words, score above 70. A score above 70 passes. Never paste the official definition word-for-word as feedback.',
         },
         {
           role: 'user',
@@ -64,7 +64,7 @@ export async function POST(request: NextRequest) {
     const score = Math.max(0, Math.min(100, Math.round(Number(ai.score) || local.score)))
     return Response.json({
       score,
-      passed: score >= EXPLAIN_PASS_SCORE,
+      passed: explanationPassed(score),
       feedback: ai.feedback?.trim() || local.feedback,
       missed: Array.isArray(ai.missed) && ai.missed.length ? ai.missed.slice(0, 3) : local.missed,
       liveExample: ai.liveExample?.trim() || local.liveExample,

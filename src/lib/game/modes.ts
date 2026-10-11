@@ -1,10 +1,12 @@
 export type GameCategory = 'arcade' | 'action'
 
 export type GameId =
-  | 'tetris'
+  | 'typing-rush'
   | 'pong'
-  | 'space-invaders'
+  | 'tetris'
   | 'platform-jumper'
+  | 'space-invaders'
+  | 'snake'
 
 export type GameMode = {
   id: GameId
@@ -16,6 +18,14 @@ export type GameMode = {
 }
 
 export const GAME_MODES: GameMode[] = [
+  {
+    id: 'typing-rush',
+    title: 'Typing Rush',
+    blurb: 'Type the passage. After every level, answer 3 questions to continue.',
+    category: 'arcade',
+    src: '/games/typing/index.html',
+    cover: '/game-covers/typing.svg',
+  },
   {
     id: 'pong',
     title: 'Neon Pong',
@@ -33,6 +43,14 @@ export const GAME_MODES: GameMode[] = [
     cover: '/game-covers/tetris.svg',
   },
   {
+    id: 'platform-jumper',
+    title: 'Platform Jumper',
+    blurb: 'Leap endless floating pads in a neon sky lane.',
+    category: 'action',
+    src: '/games/platform-jumper/index.html',
+    cover: '/game-covers/platform-jumper.svg',
+  },
+  {
     id: 'space-invaders',
     title: 'Space Invaders',
     blurb: 'Pilot and blast invaders in a deep-space trench.',
@@ -41,12 +59,12 @@ export const GAME_MODES: GameMode[] = [
     cover: '/game-covers/space-invaders.svg',
   },
   {
-    id: 'platform-jumper',
-    title: 'Platform Jumper',
-    blurb: 'Leap endless floating pads in a neon sky lane.',
-    category: 'action',
-    src: '/games/platform-jumper/index.html',
-    cover: '/game-covers/platform-jumper.svg',
+    id: 'snake',
+    title: 'Snake',
+    blurb: 'Grow through the grid. Eat, turn, and do not bite yourself.',
+    category: 'arcade',
+    src: '/games/snake/index.html',
+    cover: '/game-covers/snake.svg',
   },
 ]
 

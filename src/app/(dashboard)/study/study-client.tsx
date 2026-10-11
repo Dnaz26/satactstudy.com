@@ -4,8 +4,9 @@ import * as React from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { cn } from '@/lib/utils'
-import { BookOpen, Check, Dumbbell, Lock, Star, X } from 'lucide-react'
+import { Dumbbell, Lock, Medal, Star, Trophy, X } from 'lucide-react'
 import { ENGLISH_LEVELS, MATH_LEVELS, getLevel, isLevelOpen, type StudyTrack } from '@/lib/study/levels'
+import type { ExamFocus } from '@/lib/schema'
 import { buildGuidedLesson } from '@/lib/study/lesson-flow'
 
 type Row = { track: string; level_index: number; status: string; completed_at?: string | null }
@@ -15,8 +16,9 @@ type PathNode =
   | { kind: 'chest'; id: string; afterIndex: number }
   | { kind: 'practice'; id: string; category: string }
 
-function buildPath(track: StudyTrack) {
-  const levels = track === 'math' ? MATH_LEVELS : ENGLISH_LEVELS
+function buildPath(track: StudyTrack, exam: 'SAT' | 'ACT' | 'both') {
+  const all = track === 'math' ? MATH_LEVELS : ENGLISH_LEVELS
+  const levels = exam === 'both' ? all : all.filter((level) => exam === 'SAT' ? level.sat : level.act)
   const categories = Array.from(new Set(levels.map((level) => level.category)))
   const nodes: PathNode[] = []
   for (const category of categories) {
@@ -34,9 +36,11 @@ function buildPath(track: StudyTrack) {
 
 const ZIG = [0, 96, 0, -96, 0, 96, 0, -96] as const
 
-export function StudyClient({ initialRows = [] }: { initialRows?: Row[] }) {
+export function StudyClient({ initialRows = [], previewOnly = false, examFocus = 'both' }: { initialRows?: Row[]; previewOnly?: boolean; examFocus?: ExamFocus }) {
   const router = useRouter()
   const [track, setTrack] = React.useState<StudyTrack>('math')
+  const [examChoice, setExamChoice] = React.useState<'SAT' | 'ACT'>('SAT')
+  const exam = examFocus === 'both' ? examChoice : examFocus
   const [rows, setRows] = React.useState<Row[]>(initialRows)
   const [previewIndex, setPreviewIndex] = React.useState<number | null>(null)
 
@@ -47,11 +51,8 @@ export function StudyClient({ initialRows = [] }: { initialRows?: Row[] }) {
   }, [])
 
   React.useEffect(() => {
-    setRows(initialRows)
-  }, [initialRows])
-
-  React.useEffect(() => {
-    void loadProgress()
+    if (previewOnly) return
+    const timer = window.setTimeout(() => { void loadProgress() }, 0)
     const onFocus = () => { void loadProgress() }
     const onVisible = () => {
       if (document.visibilityState === 'visible') void loadProgress()
@@ -59,12 +60,13 @@ export function StudyClient({ initialRows = [] }: { initialRows?: Row[] }) {
     window.addEventListener('focus', onFocus)
     document.addEventListener('visibilitychange', onVisible)
     return () => {
+      window.clearTimeout(timer)
       window.removeEventListener('focus', onFocus)
       document.removeEventListener('visibilitychange', onVisible)
     }
-  }, [loadProgress])
+  }, [loadProgress, previewOnly])
 
-  const { levels, nodes } = React.useMemo(() => buildPath(track), [track])
+  const { levels, nodes } = React.useMemo(() => buildPath(track, exam), [track, exam])
   const byIndex = new Map(rows.filter((row) => row.track === track).map((row) => [row.level_index, row.status]))
   const finished = levels.filter((level) => byIndex.get(level.index) === 'completed').length
   const pct = Math.round((finished / Math.max(1, levels.length)) * 100)
@@ -88,9 +90,31 @@ export function StudyClient({ initialRows = [] }: { initialRows?: Row[] }) {
       />
 
       <div className="sticky top-0 z-20 mx-4 mb-6 rounded-[1.75rem] border border-black/8 bg-white/95 px-4 pb-4 pt-3 shadow-[0_14px_0_rgba(0,0,0,0.06)] backdrop-blur sm:mx-6 sm:px-5">
-        <p className="mb-3 text-center font-mono text-[11px] font-bold uppercase tracking-[0.22em] text-[#9a9a9a]">
-          Tutoring path
+        <p className="mb-3 text-center font-display text-2xl text-[#3c3c3c]">
+          {examFocus === 'both' ? 'Pick a lesson' : `${exam} lessons`}
         </p>
+        {examFocus === 'both' && (
+          <div className="mb-3 flex gap-3">
+            {(['SAT', 'ACT'] as const).map((value) => (
+              <button
+                key={value}
+                type="button"
+                onClick={() => {
+                  setExamChoice(value)
+                  setPreviewIndex(null)
+                }}
+                className={cn(
+                  'flex-1 rounded-[1.35rem] py-3 text-base font-extrabold transition-transform active:translate-y-1',
+                  examChoice === value
+                    ? 'bg-[#1cb0f6] text-white shadow-[0_8px_0_#1899d6]'
+                    : 'bg-[#efefef] text-[#777] shadow-[0_6px_0_#cfcfcf]',
+                )}
+              >
+                {value}
+              </button>
+            ))}
+          </div>
+        )}
         <div className="flex gap-3">
           {(['math', 'english'] as const).map((value) => (
             <button
@@ -107,7 +131,7 @@ export function StudyClient({ initialRows = [] }: { initialRows?: Row[] }) {
                   : 'bg-[#efefef] text-[#777] shadow-[0_8px_0_#cfcfcf]',
               )}
             >
-              {value}
+              {value === 'math' ? 'Math' : 'English'}
             </button>
           ))}
         </div>
@@ -165,7 +189,7 @@ export function StudyClient({ initialRows = [] }: { initialRows?: Row[] }) {
                 <button
                   type="button"
                   disabled={!firstOpen}
-                  onClick={() => firstOpen && router.push(`/study/${track}/${firstOpen.index}`)}
+                  onClick={() => firstOpen && (previewOnly ? setPreviewIndex(firstOpen.index) : router.push(`/study/${track}/${firstOpen.index}`))}
                   className={cn(
                     'flex h-[108px] w-[108px] items-center justify-center rounded-[2rem] border-[7px] border-white transition-transform active:translate-y-1 sm:h-[120px] sm:w-[120px]',
                     'bg-[#ececec] text-[#9a9a9a] shadow-[0_14px_0_#d0d0d0]',
@@ -208,11 +232,11 @@ export function StudyClient({ initialRows = [] }: { initialRows?: Row[] }) {
                 {isCurrent ? (
                   <Star className="h-12 w-12 fill-white text-white sm:h-14 sm:w-14" />
                 ) : done ? (
-                  <Check className="h-12 w-12 sm:h-14 sm:w-14" strokeWidth={3} />
+                  <Trophy className="h-12 w-12 sm:h-14 sm:w-14" strokeWidth={3} />
                 ) : locked ? (
                   <Lock className="h-11 w-11 sm:h-12 sm:w-12" strokeWidth={2.5} />
                 ) : (
-                  <BookOpen className="h-11 w-11 sm:h-12 sm:w-12" strokeWidth={2.5} />
+                  <Medal className="h-11 w-11 sm:h-12 sm:w-12" strokeWidth={2.5} />
                 )}
               </div>
               <p className="mt-3 max-w-[11rem] text-center text-sm font-extrabold leading-tight text-[#3a3a3a]">
@@ -235,6 +259,12 @@ export function StudyClient({ initialRows = [] }: { initialRows?: Row[] }) {
             )
           }
 
+          if (previewOnly) return (
+            <button key={node.levelIndex} type="button" className="block active:translate-y-1" onClick={() => setPreviewIndex(node.levelIndex)} aria-label={`Preview ${node.title}`}>
+              {circle}
+            </button>
+          )
+
           return (
             <Link
               key={node.levelIndex}
@@ -253,7 +283,7 @@ export function StudyClient({ initialRows = [] }: { initialRows?: Row[] }) {
           <div className="w-full max-w-lg rounded-[2rem] border border-black/10 bg-white p-6 shadow-[0_28px_0_rgba(0,0,0,0.14)]">
             <div className="mb-4 flex items-start justify-between gap-3">
               <div>
-                <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-[#9a9a9a]">Locked preview</p>
+                <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-[#9a9a9a]">{previewOnly ? 'Read-only lesson preview' : 'Locked preview'}</p>
                 <h2 className="mt-1 font-display text-3xl text-paper">{preview.title}</h2>
                 <p className="mt-1 text-sm font-bold text-[#ff5c39]">{preview.category}</p>
               </div>
@@ -272,14 +302,23 @@ export function StudyClient({ initialRows = [] }: { initialRows?: Row[] }) {
                 {previewGuided.breakdown}
               </p>
             )}
-            <p className="mt-4 text-sm text-fog">Finish earlier levels to unlock this lesson.</p>
-            <button
-              type="button"
-              onClick={() => setPreviewIndex(null)}
-              className="mt-5 w-full rounded-[1.35rem] bg-[#ff5c39] py-4 text-sm font-extrabold uppercase tracking-wide text-white shadow-[0_8px_0_#c94424] active:translate-y-1"
-            >
-              Got it
-            </button>
+            <p className="mt-4 text-sm text-fog">{previewOnly ? 'Signing up to try more' : 'Finish earlier levels to unlock this lesson.'}</p>
+            {previewOnly ? (
+              <Link
+                href="/signup?trial=1"
+                className="mt-5 flex w-full items-center justify-center rounded-[1.35rem] bg-[#ff5c39] py-4 text-sm font-extrabold uppercase tracking-wide text-white shadow-[0_8px_0_#c94424] active:translate-y-1"
+              >
+                Sign up
+              </Link>
+            ) : (
+              <button
+                type="button"
+                onClick={() => setPreviewIndex(null)}
+                className="mt-5 w-full rounded-[1.35rem] bg-[#ff5c39] py-4 text-sm font-extrabold uppercase tracking-wide text-white shadow-[0_8px_0_#c94424] active:translate-y-1"
+              >
+                Got it
+              </button>
+            )}
           </div>
         </div>
       )}

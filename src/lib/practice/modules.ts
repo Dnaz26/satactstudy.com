@@ -9,6 +9,16 @@ export type PracticeModule = {
   questionIds: string[]
 }
 
+/** Official enhanced-ACT section targets. Science is optional. */
+export const ACT_SECTION_TARGETS = {
+  english: 50,
+  math: 45,
+  reading: 36,
+  science: 40,
+  coreTotal: 131,
+  totalWithScience: 171,
+} as const
+
 /** Digital SAT: two 27-question RW and two 22-question Math modules. */
 export const EXAM_SECTION_TARGETS = {
   reading: 27,
@@ -17,20 +27,22 @@ export const EXAM_SECTION_TARGETS = {
   total: 98,
 } as const
 
-const READING_SECONDS = 35 * 60
-const ENGLISH_SECONDS = 45 * 60
-const MATH_SECONDS = 60 * 60
+const READING_SECONDS = 40 * 60
+const ENGLISH_SECONDS = 35 * 60
+const MATH_SECONDS = 50 * 60
+const SCIENCE_SECONDS = 40 * 60
 
 function byIdOrder(questions: BookletQuestion[], ids: string[]): BookletQuestion[] {
   const map = new Map(questions.map((q) => [q.id, q]))
   return ids.map((id) => map.get(id)).filter((q): q is BookletQuestion => Boolean(q))
 }
 
-function sectionBucket(questions: BookletQuestion[], kind: 'reading' | 'english' | 'math'): BookletQuestion[] {
+function sectionBucket(questions: BookletQuestion[], kind: 'reading' | 'english' | 'math' | 'science'): BookletQuestion[] {
   return questions.filter((q) => {
     const section = (q.section_name || '').toLowerCase()
     const category = (q.category_name || '').toLowerCase()
     if (kind === 'math') return section === 'math'
+    if (kind === 'science') return section === 'science'
     if (kind === 'reading') {
       if (section === 'reading') return true
       if (section === 'reading and writing') {
@@ -49,10 +61,10 @@ function sectionBucket(questions: BookletQuestion[], kind: 'reading' | 'english'
   })
 }
 
-/** Build Exam modules: Reading → English → Math. */
+/** Build Exam modules. ACT fixed forms follow the official English → Math → Reading order. */
 export function buildExamModules(
   questions: BookletQuestion[],
-  examMeta?: { readingIds?: string[]; englishIds?: string[]; mathIds?: string[]; formatVersion?: number },
+  examMeta?: { readingIds?: string[]; englishIds?: string[]; mathIds?: string[]; scienceIds?: string[]; formatVersion?: number },
 ): PracticeModule[] {
   if (questions.length === 0) return []
 
@@ -65,6 +77,9 @@ export function buildExamModules(
   const math = examMeta?.mathIds?.length
     ? byIdOrder(questions, examMeta.mathIds)
     : sectionBucket(questions, 'math')
+  const science = examMeta?.scienceIds?.length
+    ? byIdOrder(questions, examMeta.scienceIds)
+    : sectionBucket(questions, 'science')
 
   if (examMeta?.formatVersion === 2) {
     const rw = [...reading, ...english]
@@ -76,15 +91,6 @@ export function buildExamModules(
     ]
   }
   const modules: PracticeModule[] = []
-  if (reading.length) {
-    modules.push({
-      id: 'exam-reading',
-      label: 'Reading',
-      sectionHint: 'Reading',
-      seconds: READING_SECONDS,
-      questionIds: reading.map((q) => q.id),
-    })
-  }
   if (english.length) {
     modules.push({
       id: 'exam-english',
@@ -101,6 +107,24 @@ export function buildExamModules(
       sectionHint: 'Math',
       seconds: MATH_SECONDS,
       questionIds: math.map((q) => q.id),
+    })
+  }
+  if (reading.length) {
+    modules.push({
+      id: 'exam-reading',
+      label: 'Reading',
+      sectionHint: 'Reading',
+      seconds: READING_SECONDS,
+      questionIds: reading.map((q) => q.id),
+    })
+  }
+  if (science.length) {
+    modules.push({
+      id: 'exam-science',
+      label: 'Science',
+      sectionHint: 'Science',
+      seconds: SCIENCE_SECONDS,
+      questionIds: science.map((q) => q.id),
     })
   }
   return modules

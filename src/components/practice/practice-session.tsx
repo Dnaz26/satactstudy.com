@@ -4,7 +4,6 @@ import * as React from 'react'
 import { useSearchParams, useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import { QuestionTimer } from '@/components/ui/question-timer'
-import { StudyTimer } from '@/components/ui/study-timer'
 import { MIN_TOPIC_QUESTIONS } from '@/lib/constants'
 import { AiTutorPanel } from '@/components/ui/ai-tutor-panel'
 import { LoadingSpinner } from '@/components/ui/loading-spinner'
@@ -15,7 +14,9 @@ import { cn } from '@/lib/utils'
 import { answersMatch } from '@/lib/practice/answers'
 import { useItemEvents } from '@/lib/practice/use-item-events'
 import type { TutorTrigger } from '@/lib/tutor/types'
-import { AlertCircle, ChevronRight } from 'lucide-react'
+import { displayedChoiceLabel, officialChoiceLabel } from '@/lib/schema'
+import { isStudentProduced } from '@/lib/questions/render'
+import { AlertCircle, Bookmark, Calculator, Highlighter, StickyNote, Strikethrough, Underline } from 'lucide-react'
 import {
   AnswerSheet,
   TestBooklet,
@@ -36,6 +37,8 @@ import {
   questionsForModule,
   type PracticeModule,
 } from '@/lib/practice/modules'
+import { QuestionPrompt } from './question-prompt'
+import { MathDiagram } from './math-diagram'
 
 function instantWhy(question: BookletQuestion): string {
   if (question.ai_explanation) {
@@ -52,7 +55,7 @@ function instantWhy(question: BookletQuestion): string {
     }
   }
   if (question.official_explanation) return question.official_explanation.slice(0, 220)
-  return `The correct answer is ${question.correct_answer}.`
+  return `The correct answer is ${displayedChoiceLabel(question.choices, question.correct_answer)}.`
 }
 
 function sectionFromQuestions(questions: BookletQuestion[], fallback: string): string {
@@ -60,6 +63,152 @@ function sectionFromQuestions(questions: BookletQuestion[], fallback: string): s
   if (names.length === 1) return names[0]
   if (names.length > 1) return 'Mixed'
   return fallback || 'Practice'
+}
+
+function DigitalSatQuestion({
+  question,
+  number,
+  answer,
+  sectionExpired,
+  onAnswer,
+  onTextAnswer,
+  onBack,
+  onNext,
+  canBack,
+  canNext,
+  reviewed = false,
+  onReview,
+  compact = false,
+  calculator = null,
+}: {
+  question: BookletQuestion
+  number: number
+  answer: string
+  sectionExpired: boolean
+  onAnswer: (value: string) => void
+  onTextAnswer: (value: string) => void
+  onBack: () => void
+  onNext: () => void
+  canBack: boolean
+  canNext: boolean
+  reviewed?: boolean
+  onReview?: () => void
+  compact?: boolean
+  calculator?: React.ReactNode
+}) {
+  const spr = isStudentProduced(question.question_type, question.choices)
+  const hasPassage = Boolean(question.passage_content?.trim())
+  const choices = question.choices ?? []
+  const [struck, setStruck] = React.useState<Set<string>>(new Set())
+  function toggleStruck(choiceKey: string) {
+    const id = `${question.id}:${choiceKey}`
+    setStruck((previous) => {
+      const next = new Set(previous)
+      if (next.has(id)) next.delete(id)
+      else next.add(id)
+      return next
+    })
+  }
+
+  return (
+    <div className={cn('overflow-hidden rounded-[0.35rem] border border-[#d7d7d7] bg-[#f8f8f8] shadow-sm', compact ? 'min-h-0' : 'min-h-[calc(100vh-10rem)]')}>
+      <div className={cn('grid', calculator ? 'lg:grid-cols-[minmax(0,1fr)_minmax(260px,0.72fr)_minmax(340px,0.86fr)]' : 'lg:grid-cols-[minmax(0,1fr)_minmax(380px,0.95fr)]', compact ? 'min-h-0' : 'min-h-[calc(100vh-10rem)]')}>
+        <section className="border-b border-[#d7d7d7] bg-white p-6 lg:border-b-0 lg:border-r">
+          <div className="mx-auto max-w-2xl">
+            {hasPassage ? (
+              <>
+                {question.passage_title && <p className="mb-4 text-center text-sm font-bold text-[#4b4b4b]">{question.passage_title}</p>}
+                <QuestionPrompt text={question.passage_content ?? ''} className="text-[15px] font-semibold leading-7 text-[#1f2937]" />
+              </>
+            ) : (
+              <div className="space-y-4">
+                <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#777]">Question reference</p>
+                <QuestionPrompt text={question.question_text} className="text-[15px] font-semibold leading-7 text-[#1f2937]" />
+                <MathDiagram text={question.question_text} imageUrl={question.image_url} />
+              </div>
+            )}
+          </div>
+        </section>
+
+        <section className="bg-[#fbfbfb] p-5">
+          <div className="mb-5 flex items-center justify-between border-b border-[#d7d7d7] pb-3">
+            <div className="flex items-center gap-2">
+              <span className="flex h-7 w-7 items-center justify-center bg-black font-mono text-sm font-bold text-white">{number}</span>
+              <label className="flex items-center gap-2 text-xs font-semibold text-[#4b4b4b]">
+                <input type="checkbox" className="h-3.5 w-3.5 accent-black" checked={reviewed} onChange={() => onReview?.()} />
+                {reviewed ? 'Come back' : 'Mark for Review'}
+              </label>
+            </div>
+          </div>
+
+          {hasPassage && <QuestionPrompt text={question.question_text} className="mb-5 text-[15px] font-semibold leading-6 text-[#1f2937]" />}
+          {hasPassage && <MathDiagram text={question.question_text} imageUrl={question.image_url} />}
+
+          {spr ? (
+            <div className="space-y-4">
+              <input
+                value={answer}
+                onChange={(event) => onTextAnswer(event.target.value)}
+                disabled={sectionExpired}
+                inputMode="decimal"
+                placeholder="Enter your answer"
+                className="h-12 w-full rounded-md border border-[#9ca3af] bg-white px-4 text-base font-semibold text-[#111827] outline-none focus:border-black"
+              />
+              <div className="flex justify-between gap-2">
+                <Button variant="secondary" onClick={onBack} disabled={!canBack}>Back</Button>
+                <Button onClick={onNext} disabled={!canNext || !answer.trim()}>Next</Button>
+              </div>
+            </div>
+          ) : (
+            <div className="space-y-3">
+              {choices.map(({ key, text, label: displayLabel }) => {
+                const label = officialChoiceLabel(displayLabel ?? key, question.test_type ?? 'SAT', number)
+                const selected = answer === key
+                const blurred = struck.has(`${question.id}:${key}`)
+                return (
+                  <div key={key} className="flex items-start gap-2">
+                    <button
+                      type="button"
+                      disabled={sectionExpired}
+                      onClick={() => onAnswer(key)}
+                      className={cn(
+                        'flex min-w-0 flex-1 items-start gap-3 rounded-md border bg-white p-3 text-left text-sm font-semibold text-[#1f2937] transition',
+                        selected ? 'border-black ring-2 ring-black/10' : 'border-[#b8bec8] hover:border-[#111827]',
+                        blurred && 'blur-[2px] opacity-40 saturate-50',
+                      )}
+                    >
+                      <span className={cn('flex h-7 w-7 shrink-0 items-center justify-center rounded-full border text-xs font-bold', selected ? 'border-black bg-black text-white' : 'border-[#8c96a3] text-[#4b5563]')}>
+                        {label}
+                      </span>
+                      <span className="leading-5">{text}</span>
+                    </button>
+                    <button
+                      type="button"
+                      aria-label={blurred ? 'Restore choice' : 'Cross out choice'}
+                      aria-pressed={blurred}
+                      onClick={() => toggleStruck(key)}
+                      className={cn('mt-2 flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-[#d7d7d7] bg-white text-[#4b4b4b]', blurred && 'bg-[#111827] text-white')}
+                    >
+                      <Strikethrough className="h-4 w-4" />
+                    </button>
+                  </div>
+                )
+              })}
+              <div className="flex justify-between gap-2 pt-2">
+                <Button variant="secondary" onClick={onBack} disabled={!canBack}>Back</Button>
+                {answer.trim() && canNext ? <Button variant="secondary" onClick={onNext}>Next</Button> : <span />}
+              </div>
+            </div>
+          )}
+        </section>
+        {calculator ? (
+          <section className="min-h-[420px] border-t border-[#d7d7d7] bg-white lg:border-l lg:border-t-0">
+            {calculator}
+          </section>
+        ) : null}
+      </div>
+    </div>
+  )
 }
 
 function SessionContent() {
@@ -102,17 +251,51 @@ function SessionContent() {
   const [sheetTestType, setSheetTestType] = React.useState(testType)
   const [moduleIndex, setModuleIndex] = React.useState(0)
   const [sectionExpired, setSectionExpired] = React.useState(false)
+  const [markup, setMarkup] = React.useState<'highlight' | 'underline' | null>(null)
+  const [notepadOpen, setNotepadOpen] = React.useState(false)
+  const [examCalculatorOpen, setExamCalculatorOpen] = React.useState(false)
+  const [notes, setNotes] = React.useState<Record<string, string>>({})
+  const [reviewIds, setReviewIds] = React.useState<Set<string>>(new Set())
   const [activeScreen, setActiveScreen] = React.useState<'test' | 'desmos'>('test')
   const [examTitle, setExamTitle] = React.useState('')
-  const [examMeta, setExamMeta] = React.useState<{ readingIds: string[]; englishIds: string[]; mathIds: string[]; formatVersion?: number; mathPath?: string | null } | null>(null)
+  const [examMeta, setExamMeta] = React.useState<{ readingIds: string[]; englishIds: string[]; mathIds: string[]; scienceIds?: string[]; formatVersion?: number; mathPath?: string | null; rwPath?: string | null } | null>(null)
   const [submitting, setSubmitting] = React.useState(false)
   const [saveError, setSaveError] = React.useState('')
   const [breakUntil, setBreakUntil] = React.useState<string | null>(null)
   const [breakRemaining, setBreakRemaining] = React.useState(0)
   const breakDeadline = React.useRef(0)
   const digitalSat = examMode && examMeta?.formatVersion === 2
+  const lockedExam = examMode
   const startedAt = React.useRef<Record<string, number>>({})
   const finished = React.useRef(false)
+  React.useEffect(() => {
+    if (!examMode || loading || !questions.length) return
+    const warnOnExit = (event: BeforeUnloadEvent) => {
+      if (finished.current) return
+      event.preventDefault()
+      event.returnValue = ''
+    }
+    const holdExam = () => {
+      if (finished.current) return
+      window.history.pushState({ examLock: true }, '', window.location.href)
+    }
+    const keepScreen = () => {
+      if (finished.current || document.fullscreenElement) return
+      void document.documentElement.requestFullscreen?.().catch(() => undefined)
+    }
+    window.history.pushState({ examLock: true }, '', window.location.href)
+    window.addEventListener('beforeunload', warnOnExit)
+    window.addEventListener('popstate', holdExam)
+    document.addEventListener('fullscreenchange', keepScreen)
+    window.addEventListener('pointerdown', keepScreen)
+    return () => {
+      window.removeEventListener('beforeunload', warnOnExit)
+      window.removeEventListener('popstate', holdExam)
+      document.removeEventListener('fullscreenchange', keepScreen)
+      window.removeEventListener('pointerdown', keepScreen)
+      if (document.fullscreenElement) void document.exitFullscreen?.().catch(() => undefined)
+    }
+  }, [examMode, loading, questions.length])
   const bookletRef = React.useRef<HTMLDivElement>(null)
   const screenTrackRef = React.useRef<HTMLDivElement>(null)
   const highlight = useHighlightNotes(bookletRef)
@@ -195,7 +378,7 @@ function SessionContent() {
             body: JSON.stringify({ examId }),
           })
           const data = await res.json() as {
-            exam?: { id: string; title: string; readingIds: string[]; englishIds: string[]; mathIds: string[]; formatVersion?: number; mathPath?: string | null }
+            exam?: { id: string; title: string; testType?: string; readingIds: string[]; englishIds: string[]; mathIds: string[]; scienceIds?: string[]; formatVersion?: number; mathPath?: string | null; rwPath?: string | null }
             sessionId?: string | null
             questions?: BookletQuestion[]
             progress?: {
@@ -235,10 +418,16 @@ function SessionContent() {
             readingIds: data.exam?.readingIds ?? [],
             englishIds: data.exam?.englishIds ?? [],
             mathIds: data.exam?.mathIds ?? [],
+            scienceIds: data.exam?.scienceIds ?? [],
             formatVersion: data.exam?.formatVersion,
             mathPath: data.exam?.mathPath,
           }
           const built = buildExamModules(loaded, meta)
+          if (meta.formatVersion === 2 && (built.length !== 4 || built.map((module) => module.questionIds.length).join(',') !== '27,27,22,22')) {
+            setError('This SAT form needs 4 modules: two Reading and Writing, then two Math.')
+            setLoading(false)
+            return
+          }
           const progress = data.progress
           const restoredIndex = Math.min(
             Math.max(0, progress?.moduleIndex ?? 0),
@@ -251,7 +440,7 @@ function SessionContent() {
           setExamMeta(meta)
           setQuestions(loaded)
           setSessionId(data.sessionId ?? null)
-          setSheetTestType(data.exam?.formatVersion === 2 ? 'SAT' : 'Exam')
+          setSheetTestType(data.exam?.formatVersion === 2 ? 'SAT' : data.exam?.testType ?? 'ACT')
           setAnswers(progress?.answers ?? {})
           setMarks(progress?.marks ?? {})
           setHintUsed(progress?.hintUsed ?? {})
@@ -399,7 +588,7 @@ function SessionContent() {
   }, [examId, answers, marks, focusedId, moduleIndex, moduleSecondsLeft, elapsed, hintUsed, tutorUsed, desmosUsed, sessionId])
 
   React.useEffect(() => {
-    if (!examMode || !examId || loading) return
+    if (!examMode || !examId || loading || questions.length === 0) return
     let saving = false
     const save = async () => {
       if (saving || finished.current) return
@@ -422,7 +611,7 @@ function SessionContent() {
       window.clearInterval(interval)
       window.removeEventListener('pagehide', onHide)
     }
-  }, [examMode, examId, loading])
+  }, [examMode, examId, loading, questions.length])
 
   React.useEffect(() => {
     if (loading || finished.current || questions.length === 0) return
@@ -588,14 +777,36 @@ function SessionContent() {
       try {
         await itemEvents.close()
         const res = await fetch('/api/practice/exams/module', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ examId, fromModule: moduleIndex, answers }) })
-        const data = await res.json()
+        const data = await res.json() as {
+          error?: string
+          questions?: BookletQuestion[]
+          questionIds?: string[]
+          readingIds?: string[]
+          englishIds?: string[]
+          mathIds?: string[]
+          mathPath?: string | null
+          rwPath?: string | null
+          breakUntil?: string | null
+          serverNow?: string
+        }
         if (!res.ok) throw new Error(data.error ?? 'Could not submit module')
-        const updated = [...questions.slice(0,54), ...data.questions] as BookletQuestion[]
-        const meta = { ...examMeta!, mathIds: data.mathIds as string[], mathPath: data.mathPath as string | null }
+        const byId = new Map(questions.map((question) => [question.id, question]))
+        for (const question of data.questions ?? []) byId.set(question.id, question)
+        const order = data.questionIds ?? questions.map((question) => question.id)
+        const updated = order.map((id) => byId.get(id)).filter((question): question is BookletQuestion => Boolean(question))
+        if (updated.length !== 98) throw new Error('The next module did not load. Reload to resume.')
+        const meta = {
+          ...examMeta!,
+          readingIds: data.readingIds ?? examMeta!.readingIds,
+          englishIds: data.englishIds ?? examMeta!.englishIds,
+          mathIds: data.mathIds ?? examMeta!.mathIds,
+          mathPath: data.mathPath ?? examMeta!.mathPath,
+          rwPath: data.rwPath ?? examMeta!.rwPath,
+        }
         setQuestions(updated)
         setExamMeta(meta)
         next = buildExamModules(updated, meta)[nextIndex]
-        const remaining=data.breakUntil?Math.max(0,Date.parse(data.breakUntil)-Date.parse(data.serverNow)):0
+        const remaining = data.breakUntil ? Math.max(0, Date.parse(data.breakUntil) - Date.parse(data.serverNow ?? new Date().toISOString())) : 0
         breakDeadline.current=performance.now()+remaining
         setBreakRemaining(Math.ceil(remaining/1000))
         setBreakUntil(data.breakUntil ?? null)
@@ -629,30 +840,58 @@ function SessionContent() {
         finished.current = true
         clearPracticeSnapshot(topicId)
         if (taskId) void fetch('/api/schedule/complete', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ taskId }) })
-        router.push(`/practice/results?correct=${score.correctCount}&total=${score.total}&math=${score.mathCorrect ?? ''}&rw=${score.rwCorrect ?? ''}&path=${score.mathPath ?? ''}&sessionId=${sessionId ?? ''}`)
+        router.push(`/practice/results?correct=${score.correctCount}&total=${score.total}&math=${score.mathCorrect ?? ''}&rw=${score.rwCorrect ?? ''}&path=${score.mathPath ?? ''}&m1=${score.mathModule1Correct ?? ''}&m2=${score.mathModule2Correct ?? ''}&sessionId=${sessionId ?? ''}`)
       } catch (err) {
         setSaveError(err instanceof Error ? err.message : 'Could not save score')
         setSubmitting(false)
       }
       return
     }
+    if (examMode && examId) {
+      setSubmitting(true)
+      setSaveError('')
+      try {
+        const res = await fetch('/api/practice/exams/progress', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            examId,
+            answers,
+            timeSpentSeconds: elapsed,
+            sessionId,
+          }),
+        })
+        const score = await res.json() as {
+          error?: string
+          correctCount?: number
+          total?: number
+          englishCorrect?: number
+          mathCorrect?: number
+          readingCorrect?: number
+          scienceCorrect?: number
+        }
+        if (!res.ok) throw new Error(score.error ?? 'Could not save score')
+        finished.current = true
+        clearPracticeSnapshot(topicId)
+        const sectionParams = new URLSearchParams({
+          eng: String(score.englishCorrect ?? ''),
+          math: String(score.mathCorrect ?? ''),
+          read: String(score.readingCorrect ?? ''),
+          sci: String(score.scienceCorrect ?? ''),
+        }).toString()
+        router.push(`/practice/results?correct=${score.correctCount ?? 0}&total=${score.total ?? questions.length}&sessionId=${sessionId ?? ''}${digitalSat ? '' : `&${sectionParams}`}`)
+      } catch (err) {
+        setSaveError(err instanceof Error ? err.message : 'Could not save score')
+        setSubmitting(false)
+      }
+      return
+    }
+
     const correctCount = questions.filter((q) => marks[q.id]?.correct).length
     finished.current = true
     clearPracticeSnapshot(topicId)
 
-    if (examMode && examId) {
-      void fetch('/api/practice/exams/progress', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          examId,
-          correctCount,
-          completedQuestions: Object.keys(marks).length,
-          timeSpentSeconds: elapsed,
-          sessionId,
-        }),
-      }).catch(() => undefined)
-    } else if (sessionId) {
+    if (sessionId) {
       void fetch('/api/practice/complete', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -688,12 +927,19 @@ function SessionContent() {
     setPendingTrigger({ trigger, prompt })
   }
 
+  React.useEffect(() => {
+    if (examCalculatorOpen && !desmos.open) setExamCalculatorOpen(false)
+  }, [examCalculatorOpen, desmos.open])
+
   function onCalculatorToggle() {
-    if (digitalSat && currentModule?.sectionHint !== 'Math') return
     if (focused) setDesmosUsed(prev => ({ ...prev, [focused.id]: true }))
     if (fullTest) {
-      if (activeScreen === 'desmos') goToScreen('test')
-      else goToScreen('desmos')
+      setExamCalculatorOpen((open) => {
+        const next = !open
+        desmos.setOpen(next)
+        if (next) window.setTimeout(() => desmos.resize(), 160)
+        return next
+      })
       return
     }
     desmos.setOpen(!desmos.open)
@@ -709,6 +955,22 @@ function SessionContent() {
       desmos.resize()
     }
   }
+
+  const advanceModuleRef = React.useRef(advanceModule)
+  const finishRef = React.useRef(finish)
+  advanceModuleRef.current = advanceModule
+  finishRef.current = finish
+  const moduleGate = React.useRef(false)
+  React.useEffect(() => {
+    if (!sectionExpired) moduleGate.current = false
+  }, [sectionExpired])
+  React.useEffect(() => {
+    if (!fullTest || !sectionExpired || loading) return
+    if (moduleGate.current) return
+    moduleGate.current = true
+    if (isLastModule) void finishRef.current()
+    else void advanceModuleRef.current()
+  }, [fullTest, sectionExpired, isLastModule, loading])
 
   if (loading) {
     return (
@@ -758,12 +1020,58 @@ function SessionContent() {
   const scoredModule = moduleQuestions.filter((q) => marks[q.id]).length
   const allScored = scored === questions.length
   const answerValue = focused ? answers[focused.id] ?? '' : ''
+  const satNumberOffset = digitalSat ? ([0, 27, 54, 76][moduleIndex] ?? 0) : 0
+  const focusedIndexInModule = focused ? moduleQuestions.findIndex((q) => q.id === focused.id) : -1
   const focusedNumber = focused
-    ? moduleQuestions.findIndex((q) => q.id === focused.id) + 1 + (digitalSat ? [0,27,54,76][moduleIndex] : 0)
+    ? focusedIndexInModule + 1 + satNumberOffset
     : 1
   const timeLimit = timed && !fullTest ? Math.max(60, questions.length * Math.max(30, pace)) : 0
   const sectionLabel = currentModule?.label
     ?? sectionFromQuestions(moduleQuestions, sectionName)
+
+  function moveDigitalSat(delta: number) {
+    if (!focused || focusedIndexInModule < 0) return
+    const next = moduleQuestions[focusedIndexInModule + delta]
+    if (!next) return
+    setFocusedId(next.id)
+    if (!startedAt.current[next.id]) startedAt.current[next.id] = Date.now()
+    if (activeScreen !== 'test') goToScreen('test')
+  }
+
+  function answerDigitalSat(id: string, value: string) {
+    if (sectionExpired) return
+    itemEvents.answer(id, value, answers[id])
+    setAnswers((prev) => ({ ...prev, [id]: value }))
+    setFocusedId(id)
+    const index = moduleQuestions.findIndex((question) => question.id === id)
+    const next = moduleQuestions[index + 1]
+    if (next) {
+      window.setTimeout(() => {
+        setFocusedId(next.id)
+        if (!startedAt.current[next.id]) startedAt.current[next.id] = Date.now()
+      }, 180)
+    }
+  }
+
+  function onQuestionMouseUp() {
+    if (!markup) {
+      highlight.onMouseUp()
+      return
+    }
+    const selection = window.getSelection()
+    if (!selection || selection.isCollapsed || selection.rangeCount === 0) return
+    const range = selection.getRangeAt(0)
+    const node = markup === 'highlight' ? document.createElement('mark') : document.createElement('span')
+    node.className = markup === 'highlight' ? 'rounded-sm bg-[#fff3a0] px-0.5' : 'underline decoration-2 decoration-[#1cb0f6]'
+    try {
+      range.surroundContents(node)
+    } catch {
+      const contents = range.extractContents()
+      node.appendChild(contents)
+      range.insertNode(node)
+    }
+    selection.removeAllRanges()
+  }
 
   const bookletBlock = (
     <div className="relative min-w-0">
@@ -772,10 +1080,11 @@ function SessionContent() {
         sectionLabel={sectionLabel}
         questions={moduleQuestions}
         answers={answers}
-        marks={digitalSat ? {} : marks}
-        allowCheck={!digitalSat}
-        numberOffset={digitalSat ? [0,27,54,76][moduleIndex] : 0}
+        marks={lockedExam ? {} : marks}
+        allowCheck={!lockedExam}
+        numberOffset={satNumberOffset}
         focusedId={focusedId}
+        reviewIds={reviewIds}
         onFocus={focusQuestion}
         onAnswer={(id, value) => {
           if (marks[id] || sectionExpired) return
@@ -801,40 +1110,68 @@ function SessionContent() {
     <AnswerSheet
       questions={moduleQuestions}
       answers={answers}
-      marks={digitalSat ? {} : marks}
-      numberOffset={digitalSat ? [0,27,54,76][moduleIndex] : 0}
+      marks={lockedExam ? {} : marks}
+      numberOffset={satNumberOffset}
       focusedId={focusedId}
       onJump={focusQuestion}
     />
   )
 
+  const digitalSatBlock = focused ? (
+    <div
+      ref={bookletRef}
+      onMouseUp={onQuestionMouseUp}
+      className="relative"
+    >
+      <DigitalSatQuestion
+        question={focused}
+        number={focusedNumber}
+        answer={answers[focused.id] ?? ''}
+        sectionExpired={sectionExpired}
+        onAnswer={(value) => answerDigitalSat(focused.id, value)}
+        onTextAnswer={(value) => {
+          if (sectionExpired) return
+          itemEvents.answer(focused.id, value, answers[focused.id])
+          setAnswers((prev) => ({ ...prev, [focused.id]: value }))
+        }}
+        onBack={() => moveDigitalSat(-1)}
+        onNext={() => moveDigitalSat(1)}
+        canBack={focusedIndexInModule > 0}
+        canNext={focusedIndexInModule >= 0 && focusedIndexInModule < moduleQuestions.length - 1}
+        calculator={examCalculatorOpen ? <div className="h-full min-h-[420px]"><DesmosPanel embedded /></div> : null}
+        reviewed={reviewIds.has(focused.id)}
+        onReview={() => setReviewIds((previous) => {
+          const next = new Set(previous)
+          if (next.has(focused.id)) next.delete(focused.id)
+          else next.add(focused.id)
+          return next
+        })}
+      />
+      <HighlightNoteChrome
+        pending={highlight.pending}
+        draft={highlight.draft}
+        setDraft={highlight.setDraft}
+        onHighlight={highlight.highlightOnly}
+        onSave={highlight.saveNote}
+        onClose={highlight.clearPending}
+        notes={highlight.notes}
+      />
+    </div>
+  ) : null
+
   return (
     <div className={cn(
-      'mx-auto w-full space-y-3 pb-8',
+      'mx-auto w-full space-y-3',
+      fullTest ? 'pb-20' : 'pb-8',
       fullTest ? 'max-w-none' : desmos.open ? 'max-w-7xl' : 'max-w-6xl',
       aiPanelOpen && 'pr-4 md:pr-84',
     )}>
-      <div className="flex flex-wrap items-center justify-between gap-2">
-        <div className="min-w-0">
-          <p className="text-sm text-fog">
-            {examMode ? (examTitle || 'Practice exam') : `${sheetTestType} ${fullTest ? 'practice test' : 'sheet'}`}
-            {fullTest && currentModule ? ` · ${currentModule.label}` : ''}
-            {' · '}
-            {filledModule}/{moduleQuestions.length} filled{!digitalSat && ` · ${scoredModule} scored`}
-            {focused ? ` · Q${focusedNumber}` : ''}
-          </p>
-          {digitalSat && <p className="text-xs text-fog">{Object.values(answers).filter(Boolean).length}/98 answered · Math questions 55–98</p>}
-          {saveError && <p role="alert" className="text-sm text-bad">{saveError}</p>}
-          {fullTest && modules.length > 1 && (
-            <p className="mt-0.5 text-xs text-fog">
-              Module {moduleIndex + 1} of {modules.length}
-              {' · '}
-              Scroll right or ⌘/Ctrl+2 for Desmos · ⌘/Ctrl+1 returns
-            </p>
-          )}
-        </div>
-        <div className="flex flex-wrap items-center gap-2">
-          <StudyTimer running={timerRunning && !sectionExpired} label="Studied" displaySeconds={digitalSat ? elapsed : undefined} />
+      <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-3">
+        <p className="font-display text-xl text-[#3c3c3c]">Test {sheetTestType === 'ACT' ? 'ACT' : 'SAT'}</p>
+        <p className="text-center font-display text-xl text-[#3c3c3c]">
+          {Math.max(1, focusedIndexInModule + 1)} / {moduleQuestions.length}
+        </p>
+        <div className="flex justify-end">
           {fullTest && currentModule ? (
             <QuestionTimer
               key={`module-timer-${currentModule.id}-${moduleIndex}`}
@@ -859,58 +1196,76 @@ function SessionContent() {
           )}
         </div>
       </div>
-
-      {fullTest && sectionExpired && (
-        <div className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-[var(--line)] bg-[#fff4ef] px-4 py-3">
-          <p className="text-sm text-paper">
-            Time is up for {currentModule?.label ?? 'this section'}.
-            {isLastModule ? ' Submit your answers to end the test.' : ' Submit this module to continue.'}
-          </p>
-          {!isLastModule && (
-            <Button onClick={() => void advanceModule()} disabled={submitting}>
-              Next module
-              <ChevronRight className="ml-1 h-4 w-4" />
-            </Button>
-          )}
-        </div>
-      )}
-
-      <PracticeTools
-        assistance={!digitalSat}
-        calculator={!digitalSat || currentModule?.sectionHint === 'Math'}
-        chatOpen={aiPanelOpen}
-        calculatorOpen={fullTest ? activeScreen === 'desmos' : desmos.open}
-        onChat={() => setAiPanelOpen(true)}
-        onCalculator={onCalculatorToggle}
-        onHint={() => askTutor('hint', 'Give me a small hint only. Do not give the answer. If this is math, say what to type in Desmos.')}
-      />
+      {saveError && <p role="alert" className="text-sm text-bad">{saveError}</p>}
 
       {fullTest ? (
+        <div className="fixed inset-x-0 bottom-0 z-30 flex items-center justify-center gap-2 border-t border-[#e5e5e5] bg-white px-3 py-2">
+          {[
+            { id: 'calculator', label: 'Calculator', icon: Calculator, on: examCalculatorOpen, press: onCalculatorToggle },
+            { id: 'notepad', label: 'Notepad', icon: StickyNote, on: notepadOpen, press: () => setNotepadOpen((open) => !open) },
+            { id: 'highlighter', label: 'Highlighter', icon: Highlighter, on: markup === 'highlight', press: () => setMarkup((current) => current === 'highlight' ? null : 'highlight') },
+            { id: 'underline', label: 'Underline', icon: Underline, on: markup === 'underline', press: () => setMarkup((current) => current === 'underline' ? null : 'underline') },
+            { id: 'review', label: 'Review', icon: Bookmark, on: Boolean(focused && reviewIds.has(focused.id)), press: () => {
+              if (!focused) return
+              setReviewIds((previous) => {
+                const next = new Set(previous)
+                if (next.has(focused.id)) next.delete(focused.id)
+                else next.add(focused.id)
+                return next
+              })
+            } },
+          ].map((tool) => {
+            const Icon = tool.icon
+            return (
+              <button
+                key={tool.id}
+                type="button"
+                aria-pressed={tool.on}
+                onClick={tool.press}
+                className={cn('flex min-w-[4.5rem] flex-col items-center gap-1 rounded-2xl px-3 py-2 text-[11px] font-extrabold', tool.on ? 'bg-[#1cb0f6] text-white' : 'bg-[#f7f7f7] text-[#3c3c3c]')}
+              >
+                <Icon className="h-4 w-4" />
+                {tool.label}
+              </button>
+            )
+          })}
+        </div>
+      ) : (
+        <PracticeTools
+          assistance={!digitalSat}
+          calculator={!digitalSat || currentModule?.sectionHint === 'Math'}
+          chatOpen={aiPanelOpen}
+          calculatorOpen={desmos.open}
+          onChat={() => setAiPanelOpen(true)}
+          onCalculator={onCalculatorToggle}
+          onHint={() => askTutor('hint', 'Give me a small hint only. Do not give the answer. If this is math, say what to type in Desmos.')}
+        />
+      )}
+
+      {fullTest && digitalSat ? (
+        <div className="px-0.5">
+          {digitalSatBlock}
+        </div>
+      ) : fullTest ? (
         <div
-          ref={screenTrackRef}
-          onScroll={onScreenScroll}
-          className="flex w-full snap-x snap-mandatory gap-0 overflow-x-auto scroll-smooth [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          ref={bookletRef}
+          onMouseUp={onQuestionMouseUp}
+          className={cn('relative grid gap-3 px-0.5', examCalculatorOpen ? 'grid-cols-[minmax(0,1fr)_minmax(340px,0.7fr)_min(180px,22vw)]' : 'grid-cols-[minmax(0,1fr)_min(220px,34vw)]')}
         >
-          <section className="w-full min-w-full shrink-0 snap-start snap-always px-0.5">
-            <div
-              ref={bookletRef}
-              onMouseUp={highlight.onMouseUp}
-              className="relative grid grid-cols-[minmax(0,1fr)_min(220px,34vw)] gap-3"
-            >
-              {bookletBlock}
-              <div className="sticky top-2 max-h-[calc(100vh-7rem)] self-start overflow-y-auto">
-                {answerSheet}
-              </div>
+          {bookletBlock}
+          {examCalculatorOpen ? (
+            <div className="sticky top-2 h-[min(70vh,640px)] self-start overflow-hidden rounded-2xl border border-[#d7d7d7] bg-white">
+              <DesmosPanel embedded />
             </div>
-          </section>
-          {(!digitalSat || currentModule?.sectionHint === 'Math') && <section className="w-full min-w-full shrink-0 snap-start snap-always px-0.5">
-            <DesmosPanel screen onBack={() => goToScreen('test')} />
-          </section>}
+          ) : null}
+          <div className="sticky top-2 max-h-[calc(100vh-7rem)] self-start overflow-y-auto">
+            {answerSheet}
+          </div>
         </div>
       ) : (
         <div
           ref={bookletRef}
-          onMouseUp={highlight.onMouseUp}
+          onMouseUp={onQuestionMouseUp}
           className={cn(
             'relative grid gap-3',
             desmos.open
@@ -931,23 +1286,39 @@ function SessionContent() {
         </div>
       )}
 
+      {fullTest && notepadOpen && focused ? (
+        <label className="block rounded-2xl border border-[#e5e5e5] bg-[#fffdf8] p-3">
+          <span className="text-xs font-black uppercase tracking-[0.14em] text-[#777]">Notes for question {Math.max(1, focusedIndexInModule + 1)}</span>
+          <textarea
+            value={notes[focused.id] ?? ''}
+            onChange={(event) => setNotes((previous) => ({ ...previous, [focused.id]: event.target.value }))}
+            rows={3}
+            placeholder="Write notes for this question"
+            className="mt-2 w-full resize-none rounded-xl border border-[#e5e5e5] bg-white px-3 py-2 text-sm font-semibold text-[#3c3c3c] outline-none focus:border-[#1cb0f6]"
+          />
+        </label>
+      ) : null}
+
       {!fullTest && desmos.open && answerSheet}
       {!fullTest && !desmos.open && <DesmosPanel embedded={false} />}
 
-      <div className="flex flex-wrap gap-2">
-        {!digitalSat && <Button variant="secondary" onClick={() => void scoreAll()} disabled={filledModule === 0 || scoredModule === filledModule}>
-          Score filled answers
-        </Button>}
-        {fullTest && !isLastModule && (
-          <Button variant="secondary" onClick={() => void advanceModule()} disabled={submitting}>
-            Next module
-            <ChevronRight className="ml-1 h-4 w-4" />
+      {!fullTest && (
+        <div className="flex flex-wrap gap-2">
+          <Button variant="secondary" onClick={() => void scoreAll()} disabled={filledModule === 0 || scoredModule === filledModule}>
+            Score filled answers
           </Button>
-        )}
-        <Button onClick={() => void finish()} disabled={submitting || (digitalSat ? !isLastModule : !allScored && scored === 0 && !sectionExpired)}>
-          {submitting ? 'Saving…' : digitalSat ? 'Submit exam' : allScored || (fullTest && isLastModule) ? 'See results' : `End with ${scored || 0} scored`}
-        </Button>
-      </div>
+          <Button onClick={() => void finish()} disabled={submitting || (!allScored && scored === 0)}>
+            {submitting ? 'Saving…' : allScored ? 'See results' : `End with ${scored || 0} scored`}
+          </Button>
+        </div>
+      )}
+      {fullTest && isLastModule && sectionExpired && (
+        <div className="flex justify-end">
+          <Button onClick={() => void finish()} disabled={submitting}>
+            {submitting ? 'Saving…' : 'Submit exam'}
+          </Button>
+        </div>
+      )}
 
       {focused && (
         <AiTutorPanel

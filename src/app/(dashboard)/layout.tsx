@@ -2,9 +2,10 @@ import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { hasProductAccess } from '@/lib/access'
 import { asPlan } from '@/lib/schema'
-import { NavSidebar, SidebarBrandTrigger } from '@/components/nav-sidebar'
-import { LogOut } from 'lucide-react'
-import { getInitials } from '@/lib/utils'
+import { CreditOfferPopup } from '@/components/credit-offer-popup'
+import { KidShell } from '@/components/kid/kid-shell'
+import { TrialEndedChoice } from '@/components/trial-ended-choice'
+import { CREDIT_OFFER_CENTS, loadStudyEarnings } from '@/lib/economy/earnings'
 
 export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
   const supabase = await createClient()
@@ -14,7 +15,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
 
   const { data: profile } = await supabase
     .from('profiles')
-    .select('full_name, subscription_plan, role, onboarding_completed, trial_ends_at')
+    .select('full_name, subscription_plan, role, onboarding_completed, trial_started_at, trial_ends_at')
     .eq('id', user.id)
     .single()
 
@@ -22,40 +23,20 @@ export default async function DashboardLayout({ children }: { children: React.Re
     redirect('/onboarding')
   }
 
-  if (!hasProductAccess({
-    plan: asPlan(profile?.subscription_plan),
-    role: profile?.role,
-    trialEndsAt: profile?.trial_ends_at,
-  })) {
-    redirect('/pricing')
-  }
+  // Free accounts keep limited product access; individual features enforce
+  // their own server-side limits while active trials receive premium access.
+
+  const firstName = profile.full_name?.split(' ')[0] ?? 'friend'
+  const plan = asPlan(profile.subscription_plan)
+  const expiredTrial = plan === 'free' && Boolean(profile.trial_started_at) && Boolean(profile.trial_ends_at) && Date.parse(profile.trial_ends_at as string) <= Date.now()
+  const freeUser = !hasProductAccess({ plan, role: profile.role, trialEndsAt: profile.trial_ends_at })
+  const earnings = freeUser ? await loadStudyEarnings(supabase, user.id) : null
 
   return (
-    <div className="app-shell flex h-screen overflow-hidden">
-      <NavSidebar isAdmin={profile?.role === 'admin'} />
-
-      <div className="flex min-w-0 flex-1 flex-col overflow-hidden">
-        <header className="app-topbar flex h-14 shrink-0 items-center justify-between gap-2 px-5">
-          <SidebarBrandTrigger />
-          <div className="flex items-center gap-2">
-            <form action="/api/auth/signout" method="POST">
-              <button
-                type="submit"
-                className="flex h-9 w-9 items-center justify-center rounded-full border border-[var(--line)] bg-white text-fog shadow-[0_8px_18px_rgba(40,24,12,0.05)] hover:text-paper"
-                title="Sign out"
-                aria-label="Sign out"
-              >
-                <LogOut className="h-4 w-4" />
-              </button>
-            </form>
-            <div className="flex h-9 w-9 items-center justify-center rounded-full bg-signal font-mono text-[10px] text-white shadow-[0_10px_22px_rgba(255,92,57,0.28)]">
-              {profile?.full_name ? getInitials(profile.full_name) : user.email?.[0]?.toUpperCase() ?? '?'}
-            </div>
-          </div>
-        </header>
-
-        <main className="flex-1 overflow-y-auto px-5 pb-10 pt-2">{children}</main>
-      </div>
-    </div>
+    <KidShell firstName={firstName} isAdmin={profile.role === 'admin'}>
+      {children}
+      {expiredTrial ? <TrialEndedChoice /> : null}
+      {earnings && earnings.availableCents > CREDIT_OFFER_CENTS ? <CreditOfferPopup cents={earnings.availableCents} /> : null}
+    </KidShell>
   )
 }

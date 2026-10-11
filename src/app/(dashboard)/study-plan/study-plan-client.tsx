@@ -4,21 +4,13 @@ import * as React from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
-import { PlanCalendar, type CalendarDayCell } from '@/components/schedule/plan-calendar'
 import { formatTimeOfDay } from '@/lib/utils'
 import { cn } from '@/lib/utils'
 import {
-  addMonths,
-  eachDayOfInterval,
-  endOfMonth,
-  endOfWeek,
   format,
-  isSameDay,
-  isSameMonth,
-  startOfMonth,
-  startOfWeek,
 } from 'date-fns'
 import { motion, AnimatePresence } from 'framer-motion'
+import { CheckCircle2, Clock, Flame, Target } from 'lucide-react'
 
 interface StudyPlan {
   id: string
@@ -59,6 +51,9 @@ interface StudyPlanClientProps {
 function taskHref(task: StudyPlanTask, testType: string): string {
   if (task.task_type === 'vocabulary') return '/vocabulary'
   if (task.task_type === 'mistake_review') return '/mistakes'
+  if (task.task_type === 'lesson') return '/study'
+  if (task.task_type === 'rapid_fire') return '/simulator'
+  if (task.task_type === 'game') return '/game'
   if (task.task_type === 'practice_test' || task.task_type === 'timed_practice') {
     return `/practice`
   }
@@ -67,7 +62,6 @@ function taskHref(task: StudyPlanTask, testType: string): string {
 
 export function StudyPlanClient({ plan, tasks, profile, dayLogs = [] }: StudyPlanClientProps & { dayLogs?: Array<{ date: string; status: string }> }) {
   const router = useRouter()
-  const [month, setMonth] = React.useState(() => new Date())
   const [selected, setSelected] = React.useState(() => new Date().toISOString().split('T')[0])
   const [completingId, setCompletingId] = React.useState<string | null>(null)
   const [generating, setGenerating] = React.useState(false)
@@ -90,35 +84,14 @@ export function StudyPlanClient({ plan, tasks, profile, dayLogs = [] }: StudyPla
   }, [tasks])
 
   const selectedTasks = byDate.get(selected) ?? []
-  const start = startOfWeek(startOfMonth(month), { weekStartsOn: 0 })
-  const end = endOfWeek(endOfMonth(month), { weekStartsOn: 0 })
-  const days = eachDayOfInterval({ start, end })
   const studyWindow = formatTimeOfDay(profile?.study_start_time ?? '19:00')
   const daily = profile?.daily_study_minutes ?? 30
   const doneCount = tasks.filter((t) => t.completed).length
   const progress = tasks.length > 0 ? Math.round((doneCount / tasks.length) * 100) : 0
-
-  const cells: CalendarDayCell[] = days.map((day) => {
-    const key = format(day, 'yyyy-MM-dd')
-    const dayTasks = byDate.get(key) ?? []
-    const allDone = dayTasks.length > 0 && dayTasks.every((t) => t.completed)
-    const logged = logByDate.get(key)
-    const done = logged === 'done' || allDone
-    const missed = logged === 'missed' || (key < today && dayTasks.length > 0 && !allDone)
-    return {
-      date: day,
-      key,
-      inMonth: isSameMonth(day, month),
-      isToday: isSameDay(day, new Date()),
-      isSelected: key === selected,
-      done,
-      missed,
-      hasTasks: dayTasks.length > 0,
-      label: dayTasks[0]?.topic_name ?? '',
-      taskCount: dayTasks.length,
-      weekday: format(day, 'EEE'),
-    }
-  })
+  const activeDays = React.useMemo(() => Array.from(byDate.entries()).sort(([a], [b]) => a.localeCompare(b)).slice(0, 12), [byDate])
+  const todayTasks = byDate.get(today) ?? []
+  const todayDone = todayTasks.filter((task) => task.completed).length
+  const selectedDone = selectedTasks.filter((task) => task.completed).length
 
   async function markComplete(taskId: string) {
     setCompletingId(taskId)
@@ -160,7 +133,7 @@ export function StudyPlanClient({ plan, tasks, profile, dayLogs = [] }: StudyPla
   }, [tasks.length, profile])
 
   return (
-    <div className="mx-auto w-full max-w-4xl space-y-8 pb-16 pt-4">
+    <div className="mx-auto w-full max-w-4xl space-y-5 pb-16 pt-0">
       <header className="flex flex-wrap items-end justify-between gap-4">
         <div>
           <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-fog">Study plan</p>
@@ -184,13 +157,34 @@ export function StudyPlanClient({ plan, tasks, profile, dayLogs = [] }: StudyPla
         </div>
       </header>
 
-      <PlanCalendar
-        cells={cells}
-        monthLabel={format(month, 'MMMM yyyy')}
-        onSelect={setSelected}
-        onPrev={() => setMonth(addMonths(month, -1))}
-        onNext={() => setMonth(addMonths(month, 1))}
-      />
+      <section className="grid gap-3 sm:grid-cols-[1fr_.9fr]">
+        <article className="rounded-[2rem] bg-white/80 p-5 shadow-[0_18px_45px_rgba(40,24,12,0.06)]">
+          <div className="flex items-center justify-between gap-3">
+            <div>
+              <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-fog">Today</p>
+              <h2 className="mt-1 font-display text-3xl text-paper">{todayDone}/{todayTasks.length || 1} cleared</h2>
+            </div>
+            <span className="flex h-12 w-12 items-center justify-center rounded-full bg-signal text-white"><Flame className="h-5 w-5" /></span>
+          </div>
+          <div className="mt-5 grid gap-2">
+            <div className="flex items-center justify-between rounded-full bg-panel-2 px-4 py-3 text-sm text-paper"><span className="inline-flex items-center gap-2"><Clock className="h-4 w-4" />Study window</span><b>{studyWindow}</b></div>
+            <div className="flex items-center justify-between rounded-full bg-panel-2 px-4 py-3 text-sm text-paper"><span className="inline-flex items-center gap-2"><Target className="h-4 w-4" />Daily goal</span><b>{daily} min</b></div>
+            <div className="flex items-center justify-between rounded-full bg-panel-2 px-4 py-3 text-sm text-paper"><span className="inline-flex items-center gap-2"><CheckCircle2 className="h-4 w-4" />Whole plan</span><b>{progress}%</b></div>
+          </div>
+        </article>
+
+        <article className="rounded-[2rem] bg-paper p-5 text-white shadow-[0_18px_45px_rgba(40,24,12,0.12)]">
+          <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-white/55">Next study blocks</p>
+          <div className="mt-4 flex max-h-52 flex-col gap-2 overflow-y-auto pr-1">
+            {activeDays.length ? activeDays.map(([key, dayTasks]) => {
+              const done = dayTasks.every((task) => task.completed) || logByDate.get(key) === 'done'
+              return <button key={key} type="button" onClick={() => setSelected(key)} className={cn('rounded-full px-4 py-3 text-left text-sm transition', selected === key ? 'bg-white text-paper' : 'bg-white/10 text-white hover:bg-white/15')}>
+                <span className="flex items-center justify-between gap-3"><span>{key === today ? 'Today' : format(new Date(`${key}T12:00:00`), 'EEE')}</span><b>{dayTasks.length} task{dayTasks.length === 1 ? '' : 's'} {done ? 'done' : ''}</b></span>
+              </button>
+            }) : <p className="text-sm text-white/65">No scheduled tasks yet.</p>}
+          </div>
+        </article>
+      </section>
 
       <section>
         <AnimatePresence mode="wait">
@@ -203,8 +197,8 @@ export function StudyPlanClient({ plan, tasks, profile, dayLogs = [] }: StudyPla
           >
             <h2 className="mb-3 font-display text-2xl text-paper">
               {selected === today
-                ? `Today · ${format(new Date(`${selected}T12:00:00`), 'EEEE, MMM d')}`
-                : format(new Date(`${selected}T12:00:00`), 'EEEE, MMM d')}
+                ? `Today · ${selectedDone}/${selectedTasks.length || 1} complete`
+                : `${format(new Date(`${selected}T12:00:00`), 'EEEE')} · ${selectedDone}/${selectedTasks.length || 1} complete`}
             </h2>
             {selectedTasks.length === 0 ? (
               <p className="border-y border-line py-6 text-sm text-fog">

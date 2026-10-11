@@ -1,0 +1,19 @@
+{
+  "batch": "Smart Coverage Batch 9 - SAT Algebra and Data",
+  "generatedAt": "2026-10-01T02:53:51.612Z",
+  "saved": 32,
+  "approvedActiveValidated": 32,
+  "invalidDraftsExcluded": 2,
+  "byTopic": {
+    "One-variable data: distributions and measures of center and spread": 8,
+    "Ratios, rates, proportional relationships, and units": 8,
+    "Linear equations in two variables": 8,
+    "Linear inequalities in one or two variables": 8
+  },
+  "answerSpread": {
+    "A": 10,
+    "B": 10,
+    "C": 6,
+    "D": 6
+  }
+}

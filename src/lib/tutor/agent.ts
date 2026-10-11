@@ -80,6 +80,7 @@ async function tutorMessages(
       content: buildTutorSystemPrompt({
         preferences: ctx.preferences,
         trigger: ctx.trigger,
+        openChat: Boolean(scoped.openChat),
         desmosAvailable: Boolean(scoped.desmosAvailable),
         submitted: Boolean(scoped.submitted),
         isCorrect: scoped.isCorrect,

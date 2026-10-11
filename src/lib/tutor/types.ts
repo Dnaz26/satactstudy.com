@@ -165,6 +165,7 @@ export interface TutorRequestContext {
   isCorrect?: boolean
   desmosAvailable?: boolean
   desmosSummary?: string
+  openChat?: boolean
   imageDataUrl?: string
   trigger?: TutorTrigger
 }

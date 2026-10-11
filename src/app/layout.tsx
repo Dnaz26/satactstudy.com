@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Outfit, Nunito, IBM_Plex_Mono } from 'next/font/google'
 import { CANONICAL_SITE_URL } from '@/lib/utils'
+import { TrialOfferPopup } from '@/components/trial-offer-popup'
 import './globals.css'
 
 const outfit = Outfit({
@@ -24,9 +25,16 @@ export const metadata: Metadata = {
   metadataBase: new URL(CANONICAL_SITE_URL),
   title: 'Prep SAT ACT — Study the way you actually learn',
   description:
-    'Personalized SAT and ACT practice with Nova. Custom examples, a live score range, a nightly plan, Desmos shortcuts, Rapid Fire, and tutoring — from $10/month.',
+    'Personalized SAT and ACT practice with Nova. Custom examples, a live score range, a nightly plan, Desmos shortcuts, Rapid Fire, and tutoring — from $7.56/month.',
   alternates: {
     canonical: '/',
+  },
+  icons: {
+    icon: [
+      { url: '/nova-favicon.png', type: 'image/png', sizes: '512x512' },
+      { url: '/nova-favicon.svg', type: 'image/svg+xml' },
+    ],
+    apple: [{ url: '/nova-favicon.png', sizes: '512x512' }],
   },
 }
 
@@ -36,7 +44,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       lang="en"
       className={`${outfit.variable} ${nunito.variable} ${plex.variable} h-full antialiased`}
     >
-      <body className="min-h-full bg-ink text-paper">{children}</body>
+      <body className="min-h-full bg-ink text-paper">
+        {children}
+        <TrialOfferPopup />
+      </body>
     </html>
   )
 }

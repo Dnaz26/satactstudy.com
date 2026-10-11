@@ -1,98 +1,96 @@
 'use client'
 
 import * as React from 'react'
-import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { Button } from '@/components/ui/button'
-import { LoadingSpinner } from '@/components/ui/loading-spinner'
+import type { ExamFocus } from '@/lib/schema'
 
-type ExamCard = {
+export type PracticeExamCard = {
   id: string
   examNumber: number
   title: string
+  totalQuestions: number
   status: string
   unlocked: boolean
+  kind: 'SAT' | 'ACT' | 'ACT Science'
 }
 
-/**
- * Practice always auto-opens the current exam from the server page.
- * This client only handles the all-complete fallback (or a rare race while redirecting).
- */
-export function PracticeExamsClient({ allComplete = false }: { allComplete?: boolean }) {
+const KINDS = [
+  { id: 'SAT' as const, label: 'SAT', hint: 'Reading, Writing, and Math', color: '#1cb0f6' },
+  { id: 'ACT' as const, label: 'ACT', hint: 'English, Math, and Reading', color: '#ff9600' },
+  { id: 'ACT Science' as const, label: 'ACT Science', hint: 'Optional science section', color: '#58cc02' },
+]
+
+export function PracticeExamsClient({ exams, examFocus = 'both', onPreviewExam }: { exams: PracticeExamCard[]; examFocus?: ExamFocus; onPreviewExam?: (exam: PracticeExamCard) => void }) {
   const router = useRouter()
-  const [loading, setLoading] = React.useState(!allComplete)
-  const [error, setError] = React.useState('')
+  const [kind, setKind] = React.useState<PracticeExamCard['kind'] | null>(null)
+  const [starting, setStarting] = React.useState(false)
 
-  React.useEffect(() => {
-    if (allComplete) return
-    let cancelled = false
-    async function load() {
-      try {
-        const res = await fetch('/api/practice/exams')
-        const data = await res.json() as { exams?: ExamCard[]; error?: string; paywall?: boolean }
-        if (cancelled) return
-        if (data.paywall) {
-          router.replace('/pricing')
-          return
-        }
-        if (!res.ok) {
-          setError(data.error ?? 'Could not load exams')
-          setLoading(false)
-          return
-        }
-        const list = data.exams ?? []
-        const inProgress = list.find((exam) => exam.status === 'in_progress' && exam.unlocked)
-        const next = list.find((exam) => exam.unlocked && exam.status !== 'completed')
-        const target = inProgress ?? next
-        if (target) {
-          router.replace(`/practice/session?examId=${target.id}&mode=exam&timed=1`)
-          return
-        }
-        setLoading(false)
-      } catch {
-        if (!cancelled) {
-          setError('Could not load exams')
-          setLoading(false)
-        }
-      }
-    }
-    void load()
-    return () => {
-      cancelled = true
-    }
-  }, [allComplete, router])
+  const forKind = exams.filter((exam) => exam.kind === kind)
+  const current = forKind.find((exam) => exam.unlocked && exam.status === 'in_progress')
+    ?? forKind.find((exam) => exam.unlocked && exam.status !== 'completed')
+  const finished = forKind.length > 0 && forKind.every((exam) => exam.status === 'completed')
 
-  if (loading) {
-    return (
-      <div className="flex min-h-[360px] items-center justify-center">
-        <LoadingSpinner size="lg" text="Opening your practice exam..." />
-      </div>
-    )
+  function openKind(nextKind: PracticeExamCard['kind']) {
+    const list = exams.filter((exam) => exam.kind === nextKind)
+    const target = list.find((exam) => exam.unlocked && exam.status === 'in_progress')
+      ?? list.find((exam) => exam.unlocked && exam.status !== 'completed')
+    setKind(nextKind)
+    if (!target) return
+    if (onPreviewExam) {
+      onPreviewExam(target)
+      return
+    }
+    setStarting(true)
+    router.push(`/practice/session?examId=${target.id}&mode=exam&timed=1`)
   }
 
-  if (error) {
-    return (
-      <div className="mx-auto max-w-lg py-16 text-center">
-        <p className="mb-4 text-paper">{error}</p>
-        <Button onClick={() => window.location.reload()}>Try again</Button>
-      </div>
-    )
-  }
+  const kinds = KINDS.filter((option) => examFocus === 'SAT' ? option.id === 'SAT' : examFocus === 'ACT' ? option.id !== 'SAT' : true)
 
   return (
-    <div className="mx-auto w-full max-w-lg space-y-4 py-16 text-center">
-      <h1 className="font-display text-3xl text-paper">All practice exams done</h1>
-      <p className="text-sm text-fog">
-        You’ve finished every exam pack. Keep sharpening skills in Tutoring, or jump into Rapid fire.
+    <div className="mx-auto w-full max-w-lg space-y-5 py-4">
+      <p className="text-sm font-bold text-[#777]">
+        {kinds.length === 1 ? `${kinds[0].label} forms only.` : 'Pick SAT, ACT, or the optional ACT Science section.'}
       </p>
-      <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
-        <Button asChild>
-          <Link href="/study">Open Tutoring</Link>
-        </Button>
-        <Button variant="ghost" asChild>
-          <Link href="/simulator">Rapid fire</Link>
-        </Button>
+
+      <div className="grid gap-3">
+        {kinds.map((option) => {
+          const count = exams.filter((exam) => exam.kind === option.id).length
+          const selected = kind === option.id
+          return (
+            <button
+              key={option.id}
+              type="button"
+              disabled={starting}
+              onClick={() => openKind(option.id)}
+              className="rounded-2xl border-2 px-4 py-4 text-left shadow-[0_4px_0_#e5e5e5] transition active:translate-y-1 active:shadow-none disabled:opacity-70"
+              style={{
+                borderColor: selected ? option.color : '#e5e5e5',
+                background: selected ? option.color : '#fff',
+                color: selected ? '#fff' : '#3c3c3c',
+              }}
+            >
+              <span className="block font-display text-2xl">{option.label}</span>
+              <span className="mt-1 block text-sm font-bold" style={{ color: selected ? '#fff' : '#777' }}>
+                {option.hint}{count ? ` · ${count} form${count === 1 ? '' : 's'}` : ''}
+              </span>
+            </button>
+          )
+        })}
       </div>
+
+      {kind && (
+        <div className="rounded-2xl border-2 border-[#e5e5e5] bg-[#fffdf8] p-4">
+          {!forKind.length && (
+            <p className="text-sm font-bold text-[#3c3c3c]">No {kind} form is ready yet.</p>
+          )}
+          {finished && (
+            <p className="text-sm font-bold text-[#3c3c3c]">You finished every {kind} form. Pick another test, or keep practicing in Tutoring.</p>
+          )}
+          {current && (
+            <p className="text-sm font-bold text-[#3c3c3c]">Opening {current.title}…</p>
+          )}
+        </div>
+      )}
     </div>
   )
 }

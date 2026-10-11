@@ -1,0 +1,16 @@
+{
+  "batch": "smart-fill-to-fifty",
+  "generatedAt": "2026-10-06T02:12:52.459Z",
+  "saved": 35,
+  "approvedActiveValidated": 35,
+  "invalidDraftsExcluded": 2,
+  "byTopic": {
+    "Right triangles and trigonometry": 35
+  },
+  "answerSpread": {
+    "B": 5,
+    "A": 14,
+    "D": 7,
+    "C": 9
+  }
+}

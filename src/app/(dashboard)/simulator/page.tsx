@@ -1,6 +1,6 @@
 import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
-import { closerTest } from '@/lib/schema'
+import { examFocus } from '@/lib/schema'
 import { SimulatorClient } from './simulator-client'
 
 export default async function SimulatorPage() {
@@ -14,11 +14,5 @@ export default async function SimulatorPage() {
     .eq('id', user.id)
     .single()
 
-  const testType = closerTest({
-    preference: profile?.test_preference,
-    targetScore: profile?.target_score,
-    testDate: profile?.test_date,
-  })
-
-  return <SimulatorClient testType={testType} />
+  return <SimulatorClient examFocus={examFocus(profile?.test_preference)} />
 }

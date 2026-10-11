@@ -115,7 +115,7 @@ export async function POST(request: NextRequest) {
     .single()
 
   if (!insertError && inserted?.id && saveWorthy) {
-    const { data: topics } = await supabase.from('topics').select('id, name').limit(400)
+    const { data: topics } = await supabase.from('topics').select('id, name, category_id').limit(400)
     const topicId = matchTopicId(level, topics ?? [])
     const { data: promoted, error: promoteError } = await supabase
       .from('questions')

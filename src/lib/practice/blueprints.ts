@@ -21,7 +21,7 @@ export const OFFICIAL_SPECIFICATIONS = {
       'https://www.act.org/content/dam/act/unsecured/documents/R2519-Design-Framework-for-the-ACT-Enhancements-2026-02.pdf'],
     sections: [{ name: 'English', count: 50, scored: 40, seconds: 2100 },
       { name: 'Math', count: 45, scored: 41, seconds: 3000 },
-      { name: 'Reading', count: 36, scored: 27, seconds: 2400 }],
+      { name: 'Reading', count: 36, scored: 27, seconds: 2100 }],
     science: { name: 'Science', count: 40, scored: 34, seconds: 2400 } },
 } as const
 
@@ -133,8 +133,8 @@ export function actBlueprint(includeScience=false,readingVariant:'paired'|'visua
     'Integration of Knowledge and Ideas':['Claims and Evidence','Cross-Text Relationships']}
   for(let i=0;i<36;i++)slots.push({...base('Reading',1,'common'),scored:i<27,domain:readingDomains[(i*10)%27],
     skill:readingSkills[readingDomains[(i*10)%27]][i%readingSkills[readingDomains[(i*10)%27]].length],
-    passageGroup:`act-reading-${1+Math.floor(i/9)}`,passageWords:i<18?750:650,
-    stimulus:i>=18&&i<27&&readingVariant==='paired'?'paired':'long',graphic:i>=18&&i<27&&readingVariant==='visual',difficultyLevel:[2,4,6][i%3],estimatedSeconds:67})
+    passageGroup:`act-reading-${1+Math.floor(i/12)}`,passageWords:i<24?750:650,
+    stimulus:i>=12&&i<24&&readingVariant==='paired'?'paired':'long',graphic:i>=12&&i<24&&readingVariant==='visual',difficultyLevel:[2,4,6][i%3],estimatedSeconds:58})
   if(includeScience){
     const domains=[...Array(15).fill('Interpretation of Data'),...Array(8).fill('Scientific Investigation'),...Array(11).fill('Evaluating Scientific Arguments and Models with Evidence')]
     let i=0

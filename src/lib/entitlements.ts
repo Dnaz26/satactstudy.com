@@ -1,4 +1,6 @@
+import { createAdminClient } from './supabase/admin'
 import { createClient } from './supabase/server'
+import { spendStudyCredit } from './economy/credits'
 import { PLAN_LIMITS, PLAN_LIMITS_PROMO } from './constants'
 import { ONBOARDING_TRIAL, hasActiveTrial, hasPaidAccess, hasProductAccess, PAYWALL_MESSAGE } from './access'
 import { isRhsBillingPromo } from './plans'
@@ -26,6 +28,7 @@ export type AccessProfile = {
   trialQuestionsUsed: number
   trialAiChatsUsed: number
   diagnosticCompleted: boolean
+  studyCredits: number
 }
 
 function limitsForPlan(plan: UserPlan, billingPromo: string | null | undefined): DailyLimits {
@@ -40,7 +43,7 @@ export async function getAccessProfile(userId: string): Promise<AccessProfile> {
   const { data } = await supabase
     .from('profiles')
     .select(
-      'subscription_plan, role, billing_promo, onboarding_completed, trial_ends_at, trial_started_at, trial_questions_used, trial_ai_chats_used, diagnostic_completed',
+      'subscription_plan, role, billing_promo, onboarding_completed, trial_ends_at, trial_started_at, trial_questions_used, trial_ai_chats_used, diagnostic_completed, study_credits',
     )
     .eq('id', userId)
     .single()
@@ -63,6 +66,7 @@ export async function getAccessProfile(userId: string): Promise<AccessProfile> {
     trialQuestionsUsed: data?.trial_questions_used ?? 0,
     trialAiChatsUsed: data?.trial_ai_chats_used ?? 0,
     diagnosticCompleted: Boolean(data?.diagnostic_completed),
+    studyCredits: data?.study_credits ?? 0,
   }
 }
 
@@ -111,7 +115,14 @@ export async function canAnswerQuestion(userId: string): Promise<EntitlementResu
     return { allowed: true, used: usage.questions_answered, limit: 999999 }
   }
 
-  return { allowed: false, used: usage.questions_answered, limit: 0, paywall: true }
+  const limits = PLAN_LIMITS.free
+  const withinDaily = usage.questions_answered < limits.questions_per_day
+  const withCredits = !withinDaily && access.studyCredits > 0
+  return {
+    allowed: withinDaily || withCredits,
+    used: usage.questions_answered,
+    limit: limits.questions_per_day + access.studyCredits,
+  }
 }
 
 export async function canAskAI(userId: string): Promise<EntitlementResult> {
@@ -131,7 +142,8 @@ export async function canAskAI(userId: string): Promise<EntitlementResult> {
   }
 
   if (!hasProductAccess({ plan: access.plan, role: access.role, trialEndsAt: access.trialEndsAt })) {
-    return { allowed: false, used: usage.ai_chats_used, limit: 0, paywall: true }
+    const limits = PLAN_LIMITS.free
+    return { allowed: usage.ai_chats_used < limits.ai_chats_per_day, used: usage.ai_chats_used, limit: limits.ai_chats_per_day }
   }
 
   if (hasActiveTrial(access.trialEndsAt) && !hasPaidAccess(access.plan, access.role)) {
@@ -172,6 +184,12 @@ export async function recordQuestionAnswered(userId: string): Promise<void> {
     .eq('user_id', userId)
     .eq('usage_date', today)
     .single()
+
+  const starting = existing?.questions_answered ?? 0
+  const freeCap = !hasProductAccess({ plan: access.plan, role: access.role, trialEndsAt: access.trialEndsAt })
+  if (freeCap && starting >= PLAN_LIMITS.free.questions_per_day) {
+    await spendStudyCredit(createAdminClient(), userId)
+  }
 
   if (existing) {
     await supabase

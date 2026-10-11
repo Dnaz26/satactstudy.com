@@ -31,3 +31,7 @@ export const ONBOARDING_TRIAL = {
 export function rhsTrialEndsAt(from = new Date()): string {
   return new Date(from.getTime() + 14 * 24 * 60 * 60 * 1000).toISOString()
 }
+
+export function premiumTrialEndsAt(from = new Date()): string {
+  return new Date(from.getTime() + 7 * 24 * 60 * 60 * 1000).toISOString()
+}

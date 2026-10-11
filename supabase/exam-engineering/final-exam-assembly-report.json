@@ -1,0 +1,41 @@
+{
+  "generatedAt": "2026-10-07T00:51:06.841Z",
+  "strictSat": {
+    "examNumber": 39,
+    "title": "Strict validated SAT form",
+    "fill": "98/98",
+    "reading": 27,
+    "english": 27,
+    "math": 44,
+    "mathModule1": 22,
+    "mathModule2Easy": 22,
+    "mathModule2Hard": 22,
+    "inactiveReferencedQuestions": 0,
+    "adaptive": true,
+    "note": "Section counts match the digital SAT. This pass did not rebuild the form. Module 2 still has a stored easier set and a stored harder set. Some items inside the form still share a restoration-log or planner-equation frame."
+  },
+  "strictAct": {
+    "examNumber": 40,
+    "title": "Strict validated ACT form",
+    "fill": "131/131",
+    "english": 50,
+    "math": 45,
+    "reading": 36,
+    "inactiveReferencedQuestions": 0,
+    "adaptive": false
+  },
+  "actScience": {
+    "exists": true,
+    "examNumber": 41,
+    "title": "Strict validated ACT Science form",
+    "fill": "40/40",
+    "english": 0,
+    "math": 0,
+    "reading": 0,
+    "questionIds": 40,
+    "inactiveReferencedQuestions": 0,
+    "howItSurfaces": "format_version 1 stores the 40 ids in question_ids. Empty English, Math, and Reading arrays make the exam loader treat every id as Science. The section clock is the 40-minute science module.",
+    "passages": 7,
+    "composition": "14 data and trend questions, 15 experimental-design questions, 11 conflicting-viewpoint questions. Each answer was recomputed from the passage table or graph before insert."
+  }
+}

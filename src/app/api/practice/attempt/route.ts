@@ -1,6 +1,7 @@
 import { NextRequest } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
-import { recordQuestionAnswered, denyIfUnpaid } from '@/lib/entitlements'
+import { recordQuestionAnswered, canAnswerQuestion } from '@/lib/entitlements'
+import { PAYWALL_MESSAGE } from '@/lib/access'
 import { calculateTopicMastery, type AttemptData } from '@/lib/mastery'
 import { asDifficulty, dbId } from '@/lib/schema'
 import { awardCoins } from '@/lib/economy/wallet'
@@ -29,8 +30,10 @@ export async function POST(request: NextRequest) {
       return Response.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
-    const blocked = await denyIfUnpaid(user.id)
-    if (blocked) return blocked
+    const entitlement = await canAnswerQuestion(user.id)
+    if (!entitlement.allowed) {
+      return Response.json({ error: PAYWALL_MESSAGE, paywall: true }, { status: 403 })
+    }
 
     const parsed = bodySchema.safeParse(await request.json())
     if (!parsed.success) {

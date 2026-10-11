@@ -1,0 +1,17 @@
+{
+  "batch": "Smart Coverage Batch 2 - SAT Algebra",
+  "generatedAt": "2026-09-30T14:30:30.741Z",
+  "saved": 32,
+  "byTopic": {
+    "Linear equations in one variable": 8,
+    "Linear equations in two variables": 6,
+    "Systems of two linear equations in two variables": 9,
+    "Linear inequalities in one or two variables": 9
+  },
+  "answerSpread": {
+    "A": 8,
+    "B": 10,
+    "C": 11,
+    "D": 3
+  }
+}

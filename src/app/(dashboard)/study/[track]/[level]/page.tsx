@@ -1,8 +1,7 @@
 import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
 import { getLevel, isLevelOpen, type StudyTrack } from '@/lib/study/levels'
-import { LESSON_STEPS, type LessonStepId } from '@/lib/study/lesson-flow'
-import { StudyLesson } from './study-lesson'
+import { StudyLessonV2 } from './study-lesson-v2'
 
 export default async function StudyLessonPage({
   params,
@@ -31,15 +30,9 @@ export default async function StudyLessonPage({
   if (!isLevelOpen(parsedTrack as StudyTrack, index, statuses)) redirect('/study')
 
   const current = (rows ?? []).find((row) => row.level_index === index)
-  const validSteps = new Set(LESSON_STEPS.map((step) => step.id))
-  const resumeStep = (
-    current?.status !== 'completed'
-    && typeof current?.lesson_step === 'string'
-    && validSteps.has(current.lesson_step as LessonStepId)
-  )
-    ? (current.lesson_step as LessonStepId)
-    : 'definition'
-  const resumeBeat = Math.max(0, Number(current?.lesson_beat ?? 0) || 0)
+  const savedPhase = typeof current?.lesson_step === 'string' && /^v2:(?:[0-9]|1[0-2])$/.test(current.lesson_step)
+    ? Number(current.lesson_step.slice(3)) : 0
+  const resumeStep = `v2:${savedPhase}`
 
   if (statuses.get(index) !== 'completed') {
     await supabase.from('study_level_progress').upsert({
@@ -49,18 +42,17 @@ export default async function StudyLessonPage({
       status: 'available',
       extra_problems: 0,
       lesson_step: resumeStep,
-      lesson_beat: resumeBeat,
+      lesson_beat: 0,
       updated_at: new Date().toISOString(),
       completed_at: null,
     }, { onConflict: 'user_id,track,level_index' })
   }
 
   return (
-    <StudyLesson
+    <StudyLessonV2
       track={parsedTrack as StudyTrack}
       level={catalog}
-      initialStep={resumeStep}
-      initialBeat={resumeBeat}
+      initialPhase={savedPhase}
     />
   )
 }

@@ -35,7 +35,7 @@ test('ACT core/optional Science counts, operational proportions, passage groups 
  assert.equal(new Set(b.filter(s=>s.section==='Reading'&&s.scored).map(s=>s.passageGroup)).size,3)
  const science=actBlueprint(true).filter(s=>s.section==='Science');assert.equal(science.length,40);assert.equal(science.filter(s=>s.scored).length,34)
  assert.deepEqual(frequencies(science.filter(s=>s.scored)),{'Interpretation of Data':15,'Scientific Investigation':8,'Evaluating Scientific Arguments and Models with Evidence':11})
- assert.equal(OFFICIAL_SPECIFICATIONS.ACT.seconds,7500)
+  assert.equal(OFFICIAL_SPECIFICATIONS.ACT.seconds,7500)
 })
 
 test('SAT statistical claims are covered and field items stay within RW domains; ACT permits visual reading variant',()=>{
@@ -45,6 +45,6 @@ test('SAT statistical claims are covered and field items stay within RW domains;
  let previous=''
  for(const s of rw){if(s.domain!==previous){assert.ok(!seen.has(s.domain));seen.add(s.domain);previous=s.domain}}
  const visual=actBlueprint(true,'visual').filter(s=>s.section==='Reading')
- assert.equal(visual.filter(s=>s.graphic).length,9);assert.equal(visual.filter(s=>s.stimulus==='paired').length,0)
- assert.equal(actBlueprint(false,'paired').filter(s=>s.section==='Reading'&&s.stimulus==='paired').length,9)
+  assert.equal(visual.filter(s=>s.graphic).length,12);assert.equal(visual.filter(s=>s.stimulus==='paired').length,0)
+  assert.equal(actBlueprint(false,'paired').filter(s=>s.section==='Reading'&&s.stimulus==='paired').length,12)
 })

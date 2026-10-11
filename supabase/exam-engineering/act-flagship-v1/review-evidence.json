@@ -1,0 +1,2078 @@
+{
+ "form": "ACT Flagship v1 rev3",
+ "generated_by": "single-source author + deterministic gates (no independent reviewer available)",
+ "items": [
+  {
+   "id": "1fedfc59",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": true,
+   "key": "A",
+   "author_proof": "Sentence 6 is the only dramatization of 'listen before you touch' before the finale.",
+   "distractor_notes": {
+    "B": "Ownership never at issue",
+    "C": "Static is the lesson medium",
+    "D": "Length is irrelevant"
+   },
+   "evidence_refs": [],
+   "explanation": "The dial scene enacts the first rule and sets up the closing echo."
+  },
+  {
+   "id": "4594377d",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": true,
+   "key": "C",
+   "author_proof": "Action is dial-adjusting; the static medium is already established in context.",
+   "distractor_notes": {
+    "A": "Original wordiness",
+    "B": "Alters meaning",
+    "D": "Redundant adjectives"
+   },
+   "evidence_refs": [],
+   "explanation": "'Adjusted the dial' carries the action with no filler. B changes the meaning; D triples the redundancy."
+  },
+  {
+   "id": "4e99835f",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": true,
+   "key": "A",
+   "author_proof": "Singular indefinite pronoun requires singular verb; no-change is correct.",
+   "distractor_notes": {
+    "B": "Plural verb, singular subject",
+    "C": "Tense break",
+    "D": "Fragment"
+   },
+   "evidence_refs": [],
+   "explanation": "'Each' is singular and takes 'was.' Present-tense C breaks the past sequence; D is a fragment."
+  },
+  {
+   "id": "612efcfc",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": true,
+   "key": "B",
+   "author_proof": "Extension outward, not repetition; no new lesson; no joke present.",
+   "distractor_notes": {
+    "A": "Not word-for-word",
+    "C": "Patience was the premise",
+    "D": "No joke present"
+   },
+   "evidence_refs": [],
+   "explanation": "It extends the lesson outward \u2014 the essay's whole arc."
+  },
+  {
+   "id": "7e699ff0",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": true,
+   "key": "C",
+   "author_proof": "Two independent clauses joined only by a comma; semicolon is the minimal correct fix.",
+   "distractor_notes": {
+    "A": "Repeats the splice",
+    "C": "Stray comma after conjunction",
+    "D": "Fused sentence"
+   },
+   "evidence_refs": [],
+   "explanation": "Two independent clauses need a semicolon or period. C adds a stray comma; D fuses the clauses."
+  },
+  {
+   "id": "d1b67381",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": false,
+   "key": "D",
+   "author_proof": "'Still'/'However' signal absent contrast; 'For example' signals illustration.",
+   "distractor_notes": {
+    "A": "No continuation contrast",
+    "B": "No contrast present",
+    "D": "Wrong logical relation"
+   },
+   "evidence_refs": [],
+   "explanation": "Only a time marker fits the leap from summer to college."
+  },
+  {
+   "id": "d5bd7687",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": false,
+   "key": "A",
+   "author_proof": "No-change correct: semicolon between related independent clauses.",
+   "distractor_notes": {
+    "B": "Comma splice",
+    "C": "Garble changes meaning",
+    "D": "Fused sentence"
+   },
+   "evidence_refs": [],
+   "explanation": "Semicolon correctly joins two related independents. B splices; C garbles; D fuses."
+  },
+  {
+   "id": "e8ca2c91",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": true,
+   "key": "B",
+   "author_proof": "Sentences 8-10 form an unbroken work sequence; the schematic interrupts the listening lesson if moved.",
+   "distractor_notes": {
+    "A": "No front-loading needed",
+    "C": "Length is irrelevant",
+    "D": "Contradicted by Sentence 9"
+   },
+   "evidence_refs": [],
+   "explanation": "Schematic-reading belongs between opening the radio and testing components \u2014 the actual workflow order."
+  },
+  {
+   "id": "f60aa405",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": true,
+   "key": "C",
+   "author_proof": "Standard interrupted-quotation punctuation; B/C/D each break one rule.",
+   "distractor_notes": {
+    "B": "Period wrongly ends the lead-in",
+    "C": "Wrongly capitalizes continuation",
+    "D": "Punctuation outside quotes"
+   },
+   "evidence_refs": [],
+   "explanation": "Comma before a dialogue tag, lowercase continuation, periods inside closing quotes."
+  },
+  {
+   "id": "fbf047cc",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": true,
+   "key": "D",
+   "author_proof": "Consistent with the essay's warm register; B/C/D introduce unsupported claims.",
+   "distractor_notes": {
+    "B": "Unsupported technical claim",
+    "C": "Absurd misreading",
+    "D": "Filler accusation"
+   },
+   "evidence_refs": [],
+   "explanation": "Personification fits an affectionate essay; the alternatives misread tone or invent facts."
+  },
+  {
+   "id": "53de05a7",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": true,
+   "key": "A",
+   "author_proof": "Colon before explanation; following text is a fragment, ruling out semicolon/period.",
+   "distractor_notes": {
+    "B": "Second half is a fragment",
+    "C": "No list present",
+    "D": "No quotation present"
+   },
+   "evidence_refs": [],
+   "explanation": "A colon introduces an explanation or elaboration; what follows is a fragment, so a semicolon is impossible."
+  },
+  {
+   "id": "6320268e",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": true,
+   "key": "B",
+   "author_proof": "No-change correct: agreement holds, verb complete.",
+   "distractor_notes": {
+    "B": "Singular verb, plural subject",
+    "C": "Fragment",
+    "D": "Wrong participle"
+   },
+   "evidence_refs": [],
+   "explanation": "Plural subject takes plural verb; the sentence is complete as written."
+  },
+  {
+   "id": "6f53ad2c",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": true,
+   "key": "C",
+   "author_proof": "Mirrors Sentence 4's claim at higher generality; nothing new introduced.",
+   "distractor_notes": {
+    "A": "No new topic",
+    "C": "No expert quoted",
+    "D": "No donation asked"
+   },
+   "evidence_refs": [],
+   "explanation": "Relief like reading, free like free \u2014 the thesis compressed."
+  },
+  {
+   "id": "94f4205e",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": true,
+   "key": "D",
+   "author_proof": "Sustained frontier joke (reserving, claiming); alternatives misread it.",
+   "distractor_notes": {
+    "A": "Policy lesson absent",
+    "C": "Preference claim invented",
+    "D": "Tone-consistent, not slang"
+   },
+   "evidence_refs": [],
+   "explanation": "Playful and apt, matching the essay's warm tone."
+  },
+  {
+   "id": "a129eb56",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": true,
+   "key": "A",
+   "author_proof": "Only evidence in the essay that directly answers Sentence 10.",
+   "distractor_notes": {
+    "B": "Hobby claim invented",
+    "C": "Complaints are the rebuttal",
+    "D": "No repetition present"
+   },
+   "evidence_refs": [],
+   "explanation": "Six thousand visits plus one complaint rebuts the critics with data."
+  },
+  {
+   "id": "b14c2151",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": true,
+   "key": "B",
+   "author_proof": "Names the claim illustrated by sentences 1-3; nothing else fits.",
+   "distractor_notes": {
+    "B": "No city change",
+    "C": "Not minor",
+    "D": "Opens, not closes"
+   },
+   "evidence_refs": [],
+   "explanation": "It names the phenomenon the heat-wave scene shows."
+  },
+  {
+   "id": "caae75b3",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": false,
+   "key": "C",
+   "author_proof": "'Claimed...against' preserves both action and attitude with no filler.",
+   "distractor_notes": {
+    "A": "Original wordiness",
+    "C": "Loses meaning",
+    "D": "Loses meaning"
+   },
+   "evidence_refs": [],
+   "explanation": "Five words keep the defiance; C/D lose the meaning entirely."
+  },
+  {
+   "id": "d00e98ab",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": true,
+   "key": "D",
+   "author_proof": "Each example extends the cooling-center idea geographically.",
+   "distractor_notes": {
+    "A": "Budgets never compared",
+    "C": "Heat never ranked",
+    "D": "Structural, not filler"
+   },
+   "evidence_refs": [],
+   "explanation": "Local scene to national response is deliberate widening."
+  },
+  {
+   "id": "d358f26d",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": false,
+   "key": "A",
+   "author_proof": "Singular owner + singular owned thing; alternatives misplace number or possession.",
+   "distractor_notes": {
+    "B": "Would need companies\u2019",
+    "C": "Misreads singular",
+    "D": "Misplaces possession"
+   },
+   "evidence_refs": [],
+   "explanation": "One company owns; several would need companies\u2019; possession sits with company, not business."
+  },
+  {
+   "id": "f0075492",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": true,
+   "key": "B",
+   "author_proof": "Clause removable without changing who; others strand commas or verbs.",
+   "distractor_notes": {
+    "B": "Drops opening comma",
+    "C": "Drops closing comma",
+    "D": "Drops both"
+   },
+   "evidence_refs": [],
+   "explanation": "Nonessential clause takes paired commas."
+  },
+  {
+   "id": "081188e2",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": true,
+   "key": "C",
+   "author_proof": "Bookends Sentence 1's presses; no biographies, closings, or contradictions.",
+   "distractor_notes": {
+    "A": "No biographies",
+    "C": "No closing",
+    "D": "No contradiction"
+   },
+   "evidence_refs": [],
+   "explanation": "Presses built to outlast makers, now outlasting \u2014 the opening image resolved."
+  },
+  {
+   "id": "3c7844e7",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": true,
+   "key": "D",
+   "author_proof": "Diction matches established wry tone; B/C/D assert unstated facts.",
+   "distractor_notes": {
+    "B": "Unstated fact",
+    "C": "Unstated attitude",
+    "D": "Not the main argument"
+   },
+   "evidence_refs": [],
+   "explanation": "Hyperbole consistent with the wry register; the alternatives invent facts."
+  },
+  {
+   "id": "5041ca01",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": true,
+   "key": "A",
+   "author_proof": "'Printing' is redundant with 'letterpress' as a taught craft.",
+   "distractor_notes": {
+    "A": "Original redundancy",
+    "C": "Bloated",
+    "D": "Loses meaning"
+   },
+   "evidence_refs": [],
+   "explanation": "'Letterpress' already implies printing instruction; shortest correct wins."
+  },
+  {
+   "id": "90ddfe12",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": true,
+   "key": "B",
+   "author_proof": "Same subject, same tense, joined correctly; alternatives invent errors.",
+   "distractor_notes": {
+    "B": "No semicolon rule here",
+    "C": "Subject does not change",
+    "D": "Silence is correctly singular"
+   },
+   "evidence_refs": [],
+   "explanation": "Parallel present-tense verbs share the subject; no error exists."
+  },
+  {
+   "id": "b16d5abf",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": true,
+   "key": "C",
+   "author_proof": "Tone-consistent with 'drinks up mistakes' warmth; alternatives invent facts.",
+   "distractor_notes": {
+    "A": "Ranch past absent",
+    "C": "Vet care absurd",
+    "D": "Students not compared"
+   },
+   "evidence_refs": [],
+   "explanation": "Affectionate barnyard imagery fits an essay that loves obsolete iron."
+  },
+  {
+   "id": "bd4df0b7",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": false,
+   "key": "D",
+   "author_proof": "Denial-then-case structure confirmed by Sentence 10's hiring claim.",
+   "distractor_notes": {
+    "A": "Inverts meaning",
+    "C": "History-hatred absent",
+    "D": "No topic change"
+   },
+   "evidence_refs": [],
+   "explanation": "It clears 'mere nostalgia' away so the hiring claim can land."
+  },
+  {
+   "id": "d1205394",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": false,
+   "key": "A",
+   "author_proof": "List introduction takes a colon; B/C/D each break one rule.",
+   "distractor_notes": {
+    "B": "Semicolon misuse",
+    "C": "Splice at introduction",
+    "D": "Severs subject-verb"
+   },
+   "evidence_refs": [],
+   "explanation": "Colon introduces the list; comma plus 'and' joins the two rules."
+  },
+  {
+   "id": "d7737706",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": true,
+   "key": "B",
+   "author_proof": "Two independent clauses with only a comma between them.",
+   "distractor_notes": {
+    "A": "Repeats splice",
+    "C": "Stray comma",
+    "D": "Subject deleted"
+   },
+   "evidence_refs": [],
+   "explanation": "Semicolon joins the related independents. C adds a stray comma; D deletes the verb's subject."
+  },
+  {
+   "id": "e3536eab",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": true,
+   "key": "C",
+   "author_proof": "Only concrete demonstration of the hand-setting lesson in the essay.",
+   "distractor_notes": {
+    "A": "No inventory",
+    "C": "Gossip science absent",
+    "D": "No biography"
+   },
+   "evidence_refs": [],
+   "explanation": "Held breath versus gossip makes the lesson visible."
+  },
+  {
+   "id": "f6998f92",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": true,
+   "key": "D",
+   "author_proof": "D overclaims what the statistic shows; A/B/C accurately describe structure.",
+   "distractor_notes": {
+    "A": "Accurate",
+    "B": "Accurate",
+    "C": "Accurate"
+   },
+   "evidence_refs": [],
+   "explanation": "Enrollment triples but proves revival, not mainstream status."
+  },
+  {
+   "id": "20cc729b",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": false,
+   "key": "A",
+   "author_proof": "Only reading consistent with nodding plus joining the line.",
+   "distractor_notes": {
+    "A": "Inverts meaning",
+    "C": "Overgeneralizes",
+    "D": "Structural, and false"
+   },
+   "evidence_refs": [],
+   "explanation": "The inspector-turned-customer certifies quality better than any claim."
+  },
+  {
+   "id": "96c5b178",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": true,
+   "key": "B",
+   "author_proof": "Parallel series intact; alternatives break or misread it.",
+   "distractor_notes": {
+    "B": "Invented semicolon rule",
+    "C": "Subject is constant",
+    "D": "Would break parallelism"
+   },
+   "evidence_refs": [],
+   "explanation": "Three parallel verbs share one subject correctly."
+  },
+  {
+   "id": "ce37119b",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": true,
+   "key": "C",
+   "author_proof": "Echoes heat (S2), steam (S5), simultaneous tasks (S6); nothing new introduced.",
+   "distractor_notes": {
+    "A": "No catering",
+    "C": "No finances",
+    "D": "Confirms Priya"
+   },
+   "evidence_refs": [],
+   "explanation": "Loud, greasy, precise compresses the whole essay."
+  },
+  {
+   "id": "e25f0755",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": true,
+   "key": "D",
+   "author_proof": "Heat already established; shouting implied by calling.",
+   "distractor_notes": {
+    "A": "Original wordiness",
+    "C": "Redundant",
+    "D": "Bloated"
+   },
+   "evidence_refs": [],
+   "explanation": "'Calling orders' says it in two words."
+  },
+  {
+   "id": "f8675c85",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": true,
+   "key": "A",
+   "author_proof": "Essential identifier; B states the opposite rule; C/D false.",
+   "distractor_notes": {
+    "B": "Opposite rule",
+    "C": "Common noun",
+    "D": "Complete sentence"
+   },
+   "evidence_refs": [],
+   "explanation": "Restrictive appositive identifying which coworker takes no commas."
+  },
+  {
+   "id": "7a6848bf",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": false,
+   "key": "B",
+   "author_proof": "One library, one wall; alternatives misplace number or possession.",
+   "distractor_notes": {
+    "B": "Would need libraries\u2019",
+    "C": "Misspelling",
+    "D": "Reversed possession"
+   },
+   "evidence_refs": [],
+   "explanation": "Singular owner takes singular possessive."
+  },
+  {
+   "id": "a4f80a17",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": true,
+   "key": "C",
+   "author_proof": "Lifts the specific story to a general claim; nothing new introduced.",
+   "distractor_notes": {
+    "A": "Scaffolds in Sentences 4 and 6",
+    "C": "No demolition",
+    "D": "Confirms Sentence 6"
+   },
+   "evidence_refs": [],
+   "explanation": "From one wall to all cities that forget \u2014 the essay's widening move."
+  },
+  {
+   "id": "afe4b37a",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": true,
+   "key": "D",
+   "author_proof": "Two independents; D dangles the opener and strands the subject.",
+   "distractor_notes": {
+    "A": "Repeats splice",
+    "C": "Stray comma",
+    "D": "Dangling plus misplaced subject"
+   },
+   "evidence_refs": [],
+   "explanation": "Period cleanly separates the two actions."
+  },
+  {
+   "id": "c01edc0c",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": true,
+   "key": "A",
+   "author_proof": "Only sentence establishing authentic restoration is achievable.",
+   "distractor_notes": {
+    "B": "No degrees listed",
+    "C": "Opposite of passage",
+    "D": "No statistics present"
+   },
+   "evidence_refs": [],
+   "explanation": "Matched original palette answers whether restoration can be real."
+  },
+  {
+   "id": "f94a7b05",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": false,
+   "key": "B",
+   "author_proof": "'Postage-stamp' as adjective preserves size and kind.",
+   "distractor_notes": {
+    "A": "Original wordiness",
+    "C": "Bloated",
+    "D": "Redundant"
+   },
+   "evidence_refs": [],
+   "explanation": "Compound adjective says it in three words."
+  },
+  {
+   "id": "34a64ec0",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": false,
+   "key": "C",
+   "author_proof": "Approving transition matches the celebratory turn; others mislabel it.",
+   "distractor_notes": {
+    "A": "No concession present",
+    "C": "No example given",
+    "D": "No contrast drawn"
+   },
+   "evidence_refs": [],
+   "explanation": "Credit is due for an admirable pivot; no contrast or example relation exists."
+  },
+  {
+   "id": "3944d7bc",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": true,
+   "key": "D",
+   "author_proof": "Who performs study; B states a false absolute; C/D misread.",
+   "distractor_notes": {
+    "B": "False absolute",
+    "C": "Refers to biologists",
+    "D": "Clause requires it"
+   },
+   "evidence_refs": [],
+   "explanation": "Subject position takes the nominative who."
+  },
+  {
+   "id": "4380240d",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": true,
+   "key": "A",
+   "author_proof": "Campaigning bats is comic filler; cut to the noun.",
+   "distractor_notes": {
+    "A": "Original wordiness",
+    "B": "Unclear coinage",
+    "D": "Bloated"
+   },
+   "evidence_refs": [],
+   "explanation": "'A title' alone carries the meaning; the joke survives in context."
+  },
+  {
+   "id": "68dc113b",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": true,
+   "key": "B",
+   "author_proof": "Bookends Sentence 1's dusk emergence; no tourists introduced (S2), no demolition, no contradiction.",
+   "distractor_notes": {
+    "B": "Tourists in Sentence 2",
+    "C": "No demolition",
+    "D": "Extends, not contradicts"
+   },
+   "evidence_refs": [],
+   "explanation": "Grainy wings become beating hearts \u2014 the opening image resolved."
+  },
+  {
+   "id": "78a48526",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": true,
+   "key": "C",
+   "author_proof": "'Each' takes 'follows'; absolute phrase is complete.",
+   "distractor_notes": {
+    "B": "Plural verb",
+    "C": "Bare infinitive",
+    "D": "Fused clauses"
+   },
+   "evidence_refs": [],
+   "explanation": "No-change correct: singular agreement holds and the absolute phrase is grammatical."
+  },
+  {
+   "id": "80a70539",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": true,
+   "key": "D",
+   "author_proof": "Only sentence establishing what is at risk; B/C/D misstate it.",
+   "distractor_notes": {
+    "B": "Inverts meaning",
+    "C": "Preference invented",
+    "D": "No repetition"
+   },
+   "evidence_refs": [],
+   "explanation": "Disease-free-so-far plus swabbing adds stakes without changing the story."
+  },
+  {
+   "id": "af2306e1",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": true,
+   "key": "A",
+   "author_proof": "Only span showing mutual adjustment; alternatives invent claims.",
+   "distractor_notes": {
+    "A": "No superiority claim",
+    "C": "No demolition",
+    "D": "No species list"
+   },
+   "evidence_refs": [],
+   "explanation": "Sealed joints, vanished colony, deliberate gaps: coexistence is designed."
+  },
+  {
+   "id": "b1933c85",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": true,
+   "key": "B",
+   "author_proof": "Two independents; the participle in D attaches to nothing.",
+   "distractor_notes": {
+    "A": "Repeats splice",
+    "C": "Stray comma",
+    "D": "Dangling modifier"
+   },
+   "evidence_refs": [],
+   "explanation": "Semicolon fixes the splice. C adds a stray comma; D creates a dangling modifier."
+  },
+  {
+   "id": "d5298cbf",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": true,
+   "key": "C",
+   "author_proof": "Appositive renames the object; C/D chop the phrase itself.",
+   "distractor_notes": {
+    "B": "Missing comma",
+    "C": "Splits the name",
+    "D": "Splits the name"
+   },
+   "evidence_refs": [],
+   "explanation": "Single renaming appositive takes one preceding comma."
+  },
+  {
+   "id": "f3702f08",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": true,
+   "key": "D",
+   "author_proof": "Consistent with clickers, transmitters, swabbing diction; alternatives overclaim.",
+   "distractor_notes": {
+    "B": "Absolutism absent",
+    "C": "No insult present",
+    "D": "No new finding"
+   },
+   "evidence_refs": [],
+   "explanation": "The joke lands inside the essay's established register."
+  },
+  {
+   "id": "52e3d8d8",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": true,
+   "key": "D",
+   "author_proof": "0 and 5 are integers and rational; -1 kills A; pi is real kills C; 0.333... rational kills D.",
+   "distractor_notes": {
+    "A": "Forgets negative integers",
+    "C": "Misplaces irrationals outside reals",
+    "D": "Confuses repeating with non-repeating"
+   },
+   "evidence_refs": [],
+   "explanation": "Integers like 0 and 1/2? No \u2014 0 and 5 are both integers and rational, so some rationals are integers. Negatives refute A; irrationals are real, refuting C; repeating decimals are rational, refuting D."
+  },
+  {
+   "id": "8cd864e2",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": true,
+   "key": "A",
+   "author_proof": "3*6-7=11 checks.",
+   "distractor_notes": {
+    "A": "Divided by wrong number",
+    "C": "Forgot to divide",
+    "D": "Arithmetic slip"
+   },
+   "evidence_refs": [],
+   "explanation": "Add 7: 3x=18, so x=6."
+  },
+  {
+   "id": "4832e2c1",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": true,
+   "key": "B",
+   "author_proof": "24=12x2; others fail one divisibility.",
+   "distractor_notes": {
+    "A": "Not divisible by 4",
+    "B": "Not divisible by 3",
+    "D": "Not divisible by 4"
+   },
+   "evidence_refs": [],
+   "explanation": "24 divided by 3 is 8 and by 4 is 6; each other choice fails one of the two divisibility tests."
+  },
+  {
+   "id": "e20835e3",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": true,
+   "key": "C",
+   "author_proof": "First differences constant at 2; 2(6)+5=17.",
+   "distractor_notes": {
+    "B": "Advanced only one step",
+    "C": "Advanced to x=7",
+    "D": "Pattern miscount"
+   },
+   "evidence_refs": [],
+   "explanation": "Outputs rise by 2 each step, so g(x) = 2x + 5 and g(6) = 17."
+  },
+  {
+   "id": "7ed7df90",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": true,
+   "key": "D",
+   "author_proof": "6+8+12+14=40; 50-40=10.",
+   "distractor_notes": {
+    "B": "Echoed a data value",
+    "C": "Answered the change",
+    "D": "Assumed six values"
+   },
+   "evidence_refs": [],
+   "explanation": "Five numbers averaging 10 total 50; the first four total 40, so the fifth is 10."
+  },
+  {
+   "id": "507b4092",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": true,
+   "key": "A",
+   "author_proof": "4*3=12 excluded; 7*3=21 excluded; 5*3=15 inside.",
+   "distractor_notes": {
+    "A": "Endpoint, excluded",
+    "C": "Endpoint, excluded",
+    "D": "Outside range"
+   },
+   "evidence_refs": [],
+   "explanation": "Dividing by 3 gives 4 < n < 7, so of the listed integers only 5 qualifies."
+  },
+  {
+   "id": "b22e7ee4",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": true,
+   "key": "B",
+   "author_proof": "2*(7-3)+5=8+5=13 checks.",
+   "distractor_notes": {
+    "A": "Sign slip",
+    "C": "Dropped the +5",
+    "D": "Added instead of solving"
+   },
+   "evidence_refs": [],
+   "explanation": "Distribute: 2x-6+5=13, so 2x=14 and x=7."
+  },
+  {
+   "id": "52cc702c",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": true,
+   "key": "C",
+   "author_proof": "((2+8)/2,(6+2)/2)=(5,4) checks.",
+   "distractor_notes": {
+    "B": "Midpoint of A and the midpoint",
+    "C": "Subtracted instead of doubling",
+    "D": "Doubled without subtracting A"
+   },
+   "evidence_refs": [],
+   "explanation": "Doubling the midpoint and subtracting A: (10-2, 8-6) = (8, 2)."
+  },
+  {
+   "id": "8e685c81",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": true,
+   "key": "D",
+   "author_proof": "(-2)^3=-8; -8+9-4=-3.",
+   "distractor_notes": {
+    "B": "Sign error on the cube",
+    "C": "Mis-evaluated cube as -6",
+    "D": "Dropped all signs"
+   },
+   "evidence_refs": [],
+   "explanation": "-8 + 9 - 4 = -3."
+  },
+  {
+   "id": "368a2487",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": true,
+   "key": "A",
+   "author_proof": "Distribute both parts and combine: 6x-x=5x, -15-4=-19.",
+   "distractor_notes": {
+    "B": "Sign error on +4",
+    "C": "Added x instead of subtracting",
+    "D": "Dropped the -4 term"
+   },
+   "evidence_refs": [],
+   "explanation": "6x-15-x-4 = 5x-19."
+  },
+  {
+   "id": "ac2d35b3",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": true,
+   "key": "B",
+   "author_proof": "g(1)=5; f(5)=9.",
+   "distractor_notes": {
+    "B": "Stopped after g(1)",
+    "C": "Sign error in f",
+    "D": "Answered f(1)"
+   },
+   "evidence_refs": [],
+   "explanation": "Inside first: g(1) = 5. Then f(5) = 9."
+  },
+  {
+   "id": "b215dddb",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": false,
+   "key": "C",
+   "author_proof": "50+60+70=180.",
+   "distractor_notes": {
+    "B": "Added instead of subtracting",
+    "C": "Forgot one given angle",
+    "D": "Echoed a given angle"
+   },
+   "evidence_refs": [],
+   "explanation": "180 - 50 - 60 = 70."
+  },
+  {
+   "id": "5ba19333",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": true,
+   "key": "D",
+   "author_proof": "4+6+8+10=28; 50-28=22.",
+   "distractor_notes": {
+    "B": "Echoed the new mean",
+    "C": "Answered the mean change",
+    "D": "Assumed six values"
+   },
+   "evidence_refs": [],
+   "explanation": "Five numbers averaging 10 total 50; 50 - 28 = 22."
+  },
+  {
+   "id": "b184a6c4",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": true,
+   "key": "A",
+   "author_proof": "Rate per worker unchanged; rooms and workers scale together.",
+   "distractor_notes": {
+    "B": "Scaled time with workers",
+    "C": "Multiplied everything",
+    "D": "Divided twice"
+   },
+   "evidence_refs": [],
+   "explanation": "Each worker paints one room in 3 hours, so six workers paint six rooms in 3 hours."
+  },
+  {
+   "id": "038287b9",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": true,
+   "key": "B",
+   "author_proof": "-16(1)+32(1)+5=21.",
+   "distractor_notes": {
+    "B": "Dropped the negative",
+    "C": "Evaluated at t=0",
+    "D": "Sign error on constant"
+   },
+   "evidence_refs": [],
+   "explanation": "-16 + 32 + 5 = 21 feet."
+  },
+  {
+   "id": "d30c9fb4",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": true,
+   "key": "C",
+   "author_proof": "(2/3)(-3/2)=-1.",
+   "distractor_notes": {
+    "B": "Missed the negative",
+    "C": "Parallel, not perpendicular",
+    "D": "Negated without reciprocating"
+   },
+   "evidence_refs": [],
+   "explanation": "Perpendicular slopes are opposite reciprocals: -(3/2)."
+  },
+  {
+   "id": "07e4c214",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": false,
+   "key": "D",
+   "author_proof": "Rise 12 over run 4.",
+   "distractor_notes": {
+    "B": "Reciprocal",
+    "C": "Rise only",
+    "D": "Forgot to subtract x-values"
+   },
+   "evidence_refs": [],
+   "explanation": "(17-5)/(6-2) = 12/4 = 3."
+  },
+  {
+   "id": "1d162fcf",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": true,
+   "key": "A",
+   "author_proof": "6^2=36.",
+   "distractor_notes": {
+    "B": "Used circumference formula",
+    "C": "Gave the radius times \u03c0",
+    "D": "Doubled the area"
+   },
+   "evidence_refs": [],
+   "explanation": "Area = \u03c0r^2 = 36\u03c0."
+  },
+  {
+   "id": "d9c5c3bb",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": false,
+   "key": "B",
+   "author_proof": "Only (0,1) satisfies y=2x+1.",
+   "distractor_notes": {
+    "B": "Confused slope with intercept",
+    "C": "Did not substitute",
+    "D": "Did not substitute"
+   },
+   "evidence_refs": [],
+   "explanation": "At x=0, y=1. The other points fail: 2(0)+1=1, not 2; 2(1)+1=3, not 1 or 2."
+  },
+  {
+   "id": "c594381e",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": true,
+   "key": "C",
+   "author_proof": "60-12=48.",
+   "distractor_notes": {
+    "B": "Kept the old range",
+    "C": "Computed the change, not the range",
+    "D": "Gave the new maximum"
+   },
+   "evidence_refs": [],
+   "explanation": "New max minus min: 60 - 12 = 48."
+  },
+  {
+   "id": "077d9a42",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": true,
+   "key": "D",
+   "author_proof": "19+21+23=63 checks; 21 is the middle, not largest.",
+   "distractor_notes": {
+    "A": "Smallest, not largest",
+    "B": "Middle value trap",
+    "D": "Two too high"
+   },
+   "evidence_refs": [],
+   "explanation": "Let the middle be n: (n-2)+n+(n+2)=63 gives 3n=63, n=21, largest 23."
+  },
+  {
+   "id": "bea3623d",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": true,
+   "key": "A",
+   "author_proof": "9+5=14 and 9-5=4 check.",
+   "distractor_notes": {
+    "B": "Solved for y instead",
+    "C": "Halved the wrong total",
+    "D": "Forgot to divide by 2"
+   },
+   "evidence_refs": [],
+   "explanation": "Add the equations: 2x = 18, so x = 9."
+  },
+  {
+   "id": "322d9877",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": true,
+   "key": "B",
+   "author_proof": "(5\u221a2)^2=50=25+25.",
+   "distractor_notes": {
+    "B": "Doubled the side",
+    "C": "Gave a side",
+    "D": "Gave an area with wrong units"
+   },
+   "evidence_refs": [],
+   "explanation": "The diagonal of a square is side times \u221a2."
+  },
+  {
+   "id": "16da5a6b",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": false,
+   "key": "C",
+   "author_proof": "120/4=30; 30*7=210.",
+   "distractor_notes": {
+    "B": "Echoed the given distance",
+    "C": "Multiplied the givens",
+    "D": "Doubled instead of rating"
+   },
+   "evidence_refs": [],
+   "explanation": "30 miles per gallon times 7 gallons is 210 miles."
+  },
+  {
+   "id": "e2bb271d",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": true,
+   "key": "D",
+   "author_proof": "12/90 simplifies to 2/15.",
+   "distractor_notes": {
+    "B": "Replaced between draws",
+    "C": "Kept denominator at 10",
+    "D": "Added numerators and denominators"
+   },
+   "evidence_refs": [],
+   "explanation": "(4/10)\u00b7(3/9) = 12/90 = 2/15."
+  },
+  {
+   "id": "b5078cd8",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": true,
+   "key": "A",
+   "author_proof": "5^3=125; 2+1=3 checks.",
+   "distractor_notes": {
+    "B": "Solved then added 1 again",
+    "C": "Forgot the +1",
+    "D": "Divided instead of equating exponents"
+   },
+   "evidence_refs": [],
+   "explanation": "125 = 5^3, so x+1 = 3 and x = 2."
+  },
+  {
+   "id": "4cc9aa03",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": true,
+   "key": "B",
+   "author_proof": "0.25*80=20; 80-20=60.",
+   "distractor_notes": {
+    "B": "Subtracted 25 dollars",
+    "C": "Answered the discount",
+    "D": "Subtracted $5 instead of 25%"
+   },
+   "evidence_refs": [],
+   "explanation": "Discount is $20, so 80 - 20 = $60."
+  },
+  {
+   "id": "57b16e3d",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": true,
+   "key": "C",
+   "author_proof": "3*9-7=20 checks.",
+   "distractor_notes": {
+    "B": "Subtracted instead of adding",
+    "C": "Forgot to divide",
+    "D": "Evaluated f(20) instead"
+   },
+   "evidence_refs": [],
+   "explanation": "3x - 7 = 20 gives 3x = 27, so x = 9."
+  },
+  {
+   "id": "b26c3e3b",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": true,
+   "key": "D",
+   "author_proof": "(-1+2)^2-3=1-3=-2.",
+   "distractor_notes": {
+    "B": "Shifted up instead of down",
+    "C": "Shifted right instead of left",
+    "D": "Evaluated the shift only"
+   },
+   "evidence_refs": [],
+   "explanation": "Shifted: y = (x+2)^2 - 3; at x=-1, (1)^2 - 3 = -2."
+  },
+  {
+   "id": "7caf9bcf",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": true,
+   "key": "A",
+   "author_proof": "35*2=70.",
+   "distractor_notes": {
+    "B": "Used percent as count",
+    "C": "Answered the complement",
+    "D": "Used 70% instead"
+   },
+   "evidence_refs": [],
+   "explanation": "0.35 \u00d7 200 = 70."
+  },
+  {
+   "id": "09257257",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": true,
+   "key": "B",
+   "author_proof": "45+180=225.",
+   "distractor_notes": {
+    "B": "Dropped the visit fee",
+    "C": "Multiplied fee by hours",
+    "D": "Used 1 hour"
+   },
+   "evidence_refs": [],
+   "explanation": "45 + 60(3) = 45 + 180 = 225 dollars."
+  },
+  {
+   "id": "2f4e0bcc",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": true,
+   "key": "C",
+   "author_proof": "3^2+4^2=25=5^2.",
+   "distractor_notes": {
+    "B": "Gave tangent instead",
+    "C": "Reciprocal",
+    "D": "Cosecant"
+   },
+   "evidence_refs": [],
+   "explanation": "A 3-4-5 triangle: adjacent side 4, hypotenuse 5."
+  },
+  {
+   "id": "a34d5c9c",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": true,
+   "key": "D",
+   "author_proof": "60/12=5; 5*2.5=12.5.",
+   "distractor_notes": {
+    "B": "Gave the per-dozen amount",
+    "C": "Multiplied by cookies, not dozens",
+    "D": "Added instead of scaling"
+   },
+   "evidence_refs": [],
+   "explanation": "60 cookies are 5 dozen, and 5 \u00d7 2.5 = 12.5."
+  },
+  {
+   "id": "1073b1e5",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": true,
+   "key": "A",
+   "author_proof": "(2/3)*(4/5)=8/15.",
+   "distractor_notes": {
+    "B": "Dropped the middle term",
+    "C": "Restated a:b",
+    "D": "Restated with common b, wrong pair"
+   },
+   "evidence_refs": [],
+   "explanation": "Write b as 12 in both: a:b:c = 8:12:15, so a:c = 8:15."
+  },
+  {
+   "id": "1df1e333",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": true,
+   "key": "B",
+   "author_proof": "(x-3)(x+4) = x^2+x-12 verified by expansion.",
+   "distractor_notes": {
+    "B": "Sign error",
+    "C": "Set k-3 to 0",
+    "D": "Read off the x coefficient"
+   },
+   "evidence_refs": [],
+   "explanation": "Expanding gives x^2 + (k-3)x - 3k; matching x^2 + x - 12 needs k-3 = 1, so k = 4 (and -3(4) = -12 checks)."
+  },
+  {
+   "id": "58ed8a02",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": true,
+   "key": "C",
+   "author_proof": "h=4, k=1 directly.",
+   "distractor_notes": {
+    "B": "Sign error on h",
+    "C": "Sign error on k",
+    "D": "Swapped coordinates"
+   },
+   "evidence_refs": [],
+   "explanation": "Vertex form y = (x-h)^2 + k has vertex (h,k) = (4,1)."
+  },
+  {
+   "id": "a56bb052",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": true,
+   "key": "D",
+   "author_proof": "5*13=65; 2*(5+13)=36.",
+   "distractor_notes": {
+    "B": "Added width and length only",
+    "C": "Doubled only the length",
+    "D": "Doubled only the width"
+   },
+   "evidence_refs": [],
+   "explanation": "w(2w+3)=65 gives 2w^2+3w-65=0, so w=5, length 13, perimeter 2(5+13)=36."
+  },
+  {
+   "id": "92f541f7",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": true,
+   "key": "A",
+   "author_proof": "10/6=1.666\u2026\u22481.67.",
+   "distractor_notes": {
+    "B": "Ignored the probability",
+    "C": "Halved the prize",
+    "D": "Forgot to multiply by 10"
+   },
+   "evidence_refs": [],
+   "explanation": "10 \u00d7 (1/6) = 10/6 \u2248 1.67."
+  },
+  {
+   "id": "69e22819",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": true,
+   "key": "B",
+   "author_proof": "Substitute v=20: 400/20+20=40.",
+   "distractor_notes": {
+    "A": "Arithmetic slip",
+    "C": "Dropped the +v term",
+    "D": "Squared without dividing"
+   },
+   "evidence_refs": [],
+   "explanation": "Direct substitution into the given model."
+  },
+  {
+   "id": "d4b572dc",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": true,
+   "key": "C",
+   "author_proof": "1/(1/6+1/3)=2.",
+   "distractor_notes": {
+    "B": "Added the times",
+    "C": "Averaged the times",
+    "D": "Took the faster pipe's time"
+   },
+   "evidence_refs": [],
+   "explanation": "Combined rate 1/6 + 1/3 = 1/2 tank per hour, so 2 hours."
+  },
+  {
+   "id": "c484ba2b",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": true,
+   "key": "D",
+   "author_proof": "0.99 is 1% below 1.",
+   "distractor_notes": {
+    "B": "Assumed changes cancel",
+    "C": "Applied only the fall",
+    "D": "Doubled the net"
+   },
+   "evidence_refs": [],
+   "explanation": "1.10 \u00d7 0.90 = 0.99, a 1% net decrease."
+  },
+  {
+   "id": "1d1a0543",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": true,
+   "key": "A",
+   "author_proof": "10\u221a2\u00b7sin30\u00b0=5\u221a2=10\u00b7sin45\u00b0.",
+   "distractor_notes": {
+    "B": "Forgot to divide by sin30\u00b0",
+    "C": "Assumed isosceles",
+    "D": "Treated sin45\u00b0 as 1"
+   },
+   "evidence_refs": [],
+   "explanation": "Law of sines: b = 10\u00b7sin45\u00b0/sin30\u00b0 = 10\u00b7(\u221a2/2)/(1/2) = 10\u221a2."
+  },
+  {
+   "id": "8d98e406",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": true,
+   "key": "B",
+   "author_proof": "Axis x=2; value -4+8-3=1.",
+   "distractor_notes": {
+    "B": "Gave the x-coordinate",
+    "C": "Gave the y-intercept",
+    "D": "Read off the b coefficient"
+   },
+   "evidence_refs": [],
+   "explanation": "Vertex at x = -4/(2\u00b7-1) = 2; f(2) = -4 + 8 - 3 = 1."
+  },
+  {
+   "id": "4487ec40",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": true,
+   "key": "C",
+   "author_proof": "0.2*20+5=9=0.3*30.",
+   "distractor_notes": {
+    "B": "Used equal parts",
+    "C": "Halved the answer",
+    "D": "Answered the total volume"
+   },
+   "evidence_refs": [],
+   "explanation": "0.20x + 0.50(10) = 0.30(x + 10) gives 0.1x = 2, so x = 20."
+  },
+  {
+   "id": "d7b59fae",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": true,
+   "key": "D",
+   "author_proof": "60*3=180=90*2.",
+   "distractor_notes": {
+    "B": "Answered the second train's time",
+    "C": "Added the head start",
+    "D": "Doubled the answer"
+   },
+   "evidence_refs": [],
+   "explanation": "60t = 90(t-1) gives 30t = 90, so t = 3."
+  },
+  {
+   "id": "0701beb4",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": true,
+   "key": "B",
+   "author_proof": "The passage follows one week of picking with the sale undecided until Friday, which never arrives in the story. The offer does not rescue anyone yet, nobody is persuaded, and both brothers work hard.",
+   "distractor_notes": "",
+   "evidence_refs": [
+    "whole passage (central idea)"
+   ],
+   "explanation": "The passage follows one week of picking with the sale undecided until Friday, which never arrives in the story. The offer does not rescue anyone yet, nobody is persuaded, and both brothers work hard."
+  },
+  {
+   "id": "3aecd0d0",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": true,
+   "key": "A",
+   "author_proof": "Attention drifts from columns to breath \u2014 from arithmetic to presence. No contest, worthiness test, or protection motive appears.",
+   "distractor_notes": "",
+   "evidence_refs": [
+    "P3: listening less to the numbers than to his brother's breathing"
+   ],
+   "explanation": "Attention drifts from columns to breath \u2014 from arithmetic to presence. No contest, worthiness test, or protection motive appears."
+  },
+  {
+   "id": "4607887d",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": true,
+   "key": "D",
+   "author_proof": "Unthinned fruit breaking its own limb is direct neglect. Dew is weather, shoes are Ellis, full bushels show function.",
+   "distractor_notes": "",
+   "evidence_refs": [
+    "P6: limb on row thirty-one gave way"
+   ],
+   "explanation": "Unthinned fruit breaking its own limb is direct neglect. Dew is weather, shoes are Ellis, full bushels show function."
+  },
+  {
+   "id": "5c49e9a8",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": true,
+   "key": "C",
+   "author_proof": "Counting is tied to the boys' bushel races and resurfaces as the sale looms; it orders the uncontrollable. No inventory, proof, or distraction is suggested.",
+   "distractor_notes": "",
+   "evidence_refs": [
+    "P3: counted rows aloud, racing to fill their bushels"
+   ],
+   "explanation": "Counting is tied to the boys' bushel races and resurfaces as the sale looms; it orders the uncontrollable. No inventory, proof, or distraction is suggested."
+  },
+  {
+   "id": "739b251a",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": true,
+   "key": "B",
+   "author_proof": "Binding branch to stock until two become one is literal grafting. Profiteering (grift), inventory, and burden-bearing misread the usage.",
+   "distractor_notes": "",
+   "evidence_refs": [
+    "P4: bind it to the stock of another"
+   ],
+   "explanation": "Binding branch to stock until two become one is literal grafting. Profiteering (grift), inventory, and burden-bearing misread the usage."
+  },
+  {
+   "id": "8b9783eb",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": false,
+   "key": "A",
+   "author_proof": "Ellis argues FOR considering the sale throughout; he never agrees it must be kept. The folder, the counting, and the apples for his kids all occur.",
+   "distractor_notes": "",
+   "evidence_refs": [
+    "whole passage (EXCEPT format)"
+   ],
+   "explanation": "Ellis argues FOR considering the sale throughout; he never agrees it must be kept. The folder, the counting, and the apples for his kids all occur."
+  },
+  {
+   "id": "c131b52c",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": true,
+   "key": "D",
+   "author_proof": "Ray hears the columns; Ellis works the rows and takes fruit home \u2014 mutual comprehension without agreement. Ellis never decides, Ray sees the numbers fine, and the limb scene pointedly avoids raised voices.",
+   "distractor_notes": "",
+   "evidence_refs": [
+    "P3-P5: mutual comprehension without agreement"
+   ],
+   "explanation": "Ray hears the columns; Ellis works the rows and takes fruit home \u2014 mutual comprehension without agreement. Ellis never decides, Ray sees the numbers fine, and the limb scene pointedly avoids raised voices."
+  },
+  {
+   "id": "cf563daf",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": false,
+   "key": "C",
+   "author_proof": "The graft \u2014 two separate things bound until the tree forgets \u2014 mirrors Ray's hope for the brothers. He criticizes no variety, no parenting, no skill.",
+   "distractor_notes": "",
+   "evidence_refs": [
+    "P4: grafting story as hoped union"
+   ],
+   "explanation": "The graft \u2014 two separate things bound until the tree forgets \u2014 mirrors Ray's hope for the brothers. He criticizes no variety, no parenting, no skill."
+  },
+  {
+   "id": "febfad59",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": true,
+   "key": "B",
+   "author_proof": "It carries Ray's whole case sideways, delaying the open argument. It teaches no technique, proves no neglect, dates no rupture.",
+   "distractor_notes": "",
+   "evidence_refs": [
+    "whole passage (metaphor function)"
+   ],
+   "explanation": "It carries Ray's whole case sideways, delaying the open argument. It teaches no technique, proves no neglect, dates no rupture."
+  },
+  {
+   "id": "0ed173ca",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": true,
+   "key": "A",
+   "author_proof": "Notices and pill routines illustrate the third-place mechanism. No pricing, no survivors, no data-source listing is involved.",
+   "distractor_notes": "",
+   "evidence_refs": [
+    "P3: corkboard notices and pharmacist routines"
+   ],
+   "explanation": "Notices and pill routines illustrate the third-place mechanism. No pricing, no survivors, no data-source listing is involved."
+  },
+  {
+   "id": "0fe59a5e",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": true,
+   "key": "D",
+   "author_proof": "Matching isolates the gathering-place effect from money and demographics. It proves no income claim, picks no markets, and predates the review.",
+   "distractor_notes": "",
+   "evidence_refs": [
+    "P2: matched each pair of towns"
+   ],
+   "explanation": "Matching isolates the gathering-place effect from money and demographics. It proves no income claim, picks no markets, and predates the review."
+  },
+  {
+   "id": "38ca8c23",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": true,
+   "key": "C",
+   "author_proof": "Matched towns were tracked five years; grocery towns fell at nearly twice the rate. Prices, recovery, and no-difference are all contradicted.",
+   "distractor_notes": "",
+   "evidence_refs": [
+    "P2: declining at nearly twice the rate"
+   ],
+   "explanation": "Matched towns were tracked five years; grocery towns fell at nearly twice the rate. Prices, recovery, and no-difference are all contradicted."
+  },
+  {
+   "id": "5eda82c6",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": true,
+   "key": "B",
+   "author_proof": "The cliff is undisputed; its interpretation is not. No winner is declared, no always-proven markets, no new study appears.",
+   "distractor_notes": "",
+   "evidence_refs": [
+    "P6: town meeting empties first"
+   ],
+   "explanation": "The cliff is undisputed; its interpretation is not. No winner is declared, no always-proven markets, no new study appears."
+  },
+  {
+   "id": "8551bdb6",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": true,
+   "key": "A",
+   "author_proof": "Equal money plus divergent stores isolates the store \u2014 her income story cannot absorb it. Bypass traffic, Marlow's later fate, and measurement gripes leave her case intact.",
+   "distractor_notes": "",
+   "evidence_refs": [
+    "P2 matched incomes plus P4 Marlow contrast"
+   ],
+   "explanation": "Equal money plus divergent stores isolates the store \u2014 her income story cannot absorb it. Bypass traffic, Marlow's later fate, and measurement gripes leave her case intact."
+  },
+  {
+   "id": "b760b2cc",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": false,
+   "key": "D",
+   "author_proof": "Daily-ness is their mechanism, so weekly success stings. They claim no market superiority, no review boycott, no matching impossibility.",
+   "distractor_notes": "",
+   "evidence_refs": [
+    "P5: participation numbers stayed essentially flat"
+   ],
+   "explanation": "Daily-ness is their mechanism, so weekly success stings. They claim no market superiority, no review boycott, no matching impossibility."
+  },
+  {
+   "id": "c2806b90",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": true,
+   "key": "C",
+   "author_proof": "Harlan's, matched towns, third places, Marlow, the market anomaly \u2014 exactly that arc. No chain history, biographies, or manual appears.",
+   "distractor_notes": "",
+   "evidence_refs": [
+    "P6 structure: store, study, mechanism, objection, puzzle"
+   ],
+   "explanation": "Harlan's, matched towns, third places, Marlow, the market anomaly \u2014 exactly that arc. No chain history, biographies, or manual appears."
+  },
+  {
+   "id": "ead565d7",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": false,
+   "key": "B",
+   "author_proof": "Milk-and-bread basics is the grocery sense of staple. Fastening, legal mandates, and imports misread a coupon-board usage.",
+   "distractor_notes": "",
+   "evidence_refs": [
+    "P3: coupons for pantry staples"
+   ],
+   "explanation": "Milk-and-bread basics is the grocery sense of staple. Fastening, legal mandates, and imports misread a coupon-board usage."
+  },
+  {
+   "id": "f1d62380",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": true,
+   "key": "A",
+   "author_proof": "Marlow kept its store yet declined after the bypass \u2014 her income-and-access case. She claims the opposite of A, no invariability, no fraud.",
+   "distractor_notes": "",
+   "evidence_refs": [
+    "P4: kept its grocery store and declined anyway"
+   ],
+   "explanation": "Marlow kept its store yet declined after the bypass \u2014 her income-and-access case. She claims the opposite of A, no invariability, no fraud."
+  },
+  {
+   "id": "19b41854",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": false,
+   "key": "D",
+   "author_proof": "Direct paraphrase of the authority objection.",
+   "distractor_notes": {
+    "A": "Costs never discussed",
+    "C": "Artifacts never questioned",
+    "D": "Visitors smile \u2014 popularity is high"
+   },
+   "evidence_refs": [
+    "A soundscape presents a thousand small decisions as if they were one discovered fact."
+   ],
+   "explanation": "Certainty-about-debates is stated as the opposite of museums' purpose."
+  },
+  {
+   "id": "3d7cdbb7",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": true,
+   "key": "C",
+   "author_proof": "Both passages agree on enjoyment; everything else is off-topic.",
+   "distractor_notes": {
+    "A": "Enjoyment is agreed",
+    "C": "Pigeons undisputed",
+    "D": "Admission absent"
+   },
+   "evidence_refs": [
+    "They remember the pigeons. They forget the grain trade."
+   ],
+   "explanation": "Help (smile carries facts) versus harm (false certainty) \u2014 the whole debate."
+  },
+  {
+   "id": "6483c86e",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": false,
+   "key": "B",
+   "author_proof": "Only option testing the feeling-carries-facts mechanism.",
+   "distractor_notes": {
+    "B": "Speaker origin irrelevant",
+    "C": "Past praise changes nothing",
+    "D": "Pigeon taste irrelevant"
+   },
+   "evidence_refs": [
+    "Sound at least admits it is showing its work \u2014 every track in our marketplace mix is documented, sourced, and adjustable."
+   ],
+   "explanation": "Durable fact-retention proves feeling carries content \u2014 his exact thesis."
+  },
+  {
+   "id": "758a6a1e",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": false,
+   "key": "A",
+   "author_proof": "Core rebuttal stated directly.",
+   "distractor_notes": {
+    "A": "Flawlessness never claimed",
+    "C": "Pigeons embraced, not banned",
+    "D": "No credential attack"
+   },
+   "evidence_refs": [
+    "which is the opposite of what a museum is for"
+   ],
+   "explanation": "Quiet galleries falsely caption history; sourced sound admits its work."
+  },
+  {
+   "id": "7aa7811f",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": true,
+   "key": "D",
+   "author_proof": "Rhetorical judo: the alternative fails the same test.",
+   "distractor_notes": {
+    "A": "Labels indicted, not praised",
+    "C": "No concession of defeat",
+    "D": "No favorite named"
+   },
+   "evidence_refs": [
+    "They remember the pigeons.",
+    "The visitors who remember them also remember, when asked, that the market fed a city."
+   ],
+   "explanation": "Quiet-with-captions is deployed to neutralize the certainty charge."
+  },
+  {
+   "id": "a8d5fc8a",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": true,
+   "key": "C",
+   "author_proof": "Genuine comparison: shared premise (memory), opposed conclusions.",
+   "distractor_notes": {
+    "B": "Neither claims proof",
+    "C": "Neither proposes cuts",
+    "D": "No age claim"
+   },
+   "evidence_refs": [
+    "every track in our marketplace mix is documented, sourced, and adjustable"
+   ],
+   "explanation": "Both passages state visitor pigeon-memory as fact; they differ only on what it means."
+  },
+  {
+   "id": "c0020173",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": true,
+   "key": "B",
+   "author_proof": "Mission framing excludes pride, fraud charges, and tourism.",
+   "distractor_notes": {
+    "A": "Popularity troubles, not pleases",
+    "C": "'All reconstruction' overreaches",
+    "D": "Wrong role entirely"
+   },
+   "evidence_refs": [
+    "teaches visitors to feel certain about things scholars debate",
+    "The smile is what carries the grain trade home"
+   ],
+   "explanation": "Stewardship vs certainty \u2014 mission language throughout."
+  },
+  {
+   "id": "c42d957a",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": true,
+   "key": "A",
+   "author_proof": "Explicit contrast stated in Passage A.",
+   "distractor_notes": {
+    "B": "Memory proves nothing about accuracy",
+    "C": "Labels never dismissed",
+    "D": "Engineering absent"
+   },
+   "evidence_refs": [
+    "A quiet gallery with labels on the wall tells visitors, falsely, that history arrived with captions."
+   ],
+   "explanation": "Pigeons remembered, grain trade forgotten \u2014 detail eclipses substance."
+  },
+  {
+   "id": "d6c6e56f",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": true,
+   "key": "D",
+   "author_proof": "Passage B's explicit counter to Passage A's charge.",
+   "distractor_notes": {
+    "A": "Revenue never mentioned",
+    "C": "No credential attack",
+    "D": "No such museum cited"
+   },
+   "evidence_refs": [
+    "The smile is what carries the grain trade home."
+   ],
+   "explanation": "Documentation answers manufactured-certainty directly."
+  },
+  {
+   "id": "2381b06b",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": true,
+   "key": "C",
+   "author_proof": "Blinding isolated the compass, leaving distance as a separate unsolved half. Smell was never implicated, panic belongs to the later dispute, and no distance was measured.",
+   "distractor_notes": "",
+   "evidence_refs": [
+    "P3: covering an ant's eyes with tiny opaque caps"
+   ],
+   "explanation": "Blinding isolated the compass, leaving distance as a separate unsolved half. Smell was never implicated, panic belongs to the later dispute, and no distance was measured."
+  },
+  {
+   "id": "2eaa71e6",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": true,
+   "key": "B",
+   "author_proof": "The objection gets a full paragraph plus the loop-search rebuttal \u2014 engaged, not dismissed. No fraud is alleged, and the verdict is clear.",
+   "distractor_notes": "",
+   "evidence_refs": [
+    "whole passage (objection plus rebuttal)"
+   ],
+   "explanation": "The objection gets a full paragraph plus the loop-search rebuttal \u2014 engaged, not dismissed. No fraud is alleged, and the verdict is clear."
+  },
+  {
+   "id": "6afeb40e",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": true,
+   "key": "A",
+   "author_proof": "Compass plus step-counting is the passage's whole account. Scent, landmarks, and clocks are each ruled out \u2014 the flats are blank and equal times gave unequal journeys.",
+   "distractor_notes": "",
+   "evidence_refs": [
+    "whole passage (compass plus odometer)"
+   ],
+   "explanation": "Compass plus step-counting is the passage's whole account. Scent, landmarks, and clocks are each ruled out \u2014 the flats are blank and equal times gave unequal journeys."
+  },
+  {
+   "id": "a56a4572",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": true,
+   "key": "D",
+   "author_proof": "Direction intact plus wrong length equals a faulty vector. Disease, loops, and drawn lines fit nothing in the paragraph.",
+   "distractor_notes": "",
+   "evidence_refs": [
+    "P6: The vector was intact"
+   ],
+   "explanation": "Direction intact plus wrong length equals a faulty vector. Disease, loops, and drawn lines fit nothing in the paragraph."
+  },
+  {
+   "id": "b3d40797",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": true,
+   "key": "C",
+   "author_proof": "Impossible journey, compass, odometer, rivalry, unknown register \u2014 exactly that arc. No expedition history, no second species, no anti-lab case.",
+   "distractor_notes": "",
+   "evidence_refs": [
+    "whole passage (mystery, solution, objection, puzzle)"
+   ],
+   "explanation": "Impossible journey, compass, odometer, rivalry, unknown register \u2014 exactly that arc. No expedition history, no second species, no anti-lab case."
+  },
+  {
+   "id": "ca515fe8",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": true,
+   "key": "B",
+   "author_proof": "Loops centered past the nest mean the compass held and only distance overshot. Stilts helped nothing, panic is explicitly rejected, and no release error occurred.",
+   "distractor_notes": "",
+   "evidence_refs": [
+    "P6: loops centered on the wrong spot"
+   ],
+   "explanation": "Loops centered past the nest mean the compass held and only distance overshot. Stilts helped nothing, panic is explicitly rejected, and no release error occurred."
+  },
+  {
+   "id": "cc58690d",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": false,
+   "key": "A",
+   "author_proof": "Same time + different distance kills time; loops kill direction-loss; no doubling in data.",
+   "distractor_notes": {
+    "B": "Contradicted by equal times",
+    "C": "Loop evidence contradicts",
+    "D": "No doubling in Table 1"
+   },
+   "evidence_refs": [
+    "Table 1: equal times, unequal distances",
+    "P4: travel time held essentially equal across groups"
+   ],
+   "explanation": "Equal times with unequal distances implicates stride; direction held (loops) and no doubling appears."
+  },
+  {
+   "id": "d549a929",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": false,
+   "key": "D",
+   "author_proof": "Holding time constant while distance varies falsifies time-measurement.",
+   "distractor_notes": {
+    "A": "This is what the data support",
+    "C": "Direction was never in doubt here",
+    "D": "Searching happened in both groups"
+   },
+   "evidence_refs": [
+    "Table 1: stump-walkers -1.4 at equal travel time",
+    "P5: distance tracked stride, not seconds"
+   ],
+   "explanation": "Same time with different outcomes eliminates time as the measure."
+  },
+  {
+   "id": "f60dbf8b",
+   "section": null,
+   "domain": null,
+   "skill": null,
+   "operational": true,
+   "key": "C",
+   "author_proof": "Equal time plus stride-tracked distance is the experiment's stated conclusion. Bravery, broken compasses, and one-way counting are all contradicted.",
+   "distractor_notes": "",
+   "evidence_refs": [
+    "P4-P5: equal times, stride-tracked distance"
+   ],
+   "explanation": "Equal time plus stride-tracked distance is the experiment's stated conclusion. Bravery, broken compasses, and one-way counting are all contradicted."
+  }
+ ]
+}

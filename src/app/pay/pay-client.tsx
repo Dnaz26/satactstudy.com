@@ -6,10 +6,11 @@ import { BrandMark } from '@/components/brand'
 import { Companion } from '@/components/ui/companion'
 import { Button } from '@/components/ui/button'
 import { CHECKOUT_PROMO } from '@/lib/plans'
-import { displayPrice, isPaidPlanId, planCadence, planInfo, type PaidPlanId } from '@/lib/stripe'
+import { annualChargeDollars, displayPrice, isPaidPlanId, planCadence, planInfo, type BillingInterval, type PaidPlanId } from '@/lib/stripe'
 
 export function PayClient({
   plan,
+  billing = 'month',
   promo,
   currentPlan,
   updateCard,
@@ -17,6 +18,7 @@ export function PayClient({
   name,
 }: {
   plan: PaidPlanId | null
+  billing?: BillingInterval
   promo: boolean
   currentPlan: string
   updateCard: boolean
@@ -44,7 +46,7 @@ export function PayClient({
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(updateCard || !plan
           ? { updateCard: true, embedded: false }
-          : { plan, promo: pendingPromo ? CHECKOUT_PROMO.code : undefined, embedded: false }),
+          : { plan, billing, promo: pendingPromo && billing !== 'year' ? CHECKOUT_PROMO.code : undefined, embedded: false }),
       })
       const data = await res.json() as { url?: string; error?: string }
       if (cancelled) return
@@ -60,9 +62,10 @@ export function PayClient({
     return () => {
       cancelled = true
     }
-  }, [plan, promo, updateCard, updated])
+  }, [billing, plan, promo, updateCard, updated])
 
-  const charged = selected ? displayPrice(selected, promo) : 0
+  const yearly = billing === 'year' && selected ? annualChargeDollars(selected.price) : 0
+  const charged = selected ? (billing === 'year' ? yearly : displayPrice(selected, promo)) : 0
 
   return (
     <div className="flex min-h-screen flex-col px-5 py-5">
@@ -83,10 +86,12 @@ export function PayClient({
               ? 'Update the card on this plan.'
               : promo
                 ? `${CHECKOUT_PROMO.label}: ${CHECKOUT_PROMO.trialDays} days free, then $${charged}/mo (${CHECKOUT_PROMO.percentOff}% off).`
-                : `You picked ${selected?.name ?? 'a plan'}. Enter your card next.`}
+                : billing === 'year'
+                  ? `You picked ${selected?.name ?? 'a plan'} billed yearly at $${charged.toFixed(2)}, 30% off monthly.`
+                  : `You picked ${selected?.name ?? 'a plan'}. Enter your card next.`}
         />
 
-        {promo && !updateCard && (
+        {promo && billing !== 'year' && !updateCard && (
           <div className="rhs-special neu relative overflow-hidden p-3">
             <div className="rhs-special-wash pointer-events-none absolute inset-0" aria-hidden="true" />
             <p className="relative font-mono text-[10px] uppercase tracking-[0.2em] text-signal">
@@ -114,8 +119,8 @@ export function PayClient({
           {selected && (
             <div className="text-right">
               <p className="font-display text-xl">
-                ${charged}
-                <span className="text-xs text-fog"> {planCadence(selected)}</span>
+                ${billing === 'year' ? charged.toFixed(2) : charged}
+                <span className="text-xs text-fog"> {billing === 'year' ? '/year' : planCadence(selected)}</span>
               </p>
               {promo && (
                 <p className="mt-1 font-mono text-[9px] uppercase tracking-[0.14em] text-signal">

@@ -41,7 +41,7 @@ export function PracticeSetup({ topics, plan, questionsUsedToday, defaultTestTyp
   const [testType, setTestType] = React.useState<'SAT' | 'ACT'>(defaultTestType)
   const [section, setSection] = React.useState('all')
   const [topicId, setTopicId] = React.useState('all')
-  const [difficulty, setDifficulty] = React.useState('mixed')
+  const difficulty = 'hard'
   const [questionCount, setQuestionCount] = React.useState('10')
   const [secondsPerQuestion, setSecondsPerQuestion] = React.useState('90')
   const [timed, setTimed] = React.useState(false)
@@ -146,20 +146,9 @@ export function PracticeSetup({ topics, plan, questionsUsedToday, defaultTestTyp
         </Select>
       </div>
 
-      <div>
-        <p className="mb-2 font-mono text-[10px] uppercase tracking-[0.16em] text-fog">Difficulty</p>
-        <div className="flex flex-wrap gap-2">
-          {['mixed', 'easy', 'medium', 'hard'].map((d) => (
-            <button
-              key={d}
-              onClick={() => setDifficulty(d)}
-              className={`rounded-xl px-3 py-2 text-sm capitalize ${difficulty === d ? 'neu-raised text-white' : 'neu-sm text-paper'}`}
-            >
-              {d}
-            </button>
-          ))}
-        </div>
-      </div>
+      <p className="rounded-2xl border border-[#e5e5e5] bg-white px-4 py-3 text-sm font-semibold text-[#3c3c3c]">
+        Challenge practice uses hard questions. Learn starts simple and builds up to them.
+      </p>
 
       <div>
         <p className="mb-2 font-mono text-[10px] uppercase tracking-[0.16em] text-fog">Questions</p>

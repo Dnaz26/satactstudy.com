@@ -975,23 +975,35 @@ export type Database = {
       profiles: {
         Row: {
           access_code_used: string | null
+          age: number | null
           billing_promo: string | null
           created_at: string | null
           current_estimated_score: number | null
+          diagnostic_act: number | null
           diagnostic_completed: boolean | null
+          diagnostic_correct: number | null
+          diagnostic_sat: number | null
+          discovery_source: string | null
           email: string | null
+          exam_history: string | null
           focus_section: string | null
           full_name: string | null
           grade_level: string | null
           id: string
           onboarding_completed: boolean | null
           prior_prep: string | null
+          prior_study_method: string | null
+          planned_exam: string | null
           role: string | null
           school_name: string | null
           stripe_customer_id: string | null
           stripe_subscription_id: string | null
+          struggle_areas: string[] | null
           study_days: string[] | null
+          study_method: string | null
           study_minutes_per_day: number | null
+          study_credits: number
+          ui_language: string
           study_start_time: string
           subscription_plan: string | null
           subscription_status: string | null
@@ -1008,23 +1020,35 @@ export type Database = {
         }
         Insert: {
           access_code_used?: string | null
+          age?: number | null
           billing_promo?: string | null
           created_at?: string | null
           current_estimated_score?: number | null
+          diagnostic_act?: number | null
           diagnostic_completed?: boolean | null
+          diagnostic_correct?: number | null
+          diagnostic_sat?: number | null
+          discovery_source?: string | null
           email?: string | null
+          exam_history?: string | null
           focus_section?: string | null
           full_name?: string | null
           grade_level?: string | null
           id: string
           onboarding_completed?: boolean | null
           prior_prep?: string | null
+          prior_study_method?: string | null
+          planned_exam?: string | null
           role?: string | null
           school_name?: string | null
           stripe_customer_id?: string | null
           stripe_subscription_id?: string | null
+          struggle_areas?: string[] | null
           study_days?: string[] | null
+          study_method?: string | null
           study_minutes_per_day?: number | null
+          study_credits?: number
+          ui_language?: string
           study_start_time?: string
           subscription_plan?: string | null
           subscription_status?: string | null
@@ -1041,23 +1065,35 @@ export type Database = {
         }
         Update: {
           access_code_used?: string | null
+          age?: number | null
           billing_promo?: string | null
           created_at?: string | null
           current_estimated_score?: number | null
+          diagnostic_act?: number | null
           diagnostic_completed?: boolean | null
+          diagnostic_correct?: number | null
+          diagnostic_sat?: number | null
+          discovery_source?: string | null
           email?: string | null
+          exam_history?: string | null
           focus_section?: string | null
           full_name?: string | null
           grade_level?: string | null
           id?: string
           onboarding_completed?: boolean | null
           prior_prep?: string | null
+          prior_study_method?: string | null
+          planned_exam?: string | null
           role?: string | null
           school_name?: string | null
           stripe_customer_id?: string | null
           stripe_subscription_id?: string | null
+          struggle_areas?: string[] | null
           study_days?: string[] | null
+          study_method?: string | null
           study_minutes_per_day?: number | null
+          study_credits?: number
+          ui_language?: string
           study_start_time?: string
           subscription_plan?: string | null
           subscription_status?: string | null
@@ -2624,6 +2660,78 @@ export type Database = {
           part_of_speech?: string | null
           test_type?: string | null
           word?: string
+        }
+        Relationships: []
+      }
+      study_payout_accounts: {
+        Row: {
+          user_id: string
+          stripe_account_id: string
+          payouts_enabled: boolean
+          details_submitted: boolean
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          user_id: string
+          stripe_account_id: string
+          payouts_enabled?: boolean
+          details_submitted?: boolean
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          stripe_account_id?: string
+          payouts_enabled?: boolean
+          details_submitted?: boolean
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      study_payouts: {
+        Row: {
+          id: string
+          user_id: string
+          amount_cents: number
+          status: string
+          stripe_transfer_id: string | null
+          failure_reason: string | null
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          user_id: string
+          amount_cents: number
+          status: string
+          stripe_transfer_id?: string | null
+          failure_reason?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          status?: string
+          stripe_transfer_id?: string | null
+          failure_reason?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      study_credit_grants: {
+        Row: {
+          id: string
+          user_id: string
+          credits: number
+          created_at: string
+        }
+        Insert: {
+          id: string
+          user_id: string
+          credits: number
+          created_at?: string
+        }
+        Update: {
+          credits?: number
         }
         Relationships: []
       }

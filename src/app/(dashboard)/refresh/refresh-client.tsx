@@ -1,298 +1,112 @@
 'use client'
-
 import * as React from 'react'
 import Link from 'next/link'
-import { Search } from 'lucide-react'
-import { TutorRichText } from '@/components/practice/question-prompt'
-import { AnswerSheet, TestBooklet, type BookletMark, type BookletQuestion } from '@/components/practice/test-booklet'
+import { ArrowRight, Atom, BookOpen, Brain, Calculator, FlaskConical, Search, Zap } from 'lucide-react'
+import { REFRESH_TOPICS, type RefreshBucket } from '@/lib/study/refresh'
+import type { ExamFocus } from '@/lib/schema'
 import { cn } from '@/lib/utils'
-import { ENGLISH_LEVELS, MATH_LEVELS, type StudyLevel, type StudyTrack } from '@/lib/study/levels'
-import { examplesForLevel } from '@/lib/study/examples'
-import { buildGuidedLesson } from '@/lib/study/lesson-flow'
+const FILTERS: Array<{id: RefreshBucket | 'all'; label: string}> = [
+  {id:'all',label:'All'}, {id:'math',label:'Math'}, {id:'english',label:'English'},
+  {id:'reading',label:'Reading'}, {id:'science',label:'Science'},
+]
 
-type Bucket = 'math' | 'english' | 'reading'
-
-type TopicCard = {
-  id: string
-  track: StudyTrack
-  bucket: Bucket
-  category: string
-  title: string
-  level: StudyLevel
+const BUCKET_STYLE: Record<RefreshBucket, { color: string; bg: string; shadow: string; Icon: typeof Calculator }> = {
+  math: { color: '#1cb0f6', bg: 'bg-[#e8f6ff]', shadow: 'shadow-[0_6px_0_#b9e5ff]', Icon: Calculator },
+  english: { color: '#58cc02', bg: 'bg-[#edffe6]', shadow: 'shadow-[0_6px_0_#c8efb8]', Icon: BookOpen },
+  reading: { color: '#ce82ff', bg: 'bg-[#f6eaff]', shadow: 'shadow-[0_6px_0_#e2c4f6]', Icon: Brain },
+  science: { color: '#ff9600', bg: 'bg-[#fff2df]', shadow: 'shadow-[0_6px_0_#ffd49b]', Icon: FlaskConical },
 }
 
-function classifyEnglish(level: StudyLevel): Bucket {
-  return level.category.toLowerCase().includes('reading') ? 'reading' : 'english'
-}
+type HoverPreview = { title: string; prompt: string; choices: string[]; top: number; left: number }
 
-const ALL_TOPICS: TopicCard[] = [
-  ...MATH_LEVELS.map((level) => ({
-    id: `math-${level.index}`,
-    track: 'math' as const,
-    bucket: 'math' as const,
-    category: level.category,
-    title: level.title,
-    level,
-  })),
-  ...ENGLISH_LEVELS.map((level) => ({
-    id: `english-${level.index}`,
-    track: 'english' as const,
-    bucket: classifyEnglish(level),
-    category: level.category,
-    title: level.title,
-    level,
-  })),
-]
-
-const BUCKETS: Array<{ id: Bucket | 'all'; label: string }> = [
-  { id: 'all', label: 'All' },
-  { id: 'math', label: 'Math' },
-  { id: 'english', label: 'English' },
-  { id: 'reading', label: 'Reading' },
-]
-
-const REFRESH_DIFFICULTIES: Array<'easy' | 'medium' | 'hard'> = [
-  'easy', 'easy', 'easy', 'medium', 'medium', 'medium', 'medium', 'hard', 'hard', 'hard',
-]
-
-export function RefreshClient() {
-  const [query, setQuery] = React.useState('')
-  const [bucket, setBucket] = React.useState<Bucket | 'all'>('all')
-  const [selectedId, setSelectedId] = React.useState<string | null>(ALL_TOPICS[0]?.id ?? null)
-  const [answers, setAnswers] = React.useState<Record<string, string>>({})
-  const [marks, setMarks] = React.useState<Record<string, BookletMark>>({})
-  const [focusedId, setFocusedId] = React.useState<string | null>(null)
-
+export function RefreshClient({ examFocus = 'both', onPreviewTopic }: { examFocus?: ExamFocus; onPreviewTopic?: () => void } = {}) {
+  const [query,setQuery] = React.useState('')
+  const [bucket,setBucket] = React.useState<RefreshBucket | 'all'>('all')
+  const [hover, setHover] = React.useState<HoverPreview | null>(null)
+  const filters = FILTERS.filter((filter) => examFocus === 'SAT' ? filter.id !== 'science' : true)
   const filtered = React.useMemo(() => {
-    const q = query.trim().toLowerCase()
-    return ALL_TOPICS.filter((topic) => {
-      if (bucket !== 'all' && topic.bucket !== bucket) return false
-      if (!q) return true
-      return (
-        topic.title.toLowerCase().includes(q)
-        || topic.category.toLowerCase().includes(q)
-        || topic.level.topicMatch.some((tag) => tag.toLowerCase().includes(q))
-      )
+    const search = query.trim().toLowerCase()
+    return REFRESH_TOPICS.filter(({level,bucket:group}) => {
+      const examOk = examFocus === 'both' || (examFocus === 'SAT' ? level.sat : level.act)
+      return examOk && (bucket === 'all' || bucket === group) && (!search ||
+        [level.title,level.category,...level.topicMatch].some(text => text.toLowerCase().includes(search)))
     })
-  }, [query, bucket])
-
-  const selected = React.useMemo(
-    () => ALL_TOPICS.find((topic) => topic.id === selectedId) ?? filtered[0] ?? null,
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [filtered, selectedId],
-  )
-
-  React.useEffect(() => {
-    setAnswers({})
-    setMarks({})
-    setFocusedId(null)
-  }, [selected?.id])
-
-  const lesson = selected ? buildGuidedLesson(selected.level) : null
-  const examples = selected ? examplesForLevel(selected.level) : null
-
-  const questions: BookletQuestion[] = React.useMemo(() => {
-    if (!selected || !lesson) return []
-    const base = lesson.problems.length ? lesson.problems : selected.level.problems
-    if (!base.length) return []
-    return Array.from({ length: 10 }, (_, i) => {
-      const source = base[i % base.length]!
-      return {
-        id: `${selected.id}-q${i + 1}`,
-        question_text: source.prompt,
-        choices: source.choices,
-        correct_answer: source.answer,
-        difficulty: REFRESH_DIFFICULTIES[i] ?? 'medium',
-        topic_id: `${selected.track}-${selected.level.index}`,
-        topic_name: selected.title,
-        section_name: selected.category,
-        test_type: selected.track === 'math' ? 'SAT' : 'SAT',
-        official_explanation: source.explain,
-      } satisfies BookletQuestion
-    })
-  }, [selected, lesson])
-
-  function handleAnswer(id: string, value: string) {
-    if (marks[id]) return
-    setAnswers((prev) => ({ ...prev, [id]: value }))
-  }
-
-  function handleCheck(id: string) {
-    const question = questions.find((q) => q.id === id)
-    const answer = answers[id]
-    if (!question || !answer || marks[id]) return
-    setMarks((prev) => ({
-      ...prev,
-      [id]: {
-        correct: answer === question.correct_answer,
-        why: question.official_explanation ?? `The correct answer is ${question.correct_answer}.`,
-      },
-    }))
-  }
-
-  function handleCheckAll() {
-    setMarks((prev) => {
-      const next = { ...prev }
-      for (const question of questions) {
-        const answer = answers[question.id]
-        if (!answer || next[question.id]) continue
-        next[question.id] = {
-          correct: answer === question.correct_answer,
-          why: question.official_explanation ?? `The correct answer is ${question.correct_answer}.`,
-        }
-      }
-      return next
+  },[query,bucket,examFocus])
+  function showExample(event: React.SyntheticEvent<HTMLElement>, level: { title: string; problems: Array<{ prompt: string; choices: Array<{ key: string; text: string }> }> }) {
+    const problem = level.problems[0]
+    if (!problem) {
+      setHover(null)
+      return
+    }
+    const rect = event.currentTarget.getBoundingClientRect()
+    const width = 320
+    const left = rect.right + 12 + width < window.innerWidth ? rect.right + 12 : Math.max(12, rect.left - width - 12)
+    const top = Math.min(rect.top, window.innerHeight - 280)
+    setHover({
+      title: level.title,
+      prompt: problem.prompt,
+      choices: problem.choices.slice(0, 4).map((choice) => `${choice.key}. ${choice.text}`),
+      top: Math.max(12, top),
+      left,
     })
   }
 
-  const scored = questions.filter((q) => marks[q.id]).length
-  const correct = questions.filter((q) => marks[q.id]?.correct).length
-
-  return (
-    <div className="mx-auto w-full max-w-5xl space-y-6 pb-16 pt-4">
-      <header className="space-y-2">
-        <p className="font-mono text-xs uppercase tracking-[0.16em] text-fog">Refresh</p>
-        <h1 className="font-display text-4xl tracking-tight text-paper">Practice a topic again</h1>
-        <p className="max-w-2xl text-sm text-fog">
-          Pick any of the {ALL_TOPICS.length} topics below to refresh it. Tap a topic to see examples and practice questions.
-        </p>
-      </header>
-
-      <div className="relative">
-        <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-fog" />
-        <input
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          placeholder="Search a topic… e.g. whole numbers, commas, main idea"
-          className="h-14 w-full rounded-[1.25rem] border border-line bg-white pl-11 pr-4 text-base text-paper outline-none focus:border-signal"
-        />
-      </div>
-
-      <div className="flex flex-wrap gap-2">
-        {BUCKETS.map((item) => (
-          <button
-            key={item.id}
-            type="button"
-            onClick={() => setBucket(item.id)}
-            className={cn(
-              'rounded-full px-4 py-2 text-sm font-semibold transition',
-              bucket === item.id ? 'bg-signal text-white' : 'border border-line bg-white text-fog hover:text-paper',
-            )}
-          >
-            {item.label}
-          </button>
-        ))}
-      </div>
-
-      <div className="grid gap-5 lg:grid-cols-[18rem_minmax(0,1fr)]">
-        <div className="max-h-[70vh] space-y-1 overflow-y-auto rounded-[1.5rem] border border-line bg-white p-2">
-          {filtered.length === 0 && (
-            <p className="px-3 py-6 text-sm text-fog">No topics match that search.</p>
-          )}
-          {filtered.map((topic) => (
-            <button
-              key={topic.id}
-              type="button"
-              onClick={() => setSelectedId(topic.id)}
-              className={cn(
-                'w-full rounded-xl px-3 py-3 text-left transition',
-                selected?.id === topic.id ? 'bg-signal/12 text-paper' : 'hover:bg-panel-2 text-fog',
-              )}
-            >
-              <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-fog">{topic.category}</p>
-              <p className="mt-1 text-sm font-semibold text-paper">{topic.title}</p>
-            </button>
-          ))}
-        </div>
-
-        {selected && lesson && examples ? (
-          <div className="space-y-5 rounded-[1.75rem] border border-line bg-[linear-gradient(160deg,#fff_0%,#fff7f2_100%)] p-5 sm:p-7">
-            <div className="flex flex-wrap items-start justify-between gap-3">
-              <div>
-                <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-signal">{selected.bucket}</p>
-                <h2 className="mt-1 font-display text-3xl text-paper">{selected.title}</h2>
-              </div>
-              <Link
-                href={`/study/${selected.track}/${selected.level.index}`}
-                className="rounded-full bg-signal px-4 py-2 text-sm font-semibold text-white"
-              >
-                Open in tutoring
-              </Link>
-            </div>
-
-            <div className="space-y-3">
-              <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-fog">Definition</p>
-              <p className="text-lg leading-relaxed text-paper">{lesson.whatItIs}</p>
-            </div>
-
-            <div className="space-y-3">
-              <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-fog">Real-world example</p>
-              <p className="text-lg leading-relaxed text-paper">{lesson.irlExample}</p>
-            </div>
-
-            <div className="grid gap-4 sm:grid-cols-2">
-              <div className="rounded-2xl border border-emerald-200 bg-emerald-50/70 p-4">
-                <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-emerald-700">{examples.yesTitle}</p>
-                <ul className="mt-3 space-y-3">
-                  {examples.yes.slice(0, 5).map((item) => (
-                    <li key={item.label} className="text-sm text-paper">
-                      <p className="font-semibold"><TutorRichText text={item.label} className="text-inherit" /></p>
-                      <p className="mt-1 text-fog">{item.why}</p>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div className="rounded-2xl border border-rose-200 bg-rose-50/70 p-4">
-                <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-rose-700">{examples.noTitle}</p>
-                <ul className="mt-3 space-y-3">
-                  {examples.no.slice(0, 5).map((item) => (
-                    <li key={item.label} className="text-sm text-paper">
-                      <p className="font-semibold"><TutorRichText text={item.label} className="text-inherit" /></p>
-                      <p className="mt-1 text-fog">{item.why}</p>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-
-            <div className="space-y-4">
-              <div className="flex flex-wrap items-center justify-between gap-2">
-                <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-fog">
-                  Practice test · 10 questions{scored ? ` · ${correct}/${scored} correct` : ''}
-                </p>
-                <button
-                  type="button"
-                  onClick={handleCheckAll}
-                  className="rounded-full border border-line bg-white px-3 py-1.5 text-xs font-semibold text-paper transition hover:border-signal/40 hover:text-signal"
-                >
-                  Check all answered
-                </button>
-              </div>
-              <div className="grid gap-4 xl:grid-cols-[minmax(0,1fr)_12rem]">
-                <TestBooklet
-                  testType={selected.track === 'math' ? 'SAT Math' : 'SAT Reading'}
-                  sectionLabel={selected.title}
-                  questions={questions}
-                  answers={answers}
-                  marks={marks}
-                  focusedId={focusedId}
-                  onFocus={setFocusedId}
-                  onAnswer={handleAnswer}
-                  onCheck={handleCheck}
-                  allowCheck
-                />
-                <AnswerSheet
-                  questions={questions}
-                  answers={answers}
-                  marks={marks}
-                  focusedId={focusedId}
-                  onJump={setFocusedId}
-                />
-              </div>
-            </div>
-          </div>
-        ) : null}
-      </div>
+  return <div className="mx-auto w-full max-w-6xl space-y-6 pb-16 pt-4">
+    <div className="relative rounded-[1.5rem] border-4 border-[#e5e5e5] bg-white p-2 shadow-[0_6px_0_#e5e5e5]">
+      <Search className="pointer-events-none absolute left-6 top-1/2 h-5 w-5 -translate-y-1/2 text-[#afafaf]" />
+      <input aria-label="Search topics" value={query} onChange={event=>setQuery(event.target.value)}
+        placeholder="Search a topic like slope, commas, inference, probability…" className="h-14 w-full rounded-[1.1rem] bg-[#f7f7f7] pl-12 pr-4 text-base font-bold text-[#3c3c3c] outline-none focus:bg-white focus:ring-2 focus:ring-[#1cb0f6]" />
     </div>
-  )
+    <div className="flex flex-wrap gap-2" aria-label="Filter topics">
+      {filters.map(filter=><button key={filter.id} type="button" aria-pressed={bucket===filter.id}
+        onClick={()=>setBucket(filter.id)} className={cn('rounded-2xl border-2 px-4 py-2 text-sm font-extrabold transition active:translate-y-0.5',bucket===filter.id?'border-[#58cc02] bg-[#58cc02] text-white shadow-[0_4px_0_#46a302]':'border-[#e5e5e5] bg-white text-[#777] shadow-[0_4px_0_#e5e5e5] hover:text-[#3c3c3c]')}>{filter.label}</button>)}
+    </div>
+
+    <div className="flex flex-wrap items-center justify-between gap-3">
+      <p className="text-sm font-extrabold text-[#777]" role="status">{filtered.length} topics ready</p>
+      <p className="inline-flex items-center gap-2 rounded-full bg-[#fff2df] px-3 py-1 text-xs font-extrabold text-[#c27000]">
+        <Zap className="h-4 w-4" /> Tap any topic to start a review round
+      </p>
+    </div>
+
+    {filtered.length ? <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {filtered.map(({level,href,bucket: group})=>{
+        const style = BUCKET_STYLE[group]
+        const Icon = style.Icon
+        const card = (
+            <>
+            <div className={cn('mb-4 flex h-14 w-14 items-center justify-center rounded-2xl', style.bg)} style={{ color: style.color }}>
+              <Icon className="h-7 w-7" />
+            </div>
+            <div>
+              <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-[#afafaf]">{level.category}</p>
+              <h2 className="mt-1 text-lg font-extrabold leading-tight text-[#3c3c3c]">{level.title}</h2>
+              <p className="mt-3 flex items-center gap-2 text-sm font-extrabold" style={{ color: style.color }}>
+                Start review <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" aria-hidden />
+              </p>
+            </div>
+            <Atom className="absolute -right-5 -top-5 h-20 w-20 text-[#f0f0f0]" />
+            </>
+        )
+        const className = cn('group relative overflow-hidden rounded-[1.75rem] border-4 border-[#e5e5e5] bg-white p-5 text-left transition hover:-translate-y-1 hover:border-[#1cb0f6] focus-visible:outline-2 focus-visible:outline-[#1cb0f6]', style.shadow)
+        return onPreviewTopic ? (
+          <button key={href} type="button" onClick={onPreviewTopic} onMouseEnter={(event) => showExample(event, level)} onMouseLeave={() => setHover(null)} onFocus={(event) => showExample(event, level)} onBlur={() => setHover(null)} className={className}>{card}</button>
+        ) : (
+          <Link key={href} href={href} onMouseEnter={(event) => showExample(event, level)} onMouseLeave={() => setHover(null)} onFocus={(event) => showExample(event, level)} onBlur={() => setHover(null)} className={className}>{card}</Link>
+        )
+      })}
+    </div> : <div className="rounded-2xl border border-line bg-white p-6">
+      <p className="text-sm text-fog">No topics match your search.</p>
+      <button type="button" onClick={()=>{setQuery('');setBucket('all')}} className="mt-3 text-sm font-semibold text-signal">Show all topics</button>
+    </div>}
+    {hover ? (
+      <div className="pointer-events-none fixed z-50 w-80 rounded-2xl border-2 border-[#1cb0f6] bg-white p-4 shadow-[0_10px_30px_rgba(0,0,0,0.16)]" style={{ top: hover.top, left: hover.left }}>
+        <p className="text-[10px] font-black uppercase tracking-[0.14em] text-[#1cb0f6]">Example · {hover.title}</p>
+        <p className="mt-2 text-sm font-bold leading-5 text-[#3c3c3c]">{hover.prompt}</p>
+        <div className="mt-3 space-y-1">
+          {hover.choices.map((choice) => <p key={choice} className="text-xs font-semibold text-[#555]">{choice}</p>)}
+        </div>
+      </div>
+    ) : null}
+  </div>
 }

@@ -61,12 +61,8 @@ html {
 }
 
 body {
-  background:
-    radial-gradient(900px 520px at 50% -8%, #ffffff 0%, transparent 58%),
-    radial-gradient(720px 420px at 8% 40%, rgba(255, 92, 57, 0.1), transparent 55%),
-    radial-gradient(640px 380px at 92% 30%, rgba(255, 212, 200, 0.45), transparent 50%),
-    var(--ink);
-  color: var(--paper);
+  background: #ffffff;
+  color: #3c3c3c;
   font-family: var(--font-outfit), system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -350,7 +346,26 @@ body {
 }
 
 .app-shell {
-  background: transparent;
+  background: #ffffff;
+}
+
+@keyframes kid-pop {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+.kid-pop {
+  animation: kid-pop 2.2s ease-in-out infinite;
+}
+
+.kid-press {
+  box-shadow: 0 6px 0 #e5e5e5;
+  transition: transform 0.08s ease, box-shadow 0.08s ease;
+}
+
+.kid-press:active {
+  transform: translateY(4px);
+  box-shadow: 0 2px 0 #e5e5e5;
 }
 
 .app-sidebar {
@@ -409,4 +424,65 @@ body {
   box-shadow:
     0 0 0 1px rgba(255, 92, 57, 0.22),
     0 18px 40px rgba(40, 24, 12, 0.08);
+}
+
+@keyframes trial-offer-in {
+  0% { opacity: 0; transform: translateY(18px) scale(0.94); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes trial-offer-glow {
+  0%, 100% { transform: scale(1); opacity: 0.55; }
+  50% { transform: scale(1.12); opacity: 0.9; }
+}
+
+@keyframes trial-offer-spin {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+@keyframes trial-offer-shine {
+  0% { transform: translateX(-120%); }
+  100% { transform: translateX(220%); }
+}
+
+.trial-offer-card {
+  animation: trial-offer-in 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.trial-offer-glow {
+  animation: trial-offer-glow 2.8s ease-in-out infinite;
+}
+
+.trial-offer-ring {
+  animation: trial-offer-spin 8s linear infinite;
+}
+
+.trial-offer-shine {
+  animation: trial-offer-shine 2.4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .trial-offer-card,
+  .trial-offer-glow,
+  .trial-offer-ring,
+  .trial-offer-shine {
+    animation: none;
+  }
+}
+
+@keyframes agent-write-bob {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(24px); }
+}
+
+@keyframes agent-ink {
+  0%, 12% { transform: scaleX(0); }
+  58%, 100% { transform: scaleX(1); }
+}
+
+@keyframes agent-pen {
+  0% { transform: translateX(-50%) translateY(0) rotate(-32deg); }
+  50% { transform: translateX(-50%) translateY(30px) rotate(-14deg); }
+  100% { transform: translateX(-50%) translateY(0) rotate(-32deg); }
 }

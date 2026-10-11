@@ -7,6 +7,8 @@ import { Button } from '@/components/ui/button'
 import { Progress } from '@/components/ui/progress'
 import { Companion } from '@/components/ui/companion'
 import { LayoutDashboard, RotateCcw, TrendingUp } from 'lucide-react'
+import { actScoreSummary } from '@/lib/act-scale'
+import { estimateSatMathFromRaw, estimateSatMathScore, estimateUnroutedSatSection } from '@/lib/assessment/sat-scale'
 
 function ResultsContent() {
   const searchParams = useSearchParams()
@@ -19,6 +21,30 @@ function ResultsContent() {
   const math = searchParams.get('math')
   const rw = searchParams.get('rw')
   const path = searchParams.get('path')
+  const mathModule1 = searchParams.get('m1')
+  const mathModule2 = searchParams.get('m2')
+  const eng = searchParams.get('eng')
+  const read = searchParams.get('read')
+  const sci = searchParams.get('sci')
+  const hasScience = sci !== null && sci !== ''
+  // Core flagship form (131) or core + optional Science (171).
+  const isAct = (total === 131 || total === 171) && eng !== null && read !== null
+  const act = isAct
+    ? actScoreSummary({
+      english: Number(eng ?? 0),
+      math: Number(math ?? 0),
+      reading: Number(read ?? 0),
+      science: Number(sci ?? 0),
+    })
+    : null
+  const actRows = act
+    ? ([
+      ['English', eng, act.scaled.english, 50],
+      ['Math', math, act.scaled.math, 45],
+      ['Reading', read, act.scaled.reading, 36],
+      ...(hasScience ? [['Science', sci, act.scaled.science, 40] as const] : []),
+    ] as const)
+    : []
 
   const companionMode =
     accuracy >= 80 ? 'success' :
@@ -52,10 +78,29 @@ function ResultsContent() {
             <p className="text-fog">{correct} of {total} correct</p>
           </div>
 
-          {total === 98 && math && rw && <div className="space-y-1 text-sm text-fog">
-            <p>Reading & Writing: {rw}/54 · Math: {math}/44</p>
-            <p>Math Module 2: {path === 'harder' ? 'harder' : 'easier'} path</p>
-            <p>Practice accuracy; this is not an official SAT scaled score.</p>
+          {total === 98 && math && rw && <SatScore
+            mathCorrect={Number(math)}
+            rwCorrect={Number(rw)}
+            path={path === 'harder' || path === 'easier' || path === 'medium' ? path : null}
+            module1Correct={mathModule1 === null || mathModule1 === '' ? null : Number(mathModule1)}
+            module2Correct={mathModule2 === null || mathModule2 === '' ? null : Number(mathModule2)}
+          />}
+          {act && <div className="space-y-3">
+            <p className="text-center font-display text-5xl text-paper">{act.composite}</p>
+            <p className="text-center text-sm text-fog">ACT Composite — English, Math, Reading only (estimated)</p>
+            <div className="grid grid-cols-2 gap-2 text-sm sm:grid-cols-4">
+              {actRows.map(([label, raw, scaled, of]) => (
+                <div key={label} className="rounded-xl neu-inset px-2 py-3 text-center">
+                  <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-fog">{label}</p>
+                  <p className="font-display text-2xl text-paper">{scaled}</p>
+                  <p className="text-xs text-fog">{raw}/{of} correct</p>
+                </div>
+              ))}
+            </div>
+            <p className="text-center text-xs text-fog">
+              {hasScience ? `STEM ${act.stem} (Math + Science) · ` : ''}Science is reported separately and never enters the composite.
+              Estimated scaled scores — official ACT scales vary by test form.
+            </p>
           </div>}
           <Progress value={accuracy} color={accuracyColor} className="h-3" />
 
@@ -101,6 +146,49 @@ function ResultsContent() {
           </div>
         </CardContent>
       </Card>
+    </div>
+  )
+}
+
+function SatScore({
+  mathCorrect,
+  rwCorrect,
+  path,
+  module1Correct,
+  module2Correct,
+}: {
+  mathCorrect: number
+  rwCorrect: number
+  path: 'easier' | 'medium' | 'harder' | null
+  module1Correct: number | null
+  module2Correct: number | null
+}) {
+  const math = path && module1Correct !== null && module2Correct !== null && Number.isFinite(module1Correct) && Number.isFinite(module2Correct)
+    ? estimateSatMathScore({
+      module1Correct,
+      module1Count: 22,
+      module2Correct,
+      module2Count: 22,
+      path,
+    })
+    : path
+      ? estimateSatMathFromRaw(mathCorrect, 44, path)
+      : null
+  const reading = estimateUnroutedSatSection(rwCorrect, 54)
+  const total = math ? math.score + reading.score : null
+
+  return (
+    <div className="space-y-2 text-sm text-fog">
+      <p>Reading and Writing: {rwCorrect}/54 · estimated {reading.score}</p>
+      <p>
+        Math: {mathCorrect}/44
+        {path ? ` · Module 2 ${path} path` : ''}
+        {math ? ` · estimated ${math.score} (ceiling ${math.ceiling})` : ''}
+      </p>
+      {total !== null && <p>Estimated total {total} of 1600.</p>}
+      <p>
+        These are practice estimates. Module 2 follows Module 1: a strong Module 1 opens a harder Module 2, a weak Module 1 opens an easier one, and a middle Module 1 stays in the middle. An easier Math Module 2 cannot reach 800. This is not an official SAT score.
+      </p>
     </div>
   )
 }

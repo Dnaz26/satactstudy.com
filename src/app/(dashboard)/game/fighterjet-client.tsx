@@ -6,7 +6,7 @@ import { QuestionPrompt } from '@/components/practice/question-prompt'
 import { LoadingSpinner } from '@/components/ui/loading-spinner'
 import { FighterJetStage } from '@/components/game/fighterjet/jet-stage'
 import { cleanQuestionText } from '@/lib/questions/clean-text'
-import { officialChoiceLabel } from '@/lib/schema'
+import { displayedChoiceLabel, officialChoiceLabel } from '@/lib/schema'
 import {
   JET_MATCH_SECONDS,
   JET_MAX_HP,
@@ -439,7 +439,7 @@ export function FighterJetClient({ testType }: { testType: 'SAT' | 'ACT' }) {
                       choice === item.key ? 'border-signal bg-signal text-white' : 'border-line bg-white'
                     )}
                   >
-                    <span className="mr-2 font-mono text-[10px]">{item.key}</span>
+                    <span className="mr-2 font-mono text-[10px]">{item.label ?? item.key}</span>
                     {item.text}
                   </button>
                 ))}
@@ -448,7 +448,7 @@ export function FighterJetClient({ testType }: { testType: 'SAT' | 'ACT' }) {
                 <p className="text-sm text-fog">
                   {quizMark === 'ok'
                     ? 'Correct.'
-                    : `Incorrect · ${officialChoiceLabel(quiz[quizIndex].correct_answer, testType, quizIndex + 1)}`}
+                    : `Incorrect · ${officialChoiceLabel(displayedChoiceLabel(quiz[quizIndex].choices, quiz[quizIndex].correct_answer), testType, quizIndex + 1)}`}
                 </p>
               )}
               <Button className="h-12 w-full" onClick={submitQuiz} disabled={!choice || Boolean(quizMark)}>

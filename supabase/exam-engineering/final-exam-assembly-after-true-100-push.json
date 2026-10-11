@@ -1,0 +1,8 @@
+{
+  "generatedAt": "2026-10-07T01:03:00.540Z",
+  "rebuilt": false,
+  "reason": "The bank still has 89 of 93 topics under 75 distinct originals and only 35 editorially scored true-hard items. Rebuilding the strict forms from that bank would put repeated frames back into the exams. Exams 39, 40, and 41 were left in place.",
+  "strictSat": { "examNumber": 39, "fill": "98/98", "inactiveReferencedQuestions": 0, "adaptiveModule2": true },
+  "strictAct": { "examNumber": 40, "fill": "131/131", "inactiveReferencedQuestions": 0, "adaptive": false },
+  "actScience": { "examNumber": 41, "fill": "40/40", "minutes": 40, "inactiveReferencedQuestions": 0 }
+}

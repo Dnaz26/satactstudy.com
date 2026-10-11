@@ -1,23 +1,16 @@
 export const MIN_TOPIC_QUESTIONS = 40
 
 /**
- * Daily caps sized for >35% margin after Stripe (2.9%+$0.30) on DeepSeek Flash
- * peak chat cost (~$0.00792). Bank questions ≈ $0 variable cost.
- *
- * List collect: Core $10 / Plus $20
- * RHS collect (60% off): Core $4 / Plus $8 — uses PLAN_LIMITS_PROMO silently.
- *
- * Core list: 20 chats × 31 × $0.00792 + $0.59 ≈ $5.50 → ~45% margin on $10
- * Plus list: 45 chats × 31 × $0.00792 + $0.88 ≈ $11.93 → ~40% margin on $20
- * Core RHS: 8 chats × 31 × $0.00792 + $0.42 ≈ $2.38 → ~40% margin on $4
- * Plus RHS: 18 chats × 31 × $0.00792 + $0.53 ≈ $4.95 → ~38% margin on $8
+ * Caps sized for >70% margin after Stripe (2.9%+$0.30) on DeepSeek-V4.1-Flash
+ * peak cache-miss rates ($0.30 / $1.20 per 1M). Bank questions ≈ $0.
+ * Plus daily usage is 3× Core. Annual billing is 30% off and is the tighter case.
  */
 export const PLAN_LIMITS = {
-  free: { questions_per_day: 0, ai_chats_per_day: 0 },
+  free: { questions_per_day: 12, ai_chats_per_day: 0 },
   lite: { questions_per_day: 5, ai_chats_per_day: 1 },
   starter: { questions_per_day: 10, ai_chats_per_day: 3 },
-  core: { questions_per_day: 125, ai_chats_per_day: 20 },
-  plus: { questions_per_day: 300, ai_chats_per_day: 45 },
+  core: { questions_per_day: 125, ai_chats_per_day: 5 },
+  plus: { questions_per_day: 375, ai_chats_per_day: 15 },
   pro: { questions_per_day: 50, ai_chats_per_day: 15 },
   elite: { questions_per_day: 999999, ai_chats_per_day: 999999 },
   access_code: { questions_per_day: 999999, ai_chats_per_day: 999999 },
@@ -54,51 +47,57 @@ export const SCORE_CONFIG = {
 export const PLAN_PRICES = {
   lite: 1,
   starter: 5,
-  core: 10,
+  core: 7.56,
   plus: 20,
   pro: 20,
   elite: 100,
 } as const
 
 export const PLAN_PROMO_PRICES = {
-  core: 4,
+  core: 3.02,
   plus: 8,
 } as const
 
 export const PAID_CHECKOUT_PLANS = ['core', 'plus'] as const
 
 export const PLAN_FEATURES = {
-  free: ['Pay or enter an access code to study'],
+  free: [
+    '1 lesson a week',
+    'No access to take practice exams',
+    '5 Rapid Fire questions',
+    '5 game mode questions',
+    '2 Review questions a day',
+  ],
   lite: ['5 questions/day', '1 AI chat/day', 'Study plan', 'Progress tracking'],
   starter: ['10 questions/day', '3 AI chats/day', 'Study plan', 'Progress tracking'],
   core: [
-    '125 practice questions every day',
-    '20 Nova tutor chats per day',
+    '1 lesson a day',
+    'Practice exams included',
+    '15 Rapid Fire questions a day',
+    '15 game mode questions a day',
+    '6 Review questions a day',
+    '4 Nova tutor chats a day',
     'Personal nightly study plan',
     'Live projected score range',
-    'Highlight + note on any question',
-    'Desmos shortcuts for math',
-    'Mistake review queue',
-    'Progress tracking across topics',
   ],
   plus: [
-    '300 practice questions every day',
-    '45 Nova tutor chats per day',
-    'Full analytics + weak-area radar',
-    'Vocabulary system built in',
-    'Priority nightly plan with tonight focus',
-    'Highlight, notes, and Desmos coaching',
-    'Unlimited practice-test sheets',
-    'Everything in Core, unlocked wider',
+    '3 lessons a day',
+    'Practice exams included',
+    '45 Rapid Fire questions a day',
+    '45 game mode questions a day',
+    '18 Review questions a day',
+    '12 Nova tutor chats a day',
+    'Personal nightly study plan',
+    'Live projected score range',
   ],
   pro: ['50 questions/day', '15 AI chats/day', 'Full analytics', 'Vocabulary system', 'AI tutor'],
   elite: ['Unlimited questions', 'Unlimited AI', 'All features', 'Priority support'],
 } as const
 
-/** Peak DeepSeek V4 Flash rates used to size caps. */
+/** DeepSeek-V4.1-Flash peak cache-miss rates (api-docs.deepseek.com). */
 export const DEEPSEEK_FLASH_PEAK = {
-  input_per_million: 0.44,
-  output_per_million: 1.32,
+  input_per_million: 0.3,
+  output_per_million: 1.2,
 } as const
 
 export const STRIPE_FEE = {

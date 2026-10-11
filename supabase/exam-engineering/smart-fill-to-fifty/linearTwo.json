@@ -1,0 +1,16 @@
+{
+  "batch": "smart-fill-to-fifty",
+  "generatedAt": "2026-10-06T02:12:45.126Z",
+  "saved": 30,
+  "approvedActiveValidated": 30,
+  "invalidDraftsExcluded": 2,
+  "byTopic": {
+    "Linear equations in two variables": 30
+  },
+  "answerSpread": {
+    "A": 12,
+    "B": 6,
+    "D": 7,
+    "C": 5
+  }
+}

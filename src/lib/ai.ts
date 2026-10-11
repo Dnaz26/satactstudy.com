@@ -25,8 +25,8 @@ interface AICallParams {
 
 const INTERACTIVE_MAX_TOKENS = 280
 const BACKGROUND_MAX_TOKENS = 1200
-const FLASH_PEAK_INPUT_PER_1K = 0.00044
-const FLASH_PEAK_OUTPUT_PER_1K = 0.00132
+const FLASH_PEAK_INPUT_PER_1K = 0.0003
+const FLASH_PEAK_OUTPUT_PER_1K = 0.0012
 
 function isReasoningName(modelName: string): boolean {
   return /v4-flash/i.test(modelName) && !/chat|fast/i.test(modelName)

@@ -1,0 +1,183 @@
+{
+  "generatedAt": "2026-10-07T02:52:08.864Z",
+  "batch": "Elite hard pool 2026-10-06",
+  "built": 73,
+  "inserted": 73,
+  "downgradedWeakHard": 48,
+  "topicsBefore": 107,
+  "topicsAfter": 107,
+  "eliteRubricMinimum": 15,
+  "topicsStillBelowElite": 34,
+  "stillBelow": [
+    {
+      "topic": "SAT|Math|Linear equations in two variables",
+      "rubric": 13,
+      "text": "A line passes through (1, 5) and (5, -3). A second line is perpendicular to it and passes through (1, 5). At what point does the second line"
+    },
+    {
+      "topic": "SAT|Math|Linear Equations",
+      "rubric": 13,
+      "text": "A tank starts with 8 liters. A pump adds 6 liters per minute and a leak removes 2 liters per minute, both running the whole time. After how "
+    },
+    {
+      "topic": "SAT|Math|Linear Inequalities",
+      "rubric": 13,
+      "text": "How many integers x satisfy both of the inequalities x > -2 and 3x - 1 ≤ 8 at the same time? Include every integer that works."
+    },
+    {
+      "topic": "SAT|Math|Systems of Inequalities",
+      "rubric": 13,
+      "text": "Integers x and y satisfy x ≥ 0, y ≥ x + 1, and 2x + y ≤ 9. What is the greatest possible value of x + y?"
+    },
+    {
+      "topic": "SAT|Math|Functions",
+      "rubric": 13,
+      "text": "Let f(x) = x^2, and define g(x) = f(x) + f(1 - x) for every real x. What is the minimum value of g(x)?"
+    },
+    {
+      "topic": "SAT|Math|Statistics and Data",
+      "rubric": 13,
+      "text": "Five numbers have a mean of 8. After one of those numbers is removed, the mean of the remaining four numbers is 7. What number was removed?"
+    },
+    {
+      "topic": "SAT|Math|Probability",
+      "rubric": 13,
+      "text": "Event A has probability 1/2. The probability of B given A is 2/5, and the probability of B given not A is 1/5. What is the probability of A "
+    },
+    {
+      "topic": "SAT|Reading and Writing|Inferences",
+      "rubric": 13,
+      "text": "Which inference depends on reading both the sawdust sentence and the lifespan sentence in Account B?"
+    },
+    {
+      "topic": "SAT|Reading and Writing|Verb Tense and Form",
+      "rubric": 13,
+      "text": "The loft closed in May. Which choice fits a fact that is still true, rather than an action finished in May? \"The loft closed in May, but the"
+    },
+    {
+      "topic": "SAT|Reading and Writing|Text Structure and Purpose",
+      "rubric": 13,
+      "text": "Why does the passage place the engineer sheet after both accounts, rather than before either account begins?"
+    },
+    {
+      "topic": "SAT|Math|Area and volume",
+      "rubric": 13,
+      "text": "A cylinder and a cone have the same radius 3 and the same height 10. How much greater is the volume of the cylinder than the volume of the c"
+    },
+    {
+      "topic": "SAT|Reading and Writing|Boundaries",
+      "rubric": 13,
+      "text": "Which choice makes clear that the director, not the archivist, kept the old label? The archivist had already said the maps were ready."
+    },
+    {
+      "topic": "SAT|Reading and Writing|Subject-Verb Agreement",
+      "rubric": 13,
+      "text": "Which choice agrees in both clauses? \"The set of measurements, along with the site sketch and the notes that were added later, ____ stored, "
+    },
+    {
+      "topic": "SAT|Reading and Writing|Main Idea",
+      "rubric": 13,
+      "text": "Which title fits both accounts at once, rather than only one detail taken from Account A or from Account B?"
+    },
+    {
+      "topic": "SAT|Math|Lines, angles, and triangles",
+      "rubric": 13,
+      "text": "A triangle has two interior angles of 40 degrees and 65 degrees. What is the measure, in degrees, of an exterior angle adjacent to the third"
+    },
+    {
+      "topic": "SAT|Math|Nonlinear Equations",
+      "rubric": 13,
+      "text": "Solve the radical equation √(x + 3) = x - 3, and keep only the value that satisfies the original equation. Which value is the only solution?"
+    },
+    {
+      "topic": "SAT|Reading and Writing|Organization and Flow",
+      "rubric": 13,
+      "text": "Which sentence should come immediately after \"Mira wanted visitors to find the river map first\"? The next sentence should carry out that pur"
+    },
+    {
+      "topic": "ACT|Math|Rates and Units",
+      "rubric": 8,
+      "text": "A machine makes 24 parts per hour for its first 2 hours and 30 parts per hour afterward. How many additional hours at the faster rate are ne"
+    },
+    {
+      "topic": "ACT|Math|Percent Change",
+      "rubric": 8,
+      "text": "A 12-liter solution is 25% salt. Three liters of pure water evaporate, leaving the salt amount unchanged. How many liters of pure water must"
+    },
+    {
+      "topic": "ACT|Math|Conditional Probability",
+      "rubric": 8,
+      "text": "Of 120 students, 72 take algebra, 54 take physics, and 30 take both. If a student is selected at random from those who do not take algebra, "
+    },
+    {
+      "topic": "ACT|Math|Weighted Averages",
+      "rubric": 11,
+      "text": "One group of 20 artifacts has an average age of 40 years, and another group of 30 has an average age of 50 years. Five artifacts averaging 6"
+    },
+    {
+      "topic": "SAT|Reading and Writing|Text Structure",
+      "rubric": 13,
+      "text": "Which description matches the order of the two posted accounts, with Account A placed before Account B?"
+    },
+    {
+      "topic": "SAT|Reading and Writing|Author Purpose",
+      "rubric": 13,
+      "text": "Why does Account A mention both the failed one-season repair and the shuttle, rather than only one of them?"
+    },
+    {
+      "topic": "SAT|Reading and Writing|Evidence and Details",
+      "rubric": 13,
+      "text": "The engineer sheet is stapled behind both accounts. Which detail shows that reading only that sheet is not enough to choose a repair?"
+    },
+    {
+      "topic": "ACT|Reading|Text Structure",
+      "rubric": 8,
+      "text": "The passage as a whole moves from:"
+    },
+    {
+      "topic": "ACT|English|Transitions",
+      "rubric": 8,
+      "text": "Which transition best begins Sentence 8 given the city's shift from tolerance to embrace?"
+    },
+    {
+      "topic": "ACT|Math|Functions",
+      "rubric": 8,
+      "text": "The function f(x) = -x^2 + 4x - 3 has a maximum value of:"
+    },
+    {
+      "topic": "ACT|Math|Circles",
+      "rubric": 8,
+      "text": "A circle has radius 6. What is its area?"
+    },
+    {
+      "topic": "ACT|Math|Ratios and Proportions",
+      "rubric": 8,
+      "text": "A train leaves a station at 60 miles per hour. A second train leaves the same station 1 hour later, same direction, at 90 miles per hour. Ho"
+    },
+    {
+      "topic": "ACT|Math|Coordinate Geometry",
+      "rubric": 8,
+      "text": "Segment AB has midpoint (5, 4). If A is (2, 6), what are the coordinates of B?"
+    },
+    {
+      "topic": "ACT|Math|Triangles",
+      "rubric": 8,
+      "text": "A square with side length 5 is cut along its diagonal. What is the length of the cut?"
+    },
+    {
+      "topic": "ACT|Math|Exponents and Radicals",
+      "rubric": 8,
+      "text": "What is the value of (-2)^3 + 3^2 - 4^1?"
+    },
+    {
+      "topic": "ACT|Math|Percentages",
+      "rubric": 8,
+      "text": "The price of a stock rises 10% and then falls 10% from the new price. What is the net percent change from the start?"
+    },
+    {
+      "topic": "ACT|Math|Unit Conversions",
+      "rubric": 8,
+      "text": "A recipe calls for 2.5 cups of flour per dozen cookies. How many cups are needed for 60 cookies?"
+    }
+  ]
+}

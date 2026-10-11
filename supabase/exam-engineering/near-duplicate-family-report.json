@@ -1,0 +1,71 @@
+{
+  "generatedAt": "2026-10-07T01:03:00.540Z",
+  "activeRowsScanned": 4025,
+  "familiesOverCap": 40,
+  "largestFamily": 11,
+  "redundantCopies": 0,
+  "keptPerTopicFrame": 2,
+  "protectedExamQuestions": 251,
+  "sampleFrames": [
+    {
+      "size": 11,
+      "source": "Strict form coverage 2026-10-06",
+      "frame": "passage # begins the restoration log at the had been copied by hand which sentence should be deleted because it does not develop the restora"
+    },
+    {
+      "size": 9,
+      "source": "Strict form coverage 2026-10-06",
+      "frame": "setting # a planner at the combined two instrument readings into one equation the equation is true for the unknown setting x # x # # x # # w"
+    },
+    {
+      "size": 9,
+      "source": "Strict form coverage 2026-10-06",
+      "frame": "passage # begins the restoration log at the had been copied by hand which transition best connects the trial result to the lab s limit on th"
+    },
+    {
+      "size": 9,
+      "source": "Strict form coverage 2026-10-06",
+      "frame": "passage # begins the restoration log at the had been copied by hand the passage says the lead archivist together with the night interns were"
+    },
+    {
+      "size": 8,
+      "source": "Strict form coverage 2026-10-06",
+      "frame": "setting # a planner at the combined two instrument readings into one equation the equation is true for the unknown setting x # x # # x # # w"
+    },
+    {
+      "size": 8,
+      "source": "Strict form coverage 2026-10-06",
+      "frame": "passage # begins the restoration log at the had been copied by hand the passage includes this sentence the crew logged the evening count the"
+    },
+    {
+      "size": 7,
+      "source": "Strict form coverage 2026-10-06",
+      "frame": "passage # which statement about the trial design at the is supported"
+    },
+    {
+      "size": 7,
+      "source": "Strict form coverage 2026-10-06",
+      "frame": "in passage # how does the lab report on the function in relation to the trustee proposal"
+    },
+    {
+      "size": 6,
+      "source": "Strict form coverage 2026-10-06",
+      "frame": "in passage # the # account of the limited most nearly means"
+    },
+    {
+      "size": 6,
+      "source": "Strict form coverage 2026-10-06",
+      "frame": "setting # a planner at the combined two instrument readings into one equation the equation is true for the unknown setting x # x # # x # # w"
+    },
+    {
+      "size": 5,
+      "source": "Strict form coverage 2026-10-06",
+      "frame": "in passage # how does the lab report on the function in relation to the trustee proposal"
+    },
+    {
+      "size": 5,
+      "source": "Strict form coverage 2026-10-06",
+      "frame": "setting # a planner at the combined two instrument readings into one equation the equation is true for the unknown setting x # x # # x # # w"
+    }
+  ]
+}

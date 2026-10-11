@@ -1,0 +1,67 @@
+{
+  "generatedAt": "2026-10-07T01:03:00.540Z",
+  "reached100": false,
+  "reached98": false,
+  "sat": 73,
+  "act": 71,
+  "overall": 72,
+  "method": "Equal weight across eight variables. A Hard label is not a true-hard score. True hard means an editorial 18-point rubric total of at least 12. Elite hard means at least 15. Only the 59 new items received that editorial score. The older bank was not relabeled.",
+  "variables": {
+    "SAT": {
+      "topic coverage": 58,
+      "format accuracy": 88,
+      "domain balance": 74,
+      "difficulty strength": 61,
+      "validation quality": 72,
+      "graph/data realism": 72,
+      "adaptive/pacing realism": 76,
+      "duplicate control": 86
+    },
+    "ACT": {
+      "topic coverage": 64,
+      "format accuracy": 86,
+      "domain balance": 72,
+      "difficulty strength": 60,
+      "validation quality": 52,
+      "graph/data realism": 72,
+      "adaptive/pacing realism": 73,
+      "duplicate control": 86
+    }
+  },
+  "evidence": {
+    "questionsAdded": 59,
+    "questionsDeactivated": 0,
+    "activeOriginalDistinct": 4044,
+    "validatedOriginalDistinct": 2640,
+    "satValidatedShare": 0.72,
+    "actValidatedShare": 0.529,
+    "satReadingWritingValidatedShare": 0.597,
+    "actEnglishValidatedShare": 0.331,
+    "actReadingValidatedShare": 0.385,
+    "editorialTrueHard": 59,
+    "editorialEliteHard": 10,
+    "graphicOriginalDistinct": 527,
+    "exactDuplicateRows": 0,
+    "familiesOverCap": 40,
+    "largestFamily": 11,
+    "topicsAt75": 4,
+    "topicsAt100": 0,
+    "distinctDeficitTo75": 2959,
+    "satForm": "98/98",
+    "actForm": "131/131",
+    "actScienceForm": "40/40",
+    "examsRebuilt": false,
+    "rubricMedianOfOlderBank": "The previous screen of the cleaned bank had a median of 6/18. Fifty-nine new items do not move that median."
+  },
+  "below95": [
+    "topic coverage",
+    "format accuracy",
+    "domain balance",
+    "difficulty strength",
+    "validation quality",
+    "graph/data realism",
+    "adaptive/pacing realism",
+    "duplicate control"
+  ],
+  "whyNot100": "Reaching 75 distinct originals on every topic still requires 2,959 more questions. Fifty true-hard items on every topic would take thousands more. The running total is 59 editorial true-hard questions, 10 of them elite. That is not enough to move any variable to 95, and filling the remaining hole by repeating frames is not allowed."
+}

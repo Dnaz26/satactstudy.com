@@ -1,6 +1,6 @@
 import { describe, it } from 'node:test'
 import assert from 'node:assert/strict'
-import { applyLatexSymbols, normalizeInequalitySymbols, parseMath, renderPromptSegments } from './render'
+import { applyLatexSymbols, normalizeInequalitySymbols, parseMath, renderPromptSegments, splitDisplayFractions } from './render'
 import { officialChoiceLabel } from '../schema'
 
 describe('parseMath', () => {
@@ -23,6 +23,29 @@ describe('parseMath', () => {
     assert.deepEqual(parts, [{ kind: 'text', value: 'x ≤ 5' }])
     const partsGe = parseMath('y \\ge 2x')
     assert.deepEqual(partsGe, [{ kind: 'text', value: 'y ≥ 2x' }])
+  })
+})
+
+describe('splitDisplayFractions', () => {
+  it('stacks a complex fraction instead of leaving slash text', () => {
+    const parts = splitDisplayFractions('What is the value of ((3/4−2/5)/(7/10+1/6))?')
+    assert.equal(parts[0]?.kind, 'text')
+    if (parts[0]?.kind === 'text') assert.equal(parts[0].value, 'What is the value of ')
+    assert.equal(parts[1]?.kind, 'frac')
+    if (parts[1]?.kind !== 'frac') return
+    assert.equal(parts[1].num.filter((part) => part.kind === 'frac').length, 2)
+    assert.equal(parts[1].den.filter((part) => part.kind === 'frac').length, 2)
+    assert.equal(parts[2]?.kind, 'text')
+    if (parts[2]?.kind === 'text') assert.equal(parts[2].value, '?')
+  })
+
+  it('stacks a parenthesized numerator over a number', () => {
+    const parts = splitDisplayFractions('(2x+1)/3')
+    assert.equal(parts.length, 1)
+    assert.equal(parts[0]?.kind, 'frac')
+    if (parts[0]?.kind !== 'frac') return
+    assert.deepEqual(parts[0].num, [{ kind: 'text', value: '2x+1' }])
+    assert.deepEqual(parts[0].den, [{ kind: 'text', value: '3' }])
   })
 })
 
